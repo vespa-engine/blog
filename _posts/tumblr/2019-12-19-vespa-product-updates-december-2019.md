@@ -13,7 +13,7 @@ tags:
 tumblr_url: https://blog.vespa.ai/post/189755117376/vespa-product-updates-december-2019-improved
 ---
 
-In the [November Vespa product update]({% post_url /tumblr/vespa-product-updates-octobernovember-2019 %}), we mentioned Nearest Neighbor and Tensor Ranking, Optimized JSON Tensor Feed Format, Matched Elements in Complex Multi-value Fields, Large Weighted Set Update Performance and Datadog Monitoring Support.
+In the [November Vespa product update]({% post_url /tumblr/2019-11-05-vespa-product-updates-octobernovember-2019 %}), we mentioned Nearest Neighbor and Tensor Ranking, Optimized JSON Tensor Feed Format, Matched Elements in Complex Multi-value Fields, Large Weighted Set Update Performance and Datadog Monitoring Support.
 
 Today, we’re excited to share the following updates:
 
