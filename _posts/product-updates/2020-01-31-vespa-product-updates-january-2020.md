@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Vespa Product Updates, January 2020
-date: '2019-01-31T00:00:00-00:00'
+date: '2020-01-31T00:00:00-00:00'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]
 ---
