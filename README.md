@@ -1,5 +1,5 @@
 # blog
-The Vespa blog - https://blog.vespa.ai
+The Vespa blog - https://blog.vespa.ai / https://vespa-engine.github.io/blog/
 
 https://jekyllrb.com/docs/posts/ is useful to understand how to write a post - highlights:
 
