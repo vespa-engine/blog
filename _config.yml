@@ -9,6 +9,7 @@ baseurl:
 include: ["_pages"]
 permalink: /:title/
 google_analytics: UA-107187180-2
+enable_featured: false
 
 # Authors
 authors:
