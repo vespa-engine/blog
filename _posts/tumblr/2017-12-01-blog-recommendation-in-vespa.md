@@ -7,7 +7,7 @@ tumblr_url: https://blog.vespa.ai/post/168083726636/blog-recommendation-in-vespa
 ---
 ## Introduction
 
-This post builds upon the previous [blog search application](http://blog.vespa.ai/2017-11-20-blog-search-application-in-vespa/)&nbsp;and extends the basic search engine to include machine learned models to help us recommend blog posts to users that arrive at our application. Assume that once a user arrives, we obtain his user identification number, denoted in here by `user_id`, and that we will send this information down to Vespa and expect to obtain a blog post recommendation list containing 100 blog posts tailored for that specific user.
+This post builds upon the previous [blog search application]({% post_url /tumblr/2017-11-20-blog-search-application-in-vespa %}) and extends the basic search engine to include machine learned models to help us recommend blog posts to users that arrive at our application. Assume that once a user arrives, we obtain his user identification number, denoted in here by `user_id`, and that we will send this information down to Vespa and expect to obtain a blog post recommendation list containing 100 blog posts tailored for that specific user.
 
 Prerequisites:
 
@@ -245,7 +245,7 @@ The query string, decomposed:
 
 Next step is to query Vespa by user id, look up the user profile for the user, get the tensor from it and recommend documents based on this tensor (like the query in previous section). The user profiles is fed to Vespa in the `user_item_cf` field of the `user` document type.
 
-In short, set up a [searcher](http://docs.vespa.ai/documentation/searcher-development.html) to retrieve the user profile by user id - then run the query. When the [Vespa Container](http://docs.vespa.ai/documentation/container-intro.html) receives a request, it will create a `Query` representing it and execute a configured list of such Searcher components, called a [search chain](http://docs.vespa.ai/documentation/chained-components.html). The `query` object contains all the information needed to create a result to the request while the `Result` encapsulates all the data generated from a `Query`. The `Execution` object keeps track of the call state for an execution of the searchers of a search chain:
+In short, set up a [searcher](http://docs.vespa.ai/documentation/searcher-development.html) to retrieve the user profile by user id - then run the query. When the [Vespa Container](http://docs.vespa.ai/documentation/jdisc/index.html) receives a request, it will create a `Query` representing it and execute a configured list of such Searcher components, called a [search chain](http://docs.vespa.ai/documentation/chained-components.html). The `query` object contains all the information needed to create a result to the request while the `Result` encapsulates all the data generated from a `Query`. The `Execution` object keeps track of the call state for an execution of the searchers of a search chain:
 
     package com.yahoo.example;
     

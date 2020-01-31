@@ -241,7 +241,7 @@ Note that in the sample-apps/blog-search directory, there is a file with sample 
 
 **Track feeding progress**
 
-Use the [Metrics API](http://docs.vespa.ai/documentation/reference/metrics-health-format.html) to track number of documents indexed:
+Use the [Metrics API](http://docs.vespa.ai/documentation/reference/metrics.html) to track number of documents indexed:
 
     $ curl -s 'http://localhost:19112/state/v1/metrics' | tr ',' '\n' | grep -A 2 proton.doctypes.blog_post.numdocs
 

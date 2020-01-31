@@ -9,7 +9,7 @@ tumblr_url: https://blog.vespa.ai/post/169340802091/optimizing-realtime-evaluati
 
 Vespa is the open source platform for building applications that carry out scalable real-time data processing, for instance search and recommendation systems. These require significant amounts of computation over large data sets. With advances in machine learning, it is desirable to run more advanced ranking models such as large linear or logistic regression models and artificial neural networks. Because of the tight computational budget at serving time, the evaluation of such models must be done in an efficient and scalable manner.
 
-We introduced the [tensor API](http://docs.vespa.ai/documentation/tensor-intro.html) to help solve such problems. The tensor API allows the concise expression of general computations on many-dimensional data, while simultaneously leaving room for deep optimizations on the platform side. &nbsp;What we mean by this is that the tensor API is very expressive and supports a large range of model types. The general evaluation of tensors is not necessarily efficient in all cases, so in addition to continually working to increase the baseline performance, we also perform specific optimizations for important use cases. In this blog post we will describe one such important optimization we recently did, which improved neural network evaluation performance by over 20x.
+We introduced the [tensor API](http://docs.vespa.ai/documentation/tensor-user-guide.html) to help solve such problems. The tensor API allows the concise expression of general computations on many-dimensional data, while simultaneously leaving room for deep optimizations on the platform side. &nbsp;What we mean by this is that the tensor API is very expressive and supports a large range of model types. The general evaluation of tensors is not necessarily efficient in all cases, so in addition to continually working to increase the baseline performance, we also perform specific optimizations for important use cases. In this blog post we will describe one such important optimization we recently did, which improved neural network evaluation performance by over 20x.
 
 To illustrate the types of optimization we can do, consider the following tensor expression representing a dot product between vectors v1 and v2:
 
@@ -19,7 +19,7 @@ The dot product is calculated by multiplying the vectors together by using the [
 
 In Vespa, when ranking expressions are compiled, the abstract syntax tree (AST) is analyzed for such optimizations. When known cases are recognized, the most efficient implementation is selected. In the above example, assuming the vectors are dense and they share dimensions, Vespa has optimized hardware accelerated code for doing dot products on vectors. For sparse vectors, Vespa falls back to a implementation for weighted sets which build hash tables for efficient lookups. &nbsp;This method allows recognition of both large and small optimizations, from simple dot products to specialized implementations for more advanced ranking models. Vespa currently has a few optimizations implemented, and we are adding more as important use cases arise.
 
-We recently set out to improve the performance of evaluating simple neural networks, a case quite similar to the one presented in the [previous blog post](http://blog.vespa.ai/2017-12-15-blog-recommendation-with-neural-network-models/). The ranking expression to optimize was:
+We recently set out to improve the performance of evaluating simple neural networks, a case quite similar to the one presented in the [previous blog post]({% post_url /tumblr/2017-12-15-blog-recommendation-with-neural-network-models %}). The ranking expression to optimize was:
 
 > _&nbsp; &nbsp;macro hidden\_layer() {  
 > &nbsp; &nbsp; &nbsp; &nbsp;expression: elu(xw\_plus\_b(nn\_input, constant(W\_fc1), constant(b\_fc1), x))  
@@ -31,7 +31,7 @@ We recently set out to improve the performance of evaluating simple neural netwo
 > &nbsp; &nbsp; &nbsp; &nbsp;expression: final\_layer  
 > &nbsp; &nbsp;}_
 
-This represents a simple two-layer neural network.&nbsp;
+This represents a simple two-layer neural network.
 
 Whenever a new version of Vespa is built, a large suite of integration and performance tests are run. When we want to optimize a specific use case, we first create a performance test to set a baseline. &nbsp;With the performance tests we get both historical graphs as well as detailed profiling information and performance statistics sampled from the system under load. &nbsp;This allows us to identify and optimize any bottlenecks. Also, it adds a bit of gamification to the process.
 
