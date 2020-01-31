@@ -12,13 +12,13 @@ tags:
 - database
 tumblr_url: https://blog.vespa.ai/post/188829632081/vespa-product-updates-octobernovember-2019
 ---
-In the [September Vespa product update](https://blog.vespa.ai/2019-10-01-vespa-product-updates-september-2019-tensor/), we mentioned Tensor Float Support, Reduced Memory Use for Text Attributes, Prometheus Monitoring Support, and Query Dispatch Integrated in Container.&nbsp;
+In the [September Vespa product update]({% post_url /tumblr/2019-10-01-vespa-product-updates-september-2019-tensor %}), we mentioned Tensor Float Support, Reduced Memory Use for Text Attributes, Prometheus Monitoring Support, and Query Dispatch Integrated in Container.
 
 This month, we’re excited to share the following updates:
 
 **Nearest Neighbor and Tensor Ranking**
 
-[Tensors](https://docs.vespa.ai/documentation/tensor-intro.html) are native to Vespa. We compared [elastic.co](http://elastic.co) to [vespa.ai](http://vespa.ai) testing nearest neighbor ranking using dense tensor dot product. The result of an out-of-the-box configuration demonstrated that Vespa performed 5 times faster than Elastic. [View the test results](https://github.com/jobergum/dense-vector-ranking-performance).
+[Tensors](https://docs.vespa.ai/documentation/tensor-user-guide.html) are native to Vespa. We compared [elastic.co](http://elastic.co) to [vespa.ai](http://vespa.ai) testing nearest neighbor ranking using dense tensor dot product. The result of an out-of-the-box configuration demonstrated that Vespa performed 5 times faster than Elastic. [View the test results](https://github.com/jobergum/dense-vector-ranking-performance).
 
 **Optimized JSON Tensor Feed Format**
 
@@ -30,7 +30,7 @@ Vespa is used in many use cases with structured data - documents can have arrays
 
 **Large Weighted Set Update Performance**
 
-[Weighted sets](https://docs.vespa.ai/documentation/advanced-ranking.html#weightedset-example) in documents are used to store a large number of elements used in ranking. Such sets are often updated at high volume, in real-time, enabling online big data serving. Vespa-7.129 includes a performance optimization for updating large sets. E.g. a set with 10K elements, without [fast-search](https://docs.vespa.ai/documentation/attributes.html#search), is 86.5% faster to update.
+[Weighted sets](https://docs.vespa.ai/documentation/reference/search-definitions-reference.html#type:weightedset) in documents are used to store a large number of elements used in ranking. Such sets are often updated at high volume, in real-time, enabling online big data serving. Vespa-7.129 includes a performance optimization for updating large sets. E.g. a set with 10K elements, without [fast-search](https://docs.vespa.ai/documentation/attributes.html#fast-search), is 86.5% faster to update.
 
 **Datadog Monitoring Support**
 

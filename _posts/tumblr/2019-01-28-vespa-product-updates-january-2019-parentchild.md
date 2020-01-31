@@ -10,7 +10,7 @@ tags:
 - search engines
 tumblr_url: https://blog.vespa.ai/post/182378865716/vespa-product-updates-january-2019-parentchild
 ---
-In [last month’s Vespa update](http://blog.vespa.ai/2018-12-14-vespa-product-updates-december-2018-onnx-import/), we mentioned ONNX integration, precise transaction log pruning, grouping on maps, and improvements to streaming search performance. &nbsp;Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and Oath Ads Platforms. Thanks to feedback and contributions from the community, Vespa continues to evolve.
+In [last month’s Vespa update]({% post_url /tumblr/2018-12-14-vespa-product-updates-december-2018-onnx-import %}), we mentioned ONNX integration, precise transaction log pruning, grouping on maps, and improvements to streaming search performance. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and Oath Ads Platforms. Thanks to feedback and contributions from the community, Vespa continues to evolve.
 
 This month, we’re excited to share the following updates with you:
 

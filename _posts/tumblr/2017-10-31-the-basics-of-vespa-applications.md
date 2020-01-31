@@ -33,7 +33,7 @@ The deployment specification hosts.xml contains a list of all hosts that is part
 
 ## Deploying applications
 
-After the application package has been constructed, it is deployed using&nbsp;[vespa-deploy](http://docs.vespa.ai/documentation/cloudconfig/application-packages.html#deploy). This uploads the package to the [configuration cluster](http://docs.vespa.ai/documentation/cloudconfig/config-introduction.html)and pushes the configuration to all nodes. After this, the Vespa cluster is now configured and ready for use.
+After the application package has been constructed, it is deployed using&nbsp;[vespa-deploy](http://docs.vespa.ai/documentation/cloudconfig/application-packages.html#deploy). This uploads the package to the [configuration cluster](http://docs.vespa.ai/documentation/cloudconfig/config-introduction.html) and pushes the configuration to all nodes. After this, the Vespa cluster is now configured and ready for use.
 
 One of the nice features is that new configurations are loaded without service disruption. When a new application package is deployed, the configuration pushes the new generation to all the defined nodes in the application, which consume and effectuate the new configuration without restarting the services. There are some rare cases that require a restart, the vespa-deploy command will notify when this is needed.
 
@@ -72,7 +72,7 @@ Features are either sent with the query, attributes of the document, constants i
 > &nbsp; &nbsp; }  
 > }_
 
-Here, each document is ranked by the [nativeRank](http://docs.vespa.ai/documentation/reference/nativerank.html)function but boosted by a popularity score. This score can be updated at regular intervals, for instance from user feedback, using partial document updates from some external system such as a Hadoop cluster.
+Here, each document is ranked by the [nativeRank](http://docs.vespa.ai/documentation/reference/nativerank.html) function but boosted by a popularity score. This score can be updated at regular intervals, for instance from user feedback, using partial document updates from some external system such as a Hadoop cluster.
 
 In real applications ranking expressions often get much more complicated than this.
 
@@ -93,4 +93,3 @@ Groups can be nested arbitrarily and multiple groupings and aggregations can be 
 ## More information
 
 You should now have a basic understanding of the core concepts in building Vespa applications. To try out these core features in practice, head on over to the [blog search and recommendation tutorial](http://docs.vespa.ai/documentation/tutorials/blog-search.html). We’ll post some more in-depth blog posts with concrete examples soon.
-
