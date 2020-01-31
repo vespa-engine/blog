@@ -1,6 +1,7 @@
 ---
 layout: default
 disqus: false
+comments: false
 archive: false
 post_class: post-template
 ---
@@ -17,7 +18,7 @@ post_class: post-template
 
         <!-- Post -->
         {% assign author = site.authors[page.author] %}
-
+{{ page.author }} -- {{ site.authors["kraune"].display_name }} --
         <div class="col-md-9 flex-first flex-md-unordered">
             <div class="mainheading">
 
@@ -136,7 +137,7 @@ post_class: post-template
 
 <!-- Begin Comments
 ================================================== -->
-{% if page.comments != false %}
+{% if page.comments != false and layout.comments != false %}
     <div class="container">
         <div id="comments" class="row justify-content-center mb-5">
             <div class="col-md-8">
