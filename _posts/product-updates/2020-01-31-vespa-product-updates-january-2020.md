@@ -47,6 +47,15 @@ Performance for this feature is now improved - ex: an array or map with 20.000 e
 #### Boolean Field Query Optimization
 Applications with strict latency requirements, using boolean fields and concurrent feed and query load, have a latency reduction since Vespa 7.165.5 due to an added bitCount cache. For example, we realized latency improvement from 3ms to 2ms for an application with a 30k write rate. Details in [#11879](https://github.com/vespa-engine/vespa/pull/11879).
 
+### Bug fixes / errata
+
+#### Regression introduced in Vespa 7.141 may cause data loss or inconsistencies when using 'create: true' updates
+There exists a regression introduced in Vespa 7.141 where updates marked as `create: true` (i.e. create if missing) may cause data loss or undetected inconsistencies in certain edge cases. This regression was introduced as part of an optimization effort to greatly reduce the common-case overhead of updates when replicas are out of sync.
+
+Fixed in Vespa 7.157.9 and beyond. If you are running a version affected (7.141 up to and including 7.147) you are strongly advised to upgrade.
+
+See [#11686](https://github.com/vespa-engine/vespa/issues/11686) for details.
+
 ___
 About Vespa: Largely developed by Yahoo engineers,
 [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine.
