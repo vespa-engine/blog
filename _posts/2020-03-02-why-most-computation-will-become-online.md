@@ -3,6 +3,7 @@ layout: post
 title: Why most computation will become online
 date: '2020-03-02'
 tags: []
+excerpt: The most advanced companies of the world are busy moving their computation over data online. But why?
 ---
 In [the big data maturity levels](https://blog.vespa.ai/the-big-data-maturity-levels/) 
 I wrote about how organizations progress from producing unused data, 
