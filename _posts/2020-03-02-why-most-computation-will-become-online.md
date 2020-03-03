@@ -11,6 +11,9 @@ to doing analytics and learning *offline*, to eventually make decisions over dat
 at the moment a decision is needed. *But why does this happen?*
 
 ![Decorative image](https://miro.medium.com/max/2893/1*12J8tZ0uiMGtX_y4Q3kvjA.jpeg)
+<p class="image-credit">Photo by
+<a href="https://unsplash.com/@danieltong?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Daniel H. Tong</a>
+on <a href="https://unsplash.com/collections/3830666/vespa-blog-photos/ce50ee9e7cf7509dfc05b1544a700492?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
 Imagine you need to recommend movies to users, find the stocks most impacted by some event, 
 or solve some other problem which involves computing over data. Solving such problems *offline* 

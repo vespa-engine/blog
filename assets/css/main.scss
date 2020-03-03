@@ -8,6 +8,14 @@
 	display:inline;
 }
 
+.image-credit {
+    text-align: center;
+    font-family: medium-content-sans-serif-font, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Arial, sans-serif;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 16px;
+    margin-top: 10px;
+}
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
 	"syntax",
