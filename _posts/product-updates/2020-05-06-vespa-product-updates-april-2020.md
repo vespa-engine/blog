@@ -7,7 +7,7 @@ categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]
 ---
 
-In the [pervious product update]({% post_url /product-updates/2020-02-28-vespa-product-updates-february-2020 %}),
+In the [previous product update]({% post_url /product-updates/2020-02-28-vespa-product-updates-february-2020 %}),
 we mentioned Ranking with LightGBM Models, Matrix Multiplication Performance, Benchmarking Guide, Query Builder and Hadoop Integration.
 
 This month, we’re excited to share the following updates:
