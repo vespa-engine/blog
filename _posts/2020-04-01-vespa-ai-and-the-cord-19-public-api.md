@@ -148,3 +148,4 @@ Additional resources:
   to know more about ranking in general and how to deploy ML models in Vespa (including TensorFlow, XGBoost, etc).
 
 WRITTEN BY: Thiago G. Martins. Working on Vespa.ai. Follow me on Twitter @Thiagogm.
+
