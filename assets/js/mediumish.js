@@ -23,7 +23,8 @@ jQuery(document).ready(function($){
     // alertbar later
     $(document).scroll(function () {
         var y = $(this).scrollTop();
-        if (y > 280) {
+        var atBottom = ($(this).scrollTop() + $(window).height() >= $(this).height() - 100);
+        if (y > 100 && !atBottom) {
             $('.alertbar').fadeIn();
         } else {
             $('.alertbar').fadeOut();
