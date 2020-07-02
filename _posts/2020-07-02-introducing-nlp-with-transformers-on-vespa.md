@@ -18,7 +18,7 @@ growing number of companies have shown considerable interest in adopting these
 models for production.
 
 One of the reasons for this is the ease of getting started. This is in large
-part due to Hugging Face and it’s open-source Transformer library. With this
+part due to [Hugging Face](https://huggingface.co/) and it’s open-source Transformer library. With this
 library it’s easy to start with any of the thousand or so pretrained base
 models, and fine-tune it to a specific task such as text classification,
 translation, summarization, text generation or question/answering. This is an
@@ -31,7 +31,7 @@ capabilities available to a larger community.
 Recently it has also become easier to deploy and serve these models in
 production. The Transformer library has [added functionality to export models to
 ONNX](https://medium.com/microsoftazure/accelerate-your-nlp-pipelines-using-hugging-face-transformers-and-onnx-runtime-2443578f4333),
-allowing for much greater flexibility in model serving since this is largely
+allowing for greater flexibility in model serving since this is largely
 independent from whether or not the model was trained on Tensorflow or PyTorch.
 We’ve been working a lot lately on being able to evaluate Transformer models in
 Vespa, so in this blog post we thought we would share a bit on how we perceive
@@ -115,7 +115,7 @@ system to maintain. This makes Vespa an attractive platform.
 For a taste of how to use Transformer models with Vespa we’ve added a small
 sample application:
 [https://github.com/vespa-engine/sample-apps/tree/master/transformers](https://github.com/vespa-engine/sample-apps/tree/master/transformers).
-In this sample app we use the MS MARCO data set which combines both queries,
+In this sample app we use the MS MARCO dataset which combines both queries,
 content and relevance judgements. For the purposes of this sample, we won’t
 fine-tune the model and will just use the base model as-is. Our goal is to set
 up a Vespa application that indexes the documents and scores content based on a
@@ -147,7 +147,7 @@ as well. In a follow-up post we will show how to port a tokenizer and use that
 during document and query processing in Vespa.
 
 Putting these together, we need to decide which fields to index for each piece
-of content as well as how we should compute each result. This means defining a
+of content as well as how to compute each result. This means defining a
 document schema which includes setting up expressions for how candidates for
 retrieval should be calculated. The fields we set up for this sample
 application are:
@@ -289,5 +289,4 @@ want to add additional convenience features to make it even easier to deploy
 and evaluate models efficiently on Vespa.
 
 Please check out the sample application and let us know what you think!
-
 
