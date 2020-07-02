@@ -199,8 +199,8 @@ rank-profile transformer {
 The first-phase expression tells Vespa to calculate the BM25 score of the query
 against the `title` and `body` fields. We use this as a first pass to avoid
 evaluating the model on every document. The second-phase instructs Vespa to
-evaluate the model named `"rankmodel.onnx"` (the one exported from the
-Transformer library) and calculate the output `"output_1"` with the top 10
+evaluate `"rankmodel.onnx"` (the one exported from the
+Transformer library) and calculate `"output_1"` with the top 10
 candidates from the previous stage. Note that this isn’t the actual expressions
 used in the sample app where the output from the model is sent through a linear
 transformation for sequence classification.
@@ -247,10 +247,10 @@ using a larger number of threads per query might have a negative impact when
 handling many queries in parallel, so this is something that must be tuned on a
 per application basis.
 
-So, when it comes to setting up Vespa, that is basically it. To summarize one
-needs to put the model in the Vespa application package under a “models”
-directory, define a document definition and describe how to score each
-document.
+So, when it comes to setting up Vespa, that is basically it - summary:
+1. put the model in the application package under a "models" directory
+2. define a document definition
+3. describe how to score each document.
 
 After feeding the documents to Vespa, we are ready to query. We use the queries
 in MS MARCO and tokenize them using the same tokenizer as the input, resulting
@@ -269,14 +269,14 @@ means Vespa will match all documents that have at least one occurrence of each
 of these terms, and rank them according to their BM25 score. The
 `ranking.features.query(input)` defines an input tensor that represents the token
 sequence of this sentence, in this case `[2054, 2024, 13170, 13435]`. Both these
-input parameters are url encoded. For this query, the top rated result (aptly
+input parameters are url-encoded. For this query, the top rated result (aptly
 titled “What are Turtle Beans”) receives a positive class probability from this
 model of 0.92. This value represents how well the document relates to the
 query.
 
 As mentioned previously, we’ve held tokenization outside of Vespa for the
 purposes of this post, but we will follow up with another post where we
-implement this within Vespa so that only the textual content of each document
+implement this within Vespa, so that only the textual content of each document
 and query is passed to Vespa.
 
 ### Looking forward
@@ -289,4 +289,3 @@ want to add additional convenience features to make it even easier to deploy
 and evaluate models efficiently on Vespa.
 
 Please check out the sample application and let us know what you think!
-
