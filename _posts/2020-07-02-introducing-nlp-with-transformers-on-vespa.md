@@ -18,7 +18,8 @@ growing number of companies have shown considerable interest in adopting these
 models for production.
 
 One of the reasons for this is the ease of getting started. This is in large
-part due to [Hugging Face](https://huggingface.co/) and it’s open-source Transformer library. With this
+part due to [Hugging Face](https://huggingface.co/) and it’s open-source
+[Transformers library](https://github.com/huggingface/transformers). With this
 library it’s easy to start with any of the thousand or so pretrained base
 models, and fine-tune it to a specific task such as text classification,
 translation, summarization, text generation or question/answering. This is an
@@ -29,7 +30,7 @@ a base model and fine-tuning it requires much less effort, making powerful NLP
 capabilities available to a larger community.
 
 Recently it has also become easier to deploy and serve these models in
-production. The Transformer library has [added functionality to export models to
+production. The Transformers library has [added functionality to export models to
 ONNX](https://medium.com/microsoftazure/accelerate-your-nlp-pipelines-using-hugging-face-transformers-and-onnx-runtime-2443578f4333),
 allowing for greater flexibility in model serving since this is largely
 independent from whether or not the model was trained on Tensorflow or PyTorch.
@@ -127,7 +128,7 @@ worth mentioning that large models have a significant computational cost which
 has a direct impact on performance and the scalability of the application. So
 to keep latency down we use a fairly small model (“nboost/pt-tinybert-msmarco”)
 for this sample application. We download and export the model to ONNX using the
-Transformer library, but we have our own script that does the export. This is
+Transformers library, but we have our own script that does the export. This is
 because we want to use the equivalent of the Transformer
 `AutoModelForSequenceClassification`, and the official conversion script does not
 export the additional tensors required for the linear transformation on top of
@@ -200,7 +201,7 @@ The first-phase expression tells Vespa to calculate the BM25 score of the query
 against the `title` and `body` fields. We use this as a first pass to avoid
 evaluating the model on every document. The second-phase instructs Vespa to
 evaluate `"rankmodel.onnx"` (the one exported from the
-Transformer library) and calculate `"output_1"` with the top 10
+Transformers library) and calculate `"output_1"` with the top 10
 candidates from the previous stage. Note that this isn’t the actual expressions
 used in the sample app where the output from the model is sent through a linear
 transformation for sequence classification.
@@ -247,10 +248,11 @@ using a larger number of threads per query might have a negative impact when
 handling many queries in parallel, so this is something that must be tuned on a
 per application basis.
 
-So, when it comes to setting up Vespa, that is basically it - summary:
-1. put the model in the application package under a "models" directory
-2. define a document schema
-3. describe how to score each document.
+So, when it comes to setting up Vespa, that is basically it. In summary:
+
+1. Put the model in the application package under a "models" directory.
+2. Define a document schema.
+3. Describe how to score each document.
 
 After feeding the documents to Vespa, we are ready to query. We use the queries
 in MS MARCO and tokenize them using the same tokenizer as the input, resulting
