@@ -3,6 +3,7 @@ layout: post
 title: 'Vespa Product Updates, September 2019: Tensor Float Support, Reduced Memory
   Use for Text Attributes, Prometheus Monitoring Support, and Query Dispatch Integrated
   in Container'
+author: kkraune
 date: '2019-10-01T14:14:40-07:00'
 tags:
 - big data

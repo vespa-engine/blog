@@ -2,6 +2,7 @@
 layout: post
 title: 'Vespa Product Updates, February 2019: Boolean Field Type, Environment Variables,
   and Advanced Search Core Tuning'
+author: kkraune
 date: '2019-02-28T12:29:30-08:00'
 tags:
 - database

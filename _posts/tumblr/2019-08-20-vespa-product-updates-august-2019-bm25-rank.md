@@ -2,6 +2,7 @@
 layout: post
 title: 'Vespa Product Updates, August 2019: BM25 Rank Feature, Searchable Parent References,
   Tensor Summary Features, and Metrics Export'
+author: kkraune
 date: '2019-08-20T22:20:04-07:00'
 tags:
 - big data

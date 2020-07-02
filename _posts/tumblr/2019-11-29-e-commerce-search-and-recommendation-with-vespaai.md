@@ -1,6 +1,7 @@
 ---
 layout: post
 title: E-commerce search and recommendation with Vespa.ai
+author: jobergum
 date: '2019-11-29T10:32:17-08:00'
 image: assets/2019-11-29-e-commerce-search-and-recommendation-with-vespaai/f5d5f1b39915053f5ec3cfc4ab888e7e667d4d20.png
 tags:

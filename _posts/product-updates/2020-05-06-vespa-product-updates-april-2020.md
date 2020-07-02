@@ -2,6 +2,7 @@
 layout: post
 title: Vespa Product Updates, April 2020
 excerpt: The April 2020 update includes Top-K hits, smarter data migration and CloudWatch integration. Contributing to Vespa is now easier with the release of a CentOS 7 dev environment.
+author: kkraune
 date: '2020-05-06T00:00:00-00:00'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]

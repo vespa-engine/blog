@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Learning to Rank with Vespa – Getting started with Text Search
+author: thigm85
 date: '2019-12-04T23:28:07-08:00'
 image: assets/2019-12-04-learning-to-rank-with-vespa-getting-started-with/0280c78756d9a59068630a85ff30aad3876cdf97.png
 tags:

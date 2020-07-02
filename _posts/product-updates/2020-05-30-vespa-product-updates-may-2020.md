@@ -2,6 +2,7 @@
 layout: post
 title: Vespa Product Updates, May 2020
 excerpt: The May 2020 update includes Improved Slow Node Tolerance, Multi-Threaded Rank Profile Compilation, Reduced Peak Memory at Startup, Feed Performance Improvements, & Increased Tensor Performance.
+author: kkraune
 date: '2020-05-30T00:00:00-00:00'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]

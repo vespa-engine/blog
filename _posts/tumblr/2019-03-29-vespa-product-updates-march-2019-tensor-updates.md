@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 'Vespa Product Updates, March 2019: Tensor updates, Query tracing and coverage'
+author: kkraune
 date: '2019-03-29T13:17:35-07:00'
 tags:
 - big data

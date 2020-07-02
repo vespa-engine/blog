@@ -2,6 +2,7 @@
 layout: post
 title: Vespa Product Updates, January 2020
 excerpt: The January 2020 update includes information about new tensor functions, updated sizing guides and various performance improvements.
+author: kkraune
 date: '2020-01-31T00:00:00-00:00'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]
