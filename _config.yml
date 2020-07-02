@@ -5,7 +5,7 @@ description: "Blog for Vespa - The open big data serving engine"
 logo: 'assets/images/Vespa_Logo_Black.png'
 favicon: 'assets/icons/favicon-32x32.png'
 baseurl: 
-# mailchimp-list: 'https://wowthemes.us11.list-manage.com/subscribe/post?u=8aeb20a530e124561927d3bd8&amp;id=8c3d2d214b'
+mailchimp-list: 'https://vespa.ai/cloud/mailing-list.html'
 include: ["_pages"]
 permalink: /:title/
 google_analytics: UA-107187180-2
@@ -48,7 +48,7 @@ jekyll-archives:
     category: '/category/:name/'
     
 # Pagination 
-paginate: 6
+paginate: 12
 paginate_path: /page:num/
     
 # Other
