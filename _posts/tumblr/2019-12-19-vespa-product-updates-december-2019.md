@@ -3,6 +3,7 @@ layout: post
 title: "Vespa Product Updates, December 2019: Improved ONNX support, New rank 
   feature attributeMatch().maxWeight, Free lists for attribute multivalue 
   mapping, faster updates for out-of-sync documents, Zookeeper 3.5.6"
+author: kkraune
 date: '2019-12-19T11:45:08-05:00'
 tags:
 - big data serving

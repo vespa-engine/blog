@@ -2,6 +2,7 @@
 layout: post
 title: Vespa Product Updates, February 2020
 excerpt: Advances in Vespa features and performance in February include LightGBM support, improved tensor performance, benchmarking guide and query builder library
+author: kkraune
 date: '2020-02-28T00:00:00-00:00'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]

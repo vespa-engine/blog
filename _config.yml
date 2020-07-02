@@ -13,23 +13,37 @@ enable_featured: false
 
 # Authors
 authors:
-  sal:
-    name: Sal
-    display_name: Sal
-    gravatar: e56154546cf4be74e393c62d1ae9f9d4
-    email: wowthemesnet@gmail.com
-    web: https://www.wowthemes.net
-    twitter: https://twitter.com/wowthemesnet
-    description: "Author of Mediumish, a Bootstrap Medium styled template available for WordPress, HTML, Ghost and Jekyll. You are currently previewing Jekyll template demo."
-  john:
-    name: John
-    display_name: John    
-    avatar: 'assets/images/avatar.png'
-    gravatar: b1cc14991db7a456fcd761680bbc8f81
-    email: wowthemesnet@gmail.com
-    web: https://www.wowthemes.net
-    twitter: https://twitter.com/wowthemesnet
-    description: "This is the author box. Write a short description of the author here. You are currently previewing Mediumish demo, a Jekyll template compatible with Github pages."
+  bratseth:
+    name: Jon Bratseth
+    display_name: Jon Bratseth
+    avatar: '/assets/avatars/bratseth.jpg'
+    email: bratseth@verizonmedia.com
+    twitter: https://twitter.com/jonbratseth
+    description: "Vespa Chief Architect"
+  geirst:
+    name: Geir Storli
+    display_name: Geir Storli
+    avatar: '/assets/avatars/geirst.jpg'
+    email: geirst@verizonmedia.com
+    description: "Principle Vespa Engineer"
+  kkraune:
+    name: Kristian Aune
+    display_name: Kristian Aune
+    avatar: '/assets/avatars/kkraune.jpg'
+    email: kraune@verizonmedia.com
+    description: "Vespa Technical Product Manager"
+  thigm85:
+    name: Thiago Martins
+    display_name: Thiago Martins
+    avatar: '/assets/avatars/thigm85.jpg'
+    email: tmartins@verizonmedia.com
+    description: "Vespa Data Scientist"
+  jobergum:
+    name: Jo Kristian Bergum
+    display_name: Jo Kristian Bergum
+    avatar: '/assets/avatars/jobergum.jpg'
+    email: bergum@verizonmedia.com
+    description: "Vespa Solutions Architect"
 
 # Plugins
 plugins:

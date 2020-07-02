@@ -2,6 +2,7 @@
 layout: post
 title: Vespa.ai and the CORD-19 public API
 excerpt: The Vespa team has been working non-stop to put together the cord19.vespa.ai search app based on the COVID-19 Open Research Dataset (CORD-19) released by the Allen Institute for AI.
+author: thigm85
 date: '2020-04-01T00:00:00-00:00'
 tags: [Search Engines, Covid 19, Artificial Intelligence, Machine Learning, NLP]
 ---

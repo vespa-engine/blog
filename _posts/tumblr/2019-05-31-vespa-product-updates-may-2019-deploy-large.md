@@ -2,6 +2,7 @@
 layout: post
 title: 'Vespa Product Updates, May 2019: Deploy Large Machine Learning Models, Multithreaded
   Disk Index Fusion, Ideal State Optimizations, and Feeding Improvements'
+author: kkraune
 date: '2019-05-31T17:38:04-07:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/185272046721/vespa-product-updates-may-2019-deploy-large

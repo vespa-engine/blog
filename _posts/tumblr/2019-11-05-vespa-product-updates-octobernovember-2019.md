@@ -3,6 +3,7 @@ layout: post
 title: "Vespa Product Updates, October/November 2019: Nearest Neighbor and Tensor
   Ranking, Optimized JSON Tensor Feed Format, \nMatched Elements in Complex Multi-value
   Fields, Large Weighted Set Update Performance, and Datadog Monitoring Support"
+author: kkraune
 date: '2019-11-05T08:56:51-08:00'
 tags:
 - big data serving

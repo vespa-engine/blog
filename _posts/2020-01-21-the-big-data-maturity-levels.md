@@ -1,6 +1,7 @@
 ---
 layout: post
 title: The big data maturity levels
+author: bratseth
 date: '2020-01-21'
 tags: []
 ---

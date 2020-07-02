@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Why most computation will become online
+author: bratseth
 date: '2020-03-02'
 tags: []
 excerpt: The most advanced companies of the world are busy moving their computation over data online. But why?
