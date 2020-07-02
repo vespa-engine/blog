@@ -3,7 +3,7 @@ layout: post
 title: Approximate Nearest Neighbor Search in Vespa - Part 1
 date: '2020-06-30'
 toc: true
-image: assets/2020-06-30-approximate-nearest-neighbor-search-in-vespa-part-1/indexing-throughput-sift.png
+image: assets/2020-06-30-approximate-nearest-neighbor-search-in-vespa-part-1/search-throughput-sift.png
 tags: []
 excerpt: In this blog post we explore how the Vespa team selected HNSW (Hierarchical Navigable Small World Graphs)
          as the baseline approximate nearest neighbor algorithm for extension and integration in Vespa.
