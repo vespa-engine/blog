@@ -60,7 +60,7 @@ consists of a set of stateless nodes and a set of stateful content nodes which
 contains the data. A query is first processed on the stateless layer before
 being fanned out to the content nodes. The content nodes handle data-dependent
 computation and each return their results back to the stateless layer where the
-globally best results are retrieved.
+globally best results are determined.
 
 ![Evaluating models on the content nodes](/assets/2020-07-02-introducing-nlp-with-transformers-on-vespa/models_on_content_nodes.png)
 
@@ -98,7 +98,7 @@ per content node, so with 10 content nodes, the BERT model is running
 effectively on 100 data points.
 
 Evaluation of models from different platforms such as Tensorflow, PyTorch,
-XGBoost and LightGBM can be freely combined as well, even in the same
+XGBoost and LightGBM can be freely combined as well, even within the same
 expression. To efficiently search for potential candidates one can use WAND.
 Recently we’ve also added [approximate nearest
 neighbors](https://blog.vespa.ai/approximate-nearest-neighbor-search-in-vespa-part-1/),
@@ -249,7 +249,7 @@ per application basis.
 
 So, when it comes to setting up Vespa, that is basically it - summary:
 1. put the model in the application package under a "models" directory
-2. define a document definition
+2. define a document schema
 3. describe how to score each document.
 
 After feeding the documents to Vespa, we are ready to query. We use the queries
