@@ -3,6 +3,7 @@ layout: post
 title: Introducing NLP with Transformers on Vespa
 date: '2020-07-02'
 tags: []
+author: lesters
 excerpt: We’ve been working a lot lately on evaluating Transformer models in
          Vespa. Here we show how and share a bit on how we view the benefits
          of inference in Vespa.

@@ -4,7 +4,7 @@ title: "Vespa Blog"
 description: "Blog for Vespa - The open big data serving engine"
 logo: 'assets/images/Vespa_Logo_Black.png'
 favicon: 'assets/icons/favicon-32x32.png'
-baseurl: 
+baseurl:
 mailchimp-list: 'https://vespa.ai/cloud/mailing-list.html'
 include: ["_pages"]
 permalink: /:title/
@@ -44,6 +44,12 @@ authors:
     avatar: '/assets/avatars/jobergum.jpg'
     email: bergum@verizonmedia.com
     description: "Vespa Solutions Architect"
+  lesters:
+    name: Lester Solbakken
+    display_name: Lester Solbakken
+    avatar: '/assets/avatars/lesters.jpg'
+    email: lesters@verizonmedia.com
+    description: "Principle Vespa Engineer"
 
 # Plugins
 plugins:
@@ -52,7 +58,7 @@ plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-archives
-    
+
 # Archives
 jekyll-archives:
   enabled:
@@ -60,11 +66,11 @@ jekyll-archives:
   layout: archive
   permalinks:
     category: '/category/:name/'
-    
-# Pagination 
+
+# Pagination
 paginate: 12
 paginate_path: /page:num/
-    
+
 # Other
 markdown: kramdown
 
