@@ -4,6 +4,7 @@ title: Introducing NLP with Transformers on Vespa
 date: '2020-07-02'
 tags: []
 author: lesters
+image: assets/2020-07-02-introducing-nlp-with-transformers-on-vespa/models_on_content_nodes.png
 excerpt: We’ve been working a lot lately on evaluating Transformer models in
          Vespa. Here we show how and share a bit on how we view the benefits
          of inference in Vespa.
