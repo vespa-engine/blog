@@ -128,13 +128,13 @@ worth mentioning that large models have a significant computational cost which
 has a direct impact on performance and the scalability of the application. So
 to keep latency down we use a fairly small model (“nboost/pt-tinybert-msmarco”)
 for this sample application. We download and export the model to ONNX using the
-Transformers library, but we have our own script that does the export. This is
-because we want to use the equivalent of the Transformer
-`AutoModelForSequenceClassification`, and the official conversion script does not
-export the additional tensors required for the linear transformation on top of
-the base model. The script puts the exported model into the “models” directory
-of the Vespa application package where it will ultimately be imported and
-distributed automatically to all content nodes.
+Transformers library. Our export script builds upon the official
+`convert_graph_to_onnx.py` rather than using it directly because we want to use
+the equivalent of the Transformer `AutoModelForSequenceClassification`, and the
+official export script does not export the additional tensors required for the
+linear transformation on top of the base model. The script puts the exported
+model into the “models” directory of the Vespa application package where it
+will ultimately be imported and distributed automatically to all content nodes.
 
 We also need to create the data feed. As part of evaluating any Transformer
 model, text needs to be tokenized. The tokenizer is part of the model as the
