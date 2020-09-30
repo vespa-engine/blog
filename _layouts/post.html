@@ -50,6 +50,9 @@ post_class: post-template
 
             </div>
 
+            <!-- Show Image -->
+            {% if page.showimage == "true" %}
+
             <!-- Post Featured Image -->
             {% if page.image %}
 
@@ -61,6 +64,9 @@ post_class: post-template
 
             {% endif %}
             <!-- End Featured Image -->
+
+            {% endif %}
+            <!-- End Show Image -->
 
             <!-- Post Content -->
             <div class="article-post">
