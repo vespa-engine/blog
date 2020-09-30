@@ -440,11 +440,7 @@ The following table summarizes the retriever accuracy using the original 3,610
 dev questions in the Natural Questions for Open Domain Question Answering tasks
 ([NQ-open.dev.jsonl](https://github.com/google-research-datasets/natural-questions/blob/master/nq_open/NQ-open.dev.jsonl)).
 
-| Retrieval Model                 | Recall@1  | Recall@5 | Recall@10| Recall@20 |
-|-------------------------------- |-----------|----------|----------|-----------|
-| sparse (WAND bm25)              | 23.77     | 44.24    | 52.69    | 61.47     |
-| dense  (nearest neighbor)       | 46.37     | 68.53    | 75.07    | 80.36     |
-| hybrid (WAND + nearest neighbor)| 40.61     | 69.25    | 75.96    | 80.44     |
+![Retriever accuracy](/assets/2020-09-30-efficient-open-domain-question-answering-on-vespa/retrieval.png)
 
 The DPR paper reports recall@20 of 79.4, so our results are inline with their
 reported results for the dense retrieval method. We attribute the slight
@@ -464,11 +460,7 @@ answer "14 December 1972" will be scored 0.
 The results are for the same data set above, with a re-rank of the top 10
 results from the retriever:
 
-| Retrieval Model                 | EM(@5)    | EM (@10)|
-|---------------------------------|-----------|--------|
-| sparse (WAND bm25               | 23.80     | 26.23  |
-| dense  (nearest neighbor)       | 39.34     | 40.58  |
-| hybrid (WAND + nearest neighbor)| 39.36     | 40.61  |
+![Reader accuracy](/assets/2020-09-30-efficient-open-domain-question-answering-on-vespa/reader.png)
 
 The above results reproduce the results of the DPR paper which at the writing
 of this post is the current state of the art for retrieval-based systems.
