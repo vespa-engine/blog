@@ -8,7 +8,6 @@ image: assets/2020-09-30-efficient-open-domain-question-answering-on-vespa/QA.pn
 excerpt: In this post, we reproduce the state-of-the-art
          baseline for retrieval-based question-answering systems within a single,
          scalable production ready application on Vespa.ai.
-skipimage: "true"
 ---
 
 **Open-domain question-answering has emerged as a benchmark for measuring a
