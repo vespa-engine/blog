@@ -51,16 +51,15 @@ post_class: post-template
             </div>
 
 
-            {% if page.skipimage == "true" %} <!-- Skip Image -->
-            {% else %}
-                {% if page.image %} <!-- Post Featured Image -->
+            {% if page.image %} <!-- Post Featured Image -->
+                {% unless page.skipimage %}
                     {% if site.lazyimages == "enabled" %}
                     <img class="featured-image img-fluid lazyimg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAQAAAA3fa6RAAAADklEQVR42mNkAANGCAUAACMAA2w/AMgAAAAASUVORK5CYII=" data-src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
                     {% else %}
                     <img class="featured-image img-fluid" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
                     {% endif %}
-                {% endif %} <!-- End Featured Image -->
-            {% endif %} <!-- End Skip Image -->
+                {% endunless %}
+            {% endif %} <!-- End Featured Image -->
 
             <!-- Post Content -->
             <div class="article-post">
