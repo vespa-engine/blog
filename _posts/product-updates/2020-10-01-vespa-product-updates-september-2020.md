@@ -4,6 +4,8 @@ title: Vespa Product Updates, September 2020
 author: kkraune
 date: '2020-10-01'
 categories: [product updates]
+image: assets/images/broadcast.svg
+skipimage: false
 tags: [big data serving, big data, search engines, search, database]
 excerpt: Introducing ONNX-Runtime,
          Hamming Distance Metric,
