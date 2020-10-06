@@ -4,7 +4,7 @@ title: Vespa Product Updates, September 2020
 author: kkraune
 date: '2020-10-01'
 categories: [product updates]
-image: assets/images/broadcast.svg
+image: assets/images/thisisengineering-raeng-ZPeXrWxOjRQ-unsplash.jpg
 skipimage: false
 tags: [big data serving, big data, search engines, search, database]
 excerpt: Introducing ONNX-Runtime,
@@ -12,6 +12,12 @@ excerpt: Introducing ONNX-Runtime,
          Conditional Update Performance Improvements and
          Compressed Transaction Log with Synced Ack
 ---
+
+<em><span>Photo by
+<a href="https://unsplash.com/@thisisengineering?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+ThisisEngineering RAEng</a> on
+<a href="https://unsplash.com/s/photos/technology?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
+Unsplash</a></span></em>
 
 In the [August updates]({% post_url /product-updates/2020-08-27-vespa-product-updates-august-2020 %}),
 we mentioned NLP with Transformers on Vespa, Grafana How-to, Improved GEO Search and Query Profile Variants.
