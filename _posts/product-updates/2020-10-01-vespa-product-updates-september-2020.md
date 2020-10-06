@@ -13,11 +13,11 @@ excerpt: Introducing ONNX-Runtime,
          Compressed Transaction Log with Synced Ack
 ---
 
-<em><span>Photo by
+<em>Photo by
 <a href="https://unsplash.com/@thisisengineering?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
 ThisisEngineering RAEng</a> on
 <a href="https://unsplash.com/s/photos/technology?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">
-Unsplash</a></span></em>
+Unsplash</a></em>
 
 In the [August updates]({% post_url /product-updates/2020-08-27-vespa-product-updates-august-2020 %}),
 we mentioned NLP with Transformers on Vespa, Grafana How-to, Improved GEO Search and Query Profile Variants.
