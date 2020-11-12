@@ -34,7 +34,7 @@ frontier](https://en.wikipedia.org/wiki/Pareto_efficiency#Pareto_frontier) and
 identifies the best trade-offs between accuracy and cost.
 
 In a [previous blog
-post](https://blog.vespa.ai/efficient-open-domain-question-answering-on-vespa/),
+post]({% post_url /2020-09-30-efficient-open-domain-question-answering-on-vespa %} ),
 we introduced a serving system that reproduces state-of-the-art accuracy in
 open-domain question-answering. We based this on Facebook’s [Dense Passage
 Retrieval (DPR)](https://github.com/facebookresearch/DPR), which is a
@@ -62,7 +62,7 @@ frontier to evaluate the merits of the various optimizations.
 We'll start with an overview of the serving system and identify which parts of
 the system initially drive the cost. For more details on the implementation, we
 refer to the [previous blog
-post](https://blog.vespa.ai/efficient-open-domain-question-answering-on-vespa/)
+post]({% post_url /2020-09-30-efficient-open-domain-question-answering-on-vespa %})
 in this series.
 
 ### Question Answering
@@ -203,8 +203,8 @@ Until this point, both the encoder and reader models are based on pre-trained
 BERT-base models, containing 12 layers with hidden dimension size of 768 and
 thus around 110 million parameters. These are reasonably large models,
 particularly when used in time-constrained environments. However, in the paper
-["Well-Read Students Learn Better: On the Importance of Pre-training Compact
-Models,"](https://arxiv.org/abs/1908.08962) the authors show that smaller
+[Well-Read Students Learn Better: On the Importance of Pre-training Compact
+Models](https://arxiv.org/abs/1908.08962), the authors show that smaller
 models can indeed work very well. The "miniature" models referenced in this
 paper can be found in the [Transformers model
 repository](https://huggingface.co/google/bert_uncased_L-12_H-768_A-12).
