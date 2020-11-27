@@ -23,7 +23,7 @@ You can run the code from [Google Colab](https://colab.research.google.com/githu
 ## Install required libraries
 
 ```python
-!pip install pandas transformers
+pip install pandas transformers
 ```
 
 ## Load the dataset
