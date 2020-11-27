@@ -4,7 +4,7 @@ title: "Fine-tuning a BERT model with transformers"
 date: '2020-11-12'
 tags: []
 author: thigm85
-image: assets/2020-11-12-from-research-to-production-scaling-a-state-of-the-art-machine-learning-system/accuracy-vs-cost.png
+image: assets/2020-11-12-fine-tune-bert-basic-transformers-trainer/figure_1.jpeg
 skipimage: true
 excerpt: Setup a custom Dataset, fine-tune BERT with Transformers Trainer and export the model via ONNX.
 ---
