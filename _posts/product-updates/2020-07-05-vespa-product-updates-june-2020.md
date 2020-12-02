@@ -6,6 +6,7 @@ author: kkraune
 date: '2020-07-05'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]
+index: false
 ---
 
 In the [May updates]({% post_url /product-updates/2020-05-30-vespa-product-updates-may-2020 %}),

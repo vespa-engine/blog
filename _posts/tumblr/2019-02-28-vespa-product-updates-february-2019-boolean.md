@@ -10,6 +10,7 @@ tags:
 - search engines
 - big data
 tumblr_url: https://blog.vespa.ai/post/183115205176/vespa-product-updates-february-2019-boolean
+index: false
 ---
 In [last month’s Vespa update]({% post_url /tumblr/2019-01-28-vespa-product-updates-january-2019-parentchild %}), we mentioned Parent/Child, Large File Config Download, and a Simplified Feeding Interface. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and Oath Ads Platforms. Thanks to helpful feedback and contributions from the community, Vespa continues to grow.
 

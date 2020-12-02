@@ -4,6 +4,7 @@ title: 'Vespa Product Updates, December 2018: ONNX Import and Map Attribute Grou
 date: '2018-12-14T12:20:43-08:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/181105335071/vespa-product-updates-december-2018-onnx-import
+index: false
 ---
 Hi Vespa Community!
 

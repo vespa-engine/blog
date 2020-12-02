@@ -1,0 +1,34 @@
+name: Vespa Documentation Search Feed, Blogs
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+
+    - uses: actions/checkout@v1
+
+    - name: Setup Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.6
+
+    - name: Build site
+      run: |
+        bundle install
+        bundle exec jekyll build
+
+    - name: Setup Python
+      uses: actions/setup-python@v1
+      with:
+        python-version: '3.x'
+
+    - name: Feed site
+      env:
+        DATA_PLANE_PUBLIC_KEY:  ${{ secrets.VESPA_TEAM_DATA_PLANE_PUBLIC_CERT }}
+        DATA_PLANE_PRIVATE_KEY: ${{ secrets.VESPA_TEAM_DATA_PLANE_PRIVATE_KEY }}
+      run: |
+        pip3 install PyYAML
+        ./feed_to_vespa.py

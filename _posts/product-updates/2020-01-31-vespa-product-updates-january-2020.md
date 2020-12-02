@@ -6,6 +6,7 @@ author: kkraune
 date: '2020-01-31T00:00:00-00:00'
 categories: [product updates]
 tags: [big data serving, big data, search engines, search, database]
+index: false
 ---
 
 In the [December product update]({% post_url /tumblr/2019-12-19-vespa-product-updates-december-2019 %}),
