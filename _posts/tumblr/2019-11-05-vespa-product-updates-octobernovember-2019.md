@@ -12,6 +12,7 @@ tags:
 - search
 - database
 tumblr_url: https://blog.vespa.ai/post/188829632081/vespa-product-updates-octobernovember-2019
+index: false
 ---
 In the [September Vespa product update]({% post_url /tumblr/2019-10-01-vespa-product-updates-september-2019-tensor %}), we mentioned Tensor Float Support, Reduced Memory Use for Text Attributes, Prometheus Monitoring Support, and Query Dispatch Integrated in Container.
 

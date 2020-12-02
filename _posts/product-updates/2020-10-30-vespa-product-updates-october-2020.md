@@ -8,6 +8,7 @@ image: assets/images/ilya-pavlov-OqtafYT5kTw-unsplash.jpg
 skipimage: false
 tags: [big data serving, big data, search engines, search, database]
 excerpt: Improvement to Vespa feeding APIs
+index: false
 ---
 
 <em>Photo by

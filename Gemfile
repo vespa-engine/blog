@@ -18,3 +18,7 @@ group :jekyll_plugins do
     gem 'kramdown'
     gem 'rouge'
 end
+
+# used in _plugins/vespa_index_generator.rb
+gem 'json'
+gem 'nokogiri'

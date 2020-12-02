@@ -84,5 +84,24 @@ kramdown:
 # Lazy Images ("enabled" or "disabled")
 lazyimages: "disabled"
 
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, .idea, blog_index.json]
 
+search:
+  namespace: "blog"
+  endpoint : "https://vespa-documentation-search.vespa.global.vespa.oath.cloud"
+  do_feed  : true
+  do_index_removal_before_feed: false
+  feed_endpoints:
+    - url: https://vespacloud-docsearch.vespa-team.aws-us-east-1c.public.vespa.oath.cloud/
+      indexes:
+        - blog_index.json
+    - url: https://vespacloud-docsearch.vespa-team.aws-ap-northeast-1a.public.vespa.oath.cloud/
+      indexes:
+        - blog_index.json
+
+defaults:
+  -
+    scope:
+      path  : ""
+    values:
+      index : true
