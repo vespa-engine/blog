@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Stateful model serving: how we accelerate inference using ONNX Runtime"
-date: '2020-12-10'
+date: '2020-12-14'
 tags: []
 author: lesters
-image: assets/2020-12-10-stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/vespa_ort_logos_vert.png
+image: assets/2020-12-14-stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/vespa_ort_logos_vert.png
 excerpt: There's a difference between stateless and stateful model serving.
 
 ---
@@ -89,7 +89,7 @@ capabilities for advanced computation, including machine learned models.
 
 ### Vespa.ai applications
 
-![Vespa architecture](/assets/2020-12-10-stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/vespa_architecture.png)
+![Vespa architecture](/assets/2020-12-14-stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/vespa_architecture.png)
 
 Vespa.ai is a distributed application consisting of stateless nodes and a set
 of stateful content nodes containing the data. A Vespa.ai application is fully
@@ -213,7 +213,7 @@ operations](https://docs.vespa.ai/documentation/reference/ranking-expressions.ht
 Vespa.ai supports. For instance, a single neural network layer could be
 converted like this:
 
-![Model rank expression](/assets/2020-12-10-stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/model_to_expression.png)
+![Model rank expression](/assets/2020-12-14-stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/model_to_expression.png)
 
 Here, weights and bias would be stored as constant tensors, whereas the input
 tensor could be retrieved either from the query, a document field, or some
