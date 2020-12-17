@@ -4,7 +4,8 @@ title: Vespa Product Updates, December 2020
 author: kkraune
 date: '2020-12-17'
 categories: [product updates]
-skipimage: false
+image: assets/images/donald-giannatti-Wj1D-qiOseE-unsplash.jpg
+skipimage: true
 tags: [big data serving, big data, search engines, search, database]
 index: false
 excerpt: >
