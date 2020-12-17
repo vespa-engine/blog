@@ -5,7 +5,7 @@ author: kkraune
 date: '2020-12-17'
 categories: [product updates]
 image: assets/images/donald-giannatti-Wj1D-qiOseE-unsplash.jpg
-skipimage: false
+skipimage: true
 tags: [big data serving, big data, search engines, search, database]
 index: false
 excerpt: >
@@ -13,11 +13,10 @@ excerpt: >
     Apache ZooKeeper integration, Vespa Python API for researchers and ONNX integration.
 ---
 
-<em><span>Photo by <a href="https://unsplash.com/@wizwow?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Donald Giannatti</a>
-on <a href="https://unsplash.com/s/photos/data-science?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span></em>
-
 In the [previous update]({% post_url /product-updates/2020-10-30-vespa-product-updates-october-2020 %}),
 we mentioned new Container Thread Pools and Feed Throughput improvements.
+
+Subscribe to the [mailing list](https://vespa.ai/cloud/mailing-list.html) to get these updates delivered to your inbox.
 
 This month, we’re excited to share the following updates:
 
@@ -62,8 +61,3 @@ About Vespa: Largely developed by Yahoo engineers,
 [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine.
 It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform.
 Thanks to feedback and contributions from the community, Vespa continues to grow.
-
-We welcome your contributions and feedback ([tweet](https://twitter.com/vespaengine)
-or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.
-
-Subscribe to the [mailing list](https://vespa.ai/cloud/mailing-list.html) for more frequent updates!
