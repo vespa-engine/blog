@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Using approximate nearest neighbor search in real world applications"
-date: '2020-12-17'
+date: '2020-12-18'
 tags: []
 author: lesters
-image: assets/2020-12-17-using-approximate-nearest-neighbor-search-in-real-world-applications/nn.png
+image: assets/2020-12-18-using-approximate-nearest-neighbor-search-in-real-world-applications/nn.png
 excerpt: From text search and recommendation to ads and online dating, ANN
          search rarely works in isolation
 skipimage: true
@@ -55,7 +55,7 @@ vectors, and we can use various distance metrics to measure the likeness or
 similarity between them. Examples are the dot (or inner) product, cosine angle,
 or euclidean distance.
 
-![The 5 nearest neighbors](/assets/2020-12-17-using-approximate-nearest-neighbor-search-in-real-world-applications/nn.png)
+![The 5 nearest neighbors](/assets/2020-12-18-using-approximate-nearest-neighbor-search-in-real-world-applications/nn.png)
 
 Finding the nearest neighbors of a point is reasonably straight-forward: just
 compute the similarity using the distance metric between the point and all
@@ -104,7 +104,7 @@ In many applications, such as search and recommendation, the results of the
 nearest neighbor search is combined with additional facets of the request. In
 this section, we'll provide some examples of when this becomes problematic.
 
-![Only 2 of the 5 nearest neighbors remain after filtering](/assets/2020-12-17-using-approximate-nearest-neighbor-search-in-real-world-applications/nn_post_filter.png)
+![Only 2 of the 5 nearest neighbors remain after filtering](/assets/2020-12-18-using-approximate-nearest-neighbor-search-in-real-world-applications/nn_post_filter.png)
 
 
 ### Text search
@@ -218,7 +218,7 @@ candidates are produced.
 **Unfortunately, for most ANN libraries, this is not an option as they work in
 isolation.**
 
-![The 5 nearest neighbors with integrated filtering](/assets/2020-12-17-using-approximate-nearest-neighbor-search-in-real-world-applications/nn_integrated_filter.png)
+![The 5 nearest neighbors with integrated filtering](/assets/2020-12-18-using-approximate-nearest-neighbor-search-in-real-world-applications/nn_integrated_filter.png)
 
 Vespa.ai is to my knowledge the only implementation of ANN that supports
 integrated filtering. The implementation is based on a modified HNSW graph
