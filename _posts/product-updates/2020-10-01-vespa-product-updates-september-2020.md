@@ -67,4 +67,4 @@ Thanks to feedback and contributions from the community, Vespa continues to grow
 We welcome your contributions and feedback ([tweet](https://twitter.com/vespaengine)
 or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.
 
-Subscribe to the [mailing list](https://vespa.ai/cloud/mailing-list.html) for more frequent updates!
+Subscribe to the [mailing list](https://vespa.ai/mailing-list.html) for more frequent updates!

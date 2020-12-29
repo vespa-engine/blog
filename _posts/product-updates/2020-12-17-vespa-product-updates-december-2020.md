@@ -16,7 +16,7 @@ excerpt: >
 In the [previous update]({% post_url /product-updates/2020-10-30-vespa-product-updates-october-2020 %}),
 we mentioned new Container Thread Pools and Feed Throughput improvements.
 
-Subscribe to the [mailing list](https://vespa.ai/cloud/mailing-list.html) to get these updates delivered to your inbox.
+Subscribe to the [mailing list](https://vespa.ai/mailing-list.html) to get these updates delivered to your inbox.
 
 This month, we’re excited to share the following updates:
 

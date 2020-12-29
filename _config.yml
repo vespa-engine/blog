@@ -5,7 +5,7 @@ description: "Blog for Vespa - The open big data serving engine"
 logo: 'assets/images/Vespa_Logo_Black.png'
 favicon: 'assets/icons/favicon-32x32.png'
 baseurl:
-mailchimp-list: 'https://vespa.ai/cloud/mailing-list.html'
+mailchimp-list: 'https://vespa.ai/mailing-list.html'
 include: ["_pages"]
 permalink: /:title/
 google_analytics: UA-107187180-2
