@@ -6,7 +6,7 @@ tags: []
 author: lesters
 image: assets/2020-12-18-using-approximate-nearest-neighbor-search-in-real-world-applications/nn.png
 excerpt: From text search and recommendation to ads and online dating, ANN
-         search rarely works in isolation
+         search rarely works in isolation.
 skipimage: true
 
 ---
