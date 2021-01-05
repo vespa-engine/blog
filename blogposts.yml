@@ -1,0 +1,11 @@
+---
+---
+{% for post in site.posts limit:4 %}{% assign author = site.authors[post.author] %}- title: "{{ post.title | strip_newlines}}"
+  excerpt: "{{ post.excerpt | strip_newlines }}"
+  link: {{ site.url}}{{ site.baseurl }}{{ post.url }}
+  image: {% if post.image contains "://" %}{{ post.image }}{% else %}{{ site.url }}{{ site.baseurl }}/{{ post.image }}{% endif %}
+  author: {{ author.display_name }}
+  author-avatar: {% if author.avatar contains "://" %}{{ author.avatar }}{% else %}{{ site.url }}{{ site.baseurl }}{{ author.avatar }}{% endif %}
+  date: {{ post.date | date: "%Y-%m-%d"}}
+
+{% endfor %}
