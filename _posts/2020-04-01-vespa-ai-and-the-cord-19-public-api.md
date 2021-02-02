@@ -27,7 +27,7 @@ As a developer, you can contribute by improving the existing application through
 [the backend](https://github.com/vespa-engine/sample-apps/tree/master/vespa-cloud/cord-19-search) and
 [frontend](https://github.com/vespa-engine/cord-19/blob/master/README.md)
 or you can fork and create your own application,
-either [locally](https://docs.vespa.ai/documentation/vespa-quick-start.html)
+either [locally](https://docs.vespa.ai/en/vespa-quick-start.html)
 or through [Vespa Cloud](https://cloud.vespa.ai/getting-started.html),
 to experiment with [different ways to match and rank the CORD-19 articles](https://towardsdatascience.com/learning-from-unlabelled-data-with-covid-19-open-research-dataset-cded4979f1cf?source=friends_link&sk=44fd9519db937036659d0e43c87310c5).
 _My goal here with this piece is to give you an overview of what can be accomplished with Vespa
@@ -39,7 +39,7 @@ but I hope it can help direct you to the right places to learn more about what i
 
 ## Simple query language
 The cord19.vespa.ai query interface supports the Vespa
-[simple query language](https://docs.vespa.ai/documentation/reference/simple-query-language-reference.html)
+[simple query language](https://docs.vespa.ai/en/reference/simple-query-language-reference.html)
 that allows you to quickly perform simple queries. Examples:
 * [+covid-19 +temperature impact on viral transmission](https://cord19.vespa.ai/search?query=%2Bcovid-19+%2Btemperature+impact+on+viral+transmission):
   If you click on this link you are going to search for articles containing the words covid-19,
@@ -53,16 +53,16 @@ that allows you to quickly perform simple queries. Examples:
 Additional resources:
 * More cord19 specific examples can be found in
   [cord19 API doc](https://github.com/vespa-engine/cord-19/blob/master/cord-19-queries.md).
-* The [simple query language](https://docs.vespa.ai/documentation/reference/simple-query-language-reference.html)
+* The [simple query language](https://docs.vespa.ai/en/reference/simple-query-language-reference.html)
   doc is the place to go for the query syntax.
 
 
 
 ## Vespa Search API
 In addition to the simple query language,
-Vespa has also a more powerful [search API](https://docs.vespa.ai/documentation/search-api.html)
+Vespa has also a more powerful [search API](https://docs.vespa.ai/en/search-api.html)
 that gives full control in terms of search experience through the
-[Vespa query language](https://docs.vespa.ai/documentation/query-language.html) called YQL.
+[Vespa query language](https://docs.vespa.ai/en/query-language.html) called YQL.
 We can then send a wide range of queries by sending a POST request to the search end-point of _cord19.vespa.ai_.
 Following are python code illustrating the API:
 ```
@@ -92,7 +92,7 @@ and that has full text available (`has_full_text=true`) and timestamp greater th
 
 **The ranking phase:**
 After matching the articles by the criteria described above, Vespa will rank them according to their 
-[BM25 scores](https://docs.vespa.ai/documentation/reference/bm25.html) (`'ranking': 'bm25'`)
+[BM25 scores](https://docs.vespa.ai/en/reference/bm25.html) (`'ranking': 'bm25'`)
 and return the top 5 articles (`'hits': 5`) according to this rank criteria.
 
 The example above gives only a taste of what is possible with the search API.
@@ -100,16 +100,16 @@ We can tailor both the match phase and ranking phase to our needs.
 For example, we can use more complex match operators such as the Vespa weakAND,
 we can restrict the search to look for a match only in the abstract by adding `'default-index': 'abstract'` in the _body_ above.
 We can experiment with different ranking function at query time
-by changing the `'ranking'` parameter to one of the [rank-profiles](https://docs.vespa.ai/documentation/ranking.html) available in the
+by changing the `'ranking'` parameter to one of the [rank-profiles](https://docs.vespa.ai/en/ranking.html) available in the
 [search definition file](https://github.com/vespa-engine/sample-apps/blob/master/vespa-cloud/cord-19-search/src/main/application/searchdefinitions/doc.sd).
 
 Additional resources:
 * The Vespa text search tutorial shows how to create a text search app on a step-by-step basis.
-  [Part 1](https://docs.vespa.ai/documentation/tutorials/text-search.html)
+  [Part 1](https://docs.vespa.ai/en/tutorials/text-search.html)
   shows how to create a basic app from scratch.
-  [Part 2](https://docs.vespa.ai/documentation/tutorials/text-search-ml.html)
+  [Part 2](https://docs.vespa.ai/en/tutorials/text-search-ml.html)
   shows how to collect training data from Vespa and improve the application with ML models.
-  [Part 3](https://docs.vespa.ai/documentation/tutorials/text-search-semantic.html)
+  [Part 3](https://docs.vespa.ai/en/tutorials/text-search-semantic.html)
   shows how to get started with semantic search by using pre-trained sentence embeddings.
 * More YQL examples specific to the cord19 app can be found in
   [cord19 API doc](https://github.com/vespa-engine/cord-19/blob/master/cord-19-queries.md).
@@ -129,7 +129,7 @@ body = {
 **The match phase:**
 In the query above we match at least 100 articles (`[{"targetNumHits":100}]`)
 which have the smallest (euclidean) distance between the `title_embedding`
-and the query embedding `vector` by using the [nearestNeighbor operator](https://docs.vespa.ai/documentation/reference/query-language-reference.html#nearestneighbor).
+and the query embedding `vector` by using the [nearestNeighbor operator](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor).
 
 **The ranking phase:**
 After matching we can rank the documents in a variety of ways.
@@ -143,9 +143,9 @@ illustrates how to perform a semantic search in the cord19 app by using the
 [SCIBERT-NLI model](https://huggingface.co/gsarti/scibert-nli).
 
 Additional resources:
-* [Part 3](https://docs.vespa.ai/documentation/tutorials/text-search-semantic.html) of the text search tutorial
+* [Part 3](https://docs.vespa.ai/en/tutorials/text-search-semantic.html) of the text search tutorial
   shows how to get started with semantic search by using pre-trained sentence embeddings.
-* Go to the [Ranking page](https://docs.vespa.ai/documentation/ranking.html)
+* Go to the [Ranking page](https://docs.vespa.ai/en/ranking.html)
   to know more about ranking in general and how to deploy ML models in Vespa (including TensorFlow, XGBoost, etc).
 
 WRITTEN BY: Thiago G. Martins. Working on Vespa.ai. Follow me on Twitter @Thiagogm.

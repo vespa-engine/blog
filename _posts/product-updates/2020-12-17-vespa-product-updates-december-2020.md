@@ -23,7 +23,7 @@ This month, we’re excited to share the following updates:
 
 #### Tensor Performance Improvements
 Vespa 7.319.17 and onwards includes new optimizations to
-[tensors](https://docs.vespa.ai/documentation/tensor-user-guide.html) with sparse dimensions.
+[tensors](https://docs.vespa.ai/en/tensor-user-guide.html) with sparse dimensions.
 We have implemented new memory structures to represent sparse and mixed tensors
 and a new pipeline for evaluating tensor operations.
 This has enabled applications to deploy new advanced ranking models using mixed tensors in production.
@@ -38,7 +38,7 @@ Vespa allows you to add custom Java components for query and document processing
 If this code needs a shared lock across servers in a cluster,
 you can now configure a container cluster to run an embedded ZooKeeper cluster
 and access it through an injected component.
-[Read more](https://docs.vespa.ai/documentation/using-zookeeper.html)
+[Read more](https://docs.vespa.ai/en/using-zookeeper.html)
 
 
 #### Pyvespa

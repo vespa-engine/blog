@@ -21,15 +21,15 @@ Today, we’re excited to share the following updates:
 
 **Improved ONNX Support**
 
-Vespa has added more operations to its ONNX model API, such as GEneral Matrix to Matrix Multiplication (GEMM) - see [list of supported opsets](https://docs.vespa.ai/documentation/onnx.html#onnx-operation-support). Vespa has also improved support for PyTorch through ONNX, see the pytorch_test.py [example](https://github.com/vespa-engine/vespa/blob/master/model-integration/src/test/models/pytorch/pytorch_test.py#L60).
+Vespa has added more operations to its ONNX model API, such as GEneral Matrix to Matrix Multiplication (GEMM) - see [list of supported opsets](https://docs.vespa.ai/en/onnx.html#onnx-operation-support). Vespa has also improved support for PyTorch through ONNX, see the pytorch_test.py [example](https://github.com/vespa-engine/vespa/blob/master/model-integration/src/test/models/pytorch/pytorch_test.py#L60).
 
 **New Rank Feature attributeMatch().maxWeight**
 
-[attributeMatch(name).maxWeight](https://docs.vespa.ai/documentation/reference/rank-features.html#attributeMatch(name).maxWeight) was added in Vespa-7.135.5. The value is&nbsp; the maximum weight of the attribute keys matched in a weighted set attribute.
+[attributeMatch(name).maxWeight](https://docs.vespa.ai/en/reference/rank-features.html#attributeMatch(name).maxWeight) was added in Vespa-7.135.5. The value is&nbsp; the maximum weight of the attribute keys matched in a weighted set attribute.
 
 **Free Lists for Attribute Multivalue Mapping**
 
-Since Vespa-7.141.8, [multivalue attributes](https://docs.vespa.ai/documentation/attributes.html) uses a free list to improve performance. This reduces CPU (no compaction jobs) and approximately 10% memory. This primarily benefits applications with a high update rate to such attributes.
+Since Vespa-7.141.8, [multivalue attributes](https://docs.vespa.ai/en/attributes.html) uses a free list to improve performance. This reduces CPU (no compaction jobs) and approximately 10% memory. This primarily benefits applications with a high update rate to such attributes.
 
 **Faster Updates for Out-of-Sync Documents**
 

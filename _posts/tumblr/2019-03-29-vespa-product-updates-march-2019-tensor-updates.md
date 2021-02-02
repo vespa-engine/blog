@@ -17,15 +17,15 @@ This month, we’re excited to share the following updates with you:
 
 **Tensor update**
 
-Easily update individual tensor cells. [Add, remove, and modify cell is now supported](https://docs.vespa.ai/documentation/reference/document-json-format.html). This enables high throughput and continuous updates as tensor values can be updated without writing the full tensor.
+Easily update individual tensor cells. [Add, remove, and modify cell is now supported](https://docs.vespa.ai/en/reference/document-json-format.html). This enables high throughput and continuous updates as tensor values can be updated without writing the full tensor.
 
 **Advanced Query Trace**
 
-Query tracing now includes [matching and ranking execution information from content nodes](https://docs.vespa.ai/documentation/reference/search-api-reference.html#tracelevel) - Query Explain, &nbsp;is useful for performance optimization.
+Query tracing now includes [matching and ranking execution information from content nodes](https://docs.vespa.ai/en/reference/search-api-reference.html#tracelevel) - Query Explain, &nbsp;is useful for performance optimization.
 
 **Search coverage in access log**
 
-Search coverage is now available in the access log. This enables operators to track the fraction of queries that are degraded with lower coverage. Vespa has features to gracefully reduce query coverage in overload situations and now it’s easier to track this. Search coverage is a useful signal to reconfigure or increase the capacity for the application. Explore the [access log documentation](https://docs.vespa.ai/documentation/access-logging.html) to learn more.
+Search coverage is now available in the access log. This enables operators to track the fraction of queries that are degraded with lower coverage. Vespa has features to gracefully reduce query coverage in overload situations and now it’s easier to track this. Search coverage is a useful signal to reconfigure or increase the capacity for the application. Explore the [access log documentation](https://docs.vespa.ai/en/access-logging.html) to learn more.
 
 We welcome your [contributions](https://github.com/vespa-engine/vespa/blob/master/CONTRIBUTING.md) and feedback ([tweet](https://twitter.com/vespaengine) or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.
 

@@ -36,7 +36,7 @@ Vespa gives application developers the ability to feed data and models of any si
 
 Vespa can be run on premises or in the cloud. We provide both Docker images and rpm packages for Vespa, as well as guides for running them both on your own laptop or as an AWS cluster.
 
-We’ll follow up this initial announcement with a series of posts on our [blog](http://blog.vespa.ai) showing how to build a real-world application with Vespa, but you can get started right now by following the [getting started guide](http://docs.vespa.ai/documentation/vespa-quick-start.html) in our comprehensive [documentation](http://docs.vespa.ai).
+We’ll follow up this initial announcement with a series of posts on our [blog](http://blog.vespa.ai) showing how to build a real-world application with Vespa, but you can get started right now by following the [getting started guide](http://docs.vespa.ai/en/vespa-quick-start.html) in our comprehensive [documentation](http://docs.vespa.ai).
 
 Managing distributed systems is not easy. We have worked hard to make it easy to develop and operate applications on Vespa so that you can focus on creating features that make use of the ability to compute over large datasets in real time, rather than the details of managing clusters and data. You should be able to get an application up and running in less than ten minutes by following the documentation.
 

@@ -19,7 +19,7 @@ For example, in E-commerce,
 a nearest neighbor search for products in a vector space would typically be constrained by product metadata like inventory status and price.
 
 [Vespa](https://vespa.ai/) (the open source big data serving engine) already supports exact
-[nearest neighbor search](https://docs.vespa.ai/documentation/nearest-neighbor-search.html)
+[nearest neighbor search](https://docs.vespa.ai/en/nearest-neighbor-search.html)
 that is integrated with the Vespa query tree and its filter support.
 This enables you to get the exact nearest neighbors meeting the filter criterias of the query.
 This works well when the number of documents to calculate nearest neighbors for is small,
@@ -173,7 +173,7 @@ These challenges would have to be overcome in the actual implementation of the s
 We created a rough index structure design for both Annoy and HNSW to see how much memory the index would use. 
 
 In Vespa, a data point in a high dimensional vector space is represented by a
-[tensor](https://docs.vespa.ai/documentation/tensor-user-guide.html)
+[tensor](https://docs.vespa.ai/en/tensor-user-guide.html)
 of rank one with dimension size equal to the dimensionality of the vector space.
 To use this, a document type with a tensor field of such type is defined, and documents with tensors are fed to Vespa.
 A document type typically consists of multiple other fields as well, for instance, metadata fields and other tensor fields.

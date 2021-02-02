@@ -51,7 +51,7 @@ performance to acceptable levels for a production system.
 
 Vespa.ai is built for production and thus has [quite a few options for serving
 time
-optimizations](https://docs.vespa.ai/documentation/performance/sizing-search.html).
+optimizations](https://docs.vespa.ai/en/performance/sizing-search.html).
 We will particularly use Vespa.ai's ability to retrieve and rank documents
 using multiple worker threads per query to significant effect.  However, this
 application's main cost is in evaluating two BERT models. One of the questions
@@ -135,7 +135,7 @@ case, this means that the reader model is evaluated - in sequence - for each of
 the top 10 passages. This results in high query latency.
 
 However, Vespa has an option of using [multiple threads per
-search](https://docs.vespa.ai/documentation/reference/services-content.html#requestthreads).
+search](https://docs.vespa.ai/en/reference/services-content.html#requestthreads).
 Setting this value brings the average end-to-end latency down to 2.04 seconds,
 a more than 4x improvement without affecting the exact match score.
 
@@ -151,7 +151,7 @@ anyway.
 In general, Vespa has many options to tune performance, such as easily
 distributing the workload on additional content nodes. While we don't explore
 that here, see the [Vespa serving scaling
-guide](https://docs.vespa.ai/documentation/performance/sizing-search.html) for
+guide](https://docs.vespa.ai/en/performance/sizing-search.html) for
 more information.
 
 ### Token sequence length

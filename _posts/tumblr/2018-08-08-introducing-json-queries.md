@@ -29,7 +29,7 @@ and write it in the new POST request-format, which will look like this:
 
     POST /search/ { "yql": "select \* from sources \* where default contains \"bad\";", "ranking": { "queryCache": "false", "profile": "vespaProfile", "matchPhase": { "ascending": "true", "maxHits": 15, "diversity": { "minGroups": 10 } } }, "presentation": { "bolding": "false", "format": "json" }, "nocache": true }
 
-With Vespa running (see [Quick Start](https://docs.vespa.ai/documentation/vespa-quick-start.html) or [Blog Search Tutorial](https://docs.vespa.ai/documentation/tutorials/blog-search.html)), you can try building POST-queries with the _new querybuilder GUI_ at [http://localhost:8080/querybuilder/](http://localhost:8080/querybuilder/), which can help you build queries with e.g. autocompletion of YQL:
+With Vespa running (see [Quick Start](https://docs.vespa.ai/en/vespa-quick-start.html) or [Blog Search Tutorial](https://docs.vespa.ai/en/tutorials/blog-search.html)), you can try building POST-queries with the _new querybuilder GUI_ at [http://localhost:8080/querybuilder/](http://localhost:8080/querybuilder/), which can help you build queries with e.g. autocompletion of YQL:
 
 <figure data-orig-width="934" data-orig-height="1408" class="tmblr-full"><img src="/assets/2018-08-08-introducing-json-queries/tumblr_inline_pd55x78hVH1vpfrlb_540.png" alt="image" data-orig-width="934" data-orig-height="1408"></figure>
 
@@ -83,7 +83,7 @@ and equivalentenly with the new `GROUPING`-parameter:
 
 **Wrapping it up**
 
-In this post we have provided a gentle introduction to the new Vepsa POST query feature, and the `SELECT`-parameter. You can read more about writing [POST queries in the Vespa documentation](https://docs.vespa.ai/documentation/search-api.html). More examples of the POST query can be found in the Vespa tutorials.
+In this post we have provided a gentle introduction to the new Vepsa POST query feature, and the `SELECT`-parameter. You can read more about writing [POST queries in the Vespa documentation](https://docs.vespa.ai/en/search-api.html). More examples of the POST query can be found in the Vespa tutorials.
 
 Please share experiences. Happy searching!
 

@@ -47,7 +47,7 @@ We’ll see very shortly how this can be directly mapped to Vespa’s parent-chi
 
 **Creating the data model**
 
-Vespa’s fundamental data model is that of _documents_. Each document belongs to a particular schema and has a user-provided unique identifier. Such a schema is known as a document type and is specified in a [search definition](http://docs.vespa.ai/documentation/search-definitions.html) file. A document may have an arbitrary number of fields of different types. Some of these may be indexed, some may be kept in memory, all depending on the schema. A Vespa application may contain many document types.
+Vespa’s fundamental data model is that of _documents_. Each document belongs to a particular schema and has a user-provided unique identifier. Such a schema is known as a document type and is specified in a [search definition](http://docs.vespa.ai/en/search-definitions.html) file. A document may have an arbitrary number of fields of different types. Some of these may be indexed, some may be kept in memory, all depending on the schema. A Vespa application may contain many document types.
 
 Here’s how the Vespa equivalent of the above _denormalized_ schema could look (again bolding where we’re duplicating information):
 
@@ -101,7 +101,7 @@ We can efficiently update the budget of a single campaign, immediately affecting
 
 **Querying using imported fields**
 
-You can use imported fields in queries as if they were a regular field. Here are some examples using [YQL](http://docs.vespa.ai/documentation/query-language.html):
+You can use imported fields in queries as if they were a regular field. Here are some examples using [YQL](http://docs.vespa.ai/en/query-language.html):
 
 Find all ads that still have a budget left in their campaign:
 
@@ -111,7 +111,7 @@ Find all ads that have less than $500 left in their budget and belong to an adve
 
      select \* from ad where ad\_campaign\_budget \< 500 and ad\_campaign\_company\_name contains “ACME”; 
 
-Note that imported fields are not part of the default [document summary](http://docs.vespa.ai/documentation/document-summaries.html), so you must add them explicitly to a separate summary if you want their values returned as part of a query result:
+Note that imported fields are not part of the default [document summary](http://docs.vespa.ai/en/document-summaries.html), so you must add them explicitly to a separate summary if you want their values returned as part of a query result:
 
      document-summary my\_ad\_summary { summary ad\_campaign\_budget type int {} summary ad\_campaign\_company\_name type string {} summary cuteness type float {} summary cat\_picture\_url type string {} } 
 

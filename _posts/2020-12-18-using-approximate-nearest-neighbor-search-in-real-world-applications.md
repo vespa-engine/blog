@@ -260,7 +260,7 @@ production without coping with the complexity of maintaining many different
 subsystems.
 
 For more information, please check out [approximate nearest neighbor search
-using HNSW index](https://docs.vespa.ai/documentation/approximate-nn-hnsw.html)
+using HNSW index](https://docs.vespa.ai/en/approximate-nn-hnsw.html)
 at [vespa.ai](https://vespa.ai).
 
 

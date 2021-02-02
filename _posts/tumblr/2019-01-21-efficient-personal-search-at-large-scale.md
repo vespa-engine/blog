@@ -37,9 +37,9 @@ Well, as luck would have it we already did this in [Vespa](https://vespa.ai/). I
 
 The steps to using streaming search on [Vespa](https://vespa.ai/) are:
 
-- Set [_streaming mode_](https://docs.vespa.ai/documentation/reference/services-content.html#document) for the document type(s) in question in services.xml.
-- Write documents with a group name (e.g a user id) in their id, by setting g=[groupid] in the third part of the [document id](https://docs.vespa.ai/documentation/reference/services-content.html#document), as in e.g id:mynamespace:mydocumenttype:g=user123:doc123
-- Pass the group id in queries by setting the query property [streaming.groupname](https://docs.vespa.ai/documentation/reference/search-api-reference.html#streaming.groupname) in queries.
+- Set [_streaming mode_](https://docs.vespa.ai/en/reference/services-content.html#document) for the document type(s) in question in services.xml.
+- Write documents with a group name (e.g a user id) in their id, by setting g=[groupid] in the third part of the [document id](https://docs.vespa.ai/en/reference/services-content.html#document), as in e.g id:mynamespace:mydocumenttype:g=user123:doc123
+- Pass the group id in queries by setting the query property [streaming.groupname](https://docs.vespa.ai/en/reference/search-api-reference.html#streaming.groupname) in queries.
 
-That’s it! With those steps you have created a scalable, battle-proven personal search solution which is an order of magnitude cheaper than any alternative out there, with full support for [structured and text search](https://docs.vespa.ai/documentation/query-language.html), [advanced relevance including natural language and machine-learned models](https://docs.vespa.ai/documentation/ranking.html), and powerful [grouping and aggregation](https://docs.vespa.ai/documentation/grouping.html) for features like faceting. For more details see the [documentation on streaming search](https://docs.vespa.ai/documentation/streaming-search.html). Have fun with it, and as usual let us know what you are building!
+That’s it! With those steps you have created a scalable, battle-proven personal search solution which is an order of magnitude cheaper than any alternative out there, with full support for [structured and text search](https://docs.vespa.ai/en/query-language.html), [advanced relevance including natural language and machine-learned models](https://docs.vespa.ai/en/ranking.html), and powerful [grouping and aggregation](https://docs.vespa.ai/en/grouping.html) for features like faceting. For more details see the [documentation on streaming search](https://docs.vespa.ai/en/streaming-search.html). Have fun with it, and as usual let us know what you are building!
 

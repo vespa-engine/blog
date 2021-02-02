@@ -299,7 +299,7 @@ tensors and are used as inputs to the reader model.
 
 The embedding vector of the title and text is precomputed and stored as a
 tensor. This vector is used for dense retrieval, so we [enable the HNSW
-index](https://docs.vespa.ai/documentation/approximate-nn-hnsw.html) on this
+index](https://docs.vespa.ai/en/approximate-nn-hnsw.html) on this
 field for approximate nearest neighbor matching. A very nice feature of Vespa
 is that the HNSW index is not pre-built offline;  it is constructed online as
 data is indexed. This allows for applications that are much more responsive to
@@ -310,9 +310,9 @@ new data being fed into the system.
 A query in Vespa defines, among other things, how Vespa should recall documents
 (called the matching phase) and how Vespa should score the documents (called
 the ranking phase). Vespa provides a [rich query
-API](https://docs.vespa.ai/documentation/query-api.html), where queries are
+API](https://docs.vespa.ai/en/query-api.html), where queries are
 specified with the [Vespa YQL
-language](https://docs.vespa.ai/documentation/reference/query-language-reference.html).
+language](https://docs.vespa.ai/en/reference/query-language-reference.html).
 As the different retrieval strategies (term-based and embedding-based) have
 different query syntax, we have built a custom searcher component that allows
 us to build a unified search interface and only pass the actual question and
@@ -322,7 +322,7 @@ methods.
 The retrieval strategies differ both on what is recalled and how they are
 scored. In Vespa, scoring is expressed using ranking expressions that are
 configured in the document schema. Vespa supports [multi-phased
-ranking](https://docs.vespa.ai/documentation/phased-ranking.html), and we
+ranking](https://docs.vespa.ai/en/phased-ranking.html), and we
 exploit that here so that the first phase represents the retriever, and the
 second phase the reader. We set up the first phase ranking profile like this:
 

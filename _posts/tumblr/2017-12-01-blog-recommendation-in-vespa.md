@@ -12,10 +12,10 @@ This post builds upon the previous [blog search application]({% post_url /tumblr
 Prerequisites:
 
 - Install and build files - code source and build instructions for sbt and Spark is found at [Vespa Tutorial pt. 2](https://github.com/vespa-engine/sample-apps/tree/master/blog-tutorial-shared#vespa-tutorial-pt-2)
-- Install [Pig and Hadoop](http://docs.vespa.ai/documentation/tutorials/blog-recommendation.html#vespa-and-hadoop)
+- Install [Pig and Hadoop](http://docs.vespa.ai/en/tutorials/blog-recommendation.html#vespa-and-hadoop)
 - Put `trainPosts.json` in $VESPA\_SAMPLE\_APPS, the directory with the clone of [vespa sample apps](https://github.com/vespa-engine/sample-apps)
 - Put [vespa-hadoop.jar](http://search.maven.org/#search%7Cga%7C1%7Cvespa-hadoop) in $VESPA\_SAMPLE\_APPS
-- docker as in the [blog search tutorial](http://docs.vespa.ai/documentation/tutorials/blog-search.html)
+- docker as in the [blog search tutorial](http://docs.vespa.ai/en/tutorials/blog-search.html)
 
 ## Collaborative Filtering
 
@@ -107,7 +107,7 @@ At this point, the vectors with latent factors can be added to posts and users.
 
 Modern machine learning applications often make use of large, multidimensional feature spaces and perform complex operations on those features, such as in large logistic regression and deep learning models. It is therefore necessary to have an expressive framework to define and evaluate ranking expressions of such complexity at scale.
 
-Vespa comes with a Tensor framework, which unify and generalizes scalar, vector and matrix operations, handles the sparseness inherent to most machine learning application (most cases evaluated by the model is lacking values for most of the features) and allow for models to be continuously updated. Additional information about the Tensor framework can be found in the [tensor user guide](http://docs.vespa.ai/documentation/tensor-user-guide.html).
+Vespa comes with a Tensor framework, which unify and generalizes scalar, vector and matrix operations, handles the sparseness inherent to most machine learning application (most cases evaluated by the model is lacking values for most of the features) and allow for models to be continuously updated. Additional information about the Tensor framework can be found in the [tensor user guide](http://docs.vespa.ai/en/tensor-user-guide.html).
 
 We want to have those latent factors available in a Tensor representation to be used during ranking by the Tensor framework. A tensor field `user_item_cf` is added to `blog_post.sd` to hold the blog post latent factor:
 
@@ -207,7 +207,7 @@ Set up a rank function to return the best matching blog posts given some user la
         }
     }
 
-Configure the ranking framework to expect that `query(user_item_cf)` is a tensor, and that it is compatible with the attribute in a [query profile type](http://docs.vespa.ai/documentation/query-profiles.html#query-profile-types) - see `search/query-profiles/types/root.xml` and `search/query-profiles/default.xml`:
+Configure the ranking framework to expect that `query(user_item_cf)` is a tensor, and that it is compatible with the attribute in a [query profile type](http://docs.vespa.ai/en/query-profiles.html#query-profile-types) - see `search/query-profiles/types/root.xml` and `search/query-profiles/default.xml`:
 
     <query-profile-type id="root" inherits="native">
         <field name="ranking.features.query(user_item_cf)" type="tensor(user_item_cf[10])" />
@@ -245,7 +245,7 @@ The query string, decomposed:
 
 Next step is to query Vespa by user id, look up the user profile for the user, get the tensor from it and recommend documents based on this tensor (like the query in previous section). The user profiles is fed to Vespa in the `user_item_cf` field of the `user` document type.
 
-In short, set up a [searcher](http://docs.vespa.ai/documentation/searcher-development.html) to retrieve the user profile by user id - then run the query. When the [Vespa Container](http://docs.vespa.ai/documentation/jdisc/index.html) receives a request, it will create a `Query` representing it and execute a configured list of such Searcher components, called a [search chain](http://docs.vespa.ai/documentation/chained-components.html). The `query` object contains all the information needed to create a result to the request while the `Result` encapsulates all the data generated from a `Query`. The `Execution` object keeps track of the call state for an execution of the searchers of a search chain:
+In short, set up a [searcher](http://docs.vespa.ai/en/searcher-development.html) to retrieve the user profile by user id - then run the query. When the [Vespa Container](http://docs.vespa.ai/en/jdisc/index.html) receives a request, it will create a `Query` representing it and execute a configured list of such Searcher components, called a [search chain](http://docs.vespa.ai/en/chained-components.html). The `query` object contains all the information needed to create a result to the request while the `Result` encapsulates all the data generated from a `Query`. The `Execution` object keeps track of the call state for an execution of the searchers of a search chain:
 
     package com.yahoo.example;
     
@@ -400,7 +400,7 @@ Vespa was designed to keep low-latency performance even at Yahoo-like web scale.
 
 If you go with this approach, you need to replace the local file paths with the equivalent HDFS file paths in this tutorial.
 
-Vespa has [a set of tools](http://docs.vespa.ai/documentation/feed-using-hadoop-pig-oozie.html) to facilitate the interaction between Vespa and the Hadoop ecosystem. These can also be used locally. A Pig script example of feeding to Vespa is as simple as:
+Vespa has [a set of tools](http://docs.vespa.ai/en/feed-using-hadoop-pig-oozie.html) to facilitate the interaction between Vespa and the Hadoop ecosystem. These can also be used locally. A Pig script example of feeding to Vespa is as simple as:
 
     REGISTER vespa-hadoop.jar
     

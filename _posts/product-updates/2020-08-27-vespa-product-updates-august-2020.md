@@ -26,18 +26,18 @@ This makes it possible to scale evaluation to any corpus size without sacrificin
 #### Grafana how-to
 We released a new [Grafana](https://grafana.com/oss/grafana) integration
 by leveraging our existing [Prometheus](https://prometheus.io) integration, with a few improvements.
-This allows you to add Grafana monitoring to the [Quick Start](https://docs.vespa.ai/documentation/monitoring-with-grafana-quick-start.html)
+This allows you to add Grafana monitoring to the [Quick Start](https://docs.vespa.ai/en/monitoring-with-grafana-quick-start.html)
 and you can add a random load to generate a sample work graph.
 We've provided a sample application to get you started with monitoring Vespa using Grafana.
 
 #### Improved GEO Search Support
-[We added support for geoLocation items](https://docs.vespa.ai/documentation/geo-search.html)
-to the  [Vespa query language](https://docs.vespa.ai/documentation/query-language.html)
+[We added support for geoLocation items](https://docs.vespa.ai/en/geo-search.html)
+to the  [Vespa query language](https://docs.vespa.ai/en/query-language.html)
 to make it possible to create arbitrary query conditions which include positional information.
 We also added additional distance rank features to provide more support for ranking by positions. 
 
 #### Query Profile Variants Optimizations
-[Query Profile Variants](https://docs.vespa.ai/documentation/query-profiles.html#query-profile-variants)
+[Query Profile Variants](https://docs.vespa.ai/en/query-profiles.html#query-profile-variants)
 make it possible to configure bundles of query parameters which vary by properties of the request, such as e.g market, bucket, or device.
 We added a new algorithm for resolving the parameters that applies for a given query which greatly reduces both compilation and resolution time with variants,
 leading to faster container startup and lower query latency for applications using variants.
