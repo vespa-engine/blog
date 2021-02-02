@@ -7,7 +7,7 @@ tumblr_url: https://blog.vespa.ai/post/165763618906/open-sourcing-vespa-yahoos-b
 ---
 _By Jon Bratseth, Distinguished Architect, Vespa_
 
-Ever since we open sourced Hadoop in 2006, Yahoo – and now, Oath – has been committed to opening up its big data infrastructure to the larger developer community. Today, we are taking another major step in this direction by making [Vespa](http://vespa.ai), Yahoo’s big data processing and serving engine, available as open source on GitHub.
+Ever since we open sourced Hadoop in 2006, Yahoo – and now, Oath – has been committed to opening up its big data infrastructure to the larger developer community. Today, we are taking another major step in this direction by making [Vespa](https://vespa.ai), Yahoo’s big data processing and serving engine, available as open source on GitHub.
 
 <figure class="tmblr-full" data-orig-height="370" data-orig-width="554" title="" style=""><img src="/assets/2017-09-26-open-sourcing-vespa-yahoos-big-data-processing/tumblr_inline_oww84watnX1s12bpj_540.png" data-orig-height="370" data-orig-width="554"></figure>
 
@@ -36,7 +36,7 @@ Vespa gives application developers the ability to feed data and models of any si
 
 Vespa can be run on premises or in the cloud. We provide both Docker images and rpm packages for Vespa, as well as guides for running them both on your own laptop or as an AWS cluster.
 
-We’ll follow up this initial announcement with a series of posts on our [blog](http://blog.vespa.ai) showing how to build a real-world application with Vespa, but you can get started right now by following the [getting started guide](http://docs.vespa.ai/en/vespa-quick-start.html) in our comprehensive [documentation](http://docs.vespa.ai).
+We’ll follow up this initial announcement with a series of posts on our [blog](https://blog.vespa.ai) showing how to build a real-world application with Vespa, but you can get started right now by following the [getting started guide](https://docs.vespa.ai/en/vespa-quick-start.html) in our comprehensive [documentation](https://docs.vespa.ai).
 
 Managing distributed systems is not easy. We have worked hard to make it easy to develop and operate applications on Vespa so that you can focus on creating features that make use of the ability to compute over large datasets in real time, rather than the details of managing clusters and data. You should be able to get an application up and running in less than ten minutes by following the documentation.
 

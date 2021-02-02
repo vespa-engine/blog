@@ -49,7 +49,7 @@ For the purposes of this post, it is sufficient to use the first release of trai
 
 ## Requirements
 
-Indexing the full data set requires 23GB disk space. We have tested with a Docker container with 10GB RAM. We used similar settings as described in the [vespa quick start guide](http://docs.vespa.ai/en/vespa-quick-start.html). As in the guide we assume that the $VESPA\_SAMPLE\_APPS env variable points to the directory with your local clone of the [vespa sample apps](https://github.com/vespa-engine/sample-apps):
+Indexing the full data set requires 23GB disk space. We have tested with a Docker container with 10GB RAM. We used similar settings as described in the [vespa quick start guide](https://docs.vespa.ai/en/vespa-quick-start.html). As in the guide we assume that the $VESPA\_SAMPLE\_APPS env variable points to the directory with your local clone of the [vespa sample apps](https://github.com/vespa-engine/sample-apps):
 
     $ docker run -m 10G --detach --name vespa --hostname vespa --privileged --volume $VESPA_SAMPLE_APPS:/vespa-sample-apps --publish 8080:8080 vespaengine/vespa
 
@@ -61,7 +61,7 @@ Functional specification:
 - Allow blog posts to be sorted by both relevance and date
 - Allow grouping of search results by tag or category
 
-In terms of data, Vespa operates with the notion of [documents](http://docs.vespa.ai/en/documents.html). A document represents a single, searchable item in your system, e.g., a blog post, a photo, or a news article. Each document type must be defined in the Vespa configuration through a [search definition](http://docs.vespa.ai/en/search-definitions.html). Think of a search definition as being similar to a table definition in a relational database; it consists of a set of fields, each with a given name, a specific type, and some optional properties.
+In terms of data, Vespa operates with the notion of [documents](https://docs.vespa.ai/en/documents.html). A document represents a single, searchable item in your system, e.g., a blog post, a photo, or a news article. Each document type must be defined in the Vespa configuration through a [search definition](https://docs.vespa.ai/en/search-definitions.html). Think of a search definition as being similar to a table definition in a relational database; it consists of a set of fields, each with a given name, a specific type, and some optional properties.
 
 As an example, for this simple blog post search application, we could create the document type `blog_post` with the following fields:
 
@@ -74,13 +74,13 @@ The data fed into Vespa must match the structure of the search definition, and t
 
 ## Application Packages
 
-A Vespa [application package](http://docs.vespa.ai/en/cloudconfig/application-packages.html) is the set of configuration files and Java plugins that together define the behavior of a Vespa system: what functionality to use, the available document types, how ranking will be done and how data will be processed during feeding and indexing. The search definition, e.g., `blog_post.sd`, is a required part of an application package — the other required files are `services.xml` and `hosts.xml`.
+A Vespa [application package](https://docs.vespa.ai/en/cloudconfig/application-packages.html) is the set of configuration files and Java plugins that together define the behavior of a Vespa system: what functionality to use, the available document types, how ranking will be done and how data will be processed during feeding and indexing. The search definition, e.g., `blog_post.sd`, is a required part of an application package — the other required files are `services.xml` and `hosts.xml`.
 
 The sample application [blog search](https://github.com/vespa-engine/sample-apps/tree/master/blog-search) creates a simple but functional blog post search engine. The application package is found in [src/main/application](https://github.com/vespa-engine/sample-apps/tree/master/blog-search/src/main/application).
 
 **Services Specification**
 
-[services.xml](http://docs.vespa.ai/en/reference/services.html) defines the services that make up the Vespa application — which services to run and how many nodes per service:
+[services.xml](https://docs.vespa.ai/en/reference/services.html) defines the services that make up the Vespa application — which services to run and how many nodes per service:
 
     <?xml version='1.0' encoding='UTF-8'?>
     <services version='1.0'>
@@ -113,18 +113,18 @@ The sample application [blog search](https://github.com/vespa-engine/sample-apps
     
     </services>
 
-- `<container>` defines the [container](http://docs.vespa.ai/en/jdisc/) cluster for document, query and result processing  
-- `<search>` sets up the [search](http://docs.vespa.ai/en/search-api.html) endpoint for Vespa queries. The default port is 8080.  
-- `<document-api>` sets up the [document](http://docs.vespa.ai/en/document-api.html) endpoint for feeding.  
-- `<nodes>` defines the nodes required per service. (See the [reference](http://docs.vespa.ai/en/reference/services-container.html) for more on container cluster setup.)  
+- `<container>` defines the [container](https://docs.vespa.ai/en/jdisc/) cluster for document, query and result processing  
+- `<search>` sets up the [search](https://docs.vespa.ai/en/search-api.html) endpoint for Vespa queries. The default port is 8080.  
+- `<document-api>` sets up the [document](https://docs.vespa.ai/en/document-api.html) endpoint for feeding.  
+- `<nodes>` defines the nodes required per service. (See the [reference](https://docs.vespa.ai/en/reference/services-container.html) for more on container cluster setup.)  
 - `<content>` defines how documents are stored and searched  
 - `<redundancy>` denotes how many copies to keep of each document.  
-- `<documents>` assigns the document types in the search definition — the content cluster capacity can be increased by adding node elements — see [elastic Vespa](http://docs.vespa.ai/en/elastic-vespa.html). (See also the [reference](http://docs.vespa.ai/en/reference/services-content.html) for more on content cluster setup.)  
+- `<documents>` assigns the document types in the search definition — the content cluster capacity can be increased by adding node elements — see [elastic Vespa](https://docs.vespa.ai/en/elastic-vespa.html). (See also the [reference](https://docs.vespa.ai/en/reference/services-content.html) for more on content cluster setup.)  
 - `<nodes>` defines the hosts for the content cluster.  
 
 **Deployment Specification**
 
-[hosts.xml](http://docs.vespa.ai/en/reference/hosts.html) contains a list of all the hosts/nodes that is part of the application, with an alias for each of them. Here we use a single node:
+[hosts.xml](https://docs.vespa.ai/en/reference/hosts.html) contains a list of all the hosts/nodes that is part of the application, with an alias for each of them. Here we use a single node:
 
     <?xml version="1.0" encoding="utf-8" ?>
     <hosts>
@@ -209,15 +209,15 @@ The `blog_post` document type mentioned in `src/main/application/service.xml` is
 
 `document` is wrapped inside another element called `search`. The name following these elements, here `blog_post`, must be exactly the same for both.
 
-The field property `indexing` configures the indexing pipeline for a field, which defines how Vespa will treat input during indexing — see [indexing language](http://docs.vespa.ai/en/reference/advanced-indexing-language.html). Each part of the indexing pipeline is separated by the pipe character ‘|’:
+The field property `indexing` configures the indexing pipeline for a field, which defines how Vespa will treat input during indexing — see [indexing language](https://docs.vespa.ai/en/reference/advanced-indexing-language.html). Each part of the indexing pipeline is separated by the pipe character ‘|’:
 
 - `index:` Create a search index for this field
-- `attribute:` Store this field in memory as an [attribute](http://docs.vespa.ai/en/attributes.html) — for [sorting](http://docs.vespa.ai/en/reference/sorting.html), [searching](http://docs.vespa.ai/en/search-api.html) and [grouping](http://docs.vespa.ai/en/grouping.html)
-- `summary:` Let this field be part of the [document summary](http://docs.vespa.ai/en/document-summaries.html) in the result set
+- `attribute:` Store this field in memory as an [attribute](https://docs.vespa.ai/en/attributes.html) — for [sorting](https://docs.vespa.ai/en/reference/sorting.html), [searching](https://docs.vespa.ai/en/search-api.html) and [grouping](https://docs.vespa.ai/en/grouping.html)
+- `summary:` Let this field be part of the [document summary](https://docs.vespa.ai/en/document-summaries.html) in the result set
 
 ## Deploy the Application Package
 
-Once done with the application package, deploy the Vespa application — build and start Vespa as in the [quick start](http://docs.vespa.ai/en/vespa-quick-start.html). Deploy the application:
+Once done with the application package, deploy the Vespa application — build and start Vespa as in the [quick start](https://docs.vespa.ai/en/vespa-quick-start.html). Deploy the application:
 
     $ cd /vespa-sample-apps/blog-search
     $ vespa-deploy prepare src/main/application && vespa-deploy activate
@@ -233,7 +233,7 @@ The data fed to Vespa must match the search definition for the document type. Th
     $ head -10000 trainPosts.json > trainPostsSmall.json
     $ python parse.py trainPostsSmall.json > feed.json
 
-Send this to Vespa using one of the tools Vespa provides for feeding. Here we will use the [Java feeding API](http://docs.vespa.ai/en/vespa-http-client.html):
+Send this to Vespa using one of the tools Vespa provides for feeding. Here we will use the [Java feeding API](https://docs.vespa.ai/en/vespa-http-client.html):
 
     $ java -jar $VESPA_HOME/lib/jars/vespa-http-client-jar-with-dependencies.jar --verbose --file feed.json --host localhost --port 8080
 
@@ -241,7 +241,7 @@ Note that in the sample-apps/blog-search directory, there is a file with sample 
 
 **Track feeding progress**
 
-Use the [Metrics API](http://docs.vespa.ai/en/reference/metrics.html) to track number of documents indexed:
+Use the [Metrics API](https://docs.vespa.ai/en/reference/metrics.html) to track number of documents indexed:
 
     $ curl -s 'http://localhost:19112/state/v1/metrics' | tr ',' '\n' | grep -A 2 proton.doctypes.blog_post.numdocs
 
@@ -251,7 +251,7 @@ You can also inspect the search node state by
 
 **Fetch documents**
 
-Fetch documents by document id using the [Document API](http://docs.vespa.ai/en/api.html):
+Fetch documents by document id using the [Document API](https://docs.vespa.ai/en/api.html):
 
     $ curl -s 'http://localhost:8080/document/v1/blog-search/blog_post/docid/1750271' | python -m json.tool
 
@@ -261,7 +261,7 @@ Searching with Vespa is done using a HTTP GET requests, like:
 
     <host:port>/<search>?<yql=value1>&<param2=value2>...
 
-The only mandatory parameter is the query, using `yql=<yql query>`. More details can be found in the [Search API](http://docs.vespa.ai/en/search-api.html).
+The only mandatory parameter is the query, using `yql=<yql query>`. More details can be found in the [Search API](https://docs.vespa.ai/en/search-api.html).
 
 Given the above search definition, where the fields `title` and `content` are part of the `fieldset default`, any document containing the word “music” in one or more of these two fields matches our query below:
 
@@ -292,7 +292,7 @@ This means that the query above really means “Return all documents of type blo
 
 ## Relevance and Ranking
 
-[Ranking](http://docs.vespa.ai/en/ranking.html) and relevance were briefly mentioned above; what is really the relevance of a hit, and how can one change the relevance calculations? It is time to introduce rank profiles and rank expressions — simple, yet powerful methods for tuning the relevance.
+[Ranking](https://docs.vespa.ai/en/ranking.html) and relevance were briefly mentioned above; what is really the relevance of a hit, and how can one change the relevance calculations? It is time to introduce rank profiles and rank expressions — simple, yet powerful methods for tuning the relevance.
 
 Relevance is a measure of how well a given document matches a query. The default relevance is calculated by a formula that takes several factors into consideration, but it computes, in essence, how well the document matches the terms in the query. Sample use cases for tweaking the relevance calculations:
 
@@ -320,7 +320,7 @@ Also, add a `popularity` field at the end of the `document` definition:
                 indexing: summary | attribute
             }
 
-Notes (more information can be found in the [search definition reference](http://docs.vespa.ai/en/reference/search-definitions-reference.html#rank-profile)):
+Notes (more information can be found in the [search definition reference](https://docs.vespa.ai/en/reference/search-definitions-reference.html#rank-profile)):
 
 - _rank-profile post\_popularity inherits default_  
 This configures Vespa to create a new rank profile named `post_popularity`, which inherits all the properties of the default rank-profile; only properties that are explicitly defined, or overridden, will differ from those of the default rank-profile.
@@ -349,7 +349,7 @@ and find documents with high `popularity` values at the top.
 
 **What is an attribute?**
 
-An [attribute](http://docs.vespa.ai/en/attributes.html) is an in-memory field - this is different from index fields, which may be moved to a disk-based index as more documents are added and the index grows. Since attributes are kept in memory, they are excellent for fields which require fast access, e.g., fields used for sorting or grouping query results. The downside is higher memory usage. By default, no index is generated for attributes, and search over these defaults to a linear scan - to build an index for an attribute field, include `attribute:fast-search` in the field definition.
+An [attribute](https://docs.vespa.ai/en/attributes.html) is an in-memory field - this is different from index fields, which may be moved to a disk-based index as more documents are added and the index grows. Since attributes are kept in memory, they are excellent for fields which require fast access, e.g., fields used for sorting or grouping query results. The downside is higher memory usage. By default, no index is generated for attributes, and search over these defaults to a linear scan - to build an index for an attribute field, include `attribute:fast-search` in the field definition.
 
 **Defining an attribute field**
 
@@ -359,7 +359,7 @@ An example is found in `blog_post.sd`:
         indexing: summary | attribute
     }
 
-The data has format YYYYMMDD. And since the field is an `int`, it can be used for [range searches](http://docs.vespa.ai/en/tutorials/blog-search.html#range-searches).
+The data has format YYYYMMDD. And since the field is an `int`, it can be used for [range searches](https://docs.vespa.ai/en/tutorials/blog-search.html#range-searches).
 
 **Example queries using attribute field**
 
@@ -506,7 +506,7 @@ Finally, all numeric fields should always be attributes.
 
 ## Clean environment by removing all documents
 
-[vespa-remove-index](http://docs.vespa.ai/en/reference/vespa-cmdline-tools.html#vespa-remove-index) removes all documents:
+[vespa-remove-index](https://docs.vespa.ai/en/reference/vespa-cmdline-tools.html#vespa-remove-index) removes all documents:
 
     $ vespa-stop-services
     $ vespa-remove-index

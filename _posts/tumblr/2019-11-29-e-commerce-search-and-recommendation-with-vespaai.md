@@ -12,7 +12,7 @@ tags:
 - holiday shopping online
 tumblr_url: https://blog.vespa.ai/post/189367412801/e-commerce-search-and-recommendation-with-vespaai
 ---
-Holiday shopping season is upon us and it’s time for a blog post on E-commerce search and recommendation using [Vespa.ai](http://vespa.ai/). Vespa.ai is used as the search and recommendation backend at multiple Yahoo e-commerce sites in Asia, like [tw.buy.yahoo.com](https://tw.buy.yahoo.com/).
+Holiday shopping season is upon us and it’s time for a blog post on E-commerce search and recommendation using [Vespa.ai](https://vespa.ai/). Vespa.ai is used as the search and recommendation backend at multiple Yahoo e-commerce sites in Asia, like [tw.buy.yahoo.com](https://tw.buy.yahoo.com/).
 
 This blog post discusses some of the challenges in e-commerce search and recommendation, and shows how they can be solved using the features of Vespa.ai.
 

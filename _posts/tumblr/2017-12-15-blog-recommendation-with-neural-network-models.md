@@ -89,7 +89,7 @@ The reranking phase, if specified, will by default be run on the 100 best hits o
 
 **Constant Tensor files**
 
-Once the model has been trained in TensorFlow, export the model parameters _(W1,W2,b1,b2)_ to the application folder as Tensors according to the [Vespa Document JSON format](http://docs.vespa.ai/en/reference/document-json-format.html).
+Once the model has been trained in TensorFlow, export the model parameters _(W1,W2,b1,b2)_ to the application folder as Tensors according to the [Vespa Document JSON format](https://docs.vespa.ai/en/reference/document-json-format.html).
 
 The complete code to serialize the model parameters using Vespa Tensor format can be found in the [utility scripts](https://github.com/vespa-engine/sample-apps/tree/master/blog-tutorial-shared#export-model-parameters-to-tensor-vespa-format) but the following code snipped shows how to serialize the hidden layer weights _W1_:
 
@@ -175,7 +175,7 @@ Since we want to evaluate the neural network model we have trained, we need to d
             type: tensor(final[1])
         }
 
-Now, we specify a second rank-profile called `nn_tensor` that will use the same first phase as the rank-profile `tensor` but will rerank the top 200 documents using the neural network model as second phase. We refer to the [Tensor Reference document](http://docs.vespa.ai/en/reference/tensor.html) for more information regarding the Tensor operations used in the code below.
+Now, we specify a second rank-profile called `nn_tensor` that will use the same first phase as the rank-profile `tensor` but will rerank the top 200 documents using the neural network model as second phase. We refer to the [Tensor Reference document](https://docs.vespa.ai/en/reference/tensor.html) for more information regarding the Tensor operations used in the code below.
 
         # rank profile with neural network model as
         # second phase

@@ -20,7 +20,7 @@ This month, we’re excited to share the following updates:
 
 **Nearest Neighbor and Tensor Ranking**
 
-[Tensors](https://docs.vespa.ai/en/tensor-user-guide.html) are native to Vespa. We compared [elastic.co](http://elastic.co) to [vespa.ai](http://vespa.ai) testing nearest neighbor ranking using dense tensor dot product. The result of an out-of-the-box configuration demonstrated that Vespa performed 5 times faster than Elastic. [View the test results](https://github.com/jobergum/dense-vector-ranking-performance).
+[Tensors](https://docs.vespa.ai/en/tensor-user-guide.html) are native to Vespa. We compared [elastic.co](https://elastic.co) to [vespa.ai](https://vespa.ai) testing nearest neighbor ranking using dense tensor dot product. The result of an out-of-the-box configuration demonstrated that Vespa performed 5 times faster than Elastic. [View the test results](https://github.com/jobergum/dense-vector-ranking-performance).
 
 **Optimized JSON Tensor Feed Format**
 
