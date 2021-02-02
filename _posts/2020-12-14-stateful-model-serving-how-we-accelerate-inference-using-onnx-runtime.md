@@ -79,7 +79,7 @@ Trondheim in Norway.
 Building upon experience gained over many years, Vespa.ai has evolved
 substantially to become what it is today. It now stands as a battle-proven
 general engine for real-time computation over large data sets. It has [many
-features](https://docs.vespa.ai/documentation/features.html) that make it
+features](https://docs.vespa.ai/en/features.html) that make it
 suitable for web-scale applications. It stores and indexes data with instant
 writes so that queries, selection, and processing over the data can be
 performed efficiently at serving time. It's elastic and fault-tolerant, so
@@ -108,12 +108,12 @@ consists of:
 
 The ranking profiles contain ranking expressions, which are mathematical
 expressions combining [ranking
-features](https://docs.vespa.ai/documentation/ranking-expressions-features.html).
+features](https://docs.vespa.ai/en/ranking-expressions-features.html).
 Some features retrieve data from sources such as the query, stored data, or
 constants. Others compute or aggregate data in various ways. Ranking profiles
 support multi-phased evaluation, so a cheap model can be evaluated in the first
 phase and a more expensive model for the second. Both sparse and dense
-[tensors](https://docs.vespa.ai/documentation/tensor-user-guide.html) are
+[tensors](https://docs.vespa.ai/en/tensor-user-guide.html) are
 supported for more advanced computation.
 
 After the application is deployed, it is ready to handle data writes and
@@ -209,7 +209,7 @@ sorted according to this score before being returned.
 Our initial implementation of the `onnx` ranking feature was to import the ONNX
 model and convert the entire graph into native Vespa.ai expressions. This was
 feasible because of the flexibility of the various [tensor
-operations](https://docs.vespa.ai/documentation/reference/ranking-expressions.html#tensor-functions)
+operations](https://docs.vespa.ai/en/reference/ranking-expressions.html#tensor-functions)
 Vespa.ai supports. For instance, a single neural network layer could be
 converted like this:
 

@@ -38,16 +38,16 @@ using approximate nearestneighbors and large BERT models to reach state-of-the-a
 
 #### Hamming Distance
 The approximate nearest neighbor ranking feature now also supports the
-[hamming distance metric](https://docs.vespa.ai/documentation/reference/schema-reference.html#distance-metric).
+[hamming distance metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric).
 
 #### Conditional Update Performance Improvements
 Conditional writes are used for test-and-set operations when updating the document corpus.
 As long as the fields in the condition are
-[attributes](https://docs.vespa.ai/documentation/attributes.html) (i.e. in memory),
+[attributes](https://docs.vespa.ai/en/attributes.html) (i.e. in memory),
 the write throughput is now the same as without a condition, up to 3x better than before the optimization.
 
 #### Compressed Transaction Log with Synced Ack
-Vespa uses a [transaction log](https://docs.vespa.ai/documentation/proton.html#transaction-log) for write performance.
+Vespa uses a [transaction log](https://docs.vespa.ai/en/proton.html#transaction-log) for write performance.
 The transaction log is now synced to disk before the write ack is returned.
 The transaction log is now also compressed in order to reduce IO,
 and can improve update throughput by 10X if writing to attributes only.

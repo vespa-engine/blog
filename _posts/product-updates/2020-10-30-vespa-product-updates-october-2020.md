@@ -25,7 +25,7 @@ This month, we’re excited to share the following updates:
 
 #### New Container thread pool configurations
 When deploying, application changes are
-[live reloaded](https://docs.vespa.ai/documentation/cloudconfig/application-packages.html) into the running JVM.
+[live reloaded](https://docs.vespa.ai/en/cloudconfig/application-packages.html) into the running JVM.
 New code requires JVM JIT compilation, which temporarily loads the container
 and causes increased query latencies for a second or two.
 Many parallel threads aggravate this problem.
@@ -39,7 +39,7 @@ Vespa users feed their applications through feed containers in their Vespa clust
 using either an asynchronous or a synchronous HTTP API.
 Optimizations and fine-tuning of concurrent execution in these feed containers,
 and the change to asynchronous handling of requests in the synchronous
-[document/v1 API](https://docs.vespa.ai/documentation/reference/document-v1-api-reference.html),
+[document/v1 API](https://docs.vespa.ai/en/reference/document-v1-api-reference.html),
 has made the feed container more effective.
 This has greatly increased quality of service for both search and feed during container restarts.
 As a bonus, we also see a 50% increase in throughput for our performance test suite of the synchronous HTTP API,
@@ -47,7 +47,7 @@ since Vespa version 7.304.50 onwards.
 
 
 #### Visibility-delay for feeding no more
-[Visibility-delay](https://docs.vespa.ai/documentation/reference/services-content.html#visibility-delay)
+[Visibility-delay](https://docs.vespa.ai/en/reference/services-content.html#visibility-delay)
 was used to batch writes for increased write throughput.
 With the recent optimizations, there is no gain in batching writes,
 now it is as fast without it, the batch code is hence removed.

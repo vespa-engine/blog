@@ -18,19 +18,19 @@ This month, we’re excited to share the following updates:
 
 #### Improved Slow Node Tolerance
 To improve query scaling, applications can
-[group content nodes](https://docs.vespa.ai/documentation/performance/sizing-search.html)
+[group content nodes](https://docs.vespa.ai/en/performance/sizing-search.html)
 to balance static and dynamic query cost.
 The largest Vespa applications use a few hundred nodes.
 This is a great feature to optimize cost vs performance in high-query applications.
 Since Vespa-7.225.71, the
-[adaptive dispatch policy](https://docs.vespa.ai/documentation/reference/services-content.html#dispatch-policy)
+[adaptive dispatch policy](https://docs.vespa.ai/en/reference/services-content.html#dispatch-policy)
 is made default.
 This balances load to the node groups based on latency rather than just round robin -
 a slower node will get less load, and overall latency is lower.
 
 
 #### Multi-Threaded Rank Profile Compilation
-Queries are using a [rank profile](https://docs.vespa.ai/documentation/ranking.html) to score documents.
+Queries are using a [rank profile](https://docs.vespa.ai/en/ranking.html) to score documents.
 Rank profiles can be huge, like machine learned models.
 The models are compiled and validated when deployed to Vespa.
 Since Vespa-7.225.71, the compilation is multi-threaded, cutting compile time to 10% for large models.
@@ -38,7 +38,7 @@ This makes content node startup quicker, which is important for rolling upgrades
 
 
 #### Reduced Peak Memory at Startup
-[Attributes](https://docs.vespa.ai/documentation/attributes.html)
+[Attributes](https://docs.vespa.ai/en/attributes.html)
 is a unique Vespa feature used for high feed performance for low-latency applications.
 It enables writing directly to memory for immediate serving.
 At restart, these structures are reloaded.
@@ -56,7 +56,7 @@ Compaction resumes once the remove rate is low again.
 
 
 #### Increased Tensor Performance
-[Tensor](https://docs.vespa.ai/documentation/tensor-user-guide.html)
+[Tensor](https://docs.vespa.ai/en/tensor-user-guide.html)
 is a field type used in advanced ranking expressions, with heavy CPU usage.
 Simple tensor joins are now optimized and more optimizations will follow in June.
 

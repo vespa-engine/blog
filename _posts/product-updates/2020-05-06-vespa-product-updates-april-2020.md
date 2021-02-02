@@ -21,7 +21,7 @@ Vespa now provides an optimization which lets you control the tradeoff between t
 vs. the probability of getting a 100% global result.
 As this works out, tolerating a small probability of less than 100% correctness
 gives a large reduction in network usage.
-[Read more](https://docs.vespa.ai/documentation/reference/services-content.html#top-k-probability).
+[Read more](https://docs.vespa.ai/en/reference/services-content.html#top-k-probability).
 
 
 #### Improved Node Auto-fail Handling
@@ -36,7 +36,7 @@ when a node is under heavy migration load.
 #### CloudWatch Metric Import
 Vespa metrics can now be pushed or pulled into
 [AWS CloudWatch](https://aws.amazon.com/cloudwatch/).
-Read more in [monitoring](https://docs.vespa.ai/documentation/monitoring.html). 
+Read more in [monitoring](https://docs.vespa.ai/en/monitoring.html). 
 
 
 

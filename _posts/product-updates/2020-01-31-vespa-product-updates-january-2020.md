@@ -21,12 +21,12 @@ This month, we’re excited to share the following updates:
 
 #### Tensor Functions
 The tensor language has been extended with functions to allow the representation of very complex neural nets, such as [BERT](https://github.com/google-research/bert) models, and better support for working with mapped (sparse) tensors:
-* [Slice](https://docs.vespa.ai/documentation/reference/ranking-expressions.html#slice)
+* [Slice](https://docs.vespa.ai/en/reference/ranking-expressions.html#slice)
   makes it possible to extract values and subspaces from tensors.
-* [Literal tensors](https://docs.vespa.ai/documentation/reference/ranking-expressions.html#literal)
+* [Literal tensors](https://docs.vespa.ai/en/reference/ranking-expressions.html#literal)
   make it possible to create tensors on the fly, for instance from values sliced out of other tensors
   or from a list of scalar attributes or functions.
-* [Merge](https://docs.vespa.ai/documentation/reference/ranking-expressions.html#merge)
+* [Merge](https://docs.vespa.ai/en/reference/ranking-expressions.html#merge)
   produces a new tensor from two mapped tensors of the same type,
   where a lambda to resolve is invoked only for overlapping values.
   This can be used, for example, to supply default values which are overridden by an argument tensor.
@@ -34,14 +34,14 @@ The tensor language has been extended with functions to allow the representation
 
 #### New Sizing Guides
 Vespa is used for applications with high performance or cost requirements.
-New sizing guides for [queries](https://docs.vespa.ai/documentation/performance/sizing-search.html) and
-[writes](https://docs.vespa.ai/documentation/performance/sizing-feeding.html)
+New sizing guides for [queries](https://docs.vespa.ai/en/performance/sizing-search.html) and
+[writes](https://docs.vespa.ai/en/performance/sizing-feeding.html)
 are now available to help teams use Vespa optimally.
 
 
 #### Performance Improvement for Matched Elements in Map/Array-of-Struct
 As maps or arrays in documents can often grow large,
-applications use [matched-elements-only](https://docs.vespa.ai/documentation/reference/search-definitions-reference.html#matched-elements-only)
+applications use [matched-elements-only](https://docs.vespa.ai/en/reference/search-definitions-reference.html#matched-elements-only)
 to return only matched items. This also simplifies application code.
 Performance for this feature is now improved - ex: an array or map with 20.000 elements is now 5x faster.
 

@@ -61,13 +61,13 @@ A good approach for autosuggest was to:
 
 1. Make all document fields searchable with autosuggest of type (in-memory) attribute  
 
-  1. [https://docs.vespa.ai/documentation/attributes.html&nbsp;](https://docs.vespa.ai/documentation/attributes.html)
-  2. [https://docs.vespa.ai/documentation/reference/search-definitions-reference.html#attribute&nbsp;](https://docs.vespa.ai/documentation/reference/search-definitions-reference.html#attribute)
-  3. [https://docs.vespa.ai/documentation/search-definitions.html](https://docs.vespa.ai/documentation/search-definitions.html) (basics)
+  1. [https://docs.vespa.ai/en/attributes.html&nbsp;](https://docs.vespa.ai/en/attributes.html)
+  2. [https://docs.vespa.ai/en/reference/search-definitions-reference.html#attribute&nbsp;](https://docs.vespa.ai/en/reference/search-definitions-reference.html#attribute)
+  3. [https://docs.vespa.ai/en/search-definitions.html](https://docs.vespa.ai/en/search-definitions.html) (basics)
 2. Avoid snippet generation and using the document store by overriding the document-summary setting in search definitions to only access attributes  
 
-  1. [https://docs.vespa.ai/documentation/document-summaries.html](https://docs.vespa.ai/documentation/document-summaries.html)&nbsp;
-  2. [https://docs.vespa.ai/documentation/nativerank.html](https://docs.vespa.ai/documentation/nativerank.html)
+  1. [https://docs.vespa.ai/en/document-summaries.html](https://docs.vespa.ai/en/document-summaries.html)&nbsp;
+  2. [https://docs.vespa.ai/en/nativerank.html](https://docs.vespa.ai/en/nativerank.html)
 <figure data-orig-width="336" data-orig-height="720" class="tmblr-full"><img src="/assets/2018-09-03-vespa-at-zedge-providing-personalization-content/tumblr_inline_peh87uqn7l1vpfrlb_540.png" alt="image" data-orig-width="336" data-orig-height="720"></figure>
 
 The figure above illustrates the autosuggest architecture. When the user starts typing in the search field, we fire a query with the search prefix to the Cloudflare worker - which in case of a cache hit returns the result (possible queries) to the client. In case of a cache miss the Cloudflare worker forwards the query to our Vespa instance handling autosuggest.
@@ -78,8 +78,8 @@ Regarding external API for autosuggest we use [Cloudflare Workers](https://blog.
 
 Without going into details we had several recommender and search services to adapt to Vespa. These services were adapted by writing custom Vespa searchers and in some cases search chains:
 
-- [https://docs.vespa.ai/documentation/searcher-development.html](https://docs.vespa.ai/documentation/searcher-development.html)&nbsp;  
-- [https://docs.vespa.ai/documentation/chained-components.html](https://docs.vespa.ai/documentation/chained-components.html)&nbsp;  
+- [https://docs.vespa.ai/en/searcher-development.html](https://docs.vespa.ai/en/searcher-development.html)&nbsp;  
+- [https://docs.vespa.ai/en/chained-components.html](https://docs.vespa.ai/en/chained-components.html)&nbsp;  
 
 The main change compared to our old recommender and related content services was the degree of dynamicity and freshness of serving, i.e. with Vespa more ranking signals are calculated on the fly using Vespa’s tensor support instead of being precalculated and fed into services periodically. Another benefit of this was that the amount of computational (big data) resources and code for recommender & related content processing was heavily reduced.
 
@@ -92,9 +92,9 @@ A main focus was to make testing and deployment of Vespa services with continuou
 
 For monitoring we created a tool that continuously read Vespa metrics, stored them in Prometheus (a time series database) and visualized them them with Grafana. This tool can be found on [https://github.com/vespa-engine/vespa\_exporter](https://github.com/vespa-engine/vespa_exporter). More information about Vespa metrics and monitoring:
 
-- [https://docs.vespa.ai/documentation/reference/metrics-health-format.html](https://docs.vespa.ai/documentation/reference/metrics-health-format.html)  
-- [https://docs.vespa.ai/documentation/jdisc/metrics.html](https://docs.vespa.ai/documentation/jdisc/metrics.html)  
-- [https://docs.vespa.ai/documentation/operations/admin-monitoring.html](https://docs.vespa.ai/documentation/operations/admin-monitoring.html)  
+- [https://docs.vespa.ai/en/reference/metrics-health-format.html](https://docs.vespa.ai/en/reference/metrics-health-format.html)  
+- [https://docs.vespa.ai/en/jdisc/metrics.html](https://docs.vespa.ai/en/jdisc/metrics.html)  
+- [https://docs.vespa.ai/en/operations/admin-monitoring.html](https://docs.vespa.ai/en/operations/admin-monitoring.html)  
 <figure data-orig-width="960" data-orig-height="720" class="tmblr-full"><img src="/assets/2018-09-03-vespa-at-zedge-providing-personalization-content/tumblr_inline_peh89qWRYe1vpfrlb_540.png" alt="image" data-orig-width="960" data-orig-height="720"></figure>
 ## Conclusion
 

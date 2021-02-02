@@ -17,11 +17,11 @@ This month, we’re excited to share the following updates with you:
 
 **Parent/Child**
 
-We’ve added support for multiple levels of parent-child document references. Documents with references to parent documents can now import fields, with minimal impact on performance. This simplifies updates to parent data as no denormalization is needed and supports use cases with many-to-many relationships, like Product Search. Read more in [parent-child](https://docs.vespa.ai/documentation/parent-child.html).
+We’ve added support for multiple levels of parent-child document references. Documents with references to parent documents can now import fields, with minimal impact on performance. This simplifies updates to parent data as no denormalization is needed and supports use cases with many-to-many relationships, like Product Search. Read more in [parent-child](https://docs.vespa.ai/en/parent-child.html).
 
 **File URL references in application packages**
 
-Serving nodes sometimes require data files which are so large that it doesn’t make sense for them to be stored and deployed in the application package. Such files can now be included in application packages by using the [URL reference](https://docs.vespa.ai/documentation/cloudconfig/application-packages.html). When the application is redeployed, the files are automatically downloaded and injected into the components who depend on them.
+Serving nodes sometimes require data files which are so large that it doesn’t make sense for them to be stored and deployed in the application package. Such files can now be included in application packages by using the [URL reference](https://docs.vespa.ai/en/cloudconfig/application-packages.html). When the application is redeployed, the files are automatically downloaded and injected into the components who depend on them.
 
 **Batch feed in java client**
 

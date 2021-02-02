@@ -244,7 +244,7 @@ One consideration is that Vespa evaluates the model once per candidate. This
 means that the latency is directly proportional to the number of candidates to
 evaluate the model on. The default number of threads per query is set to 1, but
 [this is easily
-tuned](https://docs.vespa.ai/documentation/reference/services-content.html#requestthreads-persearch).
+tuned](https://docs.vespa.ai/en/reference/services-content.html#requestthreads-persearch).
 This allows for lower latency when evaluating multiple candidates. Note that
 using a larger number of threads per query might have a negative impact when
 handling many queries in parallel, so this is something that must be tuned on a

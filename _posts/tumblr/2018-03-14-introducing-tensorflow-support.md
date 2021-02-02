@@ -5,7 +5,7 @@ date: '2018-03-14T12:37:26-07:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/171861434281/introducing-tensorflow-support
 ---
-In previous blog posts we have talked about [Vespa’s tensor API](http://docs.vespa.ai/documentation/tensor-user-guide.html) which enables some advanced ranking capabilities. The primary use case is for machine learned ranking, where you train your models using some machine learning framework, convert the models to Vespa’s tensor format, and deploy them to Vespa. This works well, but converting trained models to Vespa form is cumbersome.
+In previous blog posts we have talked about [Vespa’s tensor API](https://docs.vespa.ai/en/tensor-user-guide.html) which enables some advanced ranking capabilities. The primary use case is for machine learned ranking, where you train your models using some machine learning framework, convert the models to Vespa’s tensor format, and deploy them to Vespa. This works well, but converting trained models to Vespa form is cumbersome.
 
 We are now happy to announce a new feature that makes this process a lot easier: TensorFlow import. With this feature you can directly deploy models you’ve trained in TensorFlow to Vespa, and use these models during ranking. This means that the models are executed in parallel over multiple threads and machines for a single query, which makes it possible to evaluate the model over any number of data items and still bound the total response time. In addition the data items to evaluate with the TensorFlow model can be selected dynamically with a query, and with a cheaper first-phase rank function if needed. Since the TensorFlow models are evaluated on the nodes storing the data, we avoid sending any data over the wire for evaluation.
 
@@ -27,5 +27,5 @@ Also note that TensorFlow import is new to Vespa, and we currently only support 
 
 Going forward we are focusing on further improving performance of our tensor framework for important use cases. We’ll follow up this post with one showing how the performance of evaluation in Vespa compares with TensorFlow serving. We will also add more supported frameworks and our next target is ONNX.
 
-You can read more about this feature in the [ranking with TensorFlow model in Vespa documentation](http://docs.vespa.ai/documentation/tensorflow.html). We are excited to announce the TensorFlow support, and we’re eager to hear what you are building with it.
+You can read more about this feature in the [ranking with TensorFlow model in Vespa documentation](https://docs.vespa.ai/en/tensorflow.html). We are excited to announce the TensorFlow support, and we’re eager to hear what you are building with it.
 

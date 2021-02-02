@@ -16,7 +16,7 @@ This month, we’re excited to share the following updates:
 
 
 #### Ranking with LightGBM Models
-Vespa now supports [LightGBM](https://docs.vespa.ai/documentation/lightgbm.html) machine learning models
+Vespa now supports [LightGBM](https://docs.vespa.ai/en/lightgbm.html) machine learning models
 in addition to ONNX, Tensorflow and XGBoost.
 LightGBM is a gradient boosting framework that trains fast, has a small memory footprint and provides similar or improved accuracy to XGBoost. LightGBM also supports categorical features.
 
@@ -29,18 +29,18 @@ which improves performance in machine-learned models using matrix multiplication
 #### Benchmarking guide
 Teams use Vespa to implement applications with strict latency requirements, with the minimal cost possible.
 In January we released a new sizing guide.
-This month, we’re adding a [benchmarking guide](https://docs.vespa.ai/documentation/performance/vespa-benchmarking.html)
+This month, we’re adding a [benchmarking guide](https://docs.vespa.ai/en/performance/vespa-benchmarking.html)
 that you can use to find the sweet spot between cost and performance.
 
 
 #### Query builder
 Thanks to contributions from [yehzu](https://github.com/vespa-engine/vespa/commits?author=yehzu),
-Vespa now has a fluent library for composing [queries](https://docs.vespa.ai/documentation/query-language.html),
+Vespa now has a fluent library for composing [queries](https://docs.vespa.ai/en/query-language.html),
 see the [client](https://github.com/vespa-engine/vespa/tree/master/client) module for details.
 
 
 #### Hadoop integration
-Vespa is integrated with [Hadoop](https://docs.vespa.ai/documentation/feed-using-hadoop-pig-oozie.html) and it is easy to feed from a grid.
+Vespa is integrated with [Hadoop](https://docs.vespa.ai/en/feed-using-hadoop-pig-oozie.html) and it is easy to feed from a grid.
 The grid integration now also supports conditional writes, see [#12081](https://github.com/vespa-engine/vespa/pull/12081). 
 
 
