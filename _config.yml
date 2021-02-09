@@ -50,6 +50,12 @@ authors:
     avatar: '/assets/avatars/lesters.jpg'
     email: lesters@verizonmedia.com
     description: "Principle Vespa Engineer"
+  aressem:
+    name: Arnstein Ressem
+    display_name: Arnstein Ressem
+    avatar: '/assets/avatars/aressem.jpg'
+    email: aressem@verizonmedia.com
+    description: "Principal Software Systems Engineer"
 
 # Plugins
 plugins:
