@@ -90,7 +90,20 @@ kramdown:
 # Lazy Images ("enabled" or "disabled")
 lazyimages: "disabled"
 
-exclude: [changelog.md, LICENSE.txt, README.md, "*/README.md", Gemfile, Gemfile.lock, .idea, blog_index.json]
+exclude:
+  - changelog.md
+  - LICENSE.txt
+  - README.md
+  - "*/README.md"
+  - Gemfile
+  - Gemfile.lock
+  - .idea
+  - blog_index.json
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
 
 search:
   namespace: "blog"
