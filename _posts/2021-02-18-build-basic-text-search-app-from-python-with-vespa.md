@@ -20,7 +20,7 @@ This post will introduce you to the simplified `pyvespa` API that allows us to b
 
 ## Install
 
-The pyvespa simplified API introduced here was released on version `0.2.0`
+The pyvespa simplified API introduced here was released in version `0.2.0`
 
 `pip3 install pyvespa>=0.2.0`
 
