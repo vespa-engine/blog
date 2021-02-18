@@ -3,8 +3,9 @@ layout: post
 title:  Using approximate nearest neighbor search to find similar products 
 date: '2021-02-16'
 author: jobergum 
-tags: []
-excerpt: Using approximate nearest neighbor search 
+image: assets/2020-12-18-using-approximate-nearest-neighbor-search-in-real-world-applications/nn.png
+excerpt: Approximate nearest neighbor search demonstration using Amazon Product dataset 
+skipimage: true
 ---
 
 In this blog we give an introduction to how to use the  
