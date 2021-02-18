@@ -11,7 +11,7 @@ In this blog we give an introduction to how to use the
 [Vespa's approximate nearest neighbor search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) query operator. 
 
 We demonstrate how nearest neighbor search in an image feature vector space can be used to find similar products.
-Given an image of a product we want to find
+Given an image of a product, we want to find
 similar products, but also with the possibility to filter the returned products by inventory status, price or other real world constraints.
 
 We'll be using the 
@@ -26,7 +26,7 @@ We also demonstrate some of the [real world challenges with using nearest neighb
 - Real time indexing of vectors and update documents with vectors 
 - True partial updates to update inventory status at scale 
 
-Since we use the Amazon Products dataset we also recommend these resources:
+Since we use the Amazon Products dataset, we also recommend these resources:
 
 - [Vespa.ai Use case Shopping Search](https://docs.vespa.ai/en/use-case-shopping.html)
 - [E-commerce search and recommendation with Vespa.ai ](https://blog.vespa.ai/e-commerce-search-and-recommendation-with-vespaai/)
@@ -34,9 +34,10 @@ Since we use the Amazon Products dataset we also recommend these resources:
 
 ## PyVespa
 
-In this blog we'll be using [pyvespa](https://pyvespa.readthedocs.io/en/latest/) which is a simple python api built on top of Vespa's native HTTP apis.
+In this blog we'll be using [pyvespa](https://pyvespa.readthedocs.io/en/latest/), which is a simple python api built on top of Vespa's native HTTP apis.
 
-The python api is not meant as a production ready api but an api to explore features in Vespa and also for training ML models which can be deployed to Vespa for serving. 
+The python api is not meant as a production ready api, but an api to explore features in Vespa.
+It is also for training ML models, which can be deployed to Vespa for serving. 
 
 See also the [Complete notebook](https://github.com/jobergum/notebooks/blob/master/VectorSearch.ipynb) which powered this blog post.
 
@@ -117,7 +118,7 @@ app_package.schema.add_fields(
 ```
 
 We define a fieldset which is a way to combine matching over multiple string fields. 
-We chose to only text queries over the *title* and *description* field. 
+We will only do text queries over the *title* and *description* field. 
 
 
 ```python
@@ -165,7 +166,7 @@ app = vespa_docker.deploy(
 
 Pyvespa does expose a feed api, but in this notebook we use the raw [Vespa http /document/v1 feed api](https://docs.vespa.ai/en/document-v1-api-guide.html).
 
-The HTTP document api is synchronous and the operation is visible in search when acked with a response code 200. In this case the feed throughput is limited by the client as we are posting one document at a time. For high throughput use cases use the asynchronous feed api, or use more client threads with the synchronous api. 
+The HTTP document api is synchronous and the operation is visible in search when acked with a response code 200. In this case, the feed throughput is limited by the client as we are posting one document at a time. For high throughput use cases use the asynchronous feed api, or use more client threads with the synchronous api. 
 
 
 
@@ -202,8 +203,8 @@ for product in tqdm(iter_products("meta_Amazon_Fashion.json.gz")):
     24145it [01:46, 226.40it/s]
 
 
-So we have our index ready, no need to perform any additional index maintainance operations like merging segments. 
-All the data is searchable.  Let us define a simple routine to display search results. Parsing the [Vespa JSON search response](https://docs.vespa.ai/en/reference/default-result-format.html)format: 
+So we have our index ready, no need to perform any additional index maintenance operations like merging segments. 
+All the data is searchable.  Let us define a simple routine to display search results. Parsing the [Vespa JSON search response](https://docs.vespa.ai/en/reference/default-result-format.html) format: 
 
 
 ```python
@@ -241,7 +242,7 @@ user query language called [Vespa simple query language](https://docs.vespa.ai/e
 In this case we use *type=any* so matching any of our 3 terms is enough to retrieve the document. 
 In the YQL statement we select the fields we want to return. Only fields which are marked as *summary* in the schema can be returned with the hit result.
 
-We don't mention which fields we want to search so Vespa uses the fieldset defined earlier called default which will search both the title and the description fields.
+We don't mention which fields we want to search, so Vespa uses the fieldset defined earlier called default, which will search both the title and the description fields.
 
 
 ```python
@@ -289,7 +290,7 @@ display_hits(app.query(body=query).json, "bm25")
 So there we have our basic search functionality. 
 
 ## Related products using nearest neighbor search in image feature spaces
-Now we have basic search functionality up and running, but the Amazon Product dataset also include image features which we can also 
+Now we have basic search functionality up and running, but the Amazon Product dataset also includes image features which we can also 
 index in Vespa and use approximate nearest neighbor search on. 
 Let us load the image feature data. We reduce the vector dimensionality to something more practical and use 256 dimensions. 
 
@@ -305,9 +306,11 @@ for asin,v in tqdm(reduced("image_features_Amazon_Fashion.b")):
 
 
 We need to re-configure our application to add our image vector field. 
-We also define a *HNSW* index for it and using *angular* as our [distance metric](https://docs.vespa.ai/documentation/reference/schema-reference.html#distance-metric). 
+We also define a *HNSW* index for it and using *angular* as our [distance metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric). 
 
-We also need to define the input query vector in the application package. Without definining our query input tensor we won't be able to perform our nearest neighbor search so make sure you remember to include that.
+We also need to define the input query vector in the application package.
+Without defining our query input tensor we won't be able to perform our nearest neighbor search,
+so make sure you remember to include that.
 
 Most changes like adding or remove a field is a [live change](https://docs.vespa.ai/en/reference/schema-reference.html#modifying-schemas) in Vespa, no need to re-index the data. 
 
@@ -357,7 +360,8 @@ app = vespa_docker.deploy(
 ## Update the index with image vectors
 Now we are ready to feed and index the image vectors. 
 
-We update the documents in the index by running partial update operations, adding the vectors using real time updates of the existing documents. partially updating a tensor field, with or without tensor does not trigger re-indexing.
+We update the documents in the index by running partial update operations, adding the vectors using real time updates of the existing documents.
+Partially updating a tensor field, with or without tensor, does not trigger re-indexing.
 ```python
 for asin,vector in tqdm(vectors):
     update_doc = {
@@ -376,8 +380,10 @@ for asin,vector in tqdm(vectors):
     100%|██████████| 22929/22929 [01:40<00:00, 228.94it/s]
 
 
-We now want to get similar products using the image feature data and we do so by first fetching the 
-vector of the product we want to find similar products for and use this vector as input to the nearest neighbor search operator of Vespa. First we define a simple get vector utility to fetch the vector of a given product *asin*. 
+We now want to get similar products using the image feature data.
+We do so by first fetching the 
+vector of the product we want to find similar products for, and use this vector as input to the nearest neighbor search operator of Vespa.
+First we define a simple get vector utility to fetch the vector of a given product *asin*. 
 
 
 ```python
@@ -494,7 +500,9 @@ display_hits(app.query(body=query).json, "vector_similarity")
     
 
 
-Let us repeat the same query but this time using the faster approximate version. When there is a HNSW index on the tensor the default behavior is to use approximate:true so we remove the approximation flag. 
+Let us repeat the same query but this time using the faster approximate version.
+When there is a HNSW index on the tensor,
+the default behavior is to use approximate:true, so we remove the approximation flag. 
 
 
 ```python
@@ -544,9 +552,9 @@ display_hits(app.query(body=query).json, "vector_similarity")
 
 ## Combining nearest neighbor search with filters
 
-If we look at the results for the above exact and approximate nearest neighbor searches we got the same results using the approximate version (perfect recall). 
-But naturally the first listed product was the same product that we used as input and the closeness score was 1.0 simple because the angular distance is 0. 
-Since the user is already presented with the product we want to remove it from the result and we can do that by 
+If we look at the results for the above exact and approximate nearest neighbor searches, we got the same results using the approximate version (perfect recall). 
+But naturally the first listed product was the same product that we used as input, and the closeness score was 1.0 simply because the angular distance is 0. 
+Since the user is already presented with the product, we want to remove it from the result. We can do that by 
 combining the search for nearest neighbors with a filter, expressed by the YQL query language using **and**.
 
 
@@ -610,7 +618,7 @@ display_hits(app.query(body=query).json, "vector_similarity")
 
 That is better. The original product is removed from the list of similar products.
 
-If we want to add a price filter we can do that to. In the below example we filter also by price, to limit the search for nearest neighbors by a price filter.
+If we want to add a price filter, we can do that too. In the below example we filter also by price, to limit the search for nearest neighbors by a price filter.
 
 We still ask for the 3 nearest neighbors. We could do so automatically or giving the user a choice of price ranges using [Vespa's grouping and aggregation support](https://docs.vespa.ai/en/grouping.html). 
 
@@ -688,12 +696,14 @@ RankProfile(
 
 # Keeping the index fresh by true partial updates
 
-In retail and e-commerce search one very important aspect is to be able to update the search index to keep it fresh so that we can use the latest information at search time. Examples of updates which Vespa can perform at scale:
+In retail and e-commerce search, one very important aspect is to be able to update the search index to keep it fresh, so that we can use the latest information at search time.
+Examples of updates which Vespa can perform at scale:
 
  - inventory status, which could be used as a *hard* filter so that our results only includes products which are in stock, or as a feature to be used when ranking products.  
  - Product attributes  which can used as ranking signals, for example category popularity (salesRank), click through rate and conversion rate. 
 
-Vespa, with its true partial update of **attribute** fields can support very high volumes of updates per node as updates of attribute fields are performed in-place without having to re-index the entire document.  
+Vespa, with its true partial update of **attribute** fields, can support very high volumes of updates per node,
+as updates of attribute fields are performed in-place, without having to re-index the entire document.  
 
 To demonstrate this,  we will add a new field to our product index which we call *inventory* and which keeps track of the inventory or in stock status of our product index. We want to ensure that the products we display have a positive inventory status. In this case we use it as a hard filter but this can also be a soft filter, used as a ranking signal. 
 
@@ -870,7 +880,8 @@ display_hits(app.query(body=query).json, "vector_similarity")
     
 
 
-As we can see, product **B00CM1RPW6** now displays an inventory status of 0. We can also add inventory as a hard filter and re-do our query but this time with a inventory > 0 filter:
+As we can see, product **B00CM1RPW6** now displays an inventory status of 0.
+We can also add inventory as a hard filter and re-do our query, but this time with a inventory > 0 filter:
 
 
 
