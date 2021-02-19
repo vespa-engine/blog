@@ -6,6 +6,7 @@ tags: []
 author: aressem
 image: assets/2021-02-19-how-using-screwdriver-for-cicd-reduced-vespas-time-spent-on-builds-and-pull-requests-by-75-percent/cover.jpg
 excerpt: Introducing Screwdriver for Vespa's CI/CD needs.
+skipimage: true
 
 ---
 *By [Arnstein Ressem](https://www.linkedin.com/in/arnsteinressem/), Principal Software Systems Engineer, Verizon Media*
@@ -32,4 +33,3 @@ The Vespa team got access to a hosted instance at [cd.screwdriver.cd](https://cd
 To further increase the developer feedback and productivity we decided to do some pull request analysis to check if only C++ or Java source code was touched. In those cases we could only build and test for the respective language. This brought the pull request build times from 18 down to 12 minutes for C++ and 8 minutes for Java. This allowed developers to have more issues discovered in pull requests without having to wait for a long time for the review and merge.
 
 We are very happy with having the **time spent on builds and pull requests reduced by 75% on average** and this leads to better productivity and happier developers.
-
