@@ -27,7 +27,7 @@ In the fall of 2020 we became aware of big changes in the selected CI/CD platfor
 The Vespa team got access to a hosted instance at [cd.screwdriver.cd](https://cd.screwdriver.cd) (*invite only, but publicly readable with guest access*). Working closely with [Screwdriver](https://screwdriver.cd/) we were able to reduce the build times for the master branch and pull requests from 50 minutes on the previous solution to 18 minutes. This result was obtained by using [Screwdriver](https://screwdriver.cd/)’s configurable resource management and fast build caches. We also appreciated the small set of requirements on container images allowing us to optimize the build image for our jobs.
 
 ![Github](/assets/2021-02-19-how-using-screwdriver-for-cicd-reduced-vespas-time-spent-on-builds-and-pull-requests-by-75-percent/github.png)
-<p class="image-credit">*Vespa pipeline on Screwdriver*</p>
+<p class="image-credit">*Screwdriver integrated with pull request builds on GitHub*</p>
 
 To further increase the developer feedback and productivity we decided to do some pull request analysis to check if only C++ or Java source code was touched. In those cases we could only build and test for the respective language. This brought the pull request build times from 18 down to 12 minutes for C++ and 8 minutes for Java. This allowed developers to have more issues discovered in pull requests without having to wait for a long time for the review and merge.
 
