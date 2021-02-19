@@ -1,7 +1,7 @@
 ---
 ---
-{% for post in site.posts limit:4 %}{% assign author = site.authors[post.author] %}- title: "{{ post.title | strip_newlines}}"
-  excerpt: "{{ post.excerpt | strip_newlines }}"
+{% for post in site.posts limit:4 %}{% assign author = site.authors[post.author] %}- title: "{{ post.title | strip_newlines | replace: '"', '\"' }}"
+  excerpt: "{{ post.excerpt | strip_newlines | replace: '"', '\"' }}"
   link: {{ site.url}}{{ site.baseurl }}{{ post.url }}
   image: {% if post.image contains "://" %}{{ post.image }}{% else %}{{ site.url }}{{ site.baseurl }}/{{ post.image }}{% endif %}
   author: {{ author.display_name }}
