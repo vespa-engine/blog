@@ -23,7 +23,7 @@ Compiling and testing this codebase is resource demanding and we soon realized t
 In the fall of 2020 we became aware of big changes in the selected CI/CD platform and we needed to migrate to something else. As part of this work we took another look at the open sourced version of [Screwdriver](https://screwdriver.cd/) as we knew that the project had significantly matured over the past years. [Screwdriver](https://screwdriver.cd/) is an open source build platform designed for Continuous Delivery that can easily be deployed on different IaaS providers and is currently an incubee in the [Continuous Delivery Foundation](https://cd.foundation/).
 
 ![Screwdriver](/assets/2021-02-19-how-using-screwdriver-for-cicd-reduced-vespas-time-spent-on-builds-and-pull-requests-by-75-percent/screwdriver.png)
-<p class="image-credit">*Vespa pipeline on Screwdriver*</p>
+<p class="image-credit"><em>Vespa pipeline on Screwdriver</em></p>
 
 The Vespa team got access to a hosted instance at [cd.screwdriver.cd](https://cd.screwdriver.cd) (*invite only, but publicly readable with guest access*). Working closely with [Screwdriver](https://screwdriver.cd/) we were able to reduce the build times for the master branch and pull requests from 50 minutes on the previous solution to 18 minutes. This result was obtained by using [Screwdriver](https://screwdriver.cd/)’s configurable resource management and fast build caches. We also appreciated the small set of requirements on container images allowing us to optimize the build image for our jobs.
 
