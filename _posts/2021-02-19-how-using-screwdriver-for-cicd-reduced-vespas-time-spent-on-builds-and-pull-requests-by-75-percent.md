@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "How Using Screwdriver for CI/CD Reduced Vespa’s Time Spent on Builds and Pull Requests by 75%"
-date: '2021-02-21'
+date: '2021-02-22'
 tags: []
 author: aressem
 image: assets/2021-02-19-how-using-screwdriver-for-cicd-reduced-vespas-time-spent-on-builds-and-pull-requests-by-75-percent/cover.jpg
