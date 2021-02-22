@@ -120,7 +120,10 @@ http://localhost:8080/document/v1/vespa-poc/doc/docid/1
 
 The request payload is a flat dictionary of field name-value pairs, converted to JSON format, and sent to Vespa using HTTP PUT (or POST). The docid can be any value that uniquely identifies the document, in my example I have used a (synthetic) field that is just a monotonically increasing sequence number.
 
-Data for my MVP experiment came from the [CORD-19 dataset](https://allenai.org/data/cord-19), a collection of scientific papers around COVID-19, provided by Allen AI. Note that my experiment is completely different from the [CORD-19 Search](https://allenai.org/data/cord-19) application, which incidentally is a great example of what you can do with datasets such as CORD-19 and Vespa.
+Data for my MVP experiment came from the [CORD-19 dataset](https://allenai.org/data/cord-19),
+a collection of scientific papers around COVID-19, provided by Allen AI.
+Note that my experiment is completely different from the [CORD-19 Search](https://cord19.vespa.ai/) application,
+which incidentally is a great example of what you can do with datasets such as CORD-19 and Vespa.
 
 The version of CORD-19 I used contained around 300,000 papers and their associated SPECTER document vectors. For my index I used the paper ID, title, abstract, and the SPECTER vector. An example of the request payload is shown below, and here is the [Python code](https://github.com/sujitpal/vespa-poc/blob/main/python-scripts/index/prepare-and-load-index.py) to parse this information out of CORD-19, compose the payload and issue HTTP POST queries to the Vespa document endpoint.
 
