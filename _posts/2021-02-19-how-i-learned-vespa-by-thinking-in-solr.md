@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How I learned Vespa by thinking in Solr
-date: '2019-02-19'
+date: '2021-02-24'
 tags: []
 excerpt: Learning Vespa in terms of Solr analogies can help flatten the learning curve.
 ---
@@ -190,4 +190,3 @@ I realize that there is much more to Vespa than I have seen and described so far
 ----
 
 _Sujit Pal is a Technology Research Director with Elsevier Labs, an advanced technology group within Elsevier. His areas of interest are Search, Natural Language Processing, Machine Learning and Distributed Data Processing._
-
