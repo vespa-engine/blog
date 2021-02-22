@@ -59,7 +59,7 @@ Vespa takes a while to start and respond to requests after the initial start, as
 
 ```
 $ docker exec vespa bash -c \
-    “curl -s --head http://localhost:19071/ApplicationStatus”
+    "curl -s --head http://localhost:19071/ApplicationStatus"
 ```
 
 ## Create a Vespa application
