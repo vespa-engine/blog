@@ -105,7 +105,7 @@ Once the configuration files are created, the application can be deployed using 
 ```
 $ docker exec vespa bash -c “/opt/vespa/bin/vespa-deploy prepare \     
        /vespa-sample-apps/vespa-poc/src/main/application/ && \
-       /opt/vespa/bin/vespa-deploy activate”
+       /opt/vespa/bin/vespa-deploy activate"
 ```
 
 Vespa will take a little time to respond to the first requests following this command, similar to the lag we saw after starting Vespa. We can check for Vespa readiness similarly by querying the ApplicationStatus service as described in the “Checking server status” section.
