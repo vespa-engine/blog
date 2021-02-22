@@ -1,12 +1,12 @@
 ---
 layout: post
 title: How I learned Vespa by thinking in Solr
+image: assets/2021-02-19-how-i-learned-vespa-by-thinking-in-solr/albert-WswqR4xIuH8-unsplash.jpg
 date: '2021-02-24'
 tags: []
 excerpt: Learning Vespa in terms of Solr analogies can help flatten the learning curve.
 ---
 
-![Decorative Image](/assets/2021-02-19-how-i-learned-vespa-by-thinking-in-solr/albert-WswqR4xIuH8-unsplash.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@picturesbyalbert?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Albert</a> on <a href="https://unsplash.com/s/photos/vespa-with-solar?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
 Vespa is a modern search platform that offers structured search (with a SQL-like language), inverted index-based text search, and approximate nearest neighbors (ANN) based vector search. I have been mainly interested in Vespa for its vector search capabilities. However, the last couple of times I had considered Vespa for my application, I had been put off by what seemed like a pretty steep learning curve compared with Solr and Elasticsearch, two other platforms I had successfully used in the past. I realize now that the steepness is not an illusion, but it is justified, because Vespa offers many capabilities and customization opportunities. Unfortunately, that doesn’t help when you are just looking to get it integrated into your application without having to spend too much time figuring it out.
