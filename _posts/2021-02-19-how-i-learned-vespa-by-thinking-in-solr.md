@@ -103,7 +103,7 @@ The configuration files are as follows.
 Once the configuration files are created, the application can be deployed using the following command. If there are problems in the configurations, the command will report the problem and fail. It is safe to rerun the command after fixing the configuration error.
 
 ```
-$ docker exec vespa bash -c “/opt/vespa/bin/vespa-deploy prepare \     
+$ docker exec vespa bash -c "/opt/vespa/bin/vespa-deploy prepare \     
        /vespa-sample-apps/vespa-poc/src/main/application/ && \
        /opt/vespa/bin/vespa-deploy activate"
 ```
