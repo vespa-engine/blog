@@ -60,6 +60,7 @@ authors:
   sujitpal:
     name: Sujit Pal
     display_name: Sujit pal
+    avatar: '/assets/avatars/sujitpal.png'
     email: sujit.pal@elsevier.com
     description: "Technology Research Director, Elsevier Labs"
   aaronnagao:
