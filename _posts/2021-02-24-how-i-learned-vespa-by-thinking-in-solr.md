@@ -3,6 +3,7 @@ layout: post
 title: How I learned Vespa by thinking in Solr
 image: assets/2021-02-19-how-i-learned-vespa-by-thinking-in-solr/albert-WswqR4xIuH8-unsplash.jpg
 date: '2021-02-24'
+author: sujitpal
 tags: []
 excerpt: Learning Vespa in terms of Solr analogies can help flatten the learning curve.
 ---
