@@ -25,7 +25,7 @@ authors:
     display_name: Geir Storli
     avatar: '/assets/avatars/geirst.jpg'
     email: geirst@verizonmedia.com
-    description: "Principle Vespa Engineer"
+    description: "Principal Vespa Engineer"
   kkraune:
     name: Kristian Aune
     display_name: Kristian Aune
@@ -49,18 +49,26 @@ authors:
     display_name: Lester Solbakken
     avatar: '/assets/avatars/lesters.jpg'
     email: lesters@verizonmedia.com
-    description: "Principle Vespa Engineer"
+    description: "Principal Vespa Engineer"
   aressem:
     name: Arnstein Ressem
     display_name: Arnstein Ressem
-    avatar: '/assets/avatars/aressem.jpg'
+    avatar: '/assets/avatars/aressem.png'
     email: aressem@verizonmedia.com
+    twitter: https://twitter.com/ArnsteinRessem
     description: "Principal Software Systems Engineer"
   sujitpal:
     name: Sujit Pal
     display_name: Sujit pal
     email: sujit.pal@elsevier.com
     description: "Technology Research Director, Elsevier Labs"
+  aaronnagao:
+    name: Aaron Nagao
+    display_name: Aaron Nagao
+    avatar: '/assets/avatars/aaronnagao.jpg'
+    email: aaronnagao@verizonmedia.com
+    description: "Senior Software Engineer, Verizon Media"
+
 
 # Plugins
 plugins:
