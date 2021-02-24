@@ -57,12 +57,19 @@ authors:
     email: aressem@verizonmedia.com
     twitter: https://twitter.com/ArnsteinRessem
     description: "Principal Software Systems Engineer"
+  sujitpal:
+    name: Sujit Pal
+    display_name: Sujit Pal
+    avatar: '/assets/avatars/sujitpal.png'
+    email: sujit.pal@elsevier.com
+    description: "Technology Research Director, Elsevier Labs"
   aaronnagao:
     name: Aaron Nagao
     display_name: Aaron Nagao
     avatar: '/assets/avatars/aaronnagao.jpg'
     email: aaronnagao@verizonmedia.com
     description: "Senior Software Engineer, Verizon Media"
+
 
 # Plugins
 plugins:
