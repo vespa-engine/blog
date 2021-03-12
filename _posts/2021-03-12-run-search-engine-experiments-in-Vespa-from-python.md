@@ -37,7 +37,7 @@ from vespa.application import Vespa
 app = Vespa(url = "https://api.cord19.vespa.ai")
 ```
 
-We are then good to go and ready to interact with the application through `pyvespa`, e.g., to query:
+We are then good to go and ready to interact with the application through `pyvespa`:
 
 
 ```python
