@@ -28,7 +28,7 @@ We will review each of those methods.
 
 ##  Connect to a running Vespa application
 
-In case you already have a Vespa application running somewhere, you can directly instantiate the [Vespa](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespa.application.Vespa) class with the appropriate end-point. The example below connects to the [cord19.vespa.ai](https://cord19.vespa.ai/) application:
+In case you already have a Vespa application running somewhere, you can directly instantiate the [Vespa](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespa.application.Vespa) class with the appropriate endpoint. The example below connects to the [cord19.vespa.ai](https://cord19.vespa.ai/) application:
 
 
 ```python
