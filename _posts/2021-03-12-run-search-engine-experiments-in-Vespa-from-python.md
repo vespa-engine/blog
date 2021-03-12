@@ -151,7 +151,7 @@ We can then deploy to a Docker container from disk:
 from vespa.package import VespaDocker
 
 vespa_docker_news = VespaDocker(
-    disk_folder="/Users/username/sample-apps/news/app-3-searching/", # Docker require absolute path
+    disk_folder="/Users/username/sample-apps/news/app-3-searching/", # Docker requires absolute path
     container_memory="8G", 
     port=8081
 )
