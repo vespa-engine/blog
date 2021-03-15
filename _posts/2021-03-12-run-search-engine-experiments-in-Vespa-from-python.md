@@ -4,7 +4,7 @@ title: "Run search engine experiments in Vespa from python"
 date: '2021-03-12'
 tags: []
 author: thigm85
-image: assets/2021-03-12-run-search-engine-experiments-in-Vespa-from-python/figure_1.jpg
+image: assets/2021-03-12-run-search-engine-experiments-in-Vespa-from-python/figure_2.jpg
 skipimage: true
 excerpt: Three ways to get started with pyvespa.
 ---
@@ -23,8 +23,8 @@ There are three ways you can get value out of `pyvespa`:
 
 We will review each of those methods.
 
-![Decorative image](/assets/2021-03-12-run-search-engine-experiments-in-Vespa-from-python/figure_1.jpg)
-<p class="image-credit">Photo by <a href="https://unsplash.com/@vonshnauzer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Egor Myznik</a> on <a href="/s/photos/three-vespa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+![Decorative image](/assets/2021-03-12-run-search-engine-experiments-in-Vespa-from-python/figure_2.jpg)
+<p class="image-credit">Photo by <a href="https://unsplash.com/@kristinhillery?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristin Hillery</a> on <a href="/s/photos/shipping-container?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
 ##  Connect to a running Vespa application
 
