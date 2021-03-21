@@ -1,10 +1,10 @@
 ---
 layout: post
 title: "Build a News recommendation app from python with Vespa: Part 1"
-date: '2021-03-12'
+date: '2021-03-22'
 tags: []
 author: thigm85
-image: assets/2021-03-15-build-news-search-app-from-python-with-vespa/figure_1.jpg
+image: assets/2021-03-22-build-news-search-app-from-python-with-vespa/figure_1.jpg
 skipimage: true
 excerpt: Part 1 - News search functionality.
 ---
@@ -13,8 +13,8 @@ excerpt: Part 1 - News search functionality.
 
 We will build a news recommendation app in Vespa without leaving a python environment. In this first part of the series, we want to develop an application with basic search functionality. Future posts will add recommendation capabilities based on embeddings and other ML models. 
 
-![Decorative image](/assets/2021-03-15-build-news-search-app-from-python-with-vespa/figure_1.jpg)
-<p class="image-credit">Photo by <a href="https://unsplash.com/@alx2bgx?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alex Guillaume</a> on <a href="/s/photos/vespa-reading?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+![Decorative image](/assets/2021-03-22-build-news-search-app-from-python-with-vespa/figure_1.jpg)
+<p class="image-credit">Photo by <a href="https://unsplash.com/@filipthedesigner?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Filip Mishevski</a> on <a href="/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
 This series is a simplified version of Vespa's [News search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/news-2-basic-feeding-and-query.html). We will also use the demo version of the [Microsoft News Dataset (MIND)](https://msnews.github.io/) so that anyone can follow along on their laptops.
 
