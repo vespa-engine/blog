@@ -1,4 +1,6 @@
 # blog
+[![Vespa Blog Search Feed](https://github.com/vespa-engine/blog/actions/workflows/feed.yml/badge.svg)](https://github.com/vespa-engine/blog/actions/workflows/feed.yml),
+
 The Vespa blog - https://blog.vespa.ai
 
 https://jekyllrb.com/docs/posts/ is useful to understand how to write a post - highlights:
