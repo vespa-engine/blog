@@ -29,7 +29,7 @@ We are going to use the Stanford Question Answering Dataset (SQuAD) v1.1 dataset
 import requests, json
 
 context_data = json.loads(
-    requests.get("https://data.vespa.oath.cloud/remote_dir/qa_squad_context_data.json").text
+    requests.get("https://data.vespa.oath.cloud/blog/qa/qa_squad_context_data.json").text
 )
 ```
 
@@ -60,7 +60,7 @@ from pandas import read_csv
 
 # Note that squad_queries.txt has approx. 1 Gb due to the 512-sized question embeddings
 questions = read_csv(
-    filepath_or_buffer="https://data.vespa.oath.cloud/remote_dir/squad_queries.txt", 
+    filepath_or_buffer="https://data.vespa.oath.cloud/blog/qa/squad_queries.txt", 
     sep="\t", 
     names=["question_id", "question", "number_answers", "embedding"]
 )
@@ -136,7 +136,7 @@ To build a more accurate application, we can break the paragraphs down into sent
 ```python
 # Note that qa_squad_sentence_data.json has approx. 1 Gb due to the 512-sized sentence embeddings
 sentence_data = json.loads(
-    requests.get("https://data.vespa.oath.cloud/remote_dir/qa_squad_sentence_data.json").text
+    requests.get("https://data.vespa.oath.cloud/blog/qa/qa_squad_sentence_data.json").text
 )
 ```
 
