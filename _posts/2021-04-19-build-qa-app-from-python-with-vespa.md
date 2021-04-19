@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Build sentence/paragraph level QA application from python with Vespa"
-date: '2021-04-19'
+date: '2021-04-15'
 tags: []
 author: thigm85
 image: assets/2021-04-19-build-qa-app-from-python-with-vespa/figure_1.jpg
