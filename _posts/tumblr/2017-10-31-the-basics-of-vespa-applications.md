@@ -5,7 +5,7 @@ date: '2017-10-31T13:00:06-07:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/166978538586/the-basics-of-vespa-applications
 ---
-Distributed computation over large data sets in real-time — what we call big data serving — is a complex task. We have worked hard to hide this complexity to make it as easy as possible to create your own production quality Vespa application. The [quick](https://docs.vespa.ai/en/vespa-quick-start.html) [start](https://docs.vespa.ai/en/vespa-quick-start-centos.html) [guides](https://docs.vespa.ai/en/vespa-quick-start-windows.html) take you through the steps of getting Vespa up and running, deploying a basic application, writing data and issuing some queries to it, but without room for explanation. Here, we’ll explain the basics of creating your own Vespa application. The&nbsp;[blog search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/blog-search.html) covers these topics in full detail with hands-on instructions.
+Distributed computation over large data sets in real-time — what we call big data serving — is a complex task. We have worked hard to hide this complexity to make it as easy as possible to create your own production quality Vespa application. The [quick](https://docs.vespa.ai/en/vespa-quick-start.html) [start](https://docs.vespa.ai/en/vespa-quick-start-vagrant.html) [guides](https://docs.vespa.ai/en/vespa-quick-start-windows.html) take you through the steps of getting Vespa up and running, deploying a basic application, writing data and issuing some queries to it, but without room for explanation. Here, we’ll explain the basics of creating your own Vespa application. The&nbsp;[blog search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/blog-search.html) covers these topics in full detail with hands-on instructions.
 
 ## Application packages
 
@@ -17,7 +17,7 @@ The configuration, components and models which makes out an application to be ru
 - Configures how data will be processed during feeding and indexing
 - Configures how queries will be pre- and post-processed  
 
-The three mandatory parts of the application specification are the [search definition](https://docs.vespa.ai/en/search-definitions.html), the [services specification](https://docs.vespa.ai/en/reference/services.html), and the [hosts specification](https://docs.vespa.ai/en/reference/hosts.html) — all of which have their own file in the application package. This is enough to set up a basic production ready Vespa applications, like, e.g., the [basic-search](https://github.com/vespa-engine/sample-apps/tree/master/basic-search) [sample application](https://github.com/vespa-engine/sample-apps/tree/master). Most applications however, are much larger and may contain machine-learned ranking models and application specific Java components which perform various application specific tasks such as query enrichment and post-search processing.
+The three mandatory parts of the application specification are the [search definition](https://docs.vespa.ai/en/schemas.html), the [services specification](https://docs.vespa.ai/en/reference/services.html), and the [hosts specification](https://docs.vespa.ai/en/reference/hosts.html) — all of which have their own file in the application package. This is enough to set up a basic production ready Vespa applications, like, e.g., the [basic-search](https://github.com/vespa-engine/sample-apps/tree/master/basic-search) [sample application](https://github.com/vespa-engine/sample-apps/tree/master). Most applications however, are much larger and may contain machine-learned ranking models and application specific Java components which perform various application specific tasks such as query enrichment and post-search processing.
 
 **The search definition**
 
@@ -41,9 +41,9 @@ One of the nice features is that new configurations are loaded without service d
 
 One of the required files when setting up a Vespa application is the search definition. This file (or files) contains a document definition which defines the fields and their data types for each document type. Data is written to Vespa using Vespa’s JSON document format. The data in this format must match the search definition for the document type.
 
-The process of writing data to Vespa is called feeding, and there are [multiple tools](https://docs.vespa.ai/en/writing-to-vespa.html) that can be used to feed data to Vespa for various use cases. For instance there is a REST API for smaller updates and a Java client that can be embedded into other applications.
+The process of writing data to Vespa is called feeding, and there are [multiple tools](https://docs.vespa.ai/en/reads-and-writes.html) that can be used to feed data to Vespa for various use cases. For instance there is a REST API for smaller updates and a Java client that can be embedded into other applications.
 
-An important concept in writing data to Vespa is that of [document processors](https://docs.vespa.ai/en/document-processing-overview.html). These processors can be chained together to form a processing pipeline to process each document before indexing. This is useful for many use cases, including enrichment by pulling in relevant data from other sources.
+An important concept in writing data to Vespa is that of [document processors](https://docs.vespa.ai/en/document-processing.html). These processors can be chained together to form a processing pipeline to process each document before indexing. This is useful for many use cases, including enrichment by pulling in relevant data from other sources.
 
 ## Querying Vespa
 
@@ -76,7 +76,7 @@ Here, each document is ranked by the [nativeRank](https://docs.vespa.ai/en/refer
 
 In real applications ranking expressions often get much more complicated than this.
 
-For example, a recommendation application may use a deep neural net to compute a recommendation score, or a search application may use a machine-learned gradient boosted decision tree. To support such complex models, Vespa allows ranking expressions to compute over [tensors](https://docs.vespa.ai/en/tensor-intro.html) in addition to scalars. This makes it possible to work effectively with large models and parameter spaces.
+For example, a recommendation application may use a deep neural net to compute a recommendation score, or a search application may use a machine-learned gradient boosted decision tree. To support such complex models, Vespa allows ranking expressions to compute over [tensors](https://docs.vespa.ai/en/tensor-user-guide.html) in addition to scalars. This makes it possible to work effectively with large models and parameter spaces.
 
 As complex ranking models can be expensive to compute over many documents, it is often a good idea to use a cheaper function to find good candidates and then rank only those using the full model. To do this you can configure both a first-phase and second-phase ranking expression, where the second-phase function is only computed on the best candidate documents.
 

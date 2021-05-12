@@ -55,7 +55,7 @@ and can improve update throughput by 10X if writing to attributes only.
 #### In the News
 Learn from the OkCupid Engineering Blog about how OkCupid uses Vespa to launch new features,
 ML models in query serving, simplify operations and cut deployment drastically:
-[tech.okcupid.com/vespa-vs-elasticsearch/](https://tech.okcupid.com/vespa-vs-elasticsearch/) 
+[tech.okcupid.com/vespa-vs-elasticsearch/](https://medium.com/okcupid-tech-blog/vespa-vs-elasticsearch-for-matching-millions-of-people-6e3af18eb4dc) 
 
 
 ___
