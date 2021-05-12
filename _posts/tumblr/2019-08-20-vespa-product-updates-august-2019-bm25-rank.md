@@ -23,7 +23,7 @@ The BM25 rank feature implements the Okapi BM25 ranking function and is a great 
 
 **Searchable Reference Attribute**
 
-A [reference attribute field](https://docs.vespa.ai/en/reference/search-definitions-reference.html#type:reference) can be searched using the document id of the parent document-type instance as query term, making it easy to find all children for a parent document. [Learn more](https://docs.vespa.ai/en/parent-child.html).
+A [reference attribute field](https://docs.vespa.ai/en/reference/schema-reference.html#type:reference) can be searched using the document id of the parent document-type instance as query term, making it easy to find all children for a parent document. [Learn more](https://docs.vespa.ai/en/parent-child.html).
 
 **Tensor in Summary Features**
 

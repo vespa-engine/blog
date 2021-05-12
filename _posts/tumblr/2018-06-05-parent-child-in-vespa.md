@@ -47,7 +47,7 @@ We’ll see very shortly how this can be directly mapped to Vespa’s parent-chi
 
 **Creating the data model**
 
-Vespa’s fundamental data model is that of _documents_. Each document belongs to a particular schema and has a user-provided unique identifier. Such a schema is known as a document type and is specified in a [search definition](https://docs.vespa.ai/en/search-definitions.html) file. A document may have an arbitrary number of fields of different types. Some of these may be indexed, some may be kept in memory, all depending on the schema. A Vespa application may contain many document types.
+Vespa’s fundamental data model is that of _documents_. Each document belongs to a particular schema and has a user-provided unique identifier. Such a schema is known as a document type and is specified in a [search definition](https://docs.vespa.ai/en/schemas.html) file. A document may have an arbitrary number of fields of different types. Some of these may be indexed, some may be kept in memory, all depending on the schema. A Vespa application may contain many document types.
 
 Here’s how the Vespa equivalent of the above _denormalized_ schema could look (again bolding where we’re duplicating information):
 

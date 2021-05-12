@@ -62,7 +62,7 @@ A good approach for autosuggest was to:
 1. Make all document fields searchable with autosuggest of type (in-memory) attribute  
 
   1. [https://docs.vespa.ai/en/attributes.html&nbsp;](https://docs.vespa.ai/en/attributes.html)
-  2. [https://docs.vespa.ai/en/reference/search-definitions-reference.html#attribute&nbsp;](https://docs.vespa.ai/en/reference/search-definitions-reference.html#attribute)
+  2. [https://docs.vespa.ai/en/reference/search-definitions-reference.html#attribute&nbsp;](https://docs.vespa.ai/en/reference/schema-reference.html#attribute)
   3. [https://docs.vespa.ai/en/search-definitions.html](https://docs.vespa.ai/en/search-definitions.html) (basics)
 2. Avoid snippet generation and using the document store by overriding the document-summary setting in search definitions to only access attributes  
 
@@ -92,9 +92,9 @@ A main focus was to make testing and deployment of Vespa services with continuou
 
 For monitoring we created a tool that continuously read Vespa metrics, stored them in Prometheus (a time series database) and visualized them them with Grafana. This tool can be found on [https://github.com/vespa-engine/vespa\_exporter](https://github.com/vespa-engine/vespa_exporter). More information about Vespa metrics and monitoring:
 
-- [https://docs.vespa.ai/en/reference/metrics-health-format.html](https://docs.vespa.ai/en/reference/metrics-health-format.html)  
-- [https://docs.vespa.ai/en/jdisc/metrics.html](https://docs.vespa.ai/en/jdisc/metrics.html)  
-- [https://docs.vespa.ai/en/operations/admin-monitoring.html](https://docs.vespa.ai/en/operations/admin-monitoring.html)  
+- [https://docs.vespa.ai/en/reference/metrics-health-format.html](https://docs.vespa.ai/en/reference/metrics-health-format.html)
+- [https://docs.vespa.ai/en/reference/metrics.html](https://docs.vespa.ai/en/reference/metrics.html)
+- [https://docs.vespa.ai/en/monitoring.html](https://docs.vespa.ai/en/monitoring.html)
 <figure data-orig-width="960" data-orig-height="720" class="tmblr-full"><img src="/assets/2018-09-03-vespa-at-zedge-providing-personalization-content/tumblr_inline_peh89qWRYe1vpfrlb_540.png" alt="image" data-orig-width="960" data-orig-height="720"></figure>
 ## Conclusion
 

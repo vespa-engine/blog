@@ -101,7 +101,7 @@ For example, we can use more complex match operators such as the Vespa weakAND,
 we can restrict the search to look for a match only in the abstract by adding `'default-index': 'abstract'` in the _body_ above.
 We can experiment with different ranking function at query time
 by changing the `'ranking'` parameter to one of the [rank-profiles](https://docs.vespa.ai/en/ranking.html) available in the
-[search definition file](https://github.com/vespa-engine/sample-apps/blob/master/vespa-cloud/cord-19-search/src/main/application/searchdefinitions/doc.sd).
+[search definition file](https://github.com/vespa-engine/sample-apps/blob/master/vespa-cloud/cord-19-search/src/main/application/schemas/doc.sd).
 
 Additional resources:
 * The Vespa text search tutorial shows how to create a text search app on a step-by-step basis.

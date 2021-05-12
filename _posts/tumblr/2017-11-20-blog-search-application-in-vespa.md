@@ -113,9 +113,9 @@ The sample application [blog search](https://github.com/vespa-engine/sample-apps
     
     </services>
 
-- `<container>` defines the [container](https://docs.vespa.ai/en/jdisc/) cluster for document, query and result processing  
-- `<search>` sets up the [search](https://docs.vespa.ai/en/search-api.html) endpoint for Vespa queries. The default port is 8080.  
-- `<document-api>` sets up the [document](https://docs.vespa.ai/en/document-api.html) endpoint for feeding.  
+- `<container>` defines the [container](https://docs.vespa.ai/en/jdisc/) cluster for document, query and result processing
+- `<search>` sets up the [search](https://docs.vespa.ai/en/query-api.html) endpoint for Vespa queries. The default port is 8080.
+- `<document-api>` sets up the [document](https://docs.vespa.ai/en/document-api-guide.html) endpoint for feeding.
 - `<nodes>` defines the nodes required per service. (See the [reference](https://docs.vespa.ai/en/reference/services-container.html) for more on container cluster setup.)  
 - `<content>` defines how documents are stored and searched  
 - `<redundancy>` denotes how many copies to keep of each document.  
@@ -320,7 +320,7 @@ Also, add a `popularity` field at the end of the `document` definition:
                 indexing: summary | attribute
             }
 
-Notes (more information can be found in the [search definition reference](https://docs.vespa.ai/en/reference/search-definitions-reference.html#rank-profile)):
+Notes (more information can be found in the [search definition reference](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile)):
 
 - _rank-profile post\_popularity inherits default_  
 This configures Vespa to create a new rank profile named `post_popularity`, which inherits all the properties of the default rank-profile; only properties that are explicitly defined, or overridden, will differ from those of the default rank-profile.

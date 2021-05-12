@@ -21,7 +21,7 @@ Easily update individual tensor cells. [Add, remove, and modify cell is now supp
 
 **Advanced Query Trace**
 
-Query tracing now includes [matching and ranking execution information from content nodes](https://docs.vespa.ai/en/reference/search-api-reference.html#tracelevel) - Query Explain, &nbsp;is useful for performance optimization.
+Query tracing now includes [matching and ranking execution information from content nodes](https://docs.vespa.ai/en/reference/query-api-reference.html#tracelevel) - Query Explain, &nbsp;is useful for performance optimization.
 
 **Search coverage in access log**
 

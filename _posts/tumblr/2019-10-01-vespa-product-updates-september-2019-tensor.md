@@ -32,7 +32,7 @@ Integrating with the [Prometheus](https://prometheus.io) open-source monitoring 
 
 **Query Dispatch Integrated in Container**
 
-The Vespa query flow is optimized for multi-phase evaluation over a large set of search nodes. Since Vespa-7-109.10, the dispatch function is integrated into the Vespa Container process which simplifies the architecture with one less service to manage. [Read more](https://docs.vespa.ai/en/querying-vespa.html).
+The Vespa query flow is optimized for multi-phase evaluation over a large set of search nodes. Since Vespa-7-109.10, the dispatch function is integrated into the Vespa Container process which simplifies the architecture with one less service to manage. [Read more](https://docs.vespa.ai/en/query-api.html#query-execution).
 
 We welcome your [contributions](https://github.com/vespa-engine/vespa/blob/master/CONTRIBUTING.md) and feedback ([tweet](https://twitter.com/vespaengine) or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.
 

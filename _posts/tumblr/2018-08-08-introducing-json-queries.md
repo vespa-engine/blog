@@ -83,7 +83,7 @@ and equivalentenly with the new `GROUPING`-parameter:
 
 **Wrapping it up**
 
-In this post we have provided a gentle introduction to the new Vepsa POST query feature, and the `SELECT`-parameter. You can read more about writing [POST queries in the Vespa documentation](https://docs.vespa.ai/en/search-api.html). More examples of the POST query can be found in the Vespa tutorials.
+In this post we have provided a gentle introduction to the new Vepsa POST query feature, and the `SELECT`-parameter. You can read more about writing [POST queries in the Vespa documentation](https://docs.vespa.ai/en/query-api.html). More examples of the POST query can be found in the Vespa tutorials.
 
 Please share experiences. Happy searching!
 
