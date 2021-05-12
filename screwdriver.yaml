@@ -20,5 +20,5 @@ jobs:
           bundle exec htmlproofer \
             --assume-extension --empty-alt-ignore \
             --file-ignore '/_site\/post/' \
-            --url-ignore '/localhost:8080/'
+            --url-ignore '/localhost:8080/' \
             _site
