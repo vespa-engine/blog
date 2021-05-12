@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 'Q&A from "The Great Search Engine Debate - Elasticsearch, Solr or Vespa?" Meetup'
+title: 'Q&A from &ldquo;The Great Search Engine Debate - Elasticsearch, Solr or Vespa?&rdquo; Meetup'
 date: '2021-02-08'
 tags: []
 author: kkraune
