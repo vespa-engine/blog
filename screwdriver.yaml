@@ -1,0 +1,24 @@
+shared:
+  settings:
+    email:
+      addresses: [kraune@verizonmedia.com]
+      statuses: [SUCCESS, FAILURE]
+
+jobs:
+  link-checker-blog:
+    requires: [~pr, ~commit]
+    image: ruby:2.6
+    environment:
+      USER_SHELL_BIN: bash
+    steps:
+      - install-deps: |
+          gem install bundler
+      - check-links: |
+          export LANG=C.UTF-8
+          bundle install
+          bundle exec jekyll build
+          bundle exec htmlproofer \
+            --assume-extension --empty-alt-ignore \
+            --file-ignore '/_site\/post/' \
+            --url-ignore '/localhost:8080/'
+            _site
