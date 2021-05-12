@@ -19,6 +19,6 @@ jobs:
           bundle exec jekyll build
           bundle exec htmlproofer \
             --assume-extension --empty-alt-ignore \
-            --file-ignore '/_site\/post/' \
-            --url-ignore '/localhost:8080/' \
+            --file-ignore '/_site\/post/,_site\/about.html' \
+            --url-ignore '/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/' \
             _site
