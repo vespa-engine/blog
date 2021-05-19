@@ -20,11 +20,9 @@ We also cover multi-phase retrieval and ranking pipelines and introduce three di
 ![Decorative image](/assets/2021-05-19-pretrained-transformer-language-models-for-search-part-1/jamie-street-uNNCs5kL70Q.jpg)
 <p class="image-credit"> 
 Photo by <a href="https://unsplash.com/@jamie452?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jamie Street</a> on <a href="https://unsplash.com/s/photos/retriever?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
-  
-
 Since BERT was first applied to search and document ranking, we at the Vespa team have been busy making it easy to use pre-trained BERT or Transformer models in general for ranking and question answering with Vespa.ai. In [previous work](https://blog.vespa.ai/efficient-open-domain-question-answering-on-vespa/) we demonstrated how to use BERT as a representation model for efficient passage retrieval for question answering. We also demonstrated how we could [accelerate BERT models for production serving using distillation and quantization](https://blog.vespa.ai/stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/). 
 
-In this blog post we give an introduction to how to use BERT for text search and ranking and multi phase retrieval and ranking pipelines. 
+In this blog post we give an introduction to how to use BERT for text search and ranking. We also introduce the MS Marco Passage ranking relevancy dataset and cover multi phase retrieval and ranking pipelines
 
 ## Introduction
 Search or information retrieval is going through a paradigm shift, some have even called it the *BERT revolution*. The introduction of pre-trained language models BERT have led to significant advancement of the state of the art in search and document ranking. 
