@@ -24,7 +24,9 @@ There are three ways you can get value out of `pyvespa`:
 We will review each of those methods.
 
 ![Decorative image](/assets/2021-03-12-run-search-engine-experiments-in-Vespa-from-python/figure_2.jpg)
-<p class="image-credit">Photo by <a href="https://unsplash.com/@kristinhillery?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristin Hillery</a> on <a href="/s/photos/shipping-container?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+<p class="image-credit">Photo by
+<a href="https://unsplash.com/@kristinhillery?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristin Hillery</a> on
+<a href="https://unsplash.com/@kristinhillery?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
 ##  Connect to a running Vespa application
 

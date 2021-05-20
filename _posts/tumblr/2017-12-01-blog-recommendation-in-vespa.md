@@ -5,6 +5,15 @@ date: '2017-12-01T18:42:26-08:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/168083726636/blog-recommendation-in-vespa
 ---
+
+
+**Update 2021-05-20:**
+This blog post refers to Vespa sample applications that do not exist anymore.
+Please refer to the
+[News search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html)
+for an updated version of text and sample applications.
+
+
 ## Introduction
 
 This post builds upon the previous [blog search application]({% post_url /tumblr/2017-11-20-blog-search-application-in-vespa %}) and extends the basic search engine to include machine learned models to help us recommend blog posts to users that arrive at our application. Assume that once a user arrives, we obtain his user identification number, denoted in here by `user_id`, and that we will send this information down to Vespa and expect to obtain a blog post recommendation list containing 100 blog posts tailored for that specific user.

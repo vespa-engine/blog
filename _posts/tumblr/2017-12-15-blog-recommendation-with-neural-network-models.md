@@ -5,6 +5,15 @@ date: '2017-12-15T15:52:02-08:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/168572816766/blog-recommendation-with-neural-network-models
 ---
+
+
+**Update 2021-05-20:**
+This blog post refers to Vespa sample applications that do not exist anymore.
+Please refer to the
+[News search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html)
+for an updated version of text and sample applications.
+
+
 ## Introduction
 
 The main objective of this post is to show how to deploy neural network models in Vespa using our Tensor Framework. In fact, any model that can be represented by a series of Tensor operations can be deployed in Vespa. Neural networks is just a popular example. In addition, we will introduce the multi-phase ranking model available in Vespa that can be used to run more expensive models in a phase based on a reduced number of documents returned by previous phases. This feature allow us to run models that would be prohibitively expensive to use if we had to run them at query-time across all the documents indexed in Vespa.

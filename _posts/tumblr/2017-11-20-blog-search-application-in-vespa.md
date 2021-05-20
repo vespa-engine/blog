@@ -5,6 +5,15 @@ date: '2017-11-20T08:57:01-08:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/167690858931/blog-search-application-in-vespa
 ---
+
+
+**Update 2021-05-20:**
+This blog post refers to Vespa sample applications that do not exist anymore.
+Please refer to the
+[News search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html)
+for an updated version of text and sample applications.
+
+
 ## Introduction
 
 This is the first of a series of blog posts where data from WordPress.com (WP) is used to highlight how Vespa can be used to store, search and recommend blog posts. The data was made available during a [Kaggle challenge](https://www.kaggle.com/c/predict-wordpress-likes) to predict which blog posts someone would like based on their past behavior. It contains many ingredients that are necessary to showcase needs, challenges and possible solutions that are useful for those interested in building and deploying such applications in production.
