@@ -41,7 +41,7 @@ are now available to help teams use Vespa optimally.
 
 #### Performance Improvement for Matched Elements in Map/Array-of-Struct
 As maps or arrays in documents can often grow large,
-applications use [matched-elements-only](https://docs.vespa.ai/en/reference/search-definitions-reference.html#matched-elements-only)
+applications use [matched-elements-only](https://docs.vespa.ai/en/reference/schema-reference.html#matched-elements-only)
 to return only matched items. This also simplifies application code.
 Performance for this feature is now improved - ex: an array or map with 20.000 elements is now 5x faster.
 

@@ -60,7 +60,7 @@ Additional resources:
 
 ## Vespa Search API
 In addition to the simple query language,
-Vespa has also a more powerful [search API](https://docs.vespa.ai/en/search-api.html)
+Vespa has also a more powerful [search API](https://docs.vespa.ai/en/query-api.html)
 that gives full control in terms of search experience through the
 [Vespa query language](https://docs.vespa.ai/en/query-language.html) called YQL.
 We can then send a wide range of queries by sending a POST request to the search end-point of _cord19.vespa.ai_.

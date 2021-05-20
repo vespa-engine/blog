@@ -38,7 +38,7 @@ applications that do real-time data processing over large data sets. Designed
 to be highly performant and web-scalable, it is used for such diverse tasks as
 search, personalization, recommendation, ads, auto-complete, image and
 similarity search, comment ranking, and [even for finding
-love](https://tech.okcupid.com/vespa-vs-elasticsearch/).
+love](https://tech.okcupid.com/vespa-vs-elasticsearch-for-matching-millions-of-people-6e3af18eb4dc).
 
 It has become increasingly important for us to be able to evaluate complex
 machine-learned models efficiently. Delivering low latency, fast inference and
@@ -338,8 +338,9 @@ options.SetGraphOptimizationLevel(ORT_ENABLE_ALL);
 Ort::Session session = Ort::Session(shared_env, “local_file_path”, options);
 ```
 
-The session includes options for [thread
-management](https://github.com/microsoft/onnxruntime/blob/master/docs/ONNX_Runtime_Perf_Tuning.md#thread-management).
+The session includes options for
+[thread management](https://github.com/microsoft/onnxruntime/blob/9cca219b1aa2dd649d731298ba1249a184c9133f/docs/ONNX_Runtime_Perf_Tuning.md#thread-management).
+<!-- ToDo: this doc is not on master branch anymore, link to new location -->
 ONNX Runtime supports 2 modes of execution: sequential and parallel. This
 controls whether the operators in a graph run sequentially or in parallel.
 Parallel execution of operators is scheduled on an inter-op thread pool. The

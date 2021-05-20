@@ -5,7 +5,11 @@ date: '2017-10-31T13:00:06-07:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/166978538586/the-basics-of-vespa-applications
 ---
-Distributed computation over large data sets in real-time — what we call big data serving — is a complex task. We have worked hard to hide this complexity to make it as easy as possible to create your own production quality Vespa application. The [quick](https://docs.vespa.ai/en/vespa-quick-start.html) [start](https://docs.vespa.ai/en/vespa-quick-start-vagrant.html) [guides](https://docs.vespa.ai/en/vespa-quick-start-windows.html) take you through the steps of getting Vespa up and running, deploying a basic application, writing data and issuing some queries to it, but without room for explanation. Here, we’ll explain the basics of creating your own Vespa application. The&nbsp;[blog search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/blog-search.html) covers these topics in full detail with hands-on instructions.
+Distributed computation over large data sets in real-time — what we call big data serving — is a complex task. We have worked hard to hide this complexity to make it as easy as possible to create your own production quality Vespa application. The [quick](https://docs.vespa.ai/en/vespa-quick-start.html) [start](https://docs.vespa.ai/en/vespa-quick-start-vagrant.html) [guides](https://docs.vespa.ai/en/vespa-quick-start-windows.html) take you through the steps of getting Vespa up and running, deploying a basic application, writing data and issuing some queries to it, but without room for explanation. Here, we’ll explain the basics of creating your own Vespa application.
+The <a href="https://docs.vespa.ai/en/tutorials/blog-search.html" data-proofer-ignore>blog search and recommendation tutorial</a>
+covers these topics in full detail with hands-on instructions.
+**Update 2021-05-20:** _Blog tutorials are replaced by the
+[News search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html):_
 
 ## Application packages
 
@@ -17,11 +21,15 @@ The configuration, components and models which makes out an application to be ru
 - Configures how data will be processed during feeding and indexing
 - Configures how queries will be pre- and post-processed  
 
-The three mandatory parts of the application specification are the [search definition](https://docs.vespa.ai/en/schemas.html), the [services specification](https://docs.vespa.ai/en/reference/services.html), and the [hosts specification](https://docs.vespa.ai/en/reference/hosts.html) — all of which have their own file in the application package. This is enough to set up a basic production ready Vespa applications, like, e.g., the [basic-search](https://github.com/vespa-engine/sample-apps/tree/master/basic-search) [sample application](https://github.com/vespa-engine/sample-apps/tree/master). Most applications however, are much larger and may contain machine-learned ranking models and application specific Java components which perform various application specific tasks such as query enrichment and post-search processing.
+The three mandatory parts of the application specification are the [search definition](https://docs.vespa.ai/en/schemas.html), the [services specification](https://docs.vespa.ai/en/reference/services.html), and the [hosts specification](https://docs.vespa.ai/en/reference/hosts.html) — all of which have their own file in the application package.
+This is enough to set up a basic production ready Vespa applications, like, e.g., the
+<a href="https://github.com/vespa-engine/sample-apps/tree/master/basic-search" data-proofer-ignore>basic-search</a>
+[sample application](https://github.com/vespa-engine/sample-apps/tree/master).
+Most applications however, are much larger and may contain machine-learned ranking models and application specific Java components which perform various application specific tasks such as query enrichment and post-search processing.
 
 **The search definition**
 
-Data stored in Vespa is represented as a set of documents of a type defined in the application package. An application can have multiple document types. Each [search definition](https://docs.vespa.ai/en/search-definitions.html)&nbsp;describes one such document type: it lists the name and data type of each field found in the document, and configures the behaviour of these. Examples are like whether field values are in-memory or can be stored on disk, and whether they should be indexed or not. It can also contain ranking profiles, which are used to select the most relevant documents among the set of matches for a given query - and it specifies which fields to return.
+Data stored in Vespa is represented as a set of documents of a type defined in the application package. An application can have multiple document types. Each [search definition](https://docs.vespa.ai/en/schemas.html)&nbsp;describes one such document type: it lists the name and data type of each field found in the document, and configures the behaviour of these. Examples are like whether field values are in-memory or can be stored on disk, and whether they should be indexed or not. It can also contain ranking profiles, which are used to select the most relevant documents among the set of matches for a given query - and it specifies which fields to return.
 
 **The services definition**
 
@@ -92,4 +100,10 @@ Groups can be nested arbitrarily and multiple groupings and aggregations can be 
 
 ## More information
 
-You should now have a basic understanding of the core concepts in building Vespa applications. To try out these core features in practice, head on over to the [blog search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/blog-search.html). We’ll post some more in-depth blog posts with concrete examples soon.
+You should now have a basic understanding of the core concepts in building Vespa applications.
+To try out these core features in practice, head on over to the
+<a href="https://docs.vespa.ai/en/tutorials/blog-search.html" data-proofer-ignore>blog search and recommendation tutorial</a>.
+**Update 2021-05-20:** _Blog tutorials are replaced by the
+[News search and recommendation tutorial](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html)._
+
+We’ll post some more in-depth blog posts with concrete examples soon.
