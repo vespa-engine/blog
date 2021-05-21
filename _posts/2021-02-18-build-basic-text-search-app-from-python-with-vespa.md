@@ -26,7 +26,8 @@ The pyvespa simplified API introduced here was released in version `0.2.0`
 
 ## Define the application
 
-As an example, we will build an application to search through [CORD19 sample data](https://ir.nist.gov/covidSubmit/data.html).
+As an example, we will build an application to search through
+<a href="https://ir.nist.gov/covidSubmit/data.html" data-proofer-ignore>CORD19 sample data</a>.
 
 ### Create an application package
 
