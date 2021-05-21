@@ -23,7 +23,7 @@ We assume that you have followed the [part2 of the news recommendation tutorial]
 
 If we add a `category_ctr` field in the `news` document, we would have to update all the sport's documents every time there is a change in the sport's CTR statistic. If we assume that the category CTR will change often, this turns out to be inefficient.
 
-For these cases, Vespa introduced the parent-child relationship. Parents are global documents, which are automatically distributed to all content nodes. Other documents can reference these parents and “import” values for use in ranking. The benefit is that the global category CTR values only need to be written to one place: the global document.
+For these cases, Vespa introduced [the parent-child relationship](https://docs.vespa.ai/en/parent-child.html). Parents are global documents, which are automatically distributed to all content nodes. Other documents can reference these parents and “import” values for use in ranking. The benefit is that the global category CTR values only need to be written to one place: the global document.
 
 
 ```python
