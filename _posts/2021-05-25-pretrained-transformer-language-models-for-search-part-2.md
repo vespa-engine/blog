@@ -16,7 +16,7 @@ Photo by <a href="https://unsplash.com/@robfuller?utm_source=unsplash&utm_medium
 </p>
 *In this blog series we demonstrate how to represent transformer models in a multiphase retrieval and ranking pipeline using Vespa.ai. We also evaluate these models on the largest Information Retrieval relevance dataset, namely the MS Marco Passage ranking dataset. We demonstrate how to achieve close to state of the art ranking using miniature transformer models with just 22M parameters,  beating large ensemble models with billions of parameters.*
 
-In the [first post](pretrained-transformer-language-models-for-search-part-1/) in this series we introduced using pre-trained models for ranking. In this second post we study efficient candidate retrievers which can be used to efficiently find candidate documents which are re-ranked using more advanced models. 
+In the [first post](../pretrained-transformer-language-models-for-search-part-1/) in this series we introduced using pre-trained models for ranking. In this second post we study efficient candidate retrievers which can be used to efficiently find candidate documents which are re-ranked using more advanced models. 
 
 # Multiphase retrieval and ranking 
 
