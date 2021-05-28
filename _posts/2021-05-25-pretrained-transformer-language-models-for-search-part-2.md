@@ -29,6 +29,12 @@ Illustration of a multi-stage retrieval and ranking architecture is given in the
 
 Broadly there are two categories of efficient sub-linear retrieval methods  
 
+* Sparse retrieval using lexical term matching over inverted indexes, potentially accelerated by the WAND algorithm
+* Dense retrieval using dense vector representation of queries and documents, potentially accelerated by approximate nearest neighbor search algorithms
+
+In the next sections we take a deep dive into these two methods and we also evaluate their effectiveness on the MS Marco Passage Ranking relevancy dataset. We also show how these
+two methods can be combined with Vespa. 
+
 ## Sparse lexical retrieval 
 
 Classic information retrieval (IR) relying on lexical matching which has been around since the early days of Information Retrieval. One example of a popular lexical based retrieval scoring function is [BM25](https://docs.vespa.ai/en/reference/bm25.html). Retrieval can be done in sub-linear time using inverted indexes and accelerated by dynamic pruning algorithms like [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html). Dynamic pruning algorithms avoid scoring exhaustively all documents which match at least one of the query terms.  In the below [Vespa document schema](https://docs.vespa.ai/en/schemas.html) we declare a minimal passage document type which we can use to index the MS Marco Passage ranking dataset introduced in post 1. 
@@ -104,7 +110,7 @@ Embedding based models embed or map queries and documents into a latent low dime
 
 In this example we use a pre-trained dense retriever model from Huggingface 🤗 [sentence-transformers/msmarco-MiniLM-L-6-v3](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3) . The model is based on MiniLM and the output layer has 384 dimensions. The model has just 22.7M trainable parameters and encoding the query using a quantized model takes approximately 8 ms on cpu. The original model uses mean pooling over the last layer of the MiniLM model but we also add a L2 normalization to normalize vectors to unit length (1) so that we can use innerproduct distance metric instead of angular distance metric. This saves computations during the approximate nearest neighbor search.
 
- We expand our passage document type with a dense tensor field *mini_document_embedding* and a new ranking profile. 
+We expand our passage document type with a dense tensor field *mini_document_embedding* and a new ranking profile. 
 
 <pre>
   search passage {
@@ -161,7 +167,8 @@ In the above example we use the Vespa *nearestNeigbhor* query operator to retrie
 
 ### Representing the bi-encoder model inside Vespa 
 
-To represent the bi-encoder query model in Vespa we need to export the Huggingface PyTorch model into ONNX format for efficient. We include a notebook in this [sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking) which demonstrates how to transform the model and export it to ONNX format. Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding. To speed up evaluation on CPU we use [quantized](https://www.onnxruntime.ai/docs/how-to/quantization.html) (int) version.  We have demonstrated how to represent query encoders in [Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
+To represent the bi-encoder query model in Vespa we need to export the Huggingface PyTorch model into ONNX format for efficient serving in Vespa. 
+We include a [notebook](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb) in this [sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking) which demonstrates how to transform the model and export it to ONNX format. Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding. To speed up evaluation on CPU we use [quantized](https://www.onnxruntime.ai/docs/how-to/quantization.html) (int) version.  We have demonstrated how to represent query encoders in [Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
 
 ## Hybrid Dense Sparse Retrieval 
 
@@ -181,7 +188,15 @@ Recent research indicates that combining dense and sparse retrieval could improv
   }
 </pre>
 
-In the above example we combine ANN with WAND using OR disjunction and we have a hybrid ranking profile which can combine using the dense and sparse ranking signals (e.g bm25 and vector distance/closeness). Approximately 10 + 10 documents will be exposed to the first-phase ranking function (depending on targetNumHits). It is then up to the  first-phase ranking expression to combine the scores of these two different retrieval methods into a final score. See [A Replication Study of Dense Passage Retriever](https://arxiv.org/abs/2104.05740) for examples of parameter/weighting. 
+In the above example we combine ANN with WAND using OR disjunction and we have a hybrid ranking profile which can combine using the dense and sparse ranking signals (e.g bm25 and vector distance/closeness). Approximately 10 + 10 documents will be exposed to the first-phase ranking function (depending on targetNumHits). It is then up to the  first-phase ranking expression to combine the scores of these two different retrieval methods into a final score. See [A Replication Study of Dense Passage Retriever](https://arxiv.org/abs/2104.05740) for examples of parameter/weighting. For example it could look something like this:
+
+<pre>
+rank-profile hybrid {
+  first-phase {
+    expression: 0.7*bm25(text) + 2.9*closeness(field, mini_document_embedding)
+  }
+}
+</pre>
 
 **Rank:** 
 
