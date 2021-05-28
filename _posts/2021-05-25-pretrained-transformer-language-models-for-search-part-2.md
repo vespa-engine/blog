@@ -20,7 +20,7 @@ In the [first post](../pretrained-transformer-language-models-for-search-part-1/
 
 # Multiphase retrieval and ranking 
 
-Due to computationally complexity of cross interaction transformer models there has been renewed interest in multiphase retrieval and ranking. In a multiphased retrieval and ranking pipeline, the first phase retrieves candidate documents using a cost efficient retrieval method and the more computationally complex cross-attention or late interaction model inference is limited to the top ranking documents from the first phase. 
+Due to computational complexity of cross interaction transformer models there has been renewed interest in multiphase retrieval and ranking. In a multiphased retrieval and ranking pipeline, the first phase retrieves candidate documents using a cost efficient retrieval method and the more computationally complex cross-attention or late interaction model inference is limited to the top ranking documents from the first phase. 
 
 ![table](/assets/2021-05-25-pretrained-transformer-language-models-for-search-part-2/image4.png)
 
@@ -73,9 +73,9 @@ Once we have indexed our data we can search using the Vespa HTTP POST query api:
 * The *hits* parameter controls the number of hits in the Vespa response 
 * The *query* parameter contains the free text input query from the end user. [Simple query language](https://docs.vespa.ai/en/reference/simple-query-language-reference.html)
 * The *ranking.profile* parameter choses the ranking profile to use for the query
-* The *type* specifies the query type (all, any, phrase) which controls the boolean query logic. All requires that all query terms are found in the document while any specifies at least one of the query terms should match in the document. 
+* The *type* specifies the query type (all, any, phrase) which controls the boolean query logic. *All* requires that all query terms are found in the document while *any* specifies at least one of the query terms should match in the document. 
 
-If we use the above query to search the MS Marco Passages we end up ranking only 2 passages and the query takes 7 ms.  If we change *type* to *any* instead of *and* we end up ranking 7,926,256 passages (89% of the total collection) and the query takes 120 ms.  Exact timing depends obviously on HW and number of threads used to evaluate the query but the main point is that brute force matching all documents which contains at least one term is expensive. While restricting to *all* is too restrictive, failing to recall the relevant documents. So what is the solution to this problem? How can we find the relevant documents withtout having to fully score almost all passages in the collection?
+If we use the above query to search the MS Marco Passages we end up ranking only 2 passages and the query takes 7 ms.  If we change *type* to *any* instead of *and* we end up ranking 7,926,256 passages (89% of the total collection) and the query takes 120 ms.  Exact timing depends obviously on HW and number of threads used to evaluate the query but the main point is that brute force matching all documents which contains at least one term is expensive. While restricting to *all* is too restrictive, failing to recall the relevant documents. So what is the solution to this problem? How can we find the relevant documents without having to fully score almost all passages in the collection?
 
 ## Meet the dynamic pruning algorithm WAND
 
@@ -97,12 +97,12 @@ Vespa implements the [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html)
 
  Using the above WAND query only fully ranks 2409 passages using the bm25 ranking profile and recall at first positions is the same as with brute force any so we did not loose any accuracy but saved a lot of resources.  Using the *weakAnd* operator, the  query takes 12 ms instead of 120ms with brute force any. Using WAND is best implemented using a custom searcher plugin to avoid tokenization outside of Vespa which might introduce asymetric behaviour. For example [RetrievalModelSearcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/searcher/RetrievalModelSearcher.java) or using [weakAnd.replace](https://docs.vespa.ai/en/reference/query-api-reference.html#weakAnd.replace) which rewrites type any queries to using WAND instead. 
 
-There are two WAND/WeakAnd implementations in Vespa where in the above exampe we used *weakAnd()* which fully integrates with text processing (tokenization and index statistics like IDF(Inverse Document Frequency)). The alternative is  *wand()* where the end user can control the query and document side weights explicity. The latter *wand()* operator can be used to implement [DeepCT and HDCT: Context-Aware Term Importance Estimation For First Stage Retrieval](https://github.com/AdeDZY/DeepCT) as Vespa gives the user full control of query and document term weighting without having to bloat the regular index by repeating terms to increase or lower the term frequency. Read more in [Using WAND with Vespa](https://docs.vespa.ai/en/using-wand-with-vespa.html).  
+There are two WAND/WeakAnd implementations in Vespa where in the above example we used *weakAnd()* which fully integrates with text processing (tokenization and index statistics like IDF(Inverse Document Frequency)). The alternative is  *wand()* where the end user can control the query and document side weights explicitly. The latter *wand()* operator can be used to implement [DeepCT and HDCT: Context-Aware Term Importance Estimation For First Stage Retrieval](https://github.com/AdeDZY/DeepCT) as Vespa gives the user full control of query and document term weighting without having to bloat the regular index by repeating terms to increase or lower the term frequency. Read more in [Using WAND with Vespa](https://docs.vespa.ai/en/using-wand-with-vespa.html).  
 
 ## Dense Retrieval using bi-encoders over Transformer models 
 Embedding based models embed or map queries and documents into a latent low dimensional dense embedding vector space and use vector search to retrieve documents. Dense retrieval could be accelerated by using approximate nearest neighbor search, for example indexing the document vector representation using [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) graph indexing. In-domain dense retrievers based on bi-encoder architecture trained on MS Marco passage data have demonstrated that they can outperform sparse lexical retrievers with a very large margin. Let us introduce using dense retrievers with Vespa. 
 
-In this example we use a pre-trained dense retriever model from Huggingface 🤗 [sentence-transformers/msmarco-MiniLM-L-6-v3](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3) . The model is based on MiniLM and the output layer has 384 dimensions. The model has just 22.7M trainable parameters and encoding the query using a quantized model takes approximately 8 ms on cpu. The original model uses mean pooling over the last layer of the MiniLM model but we also add a L2 normalization to normalize vectors to unit length (1) so that we can use innerproduct distance metric instead of angular distance metric. This saves computations during the approximate nearest neighbor search
+In this example we use a pre-trained dense retriever model from Huggingface 🤗 [sentence-transformers/msmarco-MiniLM-L-6-v3](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3) . The model is based on MiniLM and the output layer has 384 dimensions. The model has just 22.7M trainable parameters and encoding the query using a quantized model takes approximately 8 ms on cpu. The original model uses mean pooling over the last layer of the MiniLM model but we also add a L2 normalization to normalize vectors to unit length (1) so that we can use innerproduct distance metric instead of angular distance metric. This saves computations during the approximate nearest neighbor search.
 
  We expand our passage document type with a dense tensor field *mini_document_embedding* and a new ranking profile. 
 
@@ -145,7 +145,7 @@ In this example we use a pre-trained dense retriever model from Huggingface 🤗
 }
 </pre>
 
-The mini_document_embedding tensor is dense (denoted by *d0[384]*) and is of dimensionality 384 (determined by the Transformer model we use, and possible linear dimension reduction). We use float resolution (4 bytes) for the tensor cell values (valid choises are double, bfloat16 and int8). We also define *HNSW* index for the field, and we set 2 HNSW indexing parameters which is a accuracy versus performance tradeoff. See [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) for details. Accuracy is typically measured by recall@k comparing brute force nearest neighbor search versus the approximate nearest neighbor search at level k. The *dense* ranking profile specifies how we want to rank (or actually re-rank our documents), in this case we use the closeness ranking feature. Documents close the query in the embedding space is ranked higher than documents which are far. At indexing time we need to convert the passage text into the dense vector represenation and index. At  query time, we need to encode the query and use approximate nearest neighbor search:
+The mini_document_embedding tensor is dense (denoted by *d0[384]*) and is of dimensionality 384 (determined by the Transformer model we use, and possible linear dimension reduction). We use float resolution (4 bytes) for the tensor cell values (valid choices are double, bfloat16 and int8). We also define *HNSW* index for the field, and we set 2 HNSW indexing parameters which is an accuracy versus performance tradeoff. See [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) for details. Accuracy is typically measured by recall@k comparing brute force nearest neighbor search versus the approximate nearest neighbor search at level k. The *dense* ranking profile specifies how we want to rank (or actually re-rank) our documents, in this case we use the closeness ranking feature. Documents close to the query in the embedding space is ranked higher than documents which are far. At indexing time we need to convert the passage text into the dense vector representation and index. At  query time, we need to encode the query and use approximate nearest neighbor search:
 
 <pre>
   {
@@ -157,11 +157,11 @@ The mini_document_embedding tensor is dense (denoted by *d0[384]*) and is of dim
   }
 </pre>
 
-In the above example we use the Vespa *nearestNeigbhor* query operator to retrieve the 10 closests documents in embedding space for the input query embedding vector passed in the *ranking.features.query(query_embedding)* parameter. In this example query encoding (the forward query encoding pass of the query to obtain the query embedding) is done outside but we can also represent the query encoding model inside Vespa, avoiding complicating our online serving deployment setup:
+In the above example we use the Vespa *nearestNeigbhor* query operator to retrieve the 10 closests documents in embedding space for the input query embedding vector passed in the *ranking.features.query(query_embedding)* parameter. In this example, query encoding (the forward query encoding pass of the query to obtain the query embedding) is done outside but we can also represent the query encoding model inside Vespa, avoiding complicating our online serving deployment setup:
 
 ### Representing the bi-encoder model inside Vespa 
 
-To represent the bi-encoder query model in Vespa we need to export the Huggingface PyTorch model into ONNX format for efficient. We include a notebook in this [sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking) which demonstrates how to transform the model and export it to ONNX format. Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding. To speed up evaluation on CPU we use [quantized](https://www.onnxruntime.ai/docs/how-to/quantization.html) (int) version.  We have demonstrated how to represent query encoders in [Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann)
+To represent the bi-encoder query model in Vespa we need to export the Huggingface PyTorch model into ONNX format for efficient. We include a notebook in this [sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking) which demonstrates how to transform the model and export it to ONNX format. Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding. To speed up evaluation on CPU we use [quantized](https://www.onnxruntime.ai/docs/how-to/quantization.html) (int) version.  We have demonstrated how to represent query encoders in [Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
 
 ## Hybrid Dense Sparse Retrieval 
 
@@ -203,7 +203,7 @@ Using [*rank()*](https://docs.vespa.ai/en/reference/query-language-reference.htm
 
 # Retriever evaluation 
 
-We evaluate the ranking effectiveness of two efficient retrievers on MS Marco Passage Ranking dev query split (6980 queries)
+We evaluate the ranking effectiveness of two efficient retrievers on MS Marco Passage Ranking dev query split (6980 queries):
 
 
 | **Retrieval method** | **Ranking**      | **MRR@10** | **Recall@100** | **Recall@200** | **Recall@1000** |
