@@ -174,13 +174,13 @@ $ ./src/main/python/evaluate_passage_run.py --rank_profile dense-colbert --reran
  
 
 #  Summary
-In this blog post we have demonstrated how to represent the ColBERT model as a re-ranking phase over dense retriever using Vespa features
+In this blog post we have demonstrated how to represent the ColBERT model as a re-ranking phase over a dense retriever using Vespa core capabilities:
 
 
 * Dense retrieval accelerated by ANN query operator in Vespa (HNSW) and representing the Transformer based query encoder model(s) in Vespa
-* Store tensor fields in the document schema for fast access during re-ranking
+* Tensor fields in the document for fast access during re-ranking
 * Express the MaxSim ColBERT late interaction similarity function using tensor ranking expressions
-* Embed the ColBERT query encoder via ONNX 
+* Representing the ColBERT query encoder using ONNX format
 
 In the fourth post in this series we will introduce another re-ranking step using a cross-encoder with all-to-all interaction.  This cross-encoder model is also based on a small 6 layer MiniLM  transformer mode. We will deploy this model on top of the ColBERT re-ranking step, adding a second re-ranking step to further improve the ranking precision. 
 
