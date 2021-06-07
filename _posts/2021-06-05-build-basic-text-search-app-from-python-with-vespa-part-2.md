@@ -184,7 +184,7 @@ evaluation
 
 ![detailed](/assets/2021-06-05-build-basic-text-search-app-from-python-with-vespa-part-2/table_4.png)
 
-### Get per query results
+### Get per-query results
 
 When debugging the results, it is often helpful to look at the metrics on a per-query basis, which is available by setting `per_query=True.`
 
