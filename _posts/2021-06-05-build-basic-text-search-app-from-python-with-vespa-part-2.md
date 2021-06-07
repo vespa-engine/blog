@@ -235,4 +235,9 @@ As expected, we can see that a higher `hits` parameter implies a higher match ra
 
 ## Conclusion
 
-We want to enable Vespa users to run their experiments from python. This tutorial illustrates how to define query models and evaluation metrics to run search engine experiments via the evaluate method. We used a simple example that compares two different match operators and another that optimizes the parameter of one of those operators. However, the experiments can get much more complex than those illustrated here. We plan to show how to compare different ML models for ranking in future tutorials.  
+We want to enable Vespa users to run their experiments from python. This tutorial illustrates how to define query models and evaluation metrics to run search engine experiments via the evaluate method. We used a simple example that compares two different match operators and another that optimizes the parameter of one of those operators. Our key finding is that we can reduce the size of the retrieved set of hits without losing recall and precision by using the `WeakAnd` instead of the `OR` match operator.
+
+The following Vespa resources are related to the topics explored by the experiments presented here:
+
+* [Getting started with retrieval and ranking](https://docs.vespa.ai/en/getting-started-ranking.html#retrieval-and-ranking)
+* [Phased Ranking](https://docs.vespa.ai/en/phased-ranking.html)
