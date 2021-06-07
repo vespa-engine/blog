@@ -143,7 +143,7 @@ evaluation
 
 ![Evaluate](/assets/2021-06-05-build-basic-text-search-app-from-python-with-vespa-part-2/table_2.png)
 
-The result shows that, on average, we match 67% of our document corpus when using the `OR` operator and 21% when using the `WeakAnd` operator. A significant reduction that will get even better when we experiment with the `hits` parameter of the `WeakAnd` further down in this tutorial. This reduction in matched documents did not affect the recall and the NDCG metrics, which stayed at around 0.84 and 0.40, respectively.
+The result shows that, on average, we match 67% of our document corpus when using the `OR` operator and 21% when using the `WeakAnd` operator. The reduction in matched documents did not affect the recall and the NDCG metrics, which stayed at around 0.84 and 0.40, respectively. The Match Ratio will get even better when we experiment with the `hits` parameter of the `WeakAnd` further down in this tutorial.
 
 There are different options available to configure the output of the `evaluate` method. 
 
