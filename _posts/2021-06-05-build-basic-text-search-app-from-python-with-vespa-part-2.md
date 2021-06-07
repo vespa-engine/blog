@@ -9,7 +9,7 @@ skipimage: true
 excerpt: Evaluate search engine experiments from python.
 ---
 
-**Evaluate search engine experiments from python.**
+**Evaluate search engine experiments using Python.**
 
 We want to enable Vespa users to run their experiments from python. This tutorial illustrates how to define query models and evaluation metrics to perform search engine experiments.
 
