@@ -54,7 +54,7 @@ for idx, row in parsed_feed.iterrows():
 
 ## Define query models to compare
 
-A `QueryModel` is an abstraction that encapsulates all the relevant information controlling how your app match and rank documents. Since we are dealing with a simple text search app here, we will start by creating two query models that use BM25 to rank but differ on how they match documents.
+A `QueryModel` is an abstraction that encapsulates all the relevant information controlling how your app matches and ranks documents. Since we are dealing with a simple text search app here, we will start by creating two query models that use BM25 to rank but differ on how they match documents.
 
 
 ```python
