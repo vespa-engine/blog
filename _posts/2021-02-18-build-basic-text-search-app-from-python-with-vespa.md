@@ -114,11 +114,13 @@ We have now defined a basic text search app containing relevant fields, a fields
 ```python
 from vespa.package import VespaDocker
 
-vespa_docker = VespaDocker(port=8080)
+vespa_docker = VespaDocker(
+    port=8080, 
+    disk_folder="/Users/username/cord19_app"
+)
 
 app = vespa_docker.deploy(
     application_package = app_package,
-    disk_folder="/Users/username/cord19_app"
 )
 ```
 
