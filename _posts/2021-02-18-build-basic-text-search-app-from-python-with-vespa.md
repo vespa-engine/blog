@@ -11,7 +11,9 @@ excerpt: Introducing pyvespa simplified API. Build Vespa application from python
 
 **Introducing pyvespa simplified API. Build Vespa application from python with few lines of code.**
 
-This post will introduce you to the simplified `pyvespa` API that allows us to build a basic text search application from scratch with just a few code lines from python. Follow-up posts will add layers of complexity by incrementally building on top of the basic app described here.
+This post will introduce you to the simplified 
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) 
+API that allows us to build a basic text search application from scratch with just a few code lines from python. Follow-up posts will add layers of complexity by incrementally building on top of the basic app described here.
 
 ![Decorative image](/assets/2021-02-18-build-basic-text-search-app-from-python-with-vespa/figure_1.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@sarahdorweiler?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Sarah Dorweiler</a> on <a href="https://unsplash.com/s/photos/simple?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></p>
@@ -174,7 +176,7 @@ parsed_feed
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr style="padding: 5;">
       <th></th>
       <th>cord_uid</th>
       <th>title</th>
