@@ -91,34 +91,28 @@ questions[["question_id", "question"]].head()
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>question_id</th>
       <th>question</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>0</td>
       <td>To whom did the Virgin Mary allegedly appear i...</td>
     </tr>
     <tr>
-      <th>1</th>
       <td>1</td>
       <td>What is in front of the Notre Dame Main Building?</td>
     </tr>
     <tr>
-      <th>2</th>
       <td>2</td>
       <td>The Basilica of the Sacred heart at Notre Dame...</td>
     </tr>
     <tr>
-      <th>3</th>
       <td>3</td>
       <td>What is the Grotto at Notre Dame?</td>
     </tr>
     <tr>
-      <th>4</th>
       <td>4</td>
       <td>What sits on top of the Main Building at Notre...</td>
     </tr>
@@ -126,7 +120,7 @@ questions[["question_id", "question"]].head()
 </table>
 </div>
 
-
+<p></p>
 
 ### Paragraph sentences
 
@@ -184,14 +178,12 @@ questions[["question_id", "embedding"]].head(1)
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
       <th>question_id</th>
       <th>embedding</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
       <td>0</td>
       <td>[-0.025649750605225563, -0.01708591915667057, ...</td>
     </tr>
@@ -199,7 +191,7 @@ questions[["question_id", "embedding"]].head(1)
 </table>
 </div>
 
-
+<p></p>
 
 
 ```python
@@ -357,10 +349,6 @@ app = vespa_docker.deploy(application_package=app_package)
     Waiting for application status.
     Waiting for application status.
     Finished deployment.
-
-
-
-
 
     Vespa(http://localhost, 8081)
 
