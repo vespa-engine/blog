@@ -137,9 +137,9 @@ The Vespa configuration files of the news search app are stored in the `sample-a
 !tree sample-apps/news/app-3-searching/
 ```
 
-    [01;34msample-apps/news/app-3-searching/[00m
+    sample-apps/news/app-3-searching/
     ├── hosts.xml
-    ├── [01;34mschemas[00m
+    ├── schemas/
     │   └── news.sd
     └── services.xml
     
