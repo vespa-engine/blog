@@ -20,16 +20,16 @@ excerpt: "This is the fourth blog post in a series of posts where we introduce u
 In the [first post](../pretrained-transformer-language-models-for-search-part-1/) in this series we introduced using pretrained language models for ranking and three popular methods for using them for text ranking. In the [second post](../pretrained-transformer-language-models-for-search-part-2/) we studied efficient retrievers which could be used as the first phase in a multiphase retrieval and ranking pipeline. In the [third post](../pretrained-transformer-language-models-for-search-part-3/) we studied the ColBERT re-ranking model.
 
 In this 4th and last post in our blog post series on pretrained transformer models for search we will introduce a cross-encoder model with all-to-all interaction between the query and the passage. 
-We deploy this model as our final ranking stage in our multiphase retrieval and ranking pipeline. We also submit our end to end retrieval and ranking result to the [MS Marco Passage Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Passage-Ranking-Submissions/leaderboard). 
+We deploy this model as our final ranking stage in our multiphase retrieval and ranking pipeline. We submit our end to end retrieval and ranking result to the [MS Marco Passage Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Passage-Ranking-Submissions/leaderboard). 
 
-We also benchmark all the retrieval and ranking methods introduced in this blog post series to quantify their serving cost versus ranking accuracy. 
+We benchmark all the retrieval and ranking methods introduced in this blog post series to quantify their serving cost versus ranking accuracy. 
 We also release a complete [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md) which lets try out these state of the art retrieval and ranking methods. 
 
 ## Introduction
 
 In this blog post we study the third option for using transformer models for search and document ranking. This option is the simplest model to configure and use in Vespa but also the most computationally demanding model in our multiphase retrieval and ranking pipeline. With the cross attention model we input both the query and the passage to the model and as we know by now, the computational complexity of the transformer is squared with regards to the input length. Doubling the sequence length increases the computational complexity by 4x. 
 
-The cross-encoder model is a transformer based model with a classification head on top of the special BERT *CLS* token (classification token). The model has been fine tuned using the MS Marco passage training set and is a binary classifier which classifies if a query,document pair is relevant or not and we use the logit score of the model as the relevancy score.
+The cross-encoder model is a transformer based model with a classification head on top of the special BERT *CLS* token (classification token). The model has been fine tuned using the MS Marco passage training set and is a binary classifier which classifies if a query,document pair is relevant or not. We use the logit score of the model as the relevancy score.
 
 This model is also based on a 6 layer MiniLM model with only 22.7M parameters, same as the transformer models previously introduced in this blog series. As with the other two transformer models we introduced in previous posts in this series, we integrate this model in Vespa using [ONNX](https://onnx.ai/) format. We demonstrate how to export the model(s) from PyTorch/Transformers to ONNX format in this [Google colab notebook](https://colab.research.google.com/github/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb). The model is hosted on the  [Huggingface🤗](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) model hub. We use a quantized version where the original *float* weights have been quantized to *int8* representation to speed up inference on cpu. 
 
@@ -59,7 +59,7 @@ Our passage tensor representation becomes:
 
 We tokenize the passage text using a BertTokenizer deployed as a custom Vespa document processor [DocumentTensorizer.java](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/docproc/DocumentTensorizer.java). The processor uses a java based BERT tokenizer to tokenize and map the text to the tensor representation and store it in a Vespa tensor field. The tensor field is stored in-memory (using the *attribute* indexing declaration) for fast access during the reranking serving phase. This avoids tokenization of the passages at query time and reduces complexity and cost as we only need to tokenize the passage once, and not for every query which touches the passage during re-ranking.
 
-Our [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd) including the new *text_token_ids* field: 
+The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd), including the new *text_token_ids* field: 
 
 <pre>
 search passage {
@@ -107,7 +107,7 @@ schema passage {
 }
 </pre>
 In the above snippet we define the ONNX model and its inputs, each of the inputs are mapped to a function declared later in the ranking profile. Each function produces a tensor 
-which is used as input to the model. The *file* point to the ONNX formatted model format, placed in in *src/main/application/files/*. 
+which is used as input to the model. The *file* points to the ONNX formatted model format, placed in in *src/main/application/files/*. 
 Vespa takes care of distributing the model to the content node(s). The inputs
 to the model are standard transformer inputs (input_ids, attention_mask and token_type_ids).
 
@@ -135,7 +135,7 @@ For example the input *input_ids* the function input_ids which is defined as
     }
 </pre>
 
-The [tokenInputIds](https://docs.vespa.ai/en/reference/rank-features.html#tokenInputIds(length,%20input_1,%20input_2,%20...)) is a built in Vespa ranking feature 
+The [tokenInputIds](https://docs.vespa.ai/en/reference/rank-features.html#tokenInputIds(length,%20input_1,%20input_2,%20...)) is a built-in Vespa ranking feature 
 which builds the transformer model input including special tokens like CLS, SEP. 
 
 We pass the *query(token_ids)* tensor which 
@@ -261,7 +261,7 @@ The top scoring hits from the first phase does not necessarily need to be perfec
 For example if we use 6 threads per search and re-rank 24 hits with the second phase expression, each thread re-ranks 4 hits. 
 
 ##  Serving performance versus ranking accuracy
-In this section we perform benchmarking where we deploy the system on Vespa cloud instance using 
+In this section we perform benchmarking where we deploy the system on a Vespa cloud instance using 
 2 x Xeon Gold 6263CY 2.60GHz (HT enabled, 48 cores, 96 threads) with 256GB memory. 
 
 We use a single content node indexing the 9M passages. All query encodings with the *MiniLM* based query encoders, retrieval and re-ranking is performed on this content node.
@@ -294,7 +294,7 @@ into a dense representation and is not sensitive to the number of query terms.
 For dense retrieval using ANN there is only one query encoding through the MiniLM model, while every ranking model which uses ColBERT also needs to encode
 the query through the ColBERT query encoder model. The encoding steps are performed in parallel to avoid sequential latency impact.   
 
-Notice that the last re-ranking phase using the cross-encoder drives the overall cost significantly. From 1895 QPS @ 0.359 MRR@10 to less then 100 QPS @ 0.395 MRR@10. 
+Notice that the last re-ranking phase using the cross-encoder drives the overall cost significantly. From 1895 QPS @ 0.359 MRR@10 to less than 100 QPS @ 0.395 MRR@10. 
 In other words, to improve ranking accuracy by 10% from 0.359 to 0.395 the cost 
 increases by close to 18x. 
 
