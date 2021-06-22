@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Pretrained Transformer Language Models for Search - part 4"
-date: '2021-06-21'
+date: '2021-06-22'
 tags: []
 author: jobergum 
 image: assets/2021-06-18-pretrained-transformer-language-models-for-search-part-4/patrick-hendry-m3TjnLvnGyQ-unsplash.jpg
