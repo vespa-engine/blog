@@ -13,6 +13,13 @@ enable_featured: false
 
 # Authors
 authors:
+  bjorncs:
+    name: Bjørn C Seime
+    display_name: Bjørn C Seime
+    avatar: '/assets/avatars/bjorncs.jpg'
+    email: bjorncs@verizonmedia.com
+    twitter: https://twitter.com/bjorncs
+    description: "Principal Vespa Engineer"
   bratseth:
     name: Jon Bratseth
     display_name: Jon Bratseth
@@ -44,6 +51,12 @@ authors:
     avatar: '/assets/avatars/jobergum.jpg'
     email: bergum@verizonmedia.com
     description: "Vespa Solutions Architect"
+  jvenstad:
+    name: Jon M Venstad
+    display_name: Jon M Venstad
+    avatar: '/assets/avatars/jvenstad.jpg'
+    email: jvenstad@verizonmedia.com
+    description: "Senior Vespa Engineer"
   lesters:
     name: Lester Solbakken
     display_name: Lester Solbakken
