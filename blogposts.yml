@@ -1,11 +1,19 @@
 ---
 ---
-{% for post in site.posts limit:4 %}{% assign author = site.authors[post.author] %}- title: "{{ post.title | strip_newlines | replace: '"', '\"' }}"
+{% for post in site.posts limit:4 %}
+  {%- comment -%} Ugly workaround for 'map' operation not allowing array lookup {%- endcomment -%}
+  {%- assign authors = "" | split: ',' -%}
+  {%- assign author_ids = post.author | split: " " -%}
+  {%- for author_id in author_ids -%}
+  {%- assign author = site.authors[author_id] -%}
+  {%- assign authors = authors | push: author -%}
+  {%- endfor -%}
+- title: "{{ post.title | strip_newlines | replace: '"', '\"' }}"
   excerpt: "{{ post.excerpt | strip_newlines | replace: '"', '\"' }}"
   link: {{ site.url}}{{ site.baseurl }}{{ post.url }}
   image: {% if post.image contains "://" %}{{ post.image }}{% else %}{{ site.url }}{{ site.baseurl }}/{{ post.image }}{% endif %}
-  author: {{ author.display_name }}
-  author-avatar: {% if author.avatar contains "://" %}{{ author.avatar }}{% else %}{{ site.url }}{{ site.baseurl }}{{ author.avatar }}{% endif %}
+  author: {{ authors | map: "display_name" | array_to_sentence_string }}
+  author-avatar: {% if authors[0].avatar contains "://" %}{{ authors[0].avatar }}{% else %}{{ site.url }}{{ site.baseurl }}{{ authors[0].avatar }}{% endif %}
   date: {{ post.date | date: "%Y-%m-%d"}}
 
 {% endfor %}
