@@ -3,17 +3,24 @@
 {% for post in site.posts limit:4 %}
   {%- comment -%} Ugly workaround for 'map' operation not allowing array lookup {%- endcomment -%}
   {%- assign authors = "" | split: ',' -%}
+  {%- assign avatars = "" | split: ',' -%}
   {%- assign author_ids = post.author | split: " " -%}
   {%- for author_id in author_ids -%}
   {%- assign author = site.authors[author_id] -%}
+  {%- if author.avatar contains "://" -%}
+  {%- assign avatar = author.avatar -%}
+  {%- else -%}
+  {%- assign avatar = site.url | append: site.baseurl | append: author.avatar -%}
+  {%- endif -%}
   {%- assign authors = authors | push: author -%}
+  {%- assign avatars = avatars | push: avatar -%}
   {%- endfor -%}
 - title: "{{ post.title | strip_newlines | replace: '"', '\"' }}"
   excerpt: "{{ post.excerpt | strip_newlines | replace: '"', '\"' }}"
   link: {{ site.url}}{{ site.baseurl }}{{ post.url }}
   image: {% if post.image contains "://" %}{{ post.image }}{% else %}{{ site.url }}{{ site.baseurl }}/{{ post.image }}{% endif %}
   author: {{ authors | map: "display_name" | array_to_sentence_string }}
-  author-avatar: {% if authors[0].avatar contains "://" %}{{ authors[0].avatar }}{% else %}{{ site.url }}{{ site.baseurl }}{{ authors[0].avatar }}{% endif %}
+  author-avatar: {{ avatars | join: " " }}
   date: {{ post.date | date: "%Y-%m-%d"}}
 
 {% endfor %}
