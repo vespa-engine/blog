@@ -110,13 +110,6 @@ plugins or extensions. In the next section, we'll see how to set up stateless
 model evaluation.
 
 
-<!--
-Also need to talk about automatic distribution of models to all containers
-for failover and scalability etc. Start with architectural overview.
--->
-
-
-
 ## Stateless model evaluation
 
 So, by [stateless model
@@ -154,15 +147,6 @@ app](https://github.com/vespa-engine/sample-apps/tree/master/model-evaluation)
 for demonstratation.
 
 #### REST API
-
-<!--
-However, Vespa applications do not necessarily need to have a backend.
-Container-only applications are perfectly valid. With accelerated
-model evaluation this
-
-Drop model in models directory and it is immediately available
-with a REST API
--->
 
 The automatically added REST API provides an API for model discovery and
 evaluation. This is great for using Vespa as a standalone model server, or
