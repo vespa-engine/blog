@@ -13,8 +13,8 @@ skipimage: true
 
 ---
 
-A central architectural feature of Vespa.ai is the division of work between
-the stateless container cluster and the content cluster.
+A central architectural feature of [Vespa.ai](https://vespa.ai) is the division
+of work between the stateless container cluster and the content cluster.
 
 Most computation, such as evaluating machine-learned models, happens in
 the content cluster. However, it has become increasingly important to
@@ -75,7 +75,7 @@ consisting of various types of services on multiple nodes. A Vespa.ai
 application is fully defined in an application package. This single unit
 contains everything needed to set up an application, including all
 configuration, custom components, schemas, and machine-learned models. When the
-application package is deployed, the admin layer takes care of configuring all
+application package is deployed, the admin cluster takes care of configuring all
 the services across all the system’s nodes, including distributing all
 models to the nodes that need them.
 
@@ -87,19 +87,19 @@ or added before being stored. Likewise, queries can be transformed or enriched
 in various ways before being sent for further processing.
 
 The content nodes are responsible for persisting data. They also do most of the
-required computation for responding to queries. As that is where the data is,
+required computation when responding to queries. As that is where the data is,
 this avoids the cost of transferring data across the network. Query data is
 combined with document data to perform this computation in various ways.
 
 We thus differentiate between stateless and stateful machine-learned model
-evaluation. Stateless model evaluation happens on the container nodes and is
-characterized by a single model evaluation per query or document. Stateful
-model evaluation happens on the content nodes, and the model is typically
+evaluation. _Stateless model evaluation_ happens on the container nodes and is
+characterized by a single model evaluation per query or document. _Stateful
+model evaluation_ happens on the content nodes, and the model is typically
 evaluated a number of times using data from both the query and the document.
 
-The exact configuration of the services on the nodes is specified in a single
-file: [services.xml](https://docs.vespa.ai/en/reference/services.html). Here
-the number of container and content nodes, and their capabilities, are fully
+The exact configuration of the services on the nodes is specified in
+[services.xml](https://docs.vespa.ai/en/reference/services.html). Here the
+number of container and content nodes, and their capabilities, are fully
 configured. Indeed, a Vespa.ai application does not need to be set up with any
 content nodes, purely running stateless container code, including serving
 machine-learned models.
