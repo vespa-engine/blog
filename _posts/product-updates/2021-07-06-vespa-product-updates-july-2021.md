@@ -50,7 +50,7 @@ is the automated build and test system for Vespa.ai - now open for everyone.
 Use [factory.vespa.oath.cloud/releases](https://factory.vespa.oath.cloud/releases)
 to inspect changes in each release as Vespa.ai normally releases 4 times a week.
 The Vespa Factory is useful to track performance improvements tested in the performance test suite,
-see e.g. [testrun/31240388](https://factory.vespa.oath.cloud/testrun/31240388/test/ProgrammaticFeedClientTest::test_throughput?tab=graphs).
+see e.g. [testrun/31415803](https://factory.vespa.oath.cloud/testrun/31415803/test/ProgrammaticFeedClientTest::test_throughput?tab=graphs).
 
 
 #### Berlin Buzzwords 2021 recordings
