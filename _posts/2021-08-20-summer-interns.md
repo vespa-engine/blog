@@ -8,7 +8,6 @@ tags: []
 excerpt: After the summer internship of 2021 the interns have summarised what they have done and their experience at Vespa
 ---
 
-![Decorative image](/assets/2021-08-20-summer-interns/interns.jpg)
 
 <p class="image credits">
 Photo by <a href="https://unsplash.com/@charlesdeluvio">Charles Deluvio</a> on <a href="https://unsplash.com/s/photos/working-baby">Unsplash</a></p>
