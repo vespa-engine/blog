@@ -163,7 +163,7 @@ search suggestion on the Vespa documentation sites in the search bar.
 #### AWS Lambda
 
 One of the goals of the search-suggestion application was to favor searches
-that where previously search for. To accomplish this we decided to create a AWS
+that where previously searched for. To accomplish this we decided to create a AWS
 Lambda function which would read query logs and feed search term from these
 back into the Vespa application. The reason for this was that the query logs
 where stored in AWS S3 buckets and that this would make it possible to
