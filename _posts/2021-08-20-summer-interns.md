@@ -16,7 +16,7 @@ Over the course of the summer we the interns have gotten to explore the Vespa
 engine and the workings of the company. At the start of our internship we got
 an introduction to the company and the tools that the they used. To get
 familiar with the vespa engine we went through the getting started tutorial,
-where we made made a news recomendation system.
+where we made a news recommendation system.
 
 During our internship we got to work on many different things, but 
 our two main projects were to use Vespa to implement two sample
@@ -182,7 +182,7 @@ While working on the main projects, we also got to work on other smaller side
 projects. One of these side projects was to implement a visualization view of
 [proton's](https://docs.vespa.ai/en/proton.html) memory usage. This view was
 created using react and incorporated into the Vespa Console. We also got to
-work with Vespas performance tests and moved some of the private performance
+work with Vespa's performance tests and moved some of the private performance
 tests over to the public opensource repository by changing the document sets so
 that they did not use private or sensitive data.
 
