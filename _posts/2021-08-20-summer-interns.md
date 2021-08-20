@@ -219,7 +219,7 @@ is commonly used in companies but not taught in schools.
 Even after the internship there are still many things that we have not touched 
 upon or learned about, and we wish we could explore more. To go deeper in 
 to the lower levels of the code and the working of Vespa, and to learn more about
-search form the expirienced people working at Vespa. We grew attactched to the 
+search from the experienced people working at Vespa. We grew attached to the 
 projects we worked on and wished we had more time to fine tune, and improve 
 them to get an even better search in the vespa documentation.
 
