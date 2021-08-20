@@ -3,7 +3,7 @@ layout: post
 title: "Internship at Vespa"
 author: chunnoo onorum
 date: "2021-08-20"
-images: /assets/2021-08-20-summer-interns/interns.jpg
+image: /assets/2021-08-20-summer-interns/interns.jpg
 tags: []
 excerpt: After the summer internship of 2021 the interns have summarised what they have done and their experience at Vespa
 ---
