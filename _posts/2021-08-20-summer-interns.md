@@ -179,7 +179,7 @@ would let us decompress filed with just a Node.js Lambda function.
 ### Other projects
 
 While working on the main projects, we also got to work on other smaller side
-projects. One of these side project was to implement a visualization view of
+projects. One of these side projects was to implement a visualization view of
 [protons](https://docs.vespa.ai/en/proton.html) memory usage. This view was
 created using react and incorporated into the Vespa Console. We also got to
 work with Vespas performance tests and moved some of the private performance
