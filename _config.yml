@@ -82,6 +82,19 @@ authors:
     avatar: '/assets/avatars/aaronnagao.jpg'
     email: aaronnagao@verizonmedia.com
     description: "Senior Software Engineer, Verizon Media"
+  onorum:
+    name: Ole-Magnus Vian Norum
+    display_name: Ole-Magnus Vian Norum
+    avatar: '/assets/avatars/onorum.jpg'
+    email: ole99@live.no
+    description: "Intern II, Summer of 2021"
+  chunnoo:
+    name: Mathias Chunnoo
+    display_name: Mathias Chunnoo
+    avatar: '/assets/avatars/chunnoo.jpg'
+    email: mathiaschunnoo@gmail.com
+    description: "Intern I, Summer of 2021"
+
 
 
 # Plugins
