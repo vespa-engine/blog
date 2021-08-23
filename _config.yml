@@ -97,6 +97,7 @@ authors:
   mortent:
     name: Morten Tokle
     display_name: Morten Tokle
+    avatar: '/assets/avatars/mortent.png'
     email: mortent@verizonmedia.com
     description: "Principal Software Systems Engineer"
   vekterli:
