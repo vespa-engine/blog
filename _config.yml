@@ -102,6 +102,7 @@ authors:
   vekterli:
     name: Tor Brede Vekterli
     display_name: Tor Brede Vekterli
+    avatar: '/assets/avatars/vekterli.jpg'
     email: vekterli@verizonmedia.com
     description: "Principal Software Systems Engineer"
 
