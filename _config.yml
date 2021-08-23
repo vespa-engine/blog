@@ -94,7 +94,16 @@ authors:
     avatar: '/assets/avatars/chunnoo.jpg'
     email: mathiaschunnoo@gmail.com
     description: "Intern I, Summer of 2021"
-
+  mortent:
+    name: Morten Tokle
+    display_name: Morten Tokle
+    email: mortent@verizonmedia.com
+    description: "Principal Software Systems Engineer"
+  vekterli:
+    name: Tor Brede Vekterli
+    display_name: Tor Brede Vekterli
+    email: vekterli@verizonmedia.com
+    description: "Principal Software Systems Engineer"
 
 
 # Plugins
