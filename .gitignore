@@ -8,3 +8,5 @@ blog_index.json
 *.pem
 Gemfile.lock
 *.iml
+.bundle/
+vendor/
