@@ -6,9 +6,12 @@ categories: [product updates]
 tags: []
 author: mpolden
 image: assets/2021-09-23-introducing-vespa-cli/screenshot.png
+skipimage: true
 
 excerpt: The official command-line tool for Vespa is now available.
 ---
+<script id="asciicast-UyZQXh1TxLo43ON0CMqgFxEj0" src="https://asciinema.org/a/UyZQXh1TxLo43ON0CMqgFxEj0.js" async data-autoplay="true" data-speed="1.5" data-cols="170" data-loop="true"></script>
+
 Historically, the primary methods for deploying and interacting with [Vespa
 applications](https://docs.vespa.ai/en/cloudconfig/application-packages.html)
 has been to use [Vespa APIs](https://docs.vespa.ai/en/api.html) directly or via
@@ -50,11 +53,3 @@ code is part of the Vespa
 repository](https://github.com/vespa-engine/vespa/tree/master/client/go). If you
 encounter problems or want to provide feedback on Vespa CLI, feel free to [file
 a GitHub issue](https://github.com/vespa-engine/vespa/issues/new/choose).
-
-## In action
-
-This screencast demonstrates Vespa CLI being used with [Vespa
-Cloud](https://cloud.vespa.ai).
-
-<script id="asciicast-UyZQXh1TxLo43ON0CMqgFxEj0" src="https://asciinema.org/a/UyZQXh1TxLo43ON0CMqgFxEj0.js" async></script>
-
