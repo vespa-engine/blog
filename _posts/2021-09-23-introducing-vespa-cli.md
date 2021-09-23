@@ -42,7 +42,7 @@ Using the initial release of Vespa CLI you can:
 To install Vespa CLI, choose one of the following methods:
 
 - Homebrew: `brew install vespa-cli`
-- [Download from GitHub](https://github.com/vespa-engine/vespa/releases)
+- [Download from GitHub](https://github.com/vespa-engine/vespa/releases/latest)
 
 To learn how to use Vespa CLI check out our getting started guides:
 - [Open source Vespa](https://docs.vespa.ai/en/getting-started.html)
