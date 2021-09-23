@@ -45,7 +45,7 @@ To install Vespa CLI, choose one of the following methods:
 - [Download from GitHub](https://github.com/vespa-engine/vespa/releases/latest)
 
 To learn how to use Vespa CLI check out our getting started guides:
-- [Open source Vespa](https://docs.vespa.ai/en/getting-started.html)
+- [Open source Vespa](https://docs.vespa.ai/en/vespa-quick-start.html)
 - [Vespa Cloud](https://cloud.vespa.ai/en/getting-started)
 
 Vespa CLI is open source under the same license as Vespa itself and [its source
