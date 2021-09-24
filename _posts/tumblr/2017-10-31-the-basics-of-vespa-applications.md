@@ -5,7 +5,10 @@ date: '2017-10-31T13:00:06-07:00'
 tags: []
 tumblr_url: https://blog.vespa.ai/post/166978538586/the-basics-of-vespa-applications
 ---
-Distributed computation over large data sets in real-time — what we call big data serving — is a complex task. We have worked hard to hide this complexity to make it as easy as possible to create your own production quality Vespa application. The [quick](https://docs.vespa.ai/en/vespa-quick-start.html) [start](https://docs.vespa.ai/en/vespa-quick-start-vagrant.html) [guides](https://docs.vespa.ai/en/vespa-quick-start-windows.html) take you through the steps of getting Vespa up and running, deploying a basic application, writing data and issuing some queries to it, but without room for explanation. Here, we’ll explain the basics of creating your own Vespa application.
+Distributed computation over large data sets in real-time — what we call big data serving — is a complex task. We have worked hard to hide this complexity to make it as easy as possible to create your own production quality Vespa application.
+The [quick-start](https://docs.vespa.ai/en/vespa-quick-start.html) [guides](https://docs.vespa.ai/en/vespa-quick-start-vagrant.html)
+take you through the steps of getting Vespa up and running, deploying a basic application, writing data and issuing some queries to it, but without room for explanation.
+Here, we’ll explain the basics of creating your own Vespa application.
 The <a href="https://docs.vespa.ai/en/tutorials/blog-search.html" data-proofer-ignore>blog search and recommendation tutorial</a>
 covers these topics in full detail with hands-on instructions.
 **Update 2021-05-20:** _Blog tutorials are replaced by the
