@@ -165,10 +165,18 @@ The mini_document_embedding tensor is dense (denoted by *d0[384]*) and is of dim
 
 In the above example we use the Vespa *nearestNeigbhor* query operator to retrieve the 10 closests documents in embedding space for the input query embedding vector passed in the *ranking.features.query(query_embedding)* parameter. In this example, query encoding (the forward query encoding pass of the query to obtain the query embedding) is done outside but we can also represent the query encoding model inside Vespa, avoiding complicating our online serving deployment setup:
 
+
 ### Representing the bi-encoder model inside Vespa 
 
 To represent the bi-encoder query model in Vespa we need to export the Huggingface PyTorch model into ONNX format for efficient serving in Vespa. 
-We include a [notebook](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb) in this [sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking) which demonstrates how to transform the model and export it to ONNX format. Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding. To speed up evaluation on CPU we use [quantized](https://www.onnxruntime.ai/docs/how-to/quantization.html) (int) version.  We have demonstrated how to represent query encoders in [Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
+We include a [notebook](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb) in this
+[sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking)
+which demonstrates how to transform the model and export it to ONNX format.
+Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding.
+To speed up evaluation on CPU we use [quantized](https://onnxruntime.ai/docs/performance/quantization.html) (int) version.
+We have demonstrated how to represent query encoders in
+[Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
+
 
 ## Hybrid Dense Sparse Retrieval 
 

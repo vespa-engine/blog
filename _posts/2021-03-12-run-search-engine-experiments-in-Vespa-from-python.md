@@ -86,7 +86,8 @@ app_package.schema.add_rank_profile(
 )
 ```
 
-We can then deploy `app_package` to a Docker container (or directly to [VespaCloud](https://pyvespa.readthedocs.io/en/latest/create-and-deploy-vespa-cloud.html)):
+We can then deploy `app_package` to a Docker container
+(or directly to [VespaCloud](https://pyvespa.readthedocs.io/en/latest/deploy-vespa-cloud.html)):
 
 
 ```python
