@@ -15,7 +15,7 @@ excerpt: >
 ---
 
 In the [previous update]({% post_url /product-updates/2021-07-06-vespa-product-updates-july-2021 %}),
-we mentioned HTTP/2, ONNX Runtime and factory.vespa.oath.cloud.
+we mentioned HTTP/2, ONNX Runtime and [factory.vespa.oath.cloud](https://factory.vespa.oath.cloud/).
 
 This month, we’re excited to share the following updates:
 
