@@ -27,8 +27,8 @@ differences are:
 - Unified sparse and dense tensor types
 - A small but very powerful set of core functions
 
-In this blog post, we'll explore the differences and the benefits of tensors in
-Vespa. We will also introduce the recently released [tensor
+In this blog post, we'll explore these and other aspects of tensors in Vespa.
+We will also introduce the recently released [tensor
 playground](https://docs.vespa.ai/playground/), a tool to get familiar with and
 explore tensors and tensor expressions in an interactive environment.
 
@@ -95,10 +95,10 @@ with only a minimal, concise set of core operations.
 
 ## Sparse and dense tensors
 
-The tensor as a multi-dimensional array is often considered to be dense. This
+The tensor as a multi-dimensional array is often considered to be _dense_. This
 means that all combinations of dimension indexes have a value, even if that
 value is `0` or `NaN`. However, a tensor with many such values could be
-represented more efficiently as a sparse tensor, where only the non-empty values
+represented more efficiently as a _sparse_ tensor, where only the non-empty values
 are defined. This can lead to considerable savings in space.
 
 Unfortunately, the internal representation of sparse tensors in most frameworks
@@ -107,7 +107,7 @@ separate set of functions operating on sparse and dense tensors, with functions
 to convert between the two.
 
 Vespa supports dense, sparse, and tensors that contain both dense and sparse
-dimensions, called a mixed tensor. A dense tensor is a tensor containing only
+dimensions, called a _mixed_ tensor. A dense tensor is a tensor containing only
 "indexed" dimensions. An indexed dimension is indexed by integers, like an
 array. The following is an example of a dense tensor containing two indexed
 dimensions:
@@ -327,7 +327,7 @@ B: tensor(x[3]):[4,5,6]
 ```
 
 Here, the vectors have the same dimension name. Given the exact same expression
-as above, `A * B` or, equivalently, `join(A, B, f(a,b)(a*b))`, the result is
+as above, `A * B` or, equivalently, `join(A, B, f(a,b)(a * b))`, the result is
 now:
 
 ```
@@ -345,7 +345,7 @@ operation is actually a `reduce` operation, so this expands fully to the
 following:
 
 ```
-reduce(join(A, B, f(a,b)(a,b)), sum)
+reduce(join(A, B, f(a,b)(a * b)), sum)
 ```
 
 The `reduce` operation aggregates values along a dimension (or all dimensions if
@@ -469,5 +469,5 @@ provide support for models working with strings.
 In Vespa, this formalism makes numerical computation easier to express,
 understand, and optimize.
 
-For more information, take a look at Vespas [tensor
+For more information, take a look at Vespa's [tensor
 guide](https://docs.vespa.ai/en/tensor-user-guide.html).
