@@ -33,7 +33,7 @@ playground](https://docs.vespa.ai/playground/), a tool to get familiar with and
 explore tensors and tensor expressions in an interactive environment.
 
 
-## Tensor representation
+# Tensor representation
 
 Tensors are multi-dimensional arrays of numeric values and can be viewed as a
 generalization of vectors and matrices. A tensor with one dimension (a
