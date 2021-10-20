@@ -8,7 +8,7 @@ GEM
     em-websocket (0.5.2)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.6.0)
-    ethon (0.14.0)
+    ethon (0.15.0)
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     ffi (1.15.4)
@@ -52,7 +52,7 @@ GEM
       jekyll (>= 3.7, < 5.0)
     jekyll-watch (2.2.1)
       listen (~> 3.0)
-    json (2.5.1)
+    json (2.6.0)
     kramdown (2.3.1)
       rexml
     kramdown-parser-gfm (1.1.0)
@@ -70,7 +70,7 @@ GEM
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     public_suffix (4.0.6)
-    racc (1.5.2)
+    racc (1.6.0)
     rainbow (3.0.0)
     rake (13.0.6)
     rb-fsevent (0.11.0)
@@ -106,5 +106,8 @@ DEPENDENCIES
   rouge
   webrick
 
+RUBY VERSION
+   ruby 2.6.3p62
+
 BUNDLED WITH
-   2.2.16
+   2.2.29
