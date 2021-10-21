@@ -153,4 +153,4 @@ While we could have stored these topic CTRs in some external store, we would hav
 
 We also keep the global CTRs in-memory for even faster performance with the aptly named `attribute: fast-search`. Ultimately, the Vespa team [optimized our use case]({% post_url /product-updates/2020-12-17-vespa-product-updates-december-2020 %}) of parent-child joins and tensors to rank 10,000 articles in just 17.5 milliseconds!
 
-This blog post described just two of the many ranking features used for real-time content recommendation at Verizon Media, all powered by Vespa.
+This blog post described just two of the many ranking features used for real-time content recommendation at Yahoo, all powered by Vespa.

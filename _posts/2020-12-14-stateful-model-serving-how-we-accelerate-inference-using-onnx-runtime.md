@@ -9,7 +9,7 @@ excerpt: There's a difference between stateless and stateful model serving.
 
 ---
 
-*By Lester Solbakken from Verizon Media and Pranav Sharma from Microsoft.*
+*By Lester Solbakken from Yahoo and Pranav Sharma from Microsoft.*
 
 There's a difference between stateless and stateful model serving.
 

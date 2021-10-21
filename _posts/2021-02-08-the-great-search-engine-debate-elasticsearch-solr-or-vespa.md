@@ -238,8 +238,8 @@ Are you aware of prominent Vespa users beside Verizon? Who's behind Vespa Cloud?
 Is there a (larger) ecommerce shop using Vespa in production already?**
 
 [ [quicklink](https://youtu.be/SzZ_A9G6PMY?t=4793) ].
-[cloud.vespa.ai](https://cloud.vespa.ai/) is run by Verizon Media.
-In Verizon Media, Vespa is used for search and recommendation (including APAC e-commerce) + Gemini ad serving stack.
+[cloud.vespa.ai](https://cloud.vespa.ai/) is run by Yahoo.
+In Yahoo, Vespa is used for search and recommendation (including APAC e-commerce) + Gemini ad serving stack.
 Vespa’s background is from Fast Search and Transfer, founded in 1997 from NTNU in Trondheim, Norway.
 
 Resources: [vespa.ai](https://vespa.ai/)
@@ -303,7 +303,7 @@ Resources: [tensor user guide](https://docs.vespa.ai/en/tensor-user-guide.html),
 **Which engine would you use for real-time systems with emphasis on queries latency?**
 
 The Vespa Team has helped implementation of numerous applications
-with millisecond latency requirements and update rates in thousands per second per node in Verizon Media.
+with millisecond latency requirements and update rates in thousands per second per node in Yahoo.
 When the feed operation is ack'ed, the operation is visible.
 There is no index refresh delay or immutable batch indexing
 as in engines like Solr or Elasticsearch using the batch oriented Lucene library.

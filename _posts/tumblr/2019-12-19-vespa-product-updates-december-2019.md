@@ -39,6 +39,6 @@ Vespa handles replica consistency using bucket checksums. Updating documents can
 
 Vespa now uses Apache ZooKeeper 3.5.6 and can encrypt communication between ZooKeeper servers.
 
-About Vespa: Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
+About Vespa: Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
 
 We welcome your contributions and feedback ([tweet](https://twitter.com/vespaengine) or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.

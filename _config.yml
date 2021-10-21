@@ -17,57 +17,57 @@ authors:
     name: Bjørn C Seime
     display_name: Bjørn C Seime
     avatar: '/assets/avatars/bjorncs.jpg'
-    email: bjorncs@verizonmedia.com
+    email: bjorncs@yahooinc.com
     twitter: https://twitter.com/bjorncs
     description: "Principal Vespa Engineer"
   bratseth:
     name: Jon Bratseth
     display_name: Jon Bratseth
     avatar: '/assets/avatars/bratseth.jpg'
-    email: bratseth@verizonmedia.com
+    email: bratseth@yahooinc.com
     twitter: https://twitter.com/jonbratseth
     description: "Vespa Chief Architect"
   geirst:
     name: Geir Storli
     display_name: Geir Storli
     avatar: '/assets/avatars/geirst.jpg'
-    email: geirst@verizonmedia.com
+    email: geirst@yahooinc.com
     description: "Principal Vespa Engineer"
   kkraune:
     name: Kristian Aune
     display_name: Kristian Aune
     avatar: '/assets/avatars/kkraune.jpg'
-    email: kraune@verizonmedia.com
+    email: kraune@yahooinc.com
     description: "Vespa Technical Product Manager"
   thigm85:
     name: Thiago Martins
     display_name: Thiago Martins
     avatar: '/assets/avatars/thigm85.jpg'
-    email: tmartins@verizonmedia.com
+    email: tmartins@yahooinc.com
     description: "Vespa Data Scientist"
   jobergum:
     name: Jo Kristian Bergum
     display_name: Jo Kristian Bergum
     avatar: '/assets/avatars/jobergum.jpg'
-    email: bergum@verizonmedia.com
+    email: bergum@yahooinc.com
     description: "Vespa Solutions Architect"
   jvenstad:
     name: Jon M Venstad
     display_name: Jon M Venstad
     avatar: '/assets/avatars/jvenstad.jpg'
-    email: jvenstad@verizonmedia.com
+    email: jvenstad@yahooinc.com
     description: "Senior Vespa Engineer"
   lesters:
     name: Lester Solbakken
     display_name: Lester Solbakken
     avatar: '/assets/avatars/lesters.jpg'
-    email: lesters@verizonmedia.com
+    email: lesters@yahooinc.com
     description: "Principal Vespa Engineer"
   aressem:
     name: Arnstein Ressem
     display_name: Arnstein Ressem
     avatar: '/assets/avatars/aressem.png'
-    email: aressem@verizonmedia.com
+    email: aressem@yahooinc.com
     twitter: https://twitter.com/ArnsteinRessem
     description: "Principal Software Systems Engineer"
   sujitpal:
@@ -80,8 +80,8 @@ authors:
     name: Aaron Nagao
     display_name: Aaron Nagao
     avatar: '/assets/avatars/aaronnagao.jpg'
-    email: aaronnagao@verizonmedia.com
-    description: "Senior Software Engineer, Verizon Media"
+    email: aaronnagao@yahooinc.com
+    description: "Senior Software Engineer, Yahoo"
   onorum:
     name: Ole-Magnus Vian Norum
     display_name: Ole-Magnus Vian Norum
@@ -98,19 +98,19 @@ authors:
     name: Morten Tokle
     display_name: Morten Tokle
     avatar: '/assets/avatars/mortent.png'
-    email: mortent@verizonmedia.com
+    email: mortent@yahooinc.com
     description: "Principal Software Systems Engineer"
   vekterli:
     name: Tor Brede Vekterli
     display_name: Tor Brede Vekterli
     avatar: '/assets/avatars/vekterli.jpg'
-    email: vekterli@verizonmedia.com
+    email: vekterli@yahooinc.com
     description: "Principal Software Systems Engineer"
   mpolden:
     name: Martin Polden
     display_name: Martin Polden
     avatar: '/assets/avatars/mpolden.jpg'
-    email: mpolden@verizonmedia.com
+    email: mpolden@yahooinc.com
     description: "Senior Vespa Engineer"
 
 

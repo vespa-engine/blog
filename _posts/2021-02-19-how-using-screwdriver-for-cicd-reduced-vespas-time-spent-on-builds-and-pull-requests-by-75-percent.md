@@ -9,9 +9,9 @@ excerpt: Introducing Screwdriver for Vespa's CI/CD needs.
 skipimage: true
 
 ---
-*By [Arnstein Ressem](https://www.linkedin.com/in/arnsteinressem/), Principal Software Systems Engineer, Verizon Media*
+*By [Arnstein Ressem](https://www.linkedin.com/in/arnsteinressem/), Principal Software Systems Engineer, Yahoo*
 
-When Vespa was [open sourced in 2017](https://blog.vespa.ai/open-sourcing-vespa-yahoos-big-data-processing/) we looked for a continuous integration platform to build our source code on. We looked at several hosted solutions as well as [Screwdriver](https://screwdriver.cd/) – an open source CI/CD platform built by Yahoo/Verizon Media – that had just been open sourced in 2016. Another platform seemed the best fit for us at that point in time and we integrated with that.
+When Vespa was [open sourced in 2017](https://blog.vespa.ai/open-sourcing-vespa-yahoos-big-data-processing/) we looked for a continuous integration platform to build our source code on. We looked at several hosted solutions as well as [Screwdriver](https://screwdriver.cd/) – an open source CI/CD platform built by Yahoo – that had just been open sourced in 2016. Another platform seemed the best fit for us at that point in time and we integrated with that.
 
 ![Decorative image](/assets/2021-02-19-how-using-screwdriver-for-cicd-reduced-vespas-time-spent-on-builds-and-pull-requests-by-75-percent/cover.jpg)
 <p class="image-credit"><em>Photo by <a href="https://unsplash.com/@bill_oxford?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Bill Oxford</a> on <a href="https://unsplash.com/s/photos/cogs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></em></p>

@@ -8,7 +8,7 @@ tags: []
 tumblr_url: https://blog.vespa.ai/post/185272046721/vespa-product-updates-may-2019-deploy-large
 index: false
 ---
-In [last month’s Vespa update]({% post_url /tumblr/2019-03-29-vespa-product-updates-march-2019-tensor-updates %}), we mentioned Tensor updates, Query tracing and coverage. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to evolve.
+In [last month’s Vespa update]({% post_url /tumblr/2019-03-29-vespa-product-updates-march-2019-tensor-updates %}), we mentioned Tensor updates, Query tracing and coverage. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to evolve.
 
 For May, we’re excited to share the following feature updates with you:
 

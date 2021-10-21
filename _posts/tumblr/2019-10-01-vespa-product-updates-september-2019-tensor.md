@@ -14,7 +14,7 @@ tags:
 tumblr_url: https://blog.vespa.ai/post/188063440936/vespa-product-updates-september-2019-tensor
 index: false
 ---
-In the [August Vespa product update]({% post_url /tumblr/2019-08-20-vespa-product-updates-august-2019-bm25-rank %}), we mentioned BM25 Rank Feature, Searchable Parent References, Tensor Summary Features, and Metrics Export. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
+In the [August Vespa product update]({% post_url /tumblr/2019-08-20-vespa-product-updates-august-2019-bm25-rank %}), we mentioned BM25 Rank Feature, Searchable Parent References, Tensor Summary Features, and Metrics Export. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
 
 This month, we’re excited to share the following updates with you:
 

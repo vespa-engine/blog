@@ -13,7 +13,7 @@ tags:
 tumblr_url: https://blog.vespa.ai/post/187148684196/vespa-product-updates-august-2019-bm25-rank
 index: false
 ---
-In the recent [Vespa product update]({% post_url /tumblr/2019-05-31-vespa-product-updates-may-2019-deploy-large %}), we mentioned Large Machine Learning Models, Multithreaded Disk Index Fusion, Ideal State Optimizations, and Feeding Improvements. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
+In the recent [Vespa product update]({% post_url /tumblr/2019-05-31-vespa-product-updates-may-2019-deploy-large %}), we mentioned Large Machine Learning Models, Multithreaded Disk Index Fusion, Ideal State Optimizations, and Feeding Improvements. Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
 
 This month, we’re excited to share the following feature updates with you:
 

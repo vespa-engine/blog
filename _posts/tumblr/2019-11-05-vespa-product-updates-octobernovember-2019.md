@@ -38,7 +38,7 @@ Vespa is used in many use cases with structured data - documents can have arrays
 
 Vespa is often used in large scale mission-critical applications. For easy integration into dashboards, Vespa is now in Datadog’s [integrations-extras](https://github.com/DataDog/integrations-extras/tree/master/vespa) GitHub repository. Existing Datadog users will now find it easy to monitor Vespa. [Read more](https://docs.vespa.ai/en/monitoring.html#pulling-into-datadog).
 
-About Vespa: Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
+About Vespa: Largely developed by Yahoo engineers, [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine. It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform. Thanks to feedback and contributions from the community, Vespa continues to grow.
 
 We welcome your contributions and feedback ([tweet](https://twitter.com/vespaengine) or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.
 

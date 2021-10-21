@@ -59,5 +59,5 @@ See the [blog post](https://blog.vespa.ai/stateful-model-serving-how-we-accelera
 ___
 About Vespa: Largely developed by Yahoo engineers,
 [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine.
-It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Verizon Media Ad Platform.
+It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform.
 Thanks to feedback and contributions from the community, Vespa continues to grow.
