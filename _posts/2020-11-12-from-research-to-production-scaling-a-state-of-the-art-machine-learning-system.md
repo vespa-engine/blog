@@ -25,7 +25,7 @@ introduced to use such models in production. While beneficial for decreasing
 cost and energy consumption, this, unfortunately, hurts accuracy.
 
 Obviously, inference time can be drastically lowered if accuracy is not
-important. Likewise, very accurate responses can be produced at high cost.
+important. Likewise, accurate responses can be produced at high cost.
 Which solution to ultimately choose lies somewhere between these extremes. A
 useful technique for selecting the best solution is to enumerate them in terms
 of accuracy and cost. The set of solutions not dominated by others is called
@@ -205,7 +205,7 @@ thus around 110 million parameters. These are reasonably large models,
 particularly when used in time-constrained environments. However, in the paper
 [Well-Read Students Learn Better: On the Importance of Pre-training Compact
 Models](https://arxiv.org/abs/1908.08962), the authors show that smaller
-models can indeed work very well. The "miniature" models referenced in this
+models can indeed work well. The "miniature" models referenced in this
 paper can be found in the [Transformers model
 repository](https://huggingface.co/google/bert_uncased_L-12_H-768_A-12).
 

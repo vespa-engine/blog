@@ -104,7 +104,7 @@ configured. Indeed, a Vespa.ai application does not need to be set up with any
 content nodes, purely running stateless container code, including serving
 machine-learned models.
 
-This makes it very easy to deploy applications. It offers a lot of flexibility
+This makes it easy to deploy applications. It offers a lot of flexibility
 in combining many types of models and computations out of the box without any
 plugins or extensions. In the next section, we'll see how to set up stateless
 model evaluation.

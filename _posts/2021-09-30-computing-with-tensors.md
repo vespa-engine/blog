@@ -25,7 +25,7 @@ differences are:
 
 - Named dimensions
 - Unified sparse and dense tensor types
-- A small but very powerful set of core functions
+- A small but powerful set of core functions
 
 In this blog post, we'll explore these and other aspects of tensors in Vespa.
 We will also introduce the recently released [tensor
@@ -135,7 +135,7 @@ This particular example effectively works as a lookup table. By providing the
 For instance, this can be useful for a single tensor to contain the weights for
 multiple versions of a model, e.g., a neural network.
 
-All in all, this enables a very flexible data representation.
+All in all, this enables a flexible data representation.
 
 
 ## Tensor operations
@@ -188,7 +188,7 @@ mathematical operations in which all other computations can be expressed.
 Unary operations work on single tensors; examples include filtering and
 reduction. Binary operations combine two input tensors to an output tensor, for
 instance, joining, extending, or calculating some relation. By combining these
-operations, they can express very complex computation.
+operations, they can express complex computation.
 
 Vespa provides just 8 core operations to transform tensors:
 

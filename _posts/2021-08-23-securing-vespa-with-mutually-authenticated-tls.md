@@ -26,7 +26,7 @@ at [secure-vespa-with-mtls](https://github.com/vespa-engine/sample-apps/tree/mas
 and will be used as an example throughout this post.
 
 [Vespa Cloud](https://cloud.vespa.ai/) and Verizon Media have been running Vespa with mTLS across the entire application stack for several years.
-We are very happy to announce that this feature is now fully available in Open Source Vespa. 
+We are happy to announce that this feature is now fully available in Open Source Vespa. 
 
 If you are a Vespa Cloud customer, 
 [mTLS is automatically configured without any action required on your part](https://cloud.vespa.ai/en/security-model.html).

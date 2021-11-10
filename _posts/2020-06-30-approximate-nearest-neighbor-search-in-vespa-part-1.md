@@ -91,7 +91,7 @@ We ended up with the following:
   (only depending on the number of dimensions of the vector space) this approach is data-independent.
   For our purposes, we could use the hash value as a filter,
   where only documents having most bits in common with the hash value of the query data point would be considered for full distance computation.
-  This would give us very little extra memory and CPU usage and would be easy to fit into our exact (brute-force) nearest neighbor feature.
+  This would give us little extra memory and CPU usage and would be easy to fit into our exact (brute-force) nearest neighbor feature.
   It was the first algorithm that we implemented as a prototype.
   However, in our prototype we found that getting a significant speedup required a large sacrifice of quality.
   For more info, see *Dropping RPLSH* below. 
@@ -157,7 +157,7 @@ Observations:
   We see the same during indexing as that uses the search algorithm to find candidates to connect to.
 * The Annoy search algorithm is less dependent on corpus size, at least with small corpus sizes.
   The static cost is driven by brute force calculation of distances for the candidate set, 8000 in this case.
-  With very high corpus size the cost of traversing the binary trees will likely match and exceed the static cost.
+  With high corpus size the cost of traversing the binary trees will likely match and exceed the static cost.
   We don’t know where this limit is.
 * For RPLSH, doing exhaustive search (linear scan) of the hashes is more expensive than expected.
   One major consideration here is that the data reduction (from 128 dimensions\*32 bit floats, to 512 bits hash) is just a factor 8,
@@ -223,7 +223,7 @@ Observations:
 ## Dropping RPLSH
 To get good quality (recall) with RPLSH we found that a large hash size was needed.
 Running a quality benchmark on the SIFT dataset with 1M data points,
-shows the recall (as percentage of correct hits when asking for top K=100) is very bad with a 64 bit hash.
+shows the recall (as percentage of correct hits when asking for top K=100) is bad with a 64 bit hash.
 You would need to do a full distance calculation for 25000 documents just to get 80% recall.
 We worked mostly with a 512-bit hash, where (on average) you should get 80% recall with just 600 candidates, and 90% recall with 1200 candidates.
 
