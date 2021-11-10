@@ -697,13 +697,13 @@ RankProfile(
 
 # Keeping the index fresh by true partial updates
 
-In retail and e-commerce search, one very important aspect is to be able to update the search index to keep it fresh, so that we can use the latest information at search time.
+In retail and e-commerce search, one important aspect is to be able to update the search index to keep it fresh, so that we can use the latest information at search time.
 Examples of updates which Vespa can perform at scale:
 
  - inventory status, which could be used as a *hard* filter so that our results only includes products which are in stock, or as a feature to be used when ranking products.  
  - Product attributes  which can used as ranking signals, for example category popularity (salesRank), click through rate and conversion rate. 
 
-Vespa, with its true partial update of **attribute** fields, can support very high volumes of updates per node,
+Vespa, with its true partial update of **attribute** fields, can support high volumes of updates per node,
 as updates of attribute fields are performed in-place, without having to re-index the entire document.  
 
 To demonstrate this,  we will add a new field to our product index which we call *inventory* and which keeps track of the inventory or in stock status of our product index. We want to ensure that the products we display have a positive inventory status. In this case we use it as a hard filter but this can also be a soft filter, used as a ranking signal. 

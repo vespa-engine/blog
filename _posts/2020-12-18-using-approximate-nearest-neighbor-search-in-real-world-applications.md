@@ -59,7 +59,7 @@ or euclidean distance.
 
 Finding the nearest neighbors of a point is reasonably straight-forward: just
 compute the similarity using the distance metric between the point and all
-other points. Unfortunately, this brute-force approach doesn't scale very well,
+other points. Unfortunately, this brute-force approach doesn't scale well,
 particularly in time-critical settings such as online serving, where you have a
 large number of points to consider.
 
@@ -84,7 +84,7 @@ hashing, which uses hash functions to group similar vectors together. These
 approaches index the centroids or buckets.
 
 A method that is not compatible with inverted indexes is HNSW (hierarchical
-navigable small world). HNSW is based on graph structures, is very efficient,
+navigable small world). HNSW is based on graph structures, is efficient,
 and lets the graph be incrementally built at runtime. This is in contrast to
 most other methods that require offline, batch-oriented index building.
 
@@ -159,7 +159,7 @@ the relevant items are actually recommended.
 
 ### Serving ads
 
-Ad serving systems work very much like recommender systems. Given a user
+Ad serving systems work much like recommender systems. Given a user
 profile and a context such as a search query or page content, the system should
 provide an advertisement relevant to the user. The advertisements are stored
 with advertiser-specific rules, for instance, who the ad or campaign should
@@ -206,7 +206,7 @@ from the ANN search. This obviously hurts performance, as the workload of both
 the ANN and post-filtering increases. Besides, this is not guaranteed to work.
 If you have a strong filter independent of the ANN, there is a real chance of
 not producing any results at all. The local restaurant case is an example of
-this, where the location is a very strong filter independent of the user
+this, where the location is a strong filter independent of the user
 profile.
 
 The real solution here is to integrate the filters into the ANN search. Such an
@@ -243,7 +243,7 @@ relation to the number of items in the graph, skipping occurs with a high
 probability. This means that the algorithm needs to consider an exponentially
 increasing number of candidates, slowing down the search significantly. To
 solve this, Vespa.ai switches over to a brute-force search when this occurs.
-The result is a very efficient ANN search when combined with filters.
+The result is a efficient ANN search when combined with filters.
 
 ## About Vespa.ai
 

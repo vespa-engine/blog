@@ -241,7 +241,7 @@ failed. This was a model converted from TensorFlow to ONNX. The evaluation
 result was incorrect, with relatively poor performance.
 
 We spent significant efforts on this. Quite a few operators had to be rewritten
-due to, sometimes very subtle, edge cases. We introduced a dozen or so
+due to, sometimes subtle, edge cases. We introduced a dozen or so
 performance optimizations, to avoid doing silly stuff such as calculating the
 same expressions multiple times and allocating memory unnecessarily.
 Ultimately, we were able to increase performance by more than two orders of
@@ -249,7 +249,7 @@ magnitude.
 
 During this development we turned to [ONNX
 Runtime](https://github.com/microsoft/onnxruntime) for reference. ONNX Runtime
-is very easy to use:
+is easy to use:
 
 ```
 import onnxruntime as ort
