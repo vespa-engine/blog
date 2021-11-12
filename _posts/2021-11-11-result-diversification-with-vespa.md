@@ -230,11 +230,11 @@ The query selection logic controls the number of <em>matches</em>.
 Therefore, efficient
 retrievers like [weakAnd/wand](https://docs.vespa.ai/en/using-wand-with-vespa.html)
 or [approximate nearest neighbor
-search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) expose
-expose fewer matches to configurable ranking and grouping.
+search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
+expose fewer matches to ranking and grouping.
 Thus, reducing the number of matches can improve the serving performance significantly and
 also, enhance the quality of the groups as low-scoring documents are excluded from the
-result grouping. 
+result grouping phase. 
 The grouping language also allows limiting the number of <em>matches</em> that are grouped.
 For example, to limit the number of <em>matches</em> per node, use an 
 <pre>
@@ -242,13 +242,14 @@ all(max(K) all(group(category) .... ))
 </pre>
 
 In this expression, <em>K</em> is the maximum number of matches per
-node that grouping runs over. 
+node that grouping runs over. Only top-K ranked from the matching and ranking phases
+are considered.
 
 It's also possible to limit the number of <em>matches</em> exposed to grouping by using 
 the [match-phase
-degradation](https://docs.vespa.ai/en/graceful-degradation.html#match-phase-degradation)
-feature, which sets an upper limit on the number of documents ranked,
-using a document side quality attribute. The match phase degradation feature supports diversity criteria
+degradation](https://docs.vespa.ai/en/graceful-degradation.html#match-phase-degradation) ranking
+feature. The <em>match-phase</em> limit sets an upper limit on the number of documents matched and ranked,
+using a document side quality attribute. The match phase degradation feature supports diversity, 
 so that the matches exposed to grouping also are diversified. The <em>match-phase</em> diversification is 
 currently not supported for the approximate nearest neighbor search operator. 
 
