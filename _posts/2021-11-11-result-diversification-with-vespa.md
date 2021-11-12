@@ -21,33 +21,35 @@ href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referr
 </p>
 
 Result diversification is a broad topic, and this blog post only scratches the surface of
-the problem. One might classify result diversification to be a multi-objective list optimization
-problem. The core search or recommendation ranking produces a ranked list of documents
+the problem. One might classify result diversification as a multi-objective list optimization
+problem. Conceptually, the core search or recommendation ranking procedure produces a ranked list of documents
 scored on a per-document basis.  On the other hand, diversification looks at the overall list of ranked
 documents. From a high level perspective, the diversity constraints could be expressed as a 
-similarity function which re-order documents to obtain an
-ordering that considers variety or business logic constraints. 
+similarity function which re-order or remove similar matches to obtain an
+ordering that optimizes variety. This post does not cover query intent diversification where
+query specification is ambiguous and where the engine might show different types of results based on most probable query intents. 
 
 # Life of a query in Vespa
 
-Before getting into the details on achieving result diversification implemented with
+Before getting into the details on result diversification with
 Vespa, one needs to have a basic understanding of the distributed query execution in
 Vespa.  For a query request that asks for a list of 100 best-ranking hits, the Vespa
-stateless content layer will fan out the query to a subset of the content nodes. Each content node
-produces a locally ranked list of 100 <em>hits</em> out of potentially hundreds of millions of
+stateless content layer will fan out the query to the content nodes. Each content node
+produces a locally ranked list of top 100 <em>hits</em> out of potentially hundreds of millions of
 documents <em>matching</em> the query specification. The stateless layer
 merges the top 100 ranking <em>matches</em> from
 all the content nodes and retains the global 100 top-ranking hits. 
-The number of hits
-that are returned is controlled by the
+The number of hits that are returned is controlled by the
 [hits](https://docs.vespa.ai/documentation/reference/query-api-reference.html#hits)
 or the [YQL limit
 ](https://docs.vespa.ai/en/reference/query-language-reference.html#limit-offset) parameter. 
+See also [Vespa search sizing](https://docs.vespa.ai/en/performance/sizing-search.html)
+for more details on Vespa query execution and scaling Vespa deployments.
 
-In the following sections, we try to differentiate between the <em>hits</em> and
+In the following sections, a differentiation is made between between <em>hits</em> and
 <em>matches</em>, where
-matches are documents that match the query formulation. Hits are a subset of the
-matches. 
+matches are documents that match the query formulation. <em>Hits</em> are a typically a small subset of the
+matches that are surfaced to the stateless search container. 
 
 
 # Introducing Vespa Grouping Language
@@ -55,7 +57,7 @@ The [Vespa grouping language](https://docs.vespa.ai/en/grouping.html) is a list 
 language that describes how the query
 <em>matches</em> should be grouped, aggregated, and presented in results as <em>hits</em>. A grouping
 statement takes the list of all <em>matches</em> to a query as input and groups/aggregates it,
-possibly in multiple nested and parallel ways to produce the desired output. 
+possibly in multiple nested and parallel ways to produce the result output. 
 
 The Vespa grouping list processing language runs over matches selected by the query formulation,
 supporting matches retrieved by traditional query filters, keywords, and nearest neighbor
@@ -77,8 +79,7 @@ documents in the corpus.
 
 In the first example of using Vespa grouping language, one can imagine there has been an 
 offline process which have categorized documents
-into a predefined <em>category</em> uniquely identified by a numeric identifier. 
-
+into a predefined <em>category</em>, uniquely identified by a numeric identifier. 
 <pre>
 schema doc {
   document doc {
@@ -111,12 +112,11 @@ each(max(2) each(output(summary(short)))));
 
 The above query and grouping specification groups all matches 
 by the category field. The undiversified ranked list of ten hits are
-retained in the result set when using <em>limit 10</em>. The hits from the diversified
-result is emitted
+retained in the result set when using <em>limit 10</em>. 
+The hits from the diversified result set is emitted 
 by the <em>each(output(summary()))</em> expression.
 
-To remove the 
-undiversified ranked list use <em>limit 0</em>: 
+To remove the un-diversified ranked list use <em>limit 0</em>: 
 
 <pre>
 select * from doc where userQuery() limit 0 | all(group(category) max(10)
@@ -127,10 +127,10 @@ Groups are by default sorted by the maximum hit relevancy score within the
 group. The outer <em>max(10)</em> controls the maximum number of groups
 returned. In
 addition, the two highest-ranking hits (<em>max(2)</em>) is emitted for each of the
-unique groups (categories).
+unique groups, in this case, categories.
 The Vespa grouping API supports [pagination](https://docs.vespa.ai/en/grouping.html#pagination) 
 using continuation tokens. 
-In the above example we grouped on a single document document attribute, it is also
+In the above example, the grouping expression used a single document attribute, it is also
 possible to group by expressions. See the [grouping
 reference](https://docs.vespa.ai/en/reference/grouping-syntax.html) documentation.
 In the below example the group identifier is a concatenation of category and brand: 
@@ -151,7 +151,7 @@ select * from doc where
 all(group(journal) max(10) each(max(2) each(output(summary(short)))));
 </pre>
 
-In the dense retrieval case using nearest neighbor search operator, 
+In the dense retrieval case, using the (approximate) nearest neighbor search operator, 
 the number of <em>matches</em> exposed to grouping is limited by the <em>targetHits</em>. 
 This behavior is due to the nature of the
 approximate nearest neighbor search. There is no clear separation between a
@@ -165,7 +165,6 @@ of groups is, as mentioned, the maximum relevance score of the hits in the group
 <pre>
 all(group(category) max(10) each(max(1) each(output(summary(short)))))
 </pre>
-
 Is the equivalent of 
 <pre>
 all(group(category) order(-max(relevance())) max(10) each(max(1)
@@ -174,40 +173,49 @@ each(output(summary(short)))))
 The <em>-</em> denotes descending sort order.
 
 It is possible to order groups by more complex expressions working on
-aggregates like <em>sum()</em> and <em>count()</em>, for example:
-- Number of hits in the group times the maximum relevance:
+<em>match</em> aggregates like <em>sum()</em> and <em>count()</em>, for example:
+- Number of <em>matches</em> in the group times the maximum relevance:
 <em>order(-max(relevance())*count())</em> 
-- The sum of a document ctr attribute for the hits in the group times the
-  maximum
-relevance: <em>order(-max(relevance())*sum(ctr))</em>
+- The sum of a document attribute times the
+  maximum relevance <em>order(-max(relevance())*sum(ctr))</em>
 
 # Fine-tuning result diversification with phased execution
-In the grouping examples in previous sections 
-are rather simplistic using bucketing as the diversity similarity
-function. The benefit is that it is scalable and fast to compute globally over many nodes,
-but the expressiveness of the bucketing similarity is limited. 
+The grouping examples in previous sections 
+are using "bucketing" as the diversity similarity
+function. The advantage of group bucketing is scalability. It is fast to compute globally over many nodes,
+over many matches. The downside is that the expressiveness of the diversity similarity function is limited.
 
-Once the grouped result <em>hits</em> computed in parallel over all content nodes is
-computed, it can be
-further post-processed expressing more complex similarity functions which is only
-computed over the top-k hits retrieved by the grouping framework. Therefor,
-diversification could be expressed as a phased or staged process where
+Once the grouped result <em>hits</em> have been computed in parallel over all content nodes 
+, the resulting <em>hits</em> can be post-processed using a more complex diversity similarity function. At 
+the post processing stage the potential large number of matches have been reduced to lists of top ranked hits. Therefore, 
+the diversity similarity function can use a richer set of features and compute complexity.  
+
+This type of architecture is a phased or tiered architecture where the first phase selects
+diverse "bucketed" candidates efficiently over potentially a large number of matches and
+the subsequent phases post processes the results using a more complex diversity function:
 
 - Vespa grouping language is used to fetch candidate documents which are diversified and
-  ranked. 
-- Post processing logic which works on the top result from the parallel grouping execution and
-  implements a more complex diversity similarity function, including business logic
-constraints. 
+  ranked using bucketing. 
+- Post processing logic on the top result ranking lists from the parallel grouping execution and
+  implements a more complex diversity similarity function
+
+It is also considerably easier to implement custom business logic like "Never display more than four of type x for users of type z" in
+the post processing stage. The downside of custom post-processing is that it complicates pagination support.
  
-Such a post-processing routine can be developed in a [stateless
+Post-processing diversity and business logic routines are best added by writing [stateless
 searcher](https://docs.vespa.ai/en/searcher-development.html), for example implementing
-this [diversity algorithm](https://tech.ebayinc.com/engineering/diversity-in-search/).  
-The custom searcher function can also build and process the grouping request and response, see
+this [diversity algorithm](https://tech.ebayinc.com/engineering/diversity-in-search/). 
+Deploying the post processing logic in a searcher avoids network round trips and serialization and
+de-serialization. The internal communication protocol between stateless and stateful Vespa nodes
+is binary and is secured using mTLS so there is considerably less overhead doing round trips between
+a stateless searcher component and the content nodes. 
+
+The custom searcher function can also build and process the grouping request and response programmatically, see
 [Searcher grouping api](https://docs.vespa.ai/en/grouping.html#search-container-api).
 
 # Serving performance  
-Four main components drive serving performance when the query request includes
-result grouping. In order of importance:
+Four main components drive serving performance of query requests that 
+use Vespa result grouping. In order of importance:
 
 - The number of matches the query produces per node. All the document matches
   get
@@ -240,8 +248,9 @@ It's also possible to limit the number of <em>matches</em> exposed to grouping b
 the [match-phase
 degradation](https://docs.vespa.ai/en/graceful-degradation.html#match-phase-degradation)
 feature, which sets an upper limit on the number of documents ranked
-, using a document attribute. This feature also includes diversity criteria
-so that the results exposed to grouping also are diversified.
+, using a document side quality attribute. The match phase degradation feature supports diversity criteria
+so that the matches exposed to grouping also are diversified. The <em>match-phase</em> diversification is 
+currently not supported for the approximate nearest neighbor search operator. 
 
 The number of unique values the field is data-dependent, fewer unique values is better. 
 The number of nodes in the cluster
@@ -255,8 +264,11 @@ usage.
 
 # Summary
 This blog post covered how to use Vespa result grouping to produce a mixed
-result set for both search and recommendation use cases. This post only covered 
-single-level grouping. 
+result set for both search and recommendation use cases. As many search and recommendation
+use cases it is best solved using a phased execution with gradually increasing complexity.
+
+This post only covered 
+single-level grouping expressions. 
 However, the Vespa grouping framework also allows
 running multi-level grouping. For
 example, group by category, then by brand to further diversify the result. 
