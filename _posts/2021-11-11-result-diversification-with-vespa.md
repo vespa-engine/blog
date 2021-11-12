@@ -22,7 +22,7 @@ href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referr
 
 Result diversification is a broad topic, and this blog post only scratches the surface of
 the problem. One might classify result diversification as a multi-objective list optimization
-problem. Conceptually, the core search or recommendation ranking procedure produces a ranked list of documents
+problem. Conceptually, the core search or recommendation ranking function produces a ranked list of documents
 scored on a per-document basis.  On the other hand, diversification looks at the overall list of ranked
 documents. From a high level perspective, the diversity constraints could be expressed as a 
 similarity function which re-order or remove similar matches to obtain an
