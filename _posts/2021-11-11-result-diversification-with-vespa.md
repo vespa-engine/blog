@@ -34,7 +34,7 @@ query specification is ambiguous and where the engine might show different types
 Before getting into the details on result diversification with
 Vespa, one needs to have a basic understanding of the distributed query execution in
 Vespa.  For a query request that asks for a list of 100 best-ranking hits, the Vespa
-stateless content layer will fan out the query to the content nodes. Each content node
+stateless container layer will fan out the query to the content nodes. Each content node
 produces a locally ranked list of top 100 <em>hits</em> out of potentially hundreds of millions of
 documents <em>matching</em> the query specification. The stateless layer
 merges the top 100 ranking <em>matches</em> from
@@ -185,8 +185,8 @@ are using "bucketing" as the diversity similarity
 function. The advantage of group bucketing is scalability. It is fast to compute globally over many nodes,
 over many matches. The downside is that the expressiveness of the diversity similarity function is limited.
 
-Once the grouped result <em>hits</em> have been computed in parallel over all content nodes 
-, the resulting <em>hits</em> can be post-processed using a more complex diversity similarity function. At 
+Once the grouped result <em>hits</em> have been computed in parallel over all content nodes,
+the resulting <em>hits</em> can be post-processed using a more complex diversity similarity function. At 
 the post processing stage the potential large number of matches have been reduced to lists of top ranked hits. Therefore, 
 the diversity similarity function can use a richer set of features and compute complexity.  
 
@@ -203,7 +203,7 @@ It is also considerably easier to implement custom business logic like "Never di
 the post processing stage. The downside of custom post-processing is that it complicates pagination support.
  
 Post-processing diversity and business logic routines are best added by writing [stateless
-searcher](https://docs.vespa.ai/en/searcher-development.html), for example implementing
+searchers](https://docs.vespa.ai/en/searcher-development.html), for example implementing
 this [diversity algorithm](https://tech.ebayinc.com/engineering/diversity-in-search/). 
 Deploying the post processing logic in a searcher avoids network round trips and serialization and
 de-serialization. The internal communication protocol between stateless and stateful Vespa nodes
@@ -233,7 +233,7 @@ or [approximate nearest neighbor
 search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) expose
 expose fewer matches to configurable ranking and grouping.
 Thus, reducing the number of matches can improve the serving performance significantly and
-also,enhance the quality of the groups as low-scoring documents are excluded from the
+also, enhance the quality of the groups as low-scoring documents are excluded from the
 result grouping. 
 The grouping language also allows limiting the number of <em>matches</em> that are grouped.
 For example, to limit the number of <em>matches</em> per node, use an 
@@ -247,8 +247,8 @@ node that grouping runs over.
 It's also possible to limit the number of <em>matches</em> exposed to grouping by using 
 the [match-phase
 degradation](https://docs.vespa.ai/en/graceful-degradation.html#match-phase-degradation)
-feature, which sets an upper limit on the number of documents ranked
-, using a document side quality attribute. The match phase degradation feature supports diversity criteria
+feature, which sets an upper limit on the number of documents ranked,
+using a document side quality attribute. The match phase degradation feature supports diversity criteria
 so that the matches exposed to grouping also are diversified. The <em>match-phase</em> diversification is 
 currently not supported for the approximate nearest neighbor search operator. 
 
