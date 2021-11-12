@@ -256,7 +256,7 @@ usage.
 # Summary
 This blog post covered how to use Vespa result grouping to produce a mixed
 result set for both search and recommendation use cases. This post only covered 
-single-level group. 
+single-level grouping. 
 However, the Vespa grouping framework also allows
 running multi-level grouping. For
 example, group by category, then by brand to further diversify the result. 
