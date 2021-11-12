@@ -74,8 +74,8 @@ select * from doc where userQuery() limit 10;
 </pre>
 
 The list of <em>hits</em> is not diversified in any way, just a flat list
-of ten top ranking hits out of possible millions of <em>matches</em> out of billions of
-documents in the corpus. 
+of ten top ranking hits out of possible millions of <em>matches</em> out of possible billions of
+documents in the index. 
 
 In the first example of using Vespa grouping language, one can imagine there has been an 
 offline process which have categorized documents
