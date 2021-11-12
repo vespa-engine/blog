@@ -23,7 +23,7 @@ href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referr
 This blog post dives into how to achieve result diversification using Vespa's
 grouping framework. The [Vespa grouping](https://docs.vespa.ai/en/grouping.html)
 framework runs over hits selected by the
-query formulation, supporting both to run over hits retrieved by traditional
+query formulation, supporting both running over hits retrieved by traditional
 query filters and keywords and nearest neighbor search. Thus, the Vespa grouping
 framework allows building rich search experience result pages with facets and
 diversification irrespective of the retrieval method.  Vespa result grouping is
@@ -144,7 +144,7 @@ diversified results.  For example, when ordering groups by the max relevancy and
 emitting more than one document per group, it
 makes sense to check the relevance of the secondary hits from the group.
 The searcher can also build and process the grouping request and response, see
-[Searcher grouping api](https://docs.vespa.ai/en/grouping.html#search-container-api) 
+[Searcher grouping api](https://docs.vespa.ai/en/grouping.html#search-container-api).
 
 # Serving performance  
 Four main components drive serving performance when the query request includes
@@ -154,7 +154,7 @@ result grouping. In order of importance:
   get
 exposed to the grouping framework. The total result hit count of the query is
 equal to the number of hits exposed to grouping. 
-- The total number of unique values the field can take. 
+- The total number of unique values in the field. 
 - Ordering groups - using ordering expressions involving aggregates like count()
 or sum() is more resource-intensive than using the default max relevance order. 
 - Finally, the number of nodes involved in the query. 
@@ -188,7 +188,7 @@ so that the results exposed to grouping also are diversified.
 
 The number of unique values the field can take is data-dependent. A few ten
 thousand unique values is usually a breeze. The number of nodes in the cluster
-to which the query is fan out increases network bandwidth. The performance
+to which the query is fanned out increases network bandwidth. The performance
 impact could be mitigated using the precision parameter, limiting the number of
 unique groups returned to the stateless container nodes.  
 
