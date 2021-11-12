@@ -20,22 +20,64 @@ Lukeman</a> on <a
 href="https://unsplash.com/s/photos/nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
 
-This blog post dives into how to achieve result diversification using Vespa's
-grouping framework. The [Vespa grouping](https://docs.vespa.ai/en/grouping.html)
-framework runs over hits selected by the
-query formulation, supporting both running over hits retrieved by traditional
-query filters and keywords and nearest neighbor search. Thus, the Vespa grouping
-framework allows building rich search experience result pages with facets and
-diversification irrespective of the retrieval method.  Vespa result grouping is
-used in many real-world production applications, implementing result
-diversification for search and recommendation use cases. 
+Result diversification is a broad topic, and this blog post only scratches the surface of
+the problem. One might classify result diversification to be a multi-objective list optimization
+problem. The core search or recommendation ranking produces a ranked list of documents
+scored on a per-document basis.  On the other hand, diversification looks at the overall list of ranked
+documents. From a high level perspective, the diversity constraints could be expressed as a 
+similarity function which re-order documents to obtain an
+ordering that considers variety or business logic constraints. 
+
+# Life of a query in Vespa
+
+Before getting into the details on achieving result diversification implemented with
+Vespa, one needs to have a basic understanding of the distributed query execution in
+Vespa.  For a query request that asks for a list of 100 best-ranking hits, the Vespa
+stateless content layer will fan out the query to a subset of the content nodes. Each content node
+produces a locally ranked list of 100 <em>hits</em> out of potentially hundreds of millions of
+documents <em>matching</em> the query specification. The stateless layer
+merges the top 100 ranking <em>matches</em> from
+all the content nodes and retains the global 100 top-ranking hits. 
+The number of hits
+that are returned is controlled by the
+[hits](https://docs.vespa.ai/documentation/reference/query-api-reference.html#hits)
+or the [YQL limit
+](https://docs.vespa.ai/en/reference/query-language-reference.html#limit-offset) parameter. 
+
+In the following sections, we try to differentiate between the <em>hits</em> and
+<em>matches</em>, where
+matches are documents that match the query formulation. Hits are a subset of the
+matches. 
 
 
-In the examples in this blog post, the result set is made diverse by grouping by
-a <em>category</em> field
-in the document schema. Fields used for grouping need to have the
-[attribute](https://docs.vespa.ai/en/attributes.html)
-declaration. 
+# Introducing Vespa Grouping Language
+The [Vespa grouping language](https://docs.vespa.ai/en/grouping.html) is a list processing 
+language that describes how the query
+<em>matches</em> should be grouped, aggregated, and presented in results as <em>hits</em>. A grouping
+statement takes the list of all <em>matches</em> to a query as input and groups/aggregates it,
+possibly in multiple nested and parallel ways to produce the desired output. 
+
+The Vespa grouping list processing language runs over matches selected by the query formulation,
+supporting matches retrieved by traditional query filters, keywords, and nearest neighbor
+search. Thus, the Vespa grouping framework allows building rich search experience result
+pages with facets and list diversification irrespective of the query retrieval method.  
+
+# Using Vespa Grouping Language 
+The following [YQL](https://docs.vespa.ai/en/reference/query-language-reference.html) query 
+asks for ten best ranking <em>hits</em> from a <em>doc</em> document type 
+[ranked](https://docs.vespa.ai/en/ranking.html) by the default ranking profile:
+
+<pre>
+select * from doc where userQuery() limit 10;
+</pre>
+
+The list of <em>hits</em> is not diversified in any way, just a flat list
+of ten top ranking hits out of possible millions of <em>matches</em> out of billions of
+documents in the corpus. 
+
+In the first example of using Vespa grouping language, one can imagine there has been an 
+offline process which have categorized documents
+into a predefined <em>category</em> uniquely identified by a numeric identifier. 
 
 <pre>
 schema doc {
@@ -46,7 +88,7 @@ schema doc {
     }
     field doc_embedding type tensor&lt;int8&gt;(x[128]) {}
   }
-  rank-profile my-ranking {
+  rank-profile default inherits default {
     first-phase { expression { .. }} 
   }
   document-summary short {
@@ -57,74 +99,79 @@ schema doc {
 }
 </pre>
 
+Fields used in grouping expressions must be declared with [attribute](https://docs.vespa.ai/en/attributes.html).
+
 The following [YQL](https://docs.vespa.ai/en/query-language.html) query
-groups results for a <em>userQuery()</em>.
+groups results for a <em>userQuery()</em> by <em>category</em>.
+
+<pre>
+select * from doc where userQuery() limit 10 | all(group(category) max(10)
+each(max(2) each(output(summary(short)))));
+</pre>
+
+The above query and grouping specification groups all matches 
+by the category field. The undiversified ranked list of ten hits are
+retained in the result set when using <em>limit 10</em>. The hits from the diversified
+result is emitted
+by the <em>each(output(summary()))</em> expression.
+
+To remove the 
+undiversified ranked list use <em>limit 0</em>: 
 
 <pre>
 select * from doc where userQuery() limit 0 | all(group(category) max(10)
-each(max(1) each(output(summary(short)))));
+each(max(2) each(output(summary(short)))));
 </pre>
 
-The above query and grouping specification groups all hits retrieved by the
-query by the category field. The original top ten (default limit) hits are
-retained in the result set if one does not use <em>limit</em> zero. The default
-hit limit
-is ten, which is also controllable by the [native
-hits](https://docs.vespa.ai/en/reference/query-api-reference.html#hits)
-search API parameter.
-Similar, result grouping is also supported when using dense retrieval with the
+Groups are by default sorted by the maximum hit relevancy score within the
+group. The outer <em>max(10)</em> controls the maximum number of groups
+returned. In
+addition, the two highest-ranking hits (<em>max(2)</em>) is emitted for each of the
+unique groups (categories).
+The Vespa grouping API supports [pagination](https://docs.vespa.ai/en/grouping.html#pagination) 
+using continuation tokens. 
+In the above example we grouped on a single document document attribute, it is also
+possible to group by expressions. See the [grouping
+reference](https://docs.vespa.ai/en/reference/grouping-syntax.html) documentation.
+In the below example the group identifier is a concatenation of category and brand: 
+<pre>
+all(group(cat(category,brand)) max(10)
+each(max(2) each(output(summary(short)))));
+</pre>
+
+### Dense retrieval with nearest neighbor search 
+
+Result grouping is also supported when using dense retrieval with the
 [nearest neighbor search query
 operator](https://docs.vespa.ai/en/nearest-neighbor-search.html):
 
 <pre>
 select * from doc where
 ([{"targetHits":100}]nearestNeighbor(doc_embedding,query_embedding)) limit 0 |
-all(group(journal) max(10) each(max(1) each(output(summary(short)))));
+all(group(journal) max(10) each(max(2) each(output(summary(short)))));
 </pre>
 
 In the dense retrieval case using nearest neighbor search operator, 
-the number of hits exposed to grouping is limited when using
-the nearest neighbor search operator. This behavior is due to the nature of the
+the number of <em>matches</em> exposed to grouping is limited by the <em>targetHits</em>. 
+This behavior is due to the nature of the
 approximate nearest neighbor search. There is no clear separation between a
-match or no-match like with sparse term-based retrieval. 
-
-Groups are by default sorted by the maximum hit relevancy score within the
-group. The outer <em>max(10)</em> controls the maximum number of groups
-returned. In
-addition, the highest-ranking hit (<em>max(1)</em>) is emitted for each of the
-unique
-groups. The [ranking profile](https://docs.vespa.ai/en/ranking.html) 
-used with the query assigns the hit relevance score.  
-
-Note that if one increases the number of hits per group, the total number
-increases with a
-multiplicative factor. E.g., asking for three hits per group produces a total of
-30 hits since the outer max specifies a maximum of ten groups. When using limits
-on the number of groups or hits, 
-the grouping API offers
-[pagination](https://docs.vespa.ai/en/grouping.html#pagination) support
-using continuation tokens. The support for per group pagination enables building
-rich search result carousels. 
+<em>match</em> or no-match like with sparse term-based query retrieval. 
 
 # Controlling group ordering 
 The default
 [ordering](https://docs.vespa.ai/en/grouping.html#ordering-and-limiting-groups)
-of groups is, 
-as mentioned, the maximum relevance score of
-hits in the group. 
-<pre>
-all(group(category) order(-max(relevance())) max(10) each(max(1)
-each(output(summary(short)))))
-</pre>
+of groups is, as mentioned, the maximum relevance score of the hits in the group. 
 
-Is the equivalent of 
 <pre>
 all(group(category) max(10) each(max(1) each(output(summary(short)))))
 </pre>
 
-The <em>-</em> in front of the max specifies the sorting order, - is descending,
-which we
-want (high relevancy score is better). 
+Is the equivalent of 
+<pre>
+all(group(category) order(-max(relevance())) max(10) each(max(1)
+each(output(summary(short)))))
+</pre>
+The <em>-</em> denotes descending sort order.
 
 It is possible to order groups by more complex expressions working on
 aggregates like <em>sum()</em> and <em>count()</em>, for example:
@@ -134,16 +181,28 @@ aggregates like <em>sum()</em> and <em>count()</em>, for example:
   maximum
 relevance: <em>order(-max(relevance())*sum(ctr))</em>
 
-# Fine-tuning result diversification 
-The grouped result computed in parallel over all cluster content nodes can be
-post-processed in a [stateless
-searcher](https://docs.vespa.ai/en/searcher-development.html). 
-Then, the developer can further
-diversify the result using custom business logic and finally present the
-diversified results.  For example, when ordering groups by the max relevancy and
-emitting more than one document per group, it
-makes sense to check the relevance of the secondary hits from the group.
-The searcher can also build and process the grouping request and response, see
+# Fine-tuning result diversification with phased execution
+In the grouping examples in previous sections 
+are rather simplistic using bucketing as the diversity similarity
+function. The benefit is that it is scalable and fast to compute globally over many nodes,
+but the expressiveness of the bucketing similarity is limited. 
+
+Once the grouped result <em>hits</em> computed in parallel over all content nodes is
+computed, it can be
+further post-processed expressing more complex similarity functions which is only
+computed over the top-k hits retrieved by the grouping framework. Therefor,
+diversification could be expressed as a phased or staged process where
+
+- Vespa grouping language is used to fetch candidate documents which are diversified and
+  ranked. 
+- Post processing logic which works on the top result from the parallel grouping execution and
+  implements a more complex diversity similarity function, including business logic
+constraints. 
+ 
+Such a post-processing routine can be developed in a [stateless
+searcher](https://docs.vespa.ai/en/searcher-development.html), for example implementing
+this [diversity algorithm](https://tech.ebayinc.com/engineering/diversity-in-search/).  
+The custom searcher function can also build and process the grouping request and response, see
 [Searcher grouping api](https://docs.vespa.ai/en/grouping.html#search-container-api).
 
 # Serving performance  
@@ -153,50 +212,52 @@ result grouping. In order of importance:
 - The number of matches the query produces per node. All the document matches
   get
 exposed to the grouping framework. The total result hit count of the query is
-equal to the number of hits exposed to grouping. 
+equal to the number of <em>matches</em> exposed to grouping. 
 - The total number of unique values in the field. 
 - Ordering groups - using ordering expressions involving aggregates like count()
 or sum() is more resource-intensive than using the default max relevance order. 
 - Finally, the number of nodes involved in the query. 
 
-The query selection logic controls the number of hits. Therefore, efficient
-retrievers like
-[weakAnd/wand](https://docs.vespa.ai/en/using-wand-with-vespa.html)
+The query selection logic controls the number of <em>matches</em>. 
+Therefore, efficient
+retrievers like [weakAnd/wand](https://docs.vespa.ai/en/using-wand-with-vespa.html)
 or [approximate nearest neighbor
-search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
-expose fewer documents
-to the ranking phases and the grouping framework. Thus, reducing the number of
-hits can improve the performance significantly and also, in a way, enhance the
-quality of the groups as low-scoring documents get excluded from the result
-grouping. The downside is that aggregate statistics like count(), sum(), etc.
-become inaccurate. 
-The grouping language also allows limiting the number of hits that get grouped.
-For example, to limit the number of hits per node, use an 
+search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) expose
+expose fewer matches to configurable ranking and grouping.
+Thus, reducing the number of matches can improve the serving performance significantly and
+also,enhance the quality of the groups as low-scoring documents are excluded from the
+result grouping. 
+The grouping language also allows limiting the number of <em>matches</em> that are grouped.
+For example, to limit the number of <em>matches</em> per node, use an 
 <pre>
 all(max(K) all(group(category) .... ))
 </pre>
 
-In this expression, <em>K</em> is the maximum number of hits per
+In this expression, <em>K</em> is the maximum number of matches per
 node that grouping runs over. 
 
-It's also possible to limit the number of documents exposed to grouping by using 
+It's also possible to limit the number of <em>matches</em> exposed to grouping by using 
 the [match-phase
 degradation](https://docs.vespa.ai/en/graceful-degradation.html#match-phase-degradation)
 feature, which sets an upper limit on the number of documents ranked
 , using a document attribute. This feature also includes diversity criteria
 so that the results exposed to grouping also are diversified.
 
-The number of unique values the field can take is data-dependent. A few ten
-thousand unique values is usually a breeze. The number of nodes in the cluster
+The number of unique values the field is data-dependent, fewer unique values is better. 
+The number of nodes in the cluster
 to which the query is fanned out increases network bandwidth. The performance
-impact could be mitigated using the precision parameter, limiting the number of
-unique groups returned to the stateless container nodes.  
+impact could be mitigated using the
+[precision](https://docs.vespa.ai/en/reference/grouping-syntax.html#precision) parameter, 
+limiting the number of
+unique groups returned to the stateless container nodes and reducing network bandwidth
+usage.  
 
 
 # Summary
 This blog post covered how to use Vespa result grouping to produce a mixed
 result set for both search and recommendation use cases. This post only covered 
-single-level groups. However, the Vespa grouping framework also allows
+single-level group. 
+However, the Vespa grouping framework also allows
 running multi-level grouping. For
 example, group by category, then by brand to further diversify the result. 
 For further reading, see [result
