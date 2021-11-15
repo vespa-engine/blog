@@ -17,7 +17,8 @@ excerpt: The new slicing feature in /document/v1 splits visiting across independ
  </p>
 
 Vespa is built to scale; documents are distributed across any number of content nodes, and queries and document
-operations pass concurrently through the container layer in front. The container `/document/v1` API is intended for reading
+operations pass concurrently through the container layer in front. The container
+[`/document/v1/`](https://docs.vespa.ai/en/document-v1-api-guide.html) API is intended for reading
 and writing documents, but while it supports high-throughput [feeding](https://docs.vespa.ai/en/vespa-feed-client.html),
 it has only provided limited throughput for bulk reads, i.e., _visiting_, that is, until now!
 This blog post shows how a new _slicing_ feature lets
@@ -48,7 +49,7 @@ The most impactful improvement, which provides scalability, is to partition the 
 multiple visitors to iterate through the full corpus independently of each other. This lets a single, logical visit be
 performed by multiple, concurrent HTTP exchanges, which can be distributed across any number of containers, and also clients!
 The Vespa [documentation](https://docs.vespa.ai/en/document-v1-api-guide.html#data-dump) has a sample script for dumping all
-documents, which visits across multiple [slices](https://docsc.vespa.ai/en/reference/document-v1-api-reference.html#slices)
+documents, which visits across multiple [slices](https://docs.vespa.ai/en/reference/document-v1-api-reference.html#slices)
 in parallel. For maximum throughput, take care to scale the number of slices with the number of container nodes.
 
 The below drawing illustrates a single client making 4 successive HTTP calls to fetch parts 1, 2, 3 and 4 of the corpus,
