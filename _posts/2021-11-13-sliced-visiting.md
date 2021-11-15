@@ -1,16 +1,16 @@
 ---
 layout: post
 title: "Vespa increases HTTP visiting throughput ten-fold or more"
-date: '2021-11-12'
+date: '2021-11-13'
 tags: []
 author: jvenstad
-image: assets/2021-11-12-sliced-visiting/annie-spratt-gSQbip5HHuc-unsplash.jpg
+image: assets/2021-11-13-sliced-visiting/annie-spratt-gSQbip5HHuc-unsplash.jpg
 skipimage: true
 
 excerpt: The new slicing feature in /document/v1 splits visiting across independent HTTP requests, letting throughput scale with the number of container nodes or clients.
 ---
 
-![Decorative image](/assets/2021-11-12-sliced-visiting/annie-spratt-gSQbip5HHuc-unsplash.jpg)
+![Decorative image](/assets/2021-11-13-sliced-visiting/annie-spratt-gSQbip5HHuc-unsplash.jpg)
 <p class="image-credit">
  Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Annie Spratt</a> on
  <a href="https://unsplash.com/s/photos/cooperation-nature?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -53,7 +53,7 @@ in parallel. For maximum throughput, take care to scale the number of slices wit
 
 The below drawing illustrates a single client making 4 successive HTTP calls to fetch parts 1, 2, 3 and 4 of the corpus,
 on the left; and two parallel clients, each making a single call to fetch parts 1 and 3, and 2 and 4. 
-![Serial vs parallel visiting](/assets/2021-11-12-sliced-visiting/visiting.png)
+![Serial vs parallel visiting](/assets/2021-11-13-sliced-visiting/visiting.png)
 
 ## Benchmarks
 The effectiveness of these improvements was evaluated against some applications we operate in the
