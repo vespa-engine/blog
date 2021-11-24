@@ -11,7 +11,7 @@ index: false
 excerpt: >
     Advances in Vespa features and performance include improved schema inheritance,
     Intellij plugin for schemas, Hamming distance in ranking,
-    and performance gains in data dump, application deployment and node recovery.
+    and performance gains in data dump and application deployment.
     
 ---
 
@@ -42,15 +42,6 @@ In November, we added features to increase throughput when visiting a lot of dat
   particularly where the client has high latency to the Vespa instance.
 * [Slicing]({% post_url /2021-11-13-sliced-visiting %}) lets you partition the selected document space
   and iterate over the slices in parallel using multiple clients to get linear scaling with the number of clients.
-
-
-#### Faster node recovery and rebalancing
-When Vespa content nodes are added or removed,
-data is [auto-migrated between nodes](https://docs.vespa.ai/en/elastic-vespa.html)
-to maintain the configured distribution.
-The throughput of this migration is throttled to avoid impact to regular query and write traffic.
-We have worked to improve this throughput by using available resources better,
-and since November we have been able to approximately double it.
 
 
 #### Matching all your documents
