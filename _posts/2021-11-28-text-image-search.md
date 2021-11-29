@@ -43,9 +43,7 @@ OpenAI](https://openai.com/blog/clip/), which has been trained on 400 million
 `(image, text)` pairs taken from the internet. CLIP consists of two models: one
 for text and one for images. During training, images are associated with
 textual descriptions. Like with pre-trained language models, CLIP thus gains a
-basic textual understanding of image content. Actually, the language model in
-CLIP is itself a pre-trained language model for text processing, which is
-fine-tuned during this training.
+basic textual understanding of image content.
 
 One of the exciting capabilities CLIP has shown is that this training method
 enables a strong capability for zero-shot learning. Most previous image
@@ -237,7 +235,7 @@ The text-image search sample application includes a [Python-based search
 app](https://github.com/vespa-engine/sample-apps/blob/master/text-image-search/src/python/README.md)
 which uses the CLIP model for this. The app uses
 [pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) and is
-particularly suitable for analysis and exploration. We'll take a bit closer
+particularly suitable for analysis and exploration. We'll take a closer
 look in the next section.
 
 The sample application also includes a [stand-alone Vespa
