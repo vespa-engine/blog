@@ -288,7 +288,7 @@ the `models` directory. There, it is automatically discovered and made
 available to custom components, and a REST API is also provided.
 
 The [stand-alone sample
-application](https://docs.vespa.ai/en/stateless-model-evaluation.html) contains
+application](https://github.com/vespa-engine/sample-apps/tree/master/text-image-search) contains
 a [searcher](https://docs.vespa.ai/en/searcher-development.html) that modifies
 the query from textual input to a vector representation suitable for nearest
 neighbor search. This searcher first tokenizes the text using a custom
