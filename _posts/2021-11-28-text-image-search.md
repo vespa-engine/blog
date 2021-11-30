@@ -169,7 +169,7 @@ following, we'll set this up in a Vespa application.
 ## The Vespa text-to-image search application
 
 It's straightforward to set up an ANN search index in Vespa. All that is needed
-is an appropriate [document schema](https://docs.vespa.ai/en/schemas.html):
+is a [document schema](https://docs.vespa.ai/en/schemas.html):
 
 ```
 schema image_search {
@@ -249,9 +249,9 @@ look later.
 
 [Pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) is the Python
 API to Vespa, which provides easy ways to create, modify, deploy and interact
-with running Vespa instances. One of the main goals of PyVespa is to allow for
+with running Vespa instances. One of the main goals of pyvespa is to allow for
 faster prototyping and to facilitate machine learning experiments for Vespa
-applications. With PyVespa, it is easy to connect to either a local Vespa
+applications. With pyvespa, it is easy to connect to either a local Vespa
 running in a Docker container or [Vespa cloud](https://cloud.vespa.ai/), a
 service for running Vespa applications.
 
