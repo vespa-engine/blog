@@ -37,15 +37,15 @@ nearest neighbor search is a fascinating problem involving many trade-offs :
 * Latency service level agreements (SLA)
 * Read (queries) and write throughput, batch versus real-time  
 * Distribution and partitioning of vector datasets which does not fit into a single machine 
-* Cost ($), Total cost of ownership, including development efforts 
+* Cost ($), total cost of ownership, including development efforts 
 
-Also, when choosing infrastructure and technology to solve billion scale datasets, there are aspects like:
+Also, when choosing infrastructure and technology to solve billion-scale datasets, there are aspects like:
 
 * Ease of use and developer friendliness of the platform technology
-* Durability and consistency model, vector meta data and batch versus real time indexing  
-* Operational cost - How hard is to manage the infrastructure and technology
+* Durability and consistency model, vector meta-data and batch versus real time indexing  
+* Operational cost - how hard is to manage the infrastructure and technology
 
-This blog series looks at how to represent and search billion scale vector datasets using Vespa and we cover many of the mentioned 
+This blog series looks at how to represent and search billion-scale vector datasets using Vespa, and we cover many of the mentioned 
 vector search trade-offs.
 
 In this first post we look at compact binary-coded AI-powered vector representations which can reduce storage and computational complexity
@@ -63,7 +63,7 @@ supervised learning with labeled or pseudo-labeled data from user-item interacti
  
 Many successful retrieval systems use supervised representation
 learning to transform text queries and documents into continuous
-high-dimensional real-valued vector representations. A query and document
+high-dimensional real-valued vector representations. Query and document
 similarity, or relevancy,  is measured using a vector distance metric in the
 representational vector space. To efficiently retrieve from a potentially large
 collection of documents, one can turn to approximate nearest neighbor search
@@ -80,7 +80,7 @@ In <a href="https://arxiv.org/abs/2106.00882">
 Efficient Passage Retrieval with Hashing for Open-domain Question Answering</a>, the authors describe
 using a hashing layer on top of the bi-encoder transformer architecture 
 to train a binary coded representation of documents and queries
-instead of continuous real valued representation. 
+instead of continuous real-valued representation. 
 
 <img src="/assets/2021-12-03-binary-codes/bpr.png"/>
 
@@ -106,9 +106,9 @@ Compact binary-coded representations paired with hamming
 distance is also successfully used for large-scale cost efficient vision search. 
 See for example these papers: 
 * <a href="https://www.cv-foundation.org/openaccess/content_cvpr_workshops_2015/W03/papers/Lin_Deep_Learning_of_2015_CVPR_paper.pdf">
-Deep Learning of Binary Hash Codes for Fast Image Retrieval (pdf)</a>.
+  Deep Learning of Binary Hash Codes for Fast Image Retrieval (pdf)</a>.
 * <a href="https://arxiv.org/pdf/2105.01823.pdf">
-TransHash: Transformer-based Hamming Hashing for Efficient Image Retrieval (pdf)</a>.
+  TransHash: Transformer-based Hamming Hashing for Efficient Image Retrieval (pdf)</a>.
 
 # Representing hash-like binary-codes in Vespa
 Vespa has first-class citizen support for representing high dimensional dense
@@ -229,7 +229,7 @@ Storing the original vector representation on disk using the
 <a href="https://docs.vespa.ai/en/attributes.html#paged-attributes">paged
 attribute option</a> enables phased retrieval and ranking close to the data.  First,
 one can use the compact in-memory binary code for the coarse level search to
-efficiently find a limited number of candidates. Then, the pruned number of
+efficiently find a limited number of candidates. Then, the pruned
 candidates from the coarse search can be re-scored and re-ranked using a more
 advanced scoring function using the original document and query representation. Once
 a document is retrieved and exposed to the ranking phases, one can also use more
@@ -244,7 +244,7 @@ Deep Learning of Binary Hash Codes for Fast Image Retrieval (pdf)</a>.
 
 The binary-coded representation and the original vector are co-located on the
 same <a href="https://docs.vespa.ai/en/overview.html">Vespa content node(s)</a> 
-since they live in the same document schema. Thus,
+since they live in the same document object. Thus,
 re-ranking or fine-level search using the real-valued vector representation does not require any
 network round trips to fetch the original vector representation from some
 external key-value storage system. 
@@ -280,8 +280,8 @@ schema code {
 The <em>coarse-ranking</em> <a href="https://docs.vespa.ai/en/ranking.html">ranking</a> 
 profile ranks documents by the <a href="https://docs.vespa.ai/en/reference/rank-features.html#closeness(dimension,name)">
 closeness rank feature</a> which in our case is the inverse hamming distance.
-By default, Vespa sorts documents by descending relevancy score.
-, hence the `closeness(field,name)` rank feature uses
+By default, Vespa sorts documents by descending relevancy score,
+hence the `closeness(field,name)` rank feature uses
 `1/(1 + distance())` as the relevance score. 
 
 The observant reader might have noticed the <a href="https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search">
@@ -295,7 +295,7 @@ ranking function from the `coarse-ranking` profile and re-ranks the top k result
 for example using the original representation.
 
 The nearest neighbor search is expressed using the <a href="https://docs.vespa.ai/en/query-language.html">Vespa YQL query
-language</a> in a <a href="https://docs.vespa.ai/en/reference/query-api-reference.html">search api</a> http(s) request.  
+language</a> in a <a href="https://docs.vespa.ai/en/reference/query-api-reference.html">query api</a> http(s) request.  
 
 A sample JSON POST query is given below, searching for the 10 nearest neighbors of a query vector 
 <pre>
