@@ -75,8 +75,8 @@ an introduction to state-of-the-art text retrieval using dense vector representa
 
 Recently, exciting research has demonstrated that it is possible to learn a
 compact hash-like binary code representation instead of a dense continuous
-vector representation that rivals the text retrieval accuracy of the continuous
-representation. In <a href="https://arxiv.org/abs/2106.00882">
+vector representation without much accuracy loss. 
+In <a href="https://arxiv.org/abs/2106.00882">
 Efficient Passage Retrieval with Hashing for Open-domain Question Answering</a>, the authors describe
 using a hashing layer on top of the bi-encoder transformer architecture 
 to train a binary coded representation of documents and queries
@@ -90,8 +90,8 @@ the document storage requirements. For example, representing text documents in a
 768-dimensional vector space where each dimension uses float precision, the
 storage requirement per document becomes 3072 bytes. Using a 768-bit
 binary-coded representation instead, the storage requirement per document
-becomes 96 bytes, a 32x reduction compared to the high precision float vector
-representation. In the mentioned paper, the authors demonstrate that the entire 
+becomes 96 bytes, a 32x reduction. 
+In the mentioned paper, the authors demonstrate that the entire 
 English Wikipedia consisting of 22M passages can be reduced to 2GB of binary codes. 
 
 Searching in binary-coded representations can be done using the <a href="https://en.wikipedia.org/wiki/Hamming_distance">hamming distance</a> metric. 
@@ -104,7 +104,7 @@ codes for a binary coded query compared to exact hash table lookup.
 
 Compact binary-coded representations paired with hamming
 distance is also successfully used for large-scale cost efficient vision search. 
-See for example these papers on using binary codes for cost efficient vision search: 
+See for example these papers: 
 * <a href="https://www.cv-foundation.org/openaccess/content_cvpr_workshops_2015/W03/papers/Lin_Deep_Learning_of_2015_CVPR_paper.pdf">
 Deep Learning of Binary Hash Codes for Fast Image Retrieval (pdf)</a>.
 * <a href="https://arxiv.org/pdf/2105.01823.pdf">
@@ -288,8 +288,7 @@ The observant reader might have noticed the <a href="https://docs.vespa.ai/en/pe
 num-threads-per-search</a> ranking profile setting.
 This setting allows parallelizing the search and ranking using
 multiple CPU threads, reducing the overall serving latency at the cost of
-increased CPU usage per query. Another trade-off related parameter which allows utilizing multi-core CPU architectures
-better. 
+increased CPU usage per query. This allows better use of multi-core CPU architectures.
 
 The second ranking profile `fine-ranking` inherits the first phase 
 ranking function from the `coarse-ranking` profile and re-ranks the top k results using a more sophisticated model,
@@ -303,15 +302,16 @@ A sample JSON POST query is given below, searching for the 10 nearest neighbors 
 {
   "yql": "select id from vector where ([{\"targetHits\":10}]nearestNeighbor(binary_code, q_hash_code));",
   "ranking.profile": "coarse-ranking",
-  "ranking.features.query(q_binary_code): [..],
+  "ranking.features.query(q_binary_code): [-18,-14,28,...],
   "hits":10
 }
 </pre>
 
 Vespa also allows combining the nearest neighbor search query operator with
-other query operators and filters which for the exact case reduces the complexity of the NN search as fewer candidates
-as evaluated which saves memory bandwidth and CPU instructions. For example the below example filters on a `is_visible` 
-`bool` type field.
+other query operators and filters. Using filtering reduces the complexity of the nearest neighbor search as fewer candidates
+as evaluated which saves memory bandwidth and CPU instructions. An example is below, 
+See also <a href="https://blog.vespa.ai/image-similarity-search/">this blog post</a> for more examples of 
+combining nearest neighbor search with filters.
 
 <pre>
 {
@@ -321,19 +321,26 @@ as evaluated which saves memory bandwidth and CPU instructions. For example the 
   "hits":10
 }
 </pre>
-Note that input query tensors does not support the compact hex string representation. In the above query examples we use the short dense tensor input format.
+
+Note that input query tensors does not support the compact hex string representation. 
+In the above query examples we use the <a href="https://docs.vespa.ai/en/reference/tensor.html#indexed-short-form">
+short dense (indexed)</a>tensor input format.
 
 # Summary 
-This post introduced our blog post series on billion scale vector search, furthermore, we took a deep dive into representing binary-code using
-Vespa's tensor field with <em>int8</em> tensor cell precision. We also covered coarse-level to fine-level ranking using hamming
+This post introduced our blog post series on billion-scale vector search, furthermore, we took a deep dive into representing binary-code using
+Vespa's tensor field with <em>int8</em> tensor cell precision. 
+We also covered coarse-level to fine-level ranking using hamming
 distance as the coarse-level search distance metric. 
-In the next blog post in this series we will 
-experiment with a 1B vector dataset from <a href="http://big-ann-benchmarks.com/">big-ann-benchmarks.com</a>, 
-indexing it on Vespa using both exact and approximate with hamming distance and look at some of the trade-offs:
 
-* Real-Time indexing throughput with and without HNSW graph enabled 
-* Search accuracy degradation using approximate versus exact 
+In the next blog post in this series we will 
+experiment with a 1B vector dataset from <a href="http://big-ann-benchmarks.com/">big-ann-benchmarks.com</a>, and
+indexing it on Vespa using both exact and approximate vector search with hamming distance. 
+
+We will look at some of the trade-offs:
+
+* Real-time indexing throughput with and without HNSW indexing enabled 
+* Search accuracy degradation using approximate versus exact nearest neighbor search
 * Storage (disk and memory) footprint 
-* Latency and throughput  
+* Query latency and throughput  
   
 Stay tuned for the next blog post in this series!
