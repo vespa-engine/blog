@@ -118,27 +118,27 @@ dense first-order tensors in Vespa. Tensor cell values in Vespa support four
 <a href="https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types">numeric precision types</a>, 
 in order of increasing precision:
 
-* <em>int8</em> (8 bits, 1 byte) per dimension
-* <em>bfloat16</em> (16 bits, 2 bytes) per dimension
-* <em>float</em> (32 bits, 4 bytes) per dimension
-* <em>double</em> (64 bits, 8 bytes) per dimension
+* `int8` (8 bits, 1 byte) per dimension
+* `bfloat16` (16 bits, 2 bytes) per dimension
+* `float` (32 bits, 4 bytes) per dimension
+* `double` (64 bits, 8 bytes) per dimension
 
 All of which are signed data types. In addition, for dense first-order tensors
 (vectors), Vespa supports fast approximate nearest neighbor search using Vespa's
 <a href="https://docs.vespa.ai/en/approximate-nn-hnsw.html">HNSW implementation</a>. 
 Furthermore, the nearest neighbor search operator in Vespa
 supports several <a href="https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric">
-distance metrics</a>, including <em>euclidean</em>, <em>angular</em>, and bitwise
-<em>hamming</em> distance. 
+distance metrics</a>, including `euclidean`, `angular`, and bitwise
+`hamming` distance. 
 
 To represent binary-coded vectors in Vespa, one should use first-order tensors
-with the <em>int8</em> tensor cell precision type. For example, to represent a 128-bit code using
-tensors, one can use a 16-dimensional dense tensor using <em>int8</em> value type
+with the `int8` tensor cell precision type. For example, to represent a 128-bit code using
+tensors, one can use a 16-dimensional dense tensor using `int8` value type
 (16*8 = 128 bits). The <a href="https://docs.vespa.ai/documentation/schemas.html">
 Vespa document schema</a> below defines a numeric id field
-of type int, representing the vector document id in addition to the binary-coded
-vector using a dense first-order tensor. The <em>b</em> is the tensor dimension
-name, and [16] denotes the dimensionality.  
+of type `int`, representing the vector document id in addition to the binary-coded
+vector using a dense first-order tensor. The `b` denotes the tensor dimension
+name, and finally, `[16]` denotes the dimensionality.  
 
 <pre>
 schema code {
@@ -205,7 +205,7 @@ Furthermore, supporting in-memory and <a href="https://docs.vespa.ai/en/attribut
 paged dense</a> first-order tensors enables
 storing the original vector representation in the document model at a relatively
 low cost (storage hierarchy economics).  For example, the following document schema keeps
-the original float precision vector on disk using the <em>paged attribute tensor</em> option. 
+the original float precision vector on disk using the `paged` tensor attribute option. 
 
 <pre>
 schema code {
@@ -271,7 +271,7 @@ schema code {
     num-threads-per-search:12
     first-phase { expression { closeness(field,binary_code) } } 
  }
- rank-profile fine-ranking inherits hamming-only {
+ rank-profile fine-ranking inherits coarse-ranking {
     second-phase { expression { .. } } 
  }
 }
@@ -292,7 +292,8 @@ increased CPU usage per query. Another trade-off related parameter which allows 
 better. 
 
 The second ranking profile `fine-tune` inherits the first phase 
-ranking function from the `hamming-only` ranking profile and re-ranks the top k results using a more sophisticated model.
+ranking function from the `coarse-ranking` profile and re-ranks the top k results using a more sophisticated model,
+for example using the original representation.
 
 The nearest neighbor search is expressed using the <a href="https://docs.vespa.ai/en/query-language.html">Vespa YQL query
 language</a> in a <a href="https://docs.vespa.ai/en/reference/query-api-reference.html">search api</a> http(s) request.  
@@ -310,16 +311,17 @@ A sample JSON POST query is given below, searching for the 10 nearest neighbors 
 Vespa also allows combining the nearest neighbor search query operator with
 other query operators and filters which for the exact case reduces the complexity of the NN search as fewer candidates
 as evaluated which saves memory bandwidth and CPU instructions. For example the below example filters on a `is_visible` 
-`bool` field.
+`bool` type field.
 
 <pre>
 {
   "yql": "select id from vector where ([{\"targetHits\":10}]nearestNeighbor(binary_code, q_hash_code)) and is_visible=true;",
   "ranking.profile": "coarse-ranking",
-  "ranking.features.query(q_binary_code): [..],
+  "ranking.features.query(q_binary_code): [-18,-14,28,...],
   "hits":10
 }
 </pre>
+Note that input query tensors does not support the compact hex string representation. In the above query examples we use the short dense tensor input format.
 
 # Summary 
 This post introduced our blog post series on billion scale vector search, furthermore, we took a deep dive into representing binary-code using
@@ -329,9 +331,9 @@ In the next blog post in this series we will
 experiment with a 1B vector dataset from <a href="http://big-ann-benchmarks.com/">big-ann-benchmarks.com</a>, 
 indexing it on Vespa using both exact and approximate with hamming distance and look at some of the trade-offs:
 
-* Real-Time Indexing throughput with and without HNSW 
+* Real-Time indexing throughput with and without HNSW graph enabled 
 * Search accuracy degradation using approximate versus exact 
 * Storage (disk and memory) footprint 
 * Latency and throughput  
   
-Stay tuned!
+Stay tuned for the next blog post in this series!
