@@ -345,9 +345,9 @@ In the above query examples we use the <a href="https://docs.vespa.ai/en/referen
 short dense (indexed)</a> tensor input format.
 Note that query input tensors do not support the compact hex string representation.  The above examples also assumed that an external
 system would do the do the binarization. 
-Vespa also supports importing <a href="https://onnx.ai/>ONNX</a> models so that the binarization
+Vespa also supports importing <a href="https://onnx.ai/">ONNX</a> models so that the binarization
 could be performed in the Vespa stateless cluster before searching the content cluster(s), 
-see <a href="https://blog.vespa.ai/stateless-model-evaluation/">stateless model evaluation</a>.
+see <a href="https://blog.vespa.ai/stateless-model-evaluation/">stateless model evaluation</a> for examples and discussion.
 
 # Summary 
 This post introduced our blog post series on billion-scale vector search, furthermore, we took a deep dive into representing binary-code using
