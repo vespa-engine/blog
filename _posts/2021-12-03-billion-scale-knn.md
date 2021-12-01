@@ -1,16 +1,15 @@
 ---
 layout: post
-title: "Billion scale vector search with Vespa - part one"
-date: '2021-11-29'
+title: "Billion-scale vector search with Vespa - part one"
+date: '2021-12-01'
 tags: []
 author: jobergum 
 image: assets/2021-12-03-binary-codes/federico-beccari-L8126OwlroY-unsplash.jpg
 skipimage: true
 
-excerpt: "Part one of a blog post series on billion-scale vector search. 
-This post covers using nearest neighbor search with compact binary representations."
+excerpt: "Part one in a blog post series on billion-scale vector search. 
+This post covers using nearest neighbor search with compact binary representations and bitwise hamming distance."
 ---
-
 
 <img src="/assets/2021-12-03-binary-codes/federico-beccari-L8126OwlroY-unsplash.jpg"/>
 <p class="image-credit">
@@ -84,8 +83,8 @@ instead of continuous real-valued representation.
 Efficient Passage Retrieval with Hashing for Open-domain Question Answering</a></em>
 
 Note that the search is performed in two phases, first a coarse-level search using the 
-hamming distance using binary coded query and document, secondly a re-ranking phase using the continuous query vector representation and 
-a <em>unpacked</em> binary coded document representation.
+hamming distance with binary codes, secondly a re-ranking phase using the continuous query vector representation and 
+a <em>unpacked</em> vector representation from the binary code.
 
 A huge advantage over continuous vector
 representations is that the binary-coded document representation significantly reduces
