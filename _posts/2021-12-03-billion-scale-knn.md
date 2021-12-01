@@ -291,7 +291,7 @@ multiple CPU threads, reducing the overall serving latency at the cost of
 increased CPU usage per query. Another trade-off related parameter which allows utilizing multi-core CPU architectures
 better. 
 
-The second ranking profile `fine-tune` inherits the first phase 
+The second ranking profile `fine-ranking` inherits the first phase 
 ranking function from the `coarse-ranking` profile and re-ranks the top k results using a more sophisticated model,
 for example using the original representation.
 
@@ -325,7 +325,7 @@ Note that input query tensors does not support the compact hex string representa
 
 # Summary 
 This post introduced our blog post series on billion scale vector search, furthermore, we took a deep dive into representing binary-code using
-Vespa's tensor field support with support for <em>int8</em> tensor cell precision. We also covered coarse-level to fine-level ranking using hamming
+Vespa's tensor field with <em>int8</em> tensor cell precision. We also covered coarse-level to fine-level ranking using hamming
 distance as the coarse-level search distance metric. 
 In the next blog post in this series we will 
 experiment with a 1B vector dataset from <a href="http://big-ann-benchmarks.com/">big-ann-benchmarks.com</a>, 
