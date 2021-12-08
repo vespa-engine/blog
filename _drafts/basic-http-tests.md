@@ -1,11 +1,11 @@
 ---
 layout: post
-title: Basic HTTP system tests for Vespa
-date: '2021-12-10'
+title: Basic HTTP system tests
+date: '2021-12-08'
 categories: [product updates]
 tags: []
-author: jvenstad, hakon
 image: assets/2021-21-10-vespa-basic-http-tests/screenshot.png
+author: jvenstad hakonhall
 skipimage: true
 
 excerpt: The Vespa CLI now makes it easy to develop and run system tests for your Vespa application, which can also be used to set up a CD pipeline for the Vespa cloud.
@@ -18,7 +18,7 @@ HTTP requests, and corresponding assertions on the HTTP responses.
 
 The latest addition to the Vespa CLI is the `test` command, which makes it easy to
 develop and run basic HTTP system tests, expressed in JSON format. 
-Like the `document` and `query` commands, endpoint discovery and authentication is
+Like the `document` and `query` commands, endpoint discovery and authentication are
 handled by the CLI, leaving developers free to focus on the tests themselves.
 
 The basic HTTP tests are also supported by the CD framework of the Vespa cloud,
