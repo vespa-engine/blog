@@ -8,7 +8,7 @@ image: assets/images/basic-http-testing-in-terminal.png
 author: jvenstad hakonhall
 skipimage: true
 
-excerpt: Write basic tests for a Vespa application in JSON format, run them with the Vespa CLI, and use them in the CD pipeline in Vespa Cloud.
+excerpt: Write basic tests for a Vespa application in JSON format, run them with the Vespa CLI, and use them to verify production deployments in Vespa Cloud.
 ---
 <script id="asciicast-bj1shqdC1wYt2phrSjpL7UNuZ" src="https://asciinema.org/a/bj1shqdC1wYt2phrSjpL7UNuZ.js" async data-autoplay="true" data-speed="1.618" data-cols="167" data-loop="true"></script>
 
