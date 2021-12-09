@@ -4,7 +4,7 @@ title: Basic HTTP testing of Vespa applications
 date: '2021-12-09'
 categories: [product updates]
 tags: []
-image: assets/2021-12-09-vespa-basic-http-tests/screenshot.png
+image: assets/images/basic-http-testing-in-terminal.png
 author: jvenstad hakonhall
 skipimage: true
 
