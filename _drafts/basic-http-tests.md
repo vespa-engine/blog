@@ -29,7 +29,7 @@ allowing applications to be safely, and easily, deployed to production.
 
 To get started with Vespa's basic HTTP tests:
 
-- Install <a href="https://blog.vespa.ai/introducing-vespa-cli">Vespa CLI</a>
+- Install and configure <a href="https://blog.vespa.ai/introducing-vespa-cli">Vespa CLI</a>
 - Clone the album-recommendation sample app<br/>
   `vespa clone vespa-cloud/album-recommendation myapp`
 - Configure and deploy the application, locally or to the cloud<br/>
