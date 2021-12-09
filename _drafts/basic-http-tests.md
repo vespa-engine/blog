@@ -16,7 +16,7 @@ HTTP interfaces are the bread and butter for interacting with a Vespa applicatio
 A typical system test of a Vespa application consists of a sequence of
 HTTP requests, and corresponding assertions on the HTTP responses.
 
-The latest addition to the <a href="https://docs.vespa.ai/en/vespa-cli.html">Vespa CLI</a>
+The latest addition to the <a href="/introducing-vespa-cli">Vespa CLI</a>
 is the `test` command, which makes it easy to develop and run basic HTTP tests,
 expressed in JSON format.
 Like the `document` and `query` commands, endpoint discovery and authentication are
@@ -29,7 +29,7 @@ allowing applications to be safely, and easily, deployed to production.
 
 To get started with Vespa's basic HTTP tests:
 
-- Install and configure <a href="https://blog.vespa.ai/introducing-vespa-cli">Vespa CLI</a>
+- Install and configure <a href="/introducing-vespa-cli">Vespa CLI</a>
 - Clone the album-recommendation sample app<br/>
   `vespa clone vespa-cloud/album-recommendation myapp`
 - Configure and deploy the application, locally or to the cloud<br/>
