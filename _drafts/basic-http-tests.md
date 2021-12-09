@@ -8,9 +8,9 @@ image: assets/images/basic-http-testing-in-terminal.png
 author: jvenstad hakonhall
 skipimage: true
 
-excerpt: The Vespa CLI now makes it easy to write and run tests for your Vespa application—tests which can also be used to set up a CD pipeline for Vespa Cloud.
+excerpt: Write HTTP tests for a Vespa application in JSON format, run them with the Vespa CLI, and use them in the CD pipeline in Vespa Cloud.
 ---
-<script id="asciicast-UyZQXh1TxLo43ON0CMqgFxEj0" src="https://asciinema.org/a/UyZQXh1TxLo43ON0CMqgFxEj0.js" async data-autoplay="true" data-speed="1.5" data-cols="170" data-loop="true"></script>
+<script id="asciicast-bj1shqdC1wYt2phrSjpL7UNuZ" src="https://asciinema.org/a/bj1shqdC1wYt2phrSjpL7UNuZ.js" async data-autoplay="true" data-speed="1.618" data-cols="167" data-loop="true"></script>
 
 HTTP interfaces are the bread and butter for interacting with a Vespa application.
 A typical system test of a Vespa application consists of a sequence of
