@@ -45,6 +45,12 @@ authors:
     avatar: '/assets/avatars/thigm85.jpg'
     email: tmartins@yahooinc.com
     description: "Vespa Data Scientist"
+  hakonhall:
+    name: Håkon Hallingstad
+    display_name: Håkon Hallingstad
+    avatar: '/assets/avatars/hakonhall.jpg'
+    email: hakon@yahooinc.com
+    description: "Principal Vespa Engineer"
   jobergum:
     name: Jo Kristian Bergum
     display_name: Jo Kristian Bergum
