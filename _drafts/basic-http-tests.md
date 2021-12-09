@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Basic HTTP tests
-date: '2021-12-08'
+title: Basic HTTP testing of Vespa applications
+date: '2021-12-09'
 categories: [product updates]
 tags: []
-image: assets/2021-21-10-vespa-basic-http-tests/screenshot.png
+image: assets/2021-12-09-vespa-basic-http-tests/screenshot.png
 author: jvenstad hakonhall
 skipimage: true
 
@@ -25,11 +25,11 @@ handled by the CLI, leaving developers free to focus on the tests themselves.
 Basic HTTP tests are also supported by the CD framework of Vespa Cloud,
 allowing applications to be safely, and easily, deployed to production. 
 
-## Developing tests
+## Developing and running tests
 
 To get started with Vespa's basic HTTP tests:
 
-- Install <a href="https://docs.vespa.ai/en/vespa-cli.html">Vespa CLI</a>
+- Install <a href="https://blog.vespa.ai/introducing-vespa-cli">Vespa CLI</a>
 - Clone the album-recommendation sample app<br/>
   `vespa clone vespa-cloud/album-recommendation myapp`
 - Configure and deploy the application, locally or to the cloud<br/>
