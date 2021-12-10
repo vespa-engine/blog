@@ -13,6 +13,12 @@ enable_featured: false
 
 # Authors
 authors:
+  andreer:
+    name: Andreas Eriksen
+    display_name: Andreas Eriksen
+    avatar: '/assets/avatars/andreer.jpg'
+    email: andreer@yahooinc.com
+    description: "Senior Vespa Engineer"
   bjorncs:
     name: Bjørn C Seime
     display_name: Bjørn C Seime
