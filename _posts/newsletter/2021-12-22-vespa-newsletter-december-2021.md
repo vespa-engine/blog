@@ -58,10 +58,3 @@ while features fetched with summary-features are single-threaded.
 [Shahar Ariel](https://github.com/shahariel) has created an IntelliJ plugin for editing schema files,
 find it at [docs.vespa.ai/en/schemas.html#intellij-plugin](https://docs.vespa.ai/en/schemas.html#intellij-plugin).
 Thanks a lot for the contribution!
-
-
-___
-About Vespa: Largely developed by Yahoo engineers,
-[Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine.
-It’s in use by many products, such as Yahoo News, Yahoo Sports, Yahoo Finance, and the Yahoo Ad Platform.
-Thanks to feedback and contributions from the community, Vespa continues to grow.
