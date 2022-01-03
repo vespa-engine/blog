@@ -22,7 +22,11 @@ We assume that you have followed the first tutorial and have a variable `app` ho
 
 ## Feed additional data points
 
-We will continue to use the [CORD19 sample data](https://ir.nist.gov/covidSubmit/data.html) that fed the search app in the first tutorial. In addition, we are going to feed a few additional data points to make it possible to get relevant metrics from our experiments. We tried to minimize the amount of data required to make this tutorial easy to reproduce. You can download the additional 494 data points below:
+We will continue to use the <a href="https://ir.nist.gov/covidSubmit/data.html" data-proofer-ignore>CORD19 sample data</a>
+that fed the search app in the first tutorial.
+In addition, we are going to feed a few additional data points to make it possible to get relevant metrics from our experiments.
+We tried to minimize the amount of data required to make this tutorial easy to reproduce.
+You can download the additional 494 data points below:
 
 
 ```python
