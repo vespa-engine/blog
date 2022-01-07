@@ -1,0 +1,53 @@
+---
+permalink: latest.html
+---
+{% assign post = site.posts.first %}
+<!-- Begin Article
+================================================== -->
+<div class="mcnTextContent" style="padding: 0 18px 9px 18px">
+
+    <!-- Post Title -->
+    <h1>{{ post.title }}</h1>
+
+    <!-- Author -->
+    {%- if post.author %}
+        {%- comment %} Ugly workaround for 'map' operation not allowing array lookup {% endcomment %}
+        {%- assign authors = "" | split: ',' %}
+        {%- assign author_ids = post.author | split: " " %}
+        {%- for author_id in author_ids %}
+            {%- assign author = site.authors[author_id] %}
+            {%- assign authors = authors | push: author %}
+        {%- endfor %}
+        <p style="color:#A9A9A9; text-align: center;"><em><span style="font-size:12px">by
+            {%- for author in authors %}
+                {{ author.display_name }}, {{ author.description }}<br />
+            {%- endfor %}
+            </span></em><br />&nbsp;
+        </p>
+    {%- endif %}
+
+    <!-- Post Content -->
+    {{post.content | replace: "<h3", "<h4" | replace: "</h3", "</h4" | replace: "<h2", "<h3" | replace: "</h2", "</h3" | replace: 'img src="/', 'img class="mcnImage" src="https://blog.vespa.ai/' }}
+
+    <!-- Post Date -->
+    <p>
+        <span style="color:#808080"><small>
+            {{ post.date | date_to_string }}
+        </small>
+        </span>
+    </p>
+
+    <!-- Post Tags -->
+    <div>
+            {% assign sortedTags = post.tags | sort %}
+            {% for tag in sortedTags %}
+            <span style="background-color:#D3D3D3; border-radius:3px; padding:5px 10px">
+                #{{ tag }}&nbsp;
+            </span>
+            {% endfor %}
+    </div>
+    <!-- End Tags -->
+
+
+</div>
+<!-- End Article -->

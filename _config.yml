@@ -154,7 +154,7 @@ kramdown:
   syntax_highlighter: rouge
   syntax_highlighter_opts:
     block:
-      line_numbers: true
+      line_numbers: false
 
 # Lazy Images ("enabled" or "disabled")
 lazyimages: "disabled"
@@ -192,3 +192,9 @@ defaults:
       path  : ""
     values:
       index : true
+  -
+    scope:
+      path : ""
+      type : "posts"
+    values:
+      layout: post
