@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Machine-learned model serving at scale"
 date: '2022-01-07'
 tags: []
