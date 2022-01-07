@@ -169,7 +169,7 @@ for building applications that do real-time data processing over large data
 sets. Designed to be highly performant and web-scalable, it is used for diverse
 tasks such as search, personalization, recommendation, ads, auto-complete,
 image and similarity search, comment ranking, and even [finding
-love](https://tech.okcupid.com/vespa-vs-elasticsearch/).
+love](https://tech.okcupid.com/vespa-vs-elasticsearch-for-matching-millions-of-people-6e3af18eb4dc).
 
 Vespa.ai has many integrated [features](https://docs.vespa.ai/en/features.html)
 and supports many use cases right out of the box. Thus, it offers a simplified
