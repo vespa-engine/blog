@@ -222,7 +222,7 @@ When the `model-evaluation` tag has been supplied, Vespa makes a special
 (such as a request handler):
 
 ```
-public class MyHandler extends LoggingRequestHandler {
+public class MyHandler extends ThreadedHttpRequestHandler {
 
     private final ModelsEvaluator modelsEvaluator;
 
