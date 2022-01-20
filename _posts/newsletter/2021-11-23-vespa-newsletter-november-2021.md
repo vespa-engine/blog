@@ -74,8 +74,7 @@ in addition to being a distance metric option in nearest neighbor searches.
 November 8, [Jo Kristian Bergum](https://github.com/jobergum) from the Vespa team presented
 _From research to production - bringing the neural search paradigm shift to production_ at Glasgow University.
 The slides are available
-[here](https://docs.google.com/presentation/d/1oLt87DQhYhsw6bLkY6jmPiwzPco43HPok0bq2uI0Nao/edit?usp=sharing) /
-see the [recording](https://drive.google.com/file/d/1CNt8ua0O4G7q7d-Wgoq3lhepCd1_JXwt/view).
+[here](https://docs.google.com/presentation/d/1oLt87DQhYhsw6bLkY6jmPiwzPco43HPok0bq2uI0Nao/edit?usp=sharing).
 
 
 ___
