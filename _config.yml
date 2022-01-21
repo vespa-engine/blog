@@ -8,7 +8,6 @@ baseurl:
 mailchimp-list: 'https://vespa.ai/mailing-list.html'
 include: ["_pages"]
 permalink: /:title/
-google_analytics: UA-107187180-2
 enable_featured: false
 
 # Authors
