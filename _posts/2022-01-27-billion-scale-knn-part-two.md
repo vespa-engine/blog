@@ -149,14 +149,14 @@ approximate search.
 
 The evaluation routine handles *distance ties*; if a vector returned by
 the inaccurate search at position k has the same distance as the ground truth vector at position k,
-it is still considered a valid kth nearest neighbor. For our experiments, we use k equal to 10,
-and the overall *Recall@10* associated with a given parameter configuration is the mean of all 29,3K
+it is still considered a valid kth nearest neighbor. For our experiments, we use k equal to 10.
+The overall *Recall@10* associated with a given parameter configuration is the mean recall@10 of all 29,3K
 queries in the dataset.	
 
 Note that the vector overlap metric used does not necessarily directly correlate with application-specific recall
 metrics. For example, recall is also used in Information Retrieval (IR) relevancy evaluations to measure if the judged
 relevant document(s) are in the retrieved top k result. Generally, degrading vector search *Recall@k*
-impacts the application-specific recall, but much depends on the use case specifics.
+impacts the application-specific recall, but much depends on the use case.
 
 For example, consider the [Efficient Passage Retrieval with Hashing for 
 Open-domain Question Answering](https://arxiv.org/abs/2106.00882) paper 
@@ -186,9 +186,9 @@ to feed vector data to the Vespa instance.
 
 It is expected that indexing performance is degraded when enabling *HNSW* indexing for
 approximate vector search. This is because insertion into the *HNSW* graph requires distance calculations and graph
-modifications. Vespa's *HNSW* implementation uses multiple threads for
-distance calculations, but only a single writer thread can mutate the *HNSW* graph. The single writer
-thread limits concurrency and resource utilization. Generally, Vespa balances CPU resources used for indexing versus searching
+modifications which reduces overall throughput. Vespa's *HNSW* implementation uses multiple threads for
+distance calculations during indexing, but only a single writer thread can mutate the *HNSW* graph. 
+The single writer thread limits concurrency and resource utilization. Generally, Vespa balances CPU resources used for indexing versus searching
 using the [concurrency](https://docs.vespa.ai/en/reference/services-content.html#feeding-concurrency) setting. 
 
 Vespa exposes two core [HNSW construction parameters](https://docs.vespa.ai/en/reference/schema-reference.html#index-hnsw)
@@ -196,8 +196,7 @@ that impacts feeding performance (and quality as we will see in subsequent secti
 
 * **max-links-per-node** Specifies how many links are created per vector inserted into the graph. The
 default value in Vespa is 16. The [HNSW paper](https://arxiv.org/abs/1603.09320) calls this parameter **M**.  
-A higher max-links-per node increases memory usage and reduces indexing throughput, but also improves the quality of the graph, 
-and one can expect higher accuracy with higher values. The range [8-48] is reasonable. 
+A higher value of *max-links-per node* increases memory usage and reduces indexing throughput, but also improves the quality of the graph. 
 Note that the parameter also defines the memory consumption of the algorithm (which is proportional to *max-links-per-node*). 
 
 * **neighbors-to-explore-at-insert**  Specifies how many neighbors to explore when inserting a vector in
@@ -213,7 +212,7 @@ throughput impact.
 * *HNSW* with max-links-per-node = 16, neighbors-to-explore-at-insert 96
 
 The document schema, with HNSW indexing enabled for the *binary_code* field looks like this for the 
-last parameter combination:
+last listed parameter combination:
 
 <pre>
 schema code {
@@ -246,59 +245,56 @@ The real-time indexing throughput results are summarized in the following chart:
 
 Without *HNSW* enabled, Vespa is able to sustain 80 000 vector puts/s. By increasing the number of nodes in the 
 Vespa content cluster using Vespa's [content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
-it is possible to increase throughput horizontally. For example, using four nodes instead of one would support 4x80 000 = 320 000 puts/.
-When we introduce *HNSW* indexing, the obtained real-time throughput drops significantly as it involves graphmutations 
-and distance calculations. 
-
-We also measure peak memory usage for the content node which is proided in the chart below:
+it is possible to increase throughput horizontally. For example, using four nodes instead of one, would support 4x80 000 = 320 000 puts/.
+As we can see from the chart,  when we introduce *HNSW* indexing, the obtained real-time throughput drops significantly as it involves mutations of the 
+*HNSW* graph and distance calculations.  In addition to indexing throughput, we also measure peak memory usage for the content node which is provided in the chart below:
 
 <figure>
     <img src="/assets/2022-01-27-billion-scale-knn-part-two/memory.png" alt="Memory Usage(GB)"/>
 </figure>
 <sub>*Peak Memory Usage without HNSW indexing and with two HNSW parameter combinations.*</sub>
 
-Now, you might ask, why are Vespa using 64G of memory for this dataset in the baseline case?  
-Thereason is that Vespa stores the global documentid in memory, and the documentid consumes more memory than the vector
+Now, you might ask, why are Vespa using 64G of memory for this dataset in the baseline case without *HNSW*?  
+The reason is that Vespa stores the global documentid in memory, and the documentid consumes more memory than the vector
 data alone. 1B global document identifiers is about 33GB worth of memory usage. Finally, there is also 4GB of data for the integer id attribute. 
+This additional memory used for the in-memory global document id (gid), is used to support [elastic content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
+[fast partial updates](https://docs.vespa.ai/en/partial-updates.html) and more. 
 
-As we introduce HNSW indexing, the memory usage increases significantly due to the additional HNSW graph data structure which is also 
+As we introduce *HNSW* indexing, the memory usage increases significantly due to the additional *HNSW* graph data structure which is also 
 in memory for fast access during searches and insertions. 
 
 # Brute-force exact nearest neighbor search performance 
 As we have seen in the indexing performance and memory utilization experiments, not using *HNSW* uses
-considerably more memory, and is the indexing throughput winner - but what about the search
+considerably less memory, and is the clear indexing throughput winner - but what about the search
 performance of brute force search? Without *HNSW* graph indexing, the complexity of the search for neighbors is linear with
-the total document volume so that is surely slow for 1B documents?
+the total document volume, so that is surely slow for 1B documents?
 
 To overcome the latency issue, We can use one of the essential Vespa features: executing a query using multiple
 [search threads](https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search). 
 By using more threads per query, Vespa can better use multi-CPU core architecture and
 reduce query latency at the cost of increased CPU resource usage per query. Most search libraries or
-engines require high concurrent query throughput to drive CPU utilization. On the other hand, Vespa
-allows micro-slicing of the intra-node document volume so that multiple threads can execute the same
+engines require high concurrent query throughput to drive CPU utilization. 
+On the other hand, Vespa allows micro-slicing of the intra-node document volume so that multiple threads can execute the same
 query in parallel, each search thread working on a [partition](https://docs.vespa.ai/en/reference/schema-reference.html#num-search-partitions) 
-of the node's document volume. More threads per earch lower search latency, especially at the tail, at the cost of increased resource usage per query.
+of the node's document volume. More threads per search lowers search latency, especially at the tail, at the cost of increased resource usage per query.
 See more on using threads per search in the [Sizing and performance guide](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution). 
 
-To easily test multiple threading configurations we deploy multiple 
+To easily test multiple threading configurations, we deploy multiple 
 Vespa [ranking profiles](https://docs.vespa.ai/en/ranking.html), chosing ranking profile is 
 a query time setting so it's easy to run experiments without having to re-deploy the application. 
 
 <pre>
 rank-profile hamming {
-    num-threads-per-search:1
-    first-phase {
-      expression:closeness(field,binary_code)
-    }
+  num-threads-per-search:1
+  first-phase {
+    expression:closeness(field,binary_code)
   }
+}
 
-  rank-profile hamming-t2 inherits hamming {
-    num-threads-per-search:2
-  }
-
-  rank-profile hamming-t4 inherits hamming {
-    num-threads-per-search:4
-  }
+rank-profile hamming-t2 inherits hamming {
+  num-threads-per-search:2
+}
+..
 </pre>
 <sub>*Ranking profiles defined in the document schema.*</sub>
 
@@ -309,7 +305,7 @@ rank-profile hamming {
 
 As we can see from the figure above, one search thread uses on average 15 seconds to compute the exact nearest neighbors. 
 By increasing the number of search threads per query to 32, we can reach sub-second search latency. 
-The catch is that, at as low as 1 queries per second (QPS), the node would be running at close to 100% CPU utilization. 
+The catch is that at as low as one query per second (QPS), the node would be running at close to 100% CPU utilization. 
 Still, trading latency over throughput might be a good decision for some use cases that do not require high query throughput or 
 where CPU utilization is low (over-provisioned resources). In our case, 
 using all available CPU cores for our exact ground truth calculations reduced the overall time duration significantly. 
@@ -323,7 +319,7 @@ to evaluate indexing performance:
 * max-links-per-node = 16, neighbors-to-explore-at-insert 96 
 
 We use the exact search to obtain the 100 ground truth exact nearest neighbors for all the queries in the dataset, and use those for the 
-approximate nearest neighbor search *recall@10* calculations. We use 100 in the ground truth to be able to take into account *distance ties*.
+approximate nearest neighbor search *recall@10* evaluation. We use 100 in the ground truth set to be able to take into account *distance ties*.
 
 With approximate nearest neighbor search in Vespa, the traversal of the HNSW graph uses one thread per
 search irrespective of the number of configured rank profile search threads; the threads are put to
@@ -354,7 +350,8 @@ of 15000 ms, we achieve a speedup of 3,750x. Note that these are latency numbers
 For example, with 4 ms average latency per search using one thread, a node with 1 CPU core will be able to evaluate up to about 250
 queries per second. 72 CPU cores would be 72x that, reaching 18,000 queries per second at 100% CPU
 utilization. Scaling for increased read throughput is achieved using multiple replicas using grouped content
-distribution (Or more CPU cores per node). See [Vespa sizing guide](https://docs.vespa.ai/en/performance/sizing-search.html). 
+distribution (Or more CPU cores per node). See more on how to size Vespa search deployments in the 
+[Vespa sizing guide](https://docs.vespa.ai/en/performance/sizing-search.html). 
 
 # Summary 
 In this blog post, we explored several trade-offs related to vector search.  
