@@ -346,9 +346,9 @@ quality when using different construction HNSW parameters.
 
 Furthermore, comparing the 4ms at 90% recall@10 with the exact nearest neighbor search performance
 of 15000 ms, we achieve a speedup of 3,750x. Note that these are latency numbers for single-threaded searches.
-For example, with 4 ms average latency per search using one thread, a node with 1 CPU core will be able to evaluate up to about 250
+For example, with 4 ms average latency per search using one thread, a node with one CPU core will be able to evaluate up to about 250
 queries per second. 72 CPU cores would be 72x that, reaching 18,000 queries per second at 100% CPU
-utilization. Scaling for increased query throughput is achieved using multiple replicas using grouped content
+utilization. Scaling further for increased query throughput is achieved using multiple replicas using grouped content
 distribution (Or more CPU cores per node). See more on how to size Vespa search deployments in the 
 [Vespa sizing guide](https://docs.vespa.ai/en/performance/sizing-search.html). 
 
@@ -356,14 +356,14 @@ distribution (Or more CPU cores per node). See more on how to size Vespa search 
 In this blog post, we explored several trade-offs related to vector search.  
 We concluded that the quality, as measured by recall@k, must be weighed against the use case metrics 
 and the deployment cost.Furthermore, we demonstrated how multi-threaded search could reduce the 
-latency of the exact search, but scaling query throughput for exact search would be prohibitively e
-xpensive at this scale. However, using brute force search could be a valid and cost-effective alternative 
+latency of the exact search, but scaling query throughput for exact search would be prohibitively 
+expensive at this scale. However, using brute force search could be a valid and cost-effective alternative 
 for smaller data volumes with low query throughput, especially since the memory usage is considerably less,
 and supported indexing throughput is higher.
 
 In the next blog post in this series, we will experiment with the original 
 [Microsoft SPACEV-1B](https://github.com/microsoft/SPTAG/tree/main/datasets/SPACEV1B) vector dataset, using 
-the original dimension with `int8` precision with euclidean distance. In the blog post we will explore an hybrid approach 
-for approximate nearest neighbor search, using a combination of inverted indexes and *HNSW*, which reduces memory usage. 
-The method we will explore using Vespa is highly inspired by the [SPANN: Highly-efficient Billion-scale
+the original dimension with `int8` precision with euclidean distance. In the upcoming blog post we will explore an hybrid approach 
+for approximate nearest neighbor search. This approach uses a combination of inverted indexes and *HNSW*, which reduces 
+memory usage. The method we will explore using Vespa is highly inspired by the [SPANN: Highly-efficient Billion-scale
 Approximate Nearest Neighbor Search](https://arxiv.org/abs/2111.08566) paper. Stay tuned!
