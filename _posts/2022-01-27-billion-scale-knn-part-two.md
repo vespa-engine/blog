@@ -357,15 +357,13 @@ utilization. Scaling for increased read throughput is achieved using multiple re
 distribution (Or more CPU cores per node). See [Vespa sizing guide](https://docs.vespa.ai/en/performance/sizing-search.html). 
 
 # Summary 
-In this blog post we explored several trade-offs related to vector search.  
-We concluded that the quality as measured by recall@k needs to be weighed agains the use
-case metrics and the deployment cost. Furthermode, we demonstrated how multi-threaded search could reduce the latency of the exact search, but scaling
-query throughput for exact search would be prohibitively expensive at billion scale. For smaller data volumes with 
-low query throughput, exact search could be a valid and cost effective alternative, especially since the memory usage is
-considerably less, and indexing throughput is better than when using *HNSW*. 
+In this blog post, we explored several trade-offs related to vector search.  
+We concluded that the quality, as measured by recall@k, must be weighed against the use case metrics and the deployment cost.
+Furthermore, we demonstrated how multi-threaded search could reduce the latency of the exact search, but scaling query throughput for exact search would be prohibitively expensive at this scale. However, using brute force search could be a valid and cost-effective alternative for smaller data volumes with low query throughput, especially since the memory usage is considerably less, and indexing throughput is better. 
 
 In the next blog post in this series, we will experiment with the original 
 [Microsoft SPACEV-1B](https://github.com/microsoft/SPTAG/tree/main/datasets/SPACEV1B) vector dataset, using 
-the original dimension with`int8` precision and euclidean distance. We will implement the highly interesting 
-[SPANN: Highly-efficient Billion-scale
-Approximate Nearest Neighbor Search](https://arxiv.org/abs/2111.08566) algorithm using Vespa. Stay tuned!
+the original dimension with`int8` precision with euclidean distance. In the blog post we will explore an hybrid approach 
+for approximate nearest neighbor search, using a combination of inverted indexes and *HNSW*, which reduces overall memory usage. 
+The method we will explore using Vespa is inspired by [SPANN: Highly-efficient Billion-scale
+Approximate Nearest Neighbor Search](https://arxiv.org/abs/2111.08566). Stay tuned!
