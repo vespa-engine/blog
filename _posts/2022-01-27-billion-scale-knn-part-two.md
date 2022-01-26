@@ -360,7 +360,7 @@ Furthermore, we demonstrated how multi-threaded search could reduce the latency 
 
 In the next blog post in this series, we will experiment with the original 
 [Microsoft SPACEV-1B](https://github.com/microsoft/SPTAG/tree/main/datasets/SPACEV1B) vector dataset, using 
-the original dimension with`int8` precision with euclidean distance. In the blog post we will explore an hybrid approach 
+the original dimension with `int8` precision with euclidean distance. In the blog post we will explore an hybrid approach 
 for approximate nearest neighbor search, using a combination of inverted indexes and *HNSW*, which reduces overall memory usage. 
 The method we will explore using Vespa is inspired by [SPANN: Highly-efficient Billion-scale
 Approximate Nearest Neighbor Search](https://arxiv.org/abs/2111.08566). Stay tuned!
