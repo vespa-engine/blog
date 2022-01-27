@@ -161,7 +161,7 @@ impacts the application-specific recall, but much depends on the use case.
 For example, consider the [Efficient Passage Retrieval with Hashing for 
 Open-domain Question Answering](https://arxiv.org/abs/2106.00882) paper 
 discussed in the previous post in this series. The authors present a recall@k
-metric for k equal to 1,20 and 100. This specific recall@k measures if the ground truth
+metric for k equal to 1, 20 and 100. This specific recall@k measures if the ground truth
 golden answer to the question is in any top k retrieved passage. In this case, the error introduced
 by using approximate search might not impact the use case recall@k metric since the
 exact answer to the question might exist in several retrieved documents. In other words, not
@@ -269,7 +269,7 @@ considerably less memory, and is the clear indexing throughput winner - but what
 performance of brute force search? Without *HNSW* graph indexing, the complexity of the search for neighbors is linear with
 the total document volume, so that is surely slow for 1B documents?
 
-To overcome the latency issue, We can use one of the essential Vespa features: Executing a query using multiple
+To overcome the latency issue, we can use one of the essential Vespa features: Executing a query using multiple
 [search threads](https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search). 
 By using more threads per query, Vespa can make better use of multi-CPU core architectures and
 reduce query latency at the cost of increased CPU usage per query. Most search libraries or
@@ -355,7 +355,7 @@ distribution (Or more CPU cores per node). See more on how to size Vespa search 
 # Summary 
 In this blog post, we explored several trade-offs related to vector search.  
 We concluded that the quality, as measured by recall@k, must be weighed against the use case metrics 
-and the deployment cost.Furthermore, we demonstrated how multi-threaded search could reduce the 
+and the deployment cost. Furthermore, we demonstrated how multi-threaded search could reduce the 
 latency of the exact search, but scaling query throughput for exact search would be prohibitively 
 expensive at this scale. However, using brute force search could be a valid and cost-effective alternative 
 for smaller data volumes with low query throughput, especially since the memory usage is considerably less,
