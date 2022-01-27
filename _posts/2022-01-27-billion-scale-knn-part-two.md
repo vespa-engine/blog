@@ -61,7 +61,7 @@ where the original vector representation (e.g, `int8`) is transformed to binary.
 We don't train a binary representation model, but instead use the unsupervised *sign* threshold function. 
 Using the threshold function, we convert the mentioned *SPACEV-1B* vector dataset to a new and binarized
 dataset. Both queries and document vectors are binarized, and we use the [hamming distance
-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric) for the NNS 
+metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric) for the nearest neighbor search (NNS) 
 with our new dataset. 
 
 ```
@@ -82,7 +82,7 @@ which we can use to experiment and demonstrate some trade-offs related to vector
 
 * Brute force nearest neighbor search using multiple search threads to parallelize the search for
 exact nearest neighbors 
-* Approximate nearest neighbor search using where we accept an accuracy loss compared
+* Approximate nearest neighbor search where we accept an accuracy loss compared
 to exact search.
 * Indexing throughput with and without *HNSW* enabled 
 * Memory and resource utilization with and without *HNSW* enabled
@@ -262,8 +262,9 @@ it is possible to increase throughput horizontally. For example, using four node
 
 Now, you might ask, why are Vespa using 64G of memory for this dataset in the baseline case without *HNSW*?  
 The reason is that Vespa stores the _global document id_ (a 96-bit hash of the document id string) in memory, and the document id consumes more memory than the vector
-data alone. 1B global document identifiers is about 33GB worth of memory usage. Finally, there is also 4GB of data for the integer id attribute. 
-This additional memory used for the in-memory global document id (gid), is used to support [elastic content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
+data alone. One billion [document identifiers](https://docs.vespa.ai/en/attributes.html#document-meta-store) consume
+about 33GB of memory. Finally, there is also 4GB of data for the integer id attribute. 
+This additional memory used for the in-memory gid, is used to support fast [elastic content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
 [fast partial updates](https://docs.vespa.ai/en/partial-updates.html) and more. 
 
 As we introduce *HNSW* indexing, the memory usage increases significantly due to the additional *HNSW* graph data structure which is also 
