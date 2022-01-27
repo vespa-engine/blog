@@ -20,14 +20,14 @@ Vincentiu Solomon</a> on <a href="https://unsplash.com/s/photos/stars?utm_source
 In the [first post](../billion-scale-knn) in this series, we introduced compact binary-coded vector representations that can
 reduce the storage and computational complexity of both exact and approximate nearest neighbor search. 
 This second post covers an experiment using a 1-billion binary-coded representation derived from a
-vector dataset used in the [big-ann-benchmark](http://big-ann-benchmarks.com/) challenge. The primary
-purpose of this post in the series is to highlight some of the trade-offs related to approximate nearest neighbor
+vector dataset used in the [big-ann-benchmark](http://big-ann-benchmarks.com/) challenge. The 
+purpose of this post is to highlight some of the trade-offs related to approximate nearest neighbor
 search and especially we focus on serving performance versus accuracy. 
 
 Vespa implements a version of the *HNSW (Hierarchical Navigable Small Word)*
 [algorithm](https://arxiv.org/abs/1603.09320) for approximate
 vector search. Before diving into this post, we recommend reading the [HNSW in Vespa](../approximate-nearest-neighbor-search-in-vespa-part-1/)
-blog post for why we choose the *HNSW* algorithm.   
+blog post explaining why we chose the *HNSW* algorithm.   
 
 # Choosing a Vector Dataset
 When working with vector datasets and nearest neighbor search algorithms, using vectors from an
@@ -43,7 +43,7 @@ and 29K+ query vectors encoded by the Microsoft SpaceV Superior model.
 
 The vector dataset was published last year as part of the 
 [big-ann-benchmarks](http://big-ann-benchmarks.com/) challenge. 
-The vector dataset consists of one billion 100-dimensional vectors using `int8` precision. In other words,
+It consists of one billion 100-dimensional vectors using `int8` precision. In other words,
 each of the hundred vector dimensions is a number in the [-128,127] range. 
 The dataset has 29,3K queries with pre-computed ground truth nearest neighbors using the euclidean distance for each query
 vector. Vespa supports four different [tensor vector precision types](https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types), 
@@ -120,7 +120,7 @@ reference guide for details:
 This deployment specification isolates resources used for feed and search, except for search and indexing related 
 resource usage on the content node. Isolating feed and search allows for easier on-demand resource scaling as the 
 stateless containers can be [auto-scaled](https://cloud.vespa.ai/en/autoscaling) faster with read and write
-volume than stateful content resources. However, for self-hosted deployments of Vespa, there is no node resource support or auto-scaling.
+volume than stateful content resources. For self-hosted deployments of Vespa, you need to list the nodes you are using, and there is no auto-scaling.
 
 The following is the base [Vespa document schema](https://docs.vespa.ai/en/reference/schema-reference.html) we use throughout our experiments:
 
@@ -184,11 +184,11 @@ We want to quantify the impact of adding data structures for faster and approxim
 vector indexing throughput. We use the [Vespa HTTP feeding client](https://docs.vespa.ai/en/vespa-http-client.html) 
 to feed vector data to the Vespa instance. 
 
-It is expected that indexing performance is degraded when enabling *HNSW* indexing for
+Writing becomes more expensive when enabling *HNSW* indexing for
 approximate vector search. This is because insertion into the *HNSW* graph requires distance calculations and graph
 modifications which reduces overall throughput. Vespa's *HNSW* implementation uses multiple threads for
 distance calculations during indexing, but only a single writer thread can mutate the *HNSW* graph. 
-The single writer thread limits concurrency and resource utilization. Generally, Vespa balances CPU resources used for indexing versus searching
+The single writer thread limits concurrency and resource consumption. Generally, Vespa balances CPU resources used for indexing versus searching
 using the [concurrency](https://docs.vespa.ai/en/reference/services-content.html#feeding-concurrency) setting. 
 
 Vespa exposes two core [HNSW construction parameters](https://docs.vespa.ai/en/reference/schema-reference.html#index-hnsw)
@@ -246,8 +246,8 @@ The real-time indexing throughput results are summarized in the following chart:
 Without *HNSW* enabled, Vespa is able to sustain 80 000 vector puts/s. By increasing the number of nodes in the 
 Vespa content cluster using Vespa's [content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
 it is possible to increase throughput horizontally. For example, using four nodes instead of one, would support 4x80 000 = 320 000 puts/.
-As we can see from the chart,  when we introduce *HNSW* indexing, the obtained real-time throughput drops significantly as it involves mutations of the 
-*HNSW* graph and distance calculations.  In addition to indexing throughput, we also measure peak memory usage for the content node which is provided in the chart below:
+As we can see from the chart,  when we introduce *HNSW* indexing, the write throughput drops significantly as it involves mutations of the 
+*HNSW* graph and distance calculations.  In addition to indexing throughput, we also measure peak memory usage for the content node:
 
 <figure>
     <img src="/assets/2022-01-27-billion-scale-knn-part-two/memory.png" alt="Memory Usage(GB)"/>
@@ -255,7 +255,7 @@ As we can see from the chart,  when we introduce *HNSW* indexing, the obtained r
 <sub>*Peak Memory Usage without HNSW indexing and with two HNSW parameter combinations.*</sub>
 
 Now, you might ask, why are Vespa using 64G of memory for this dataset in the baseline case without *HNSW*?  
-The reason is that Vespa stores the global documentid in memory, and the documentid consumes more memory than the vector
+The reason is that Vespa stores the _global document id_ (a 96-bit hash of the document id string) in memory, and the document id consumes more memory than the vector
 data alone. 1B global document identifiers is about 33GB worth of memory usage. Finally, there is also 4GB of data for the integer id attribute. 
 This additional memory used for the in-memory global document id (gid), is used to support [elastic content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
 [fast partial updates](https://docs.vespa.ai/en/partial-updates.html) and more. 
@@ -269,10 +269,10 @@ considerably less memory, and is the clear indexing throughput winner - but what
 performance of brute force search? Without *HNSW* graph indexing, the complexity of the search for neighbors is linear with
 the total document volume, so that is surely slow for 1B documents?
 
-To overcome the latency issue, We can use one of the essential Vespa features: executing a query using multiple
+To overcome the latency issue, We can use one of the essential Vespa features: Executing a query using multiple
 [search threads](https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search). 
-By using more threads per query, Vespa can better use multi-CPU core architecture and
-reduce query latency at the cost of increased CPU resource usage per query. Most search libraries or
+By using more threads per query, Vespa can make better use of multi-CPU core architectures and
+reduce query latency at the cost of increased CPU usage per query. Most search libraries or
 engines require high concurrent query throughput to drive CPU utilization. 
 On the other hand, Vespa allows micro-slicing of the intra-node document volume so that multiple threads can execute the same
 query in parallel, each search thread working on a [partition](https://docs.vespa.ai/en/reference/schema-reference.html#num-search-partitions) 
@@ -280,8 +280,8 @@ of the node's document volume. More threads per search lowers search latency, es
 See more on using threads per search in the [Sizing and performance guide](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution). 
 
 To easily test multiple threading configurations, we deploy multiple 
-Vespa [ranking profiles](https://docs.vespa.ai/en/ranking.html), chosing ranking profile is 
-a query time setting so it's easy to run experiments without having to re-deploy the application. 
+Vespa [rank profiles](https://docs.vespa.ai/en/ranking.html). Choosing ranking profile is 
+done in the query so it's easy to run experiments without having to re-deploy the application. 
 
 <pre>
 rank-profile hamming {
@@ -324,7 +324,7 @@ approximate nearest neighbor search *recall@10* evaluation. We use 100 in the gr
 With approximate nearest neighbor search in Vespa, the traversal of the HNSW graph uses one thread per
 search irrespective of the number of configured rank profile search threads; the threads are put to
 use if the ranking profile uses higher-level subsequent [ranking phases](https://docs.vespa.ai/en/phased-ranking.html).
-For use cases and ranking profiles without higher level ranking phases, it's recommended to explicit configure
+For use cases and ranking profiles without higher level ranking phases, we recommend explicitly configuring
 one thread to avoid idling searcher threads which are not used for the graph traversal. *Recall@10* versus latency is provided
 in the figure below: 
 
@@ -345,7 +345,7 @@ Of course, the level of acceptable *recall@10* will be use case dependent, but t
 quality when using different construction HNSW parameters.
 
 Furthermore, comparing the 4ms at 90% recall@10 with the exact nearest neighbor search performance
-of 15000 ms, we achieve a speedup of 3,750x. Note that these are latency numbers for single-threaded searches.
+of 15000 ms, we see that we achieve a speedup of 3,750x. Note that these are latency numbers for single-threaded searches.
 For example, with 4 ms average latency per search using one thread, a node with one CPU core will be able to evaluate up to about 250
 queries per second. 72 CPU cores would be 72x that, reaching 18,000 queries per second at 100% CPU
 utilization. Scaling further for increased query throughput is achieved using multiple replicas using grouped content
