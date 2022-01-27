@@ -21,8 +21,8 @@ In the [first post](../billion-scale-knn) in this series, we introduced compact 
 reduce the storage and computational complexity of both exact and approximate nearest neighbor search. 
 This second post covers an experiment using a 1-billion binary-coded representation derived from a
 vector dataset used in the [big-ann-benchmark](http://big-ann-benchmarks.com/) challenge. The 
-purpose of this post is to highlight some of the trade-offs related to approximate nearest neighbor
-search and especially we focus on serving performance versus accuracy. 
+purpose of this post is to highlight some of the trade-offs related to approximate nearest neighbor search,
+and especially we focus on serving performance versus accuracy.
 
 Vespa implements a version of the *HNSW (Hierarchical Navigable Small Word)*
 [algorithm](https://arxiv.org/abs/1603.09320) for approximate
@@ -53,7 +53,7 @@ in order of increasing precision:
 * `double` (64 bits, 8 bytes) per dimension
 
 Quantization and dimension reduction as part of the representation learning could save both
-memory and CPU cycles in the serving phase, and Microsoft researchers have undoublty had this in mind
+memory and CPU cycles in the serving phase, and Microsoft researchers have undoubtedly had this in mind
 when using 100 dimensions with `int8` precision for the embedding. 
 
 In the [first post](../billion-scale-knn)in this series we discussed some of the benefits of working with binarized vector datasets
@@ -162,7 +162,7 @@ impacts the application-specific recall, but much depends on the use case.
 For example, consider the [Efficient Passage Retrieval with Hashing for 
 Open-domain Question Answering](https://arxiv.org/abs/2106.00882) paper 
 discussed in the previous post in this series. The authors present a recall@k
-metric for k equal to 1,20 and 100. This specific recall@k measures if the ground truth
+metric for k equal to 1, 20 and 100. This specific recall@k measures if the ground truth
 golden answer to the question is in any top k retrieved passage. In this case, the error introduced
 by using approximate search might not impact the use case recall@k metric since the
 exact answer to the question might exist in several retrieved documents. In other words, not
@@ -171,7 +171,7 @@ vector search does not necessarily severely impact the end-to-end recall metric.
 
 Similarly, when using ANNS for image search at a web scale, there might be many equally relevant
 images for almost any query. Therefore, losing relevant "redundant" pictures due to nearest neighbor
-search accuracy degradation might not impact end-to-end metrics like revenue and user satisifaction severely.  
+search accuracy degradation might not impact end-to-end metrics like revenue and user satisfaction severely.
 
 However, reducing vector recall quality will impact other applications using nearest
 neighbor search algorithms. Consider, for example, a biometric fingerprint recognition application
@@ -247,7 +247,7 @@ The real-time indexing throughput results are summarized in the following chart:
 Without *HNSW* enabled, Vespa is able to sustain 80 000 vector puts/s. By increasing the number of nodes in the 
 Vespa content cluster using Vespa's [content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
 it is possible to increase throughput horizontally. For example, using four nodes instead of one, would support 4x80 000 = 320 000 puts/.
-As we can see from the chart,  when we introduce *HNSW* indexing, the write throughput drops significantly as it involves mutations of the 
+As we can see from the chart,  when we introduce *HNSW* indexing, the write-throughput drops significantly as it involves mutations of the
 *HNSW* graph and distance calculations.  In addition to indexing throughput, we also measure peak memory usage for the content node:
 
 <figure>
@@ -270,7 +270,7 @@ considerably less memory, and is the clear indexing throughput winner - but what
 performance of brute force search? Without *HNSW* graph indexing, the complexity of the search for neighbors is linear with
 the total document volume, so that is surely slow for 1B documents?
 
-To overcome the latency issue, We can use one of the essential Vespa features: Executing a query using multiple
+To overcome the latency issue, we can use one of the essential Vespa features: Executing a query using multiple
 [search threads](https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search). 
 By using more threads per query, Vespa can make better use of multi-CPU core architectures and
 reduce query latency at the cost of increased CPU usage per query. See more on scaling latency 
@@ -279,7 +279,7 @@ versus throughput using multi-threaded search in the Vespa
 
 To easily test multiple threading configurations, we deploy multiple 
 Vespa [rank profiles](https://docs.vespa.ai/en/ranking.html). Choosing ranking profile is 
-done in the query so it's easy to run experiments without having to re-deploy the application. 
+done in the query, so it's easy to run experiments without having to re-deploy the application.
 
 <pre>
 rank-profile hamming {
@@ -353,7 +353,7 @@ distribution (Or more CPU cores per node). See more on how to size Vespa search 
 # Summary 
 In this blog post, we explored several trade-offs related to vector search.  
 We concluded that the quality, as measured by recall@k, must be weighed against the use case metrics 
-and the deployment cost.Furthermore, we demonstrated how multi-threaded search could reduce the 
+and the deployment cost. Furthermore, we demonstrated how multi-threaded search could reduce the 
 latency of the exact search, but scaling query throughput for exact search would be prohibitively 
 expensive at this scale. However, using brute force search could be a valid and cost-effective alternative 
 for smaller data volumes with low query throughput, especially since the memory usage is considerably less,
@@ -361,7 +361,7 @@ and supported indexing throughput is higher.
 
 In the next blog post in this series, we will experiment with the original 
 [Microsoft SPACEV-1B](https://github.com/microsoft/SPTAG/tree/main/datasets/SPACEV1B) vector dataset, using 
-the original dimension with `int8` precision with euclidean distance. In the upcoming blog post we will explore an hybrid approach 
+the original dimension with `int8` precision with euclidean distance. In the upcoming blog post we will explore a hybrid approach
 for approximate nearest neighbor search. This approach uses a combination of inverted indexes and *HNSW*, which reduces 
 memory usage. The method we will explore using Vespa is highly inspired by the [SPANN: Highly-efficient Billion-scale
 Approximate Nearest Neighbor Search](https://arxiv.org/abs/2111.08566) paper. Stay tuned!
