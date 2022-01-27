@@ -102,14 +102,14 @@ reference guide for details:
 <pre>
 &lt;nodes count=&quot;2&quot;&gt;
   &lt;resources memory=&quot;12Gb&quot; vcpu=&quot;16&quot; disk=&quot;100Gb&quot;/&gt;
-&lt;/nodes&gt
+&lt;/nodes&gt;
 </pre>
 
 2x Stateless container with feed API (&lt;document-api&gt;)
 <pre>
 &lt;nodes count=&quot;2&quot;&gt;
   &lt;resources memory=&quot;12Gb&quot; vcpu=&quot;16&quot; disk=&quot;100Gb&quot;/&gt;
-&lt;/nodes&gt
+&lt;/nodes&gt;
 </pre>
 1x Stateful content cluster with one node for storing and indexing the vector dataset
 <pre>
