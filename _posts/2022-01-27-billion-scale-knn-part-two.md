@@ -247,7 +247,13 @@ The real-time indexing throughput results are summarized in the following chart:
 Without *HNSW* enabled, Vespa is able to sustain 80 000 vector puts/s. By increasing the number of nodes in the 
 Vespa content cluster using Vespa's [content distribution](https://docs.vespa.ai/en/elastic-vespa.html), 
 it is possible to increase throughput horizontally. For example, using four nodes instead of one, would support 4x80 000 = 320 000 puts/.
-As we can see from the chart,  when we introduce *HNSW* indexing, the write-throughput drops significantly as it involves mutations of the
+
+<figure>
+    <img src="/assets/2022-01-27-billion-scale-knn-part-two/throughput_graph.png" alt="Indexing performance"/>
+</figure>
+<sub>*Sustained real-time indexing without HNSW, screenshot from Vespa Cloud Metrics*</sub>
+
+ When we introduce *HNSW* indexing, the write-throughput drops significantly as it involves mutations of the
 *HNSW* graph and distance calculations.  In addition to indexing throughput, we also measure peak memory usage for the content node:
 
 <figure>
