@@ -198,7 +198,6 @@ that impacts feeding performance (and quality as we will see in subsequent secti
 * **max-links-per-node** Specifies how many links are created per vector inserted into the graph. The
 default value in Vespa is 16. The [HNSW paper](https://arxiv.org/abs/1603.09320) calls this parameter **M**.  
 A higher value of *max-links-per node* increases memory usage and reduces indexing throughput, but also improves the quality of the graph. 
-Note that the parameter also defines the memory consumption of the algorithm (which is proportional to *max-links-per-node*). 
 
 * **neighbors-to-explore-at-insert**  Specifies how many neighbors to explore when inserting a vector in
 the HNSW graph. The default value in Vespa is 200. This parameter is called **efConstruction** in the HNSW paper. 
