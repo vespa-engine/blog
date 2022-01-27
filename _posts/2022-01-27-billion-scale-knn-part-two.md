@@ -29,7 +29,7 @@ Vespa implements a version of the *HNSW (Hierarchical Navigable Small Word)*
 vector search. Before diving into this post, we recommend reading the [HNSW in Vespa](../approximate-nearest-neighbor-search-in-vespa-part-1/)
 blog post explaining why we chose the *HNSW* algorithm.   
 
-# Choosing a Vector Dataset
+## Choosing a Vector Dataset
 When evaluating approximate nearest neighbor search algorithms it is important to use realistic vector data. 
 If you don't have the vectors for your problem at hand, use a publicly available dataset.
 
@@ -92,7 +92,7 @@ nearest neighbor search distance metric and re-rank close vectors in hamming spa
 original representation's euclidean distance. In our experiments, we focus on the new binarized 
 dataset using hamming distance. 
 
-# Experimental setup 
+## Experimental setup 
 We deploy the Vespa application to the [Vespa cloud](https://cloud.vespa.ai/)
 [performance zone](https://cloud.vespa.ai/en/reference/zones.html), and use the following 
 node resources for the core Vespa service types, see [services.xml](https://cloud.vespa.ai/en/reference/services)
@@ -142,7 +142,7 @@ schema code {
 </pre>
 <sub>*Vespa document schema without HNSW indexing enabled*</sub>
 
-# Evaluation Metrics 
+## Evaluation Metrics 
 To evaluate the accuracy degradation when using approximate nearest neighbor search (ANNS) versus the exact ground
 truth (NNS), we use the *Recall@k* metric, also called *Overlap@k*. *Recall@k* measures the overlap
 between the k ground truth nearest neighbors for a query with the k nearest returned by the
@@ -180,7 +180,7 @@ a database of many fingerprints. Accepting any accuracy loss as measured by
 Recall@1 (*the* true closest neighbor) will have severe consequences for the overall usefulness of the
 application.  
 
-# Vector Indexing performance
+## Vector Indexing performance
 We want to quantify the impact of adding data structures for faster and approximate vector search on
 vector indexing throughput. We use the [Vespa HTTP feeding client](https://docs.vespa.ai/en/vespa-http-client.html) 
 to feed vector data to the Vespa instance. 
@@ -270,7 +270,7 @@ This additional memory used for the in-memory gid, is used to support fast [elas
 As we introduce *HNSW* indexing, the memory usage increases significantly due to the additional *HNSW* graph data structure which is also 
 in memory for fast access during searches and insertions. 
 
-# Brute-force exact nearest neighbor search performance 
+## Brute-force exact nearest neighbor search performance 
 As we have seen in the indexing performance and memory utilization experiments, not using *HNSW* uses
 considerably less memory, and is the clear indexing throughput winner - but what about the search
 performance of brute force search? Without *HNSW* graph indexing, the complexity of the search for neighbors is linear with
@@ -314,7 +314,7 @@ Still, trading latency over throughput might be a good decision for some use cas
 where CPU utilization is low (over-provisioned resources). In our case, 
 using all available CPU cores for our exact ground truth calculations reduced the overall time duration significantly. 
 
-# Approximate nearest neighbor search performance 
+## Approximate nearest neighbor search performance 
 Moving from exact to approximate nearest neighbor search, we evaluate the search performance
 versus accuracy using the recall@10 metric for the same *HNSW* parameter combinations we used
 to evaluate indexing performance:
@@ -356,7 +356,7 @@ utilization. Scaling further for increased query throughput is achieved using mu
 distribution (or more CPU cores per node). See more on how to size Vespa search deployments in the 
 [Vespa sizing guide](https://docs.vespa.ai/en/performance/sizing-search.html). 
 
-# Summary 
+## Summary 
 In this blog post, we explored several trade-offs related to vector search.  
 We concluded that the quality, as measured by recall@k, must be weighed against the use case metrics 
 and the deployment cost. Furthermore, we demonstrated how multi-threaded search could reduce the 
