@@ -111,7 +111,7 @@ reference guide for details:
   &lt;resources memory=&quot;12Gb&quot; vcpu=&quot;16&quot; disk=&quot;100Gb&quot;/&gt;
 &lt;/nodes&gt
 </pre>
-1x Stateful content cluster for storing and indexing the vector dataset
+1x Stateful content cluster with one node for storing and indexing the vector dataset
 <pre>
 &lt;nodes count=&quot;1&quot;&gt;
   &lt;resources memory=&quot;256Gb&quot; vcpu=&quot;72&quot; disk=&quot;1000Gb&quot; disk-speed=&quot;fast&quot;/&gt;
@@ -149,7 +149,7 @@ between the k ground truth nearest neighbors for a query with the k nearest retu
 approximate search. 
 
 The evaluation routine handles *distance ties*; if a vector returned by
-the inaccurate search at position k has the same distance as the ground truth vector at position k,
+the approximate search at position k has the same distance as the ground truth vector at position k,
 it is still considered a valid kth nearest neighbor. For our experiments, we use k equal to 10.
 The overall *Recall@10* associated with a given parameter configuration is the mean recall@10 of all 29,3K
 queries in the dataset.	
@@ -204,7 +204,7 @@ the HNSW graph. The default value in Vespa is 200. This parameter is called **ef
 A higher value generally improves the quality but lowers indexing throughput as each insertion requires more
 distance computations. This parameter does not impact memory footprint. 
 
-We experiment with the following *HNSW* parameters combinations for evaluating feed indexing
+We experiment with the following *HNSW* parameter combinations for evaluating feed indexing
 throughput impact. 
 
 * No *HNSW* indexing for exact search 
@@ -315,7 +315,7 @@ using all available CPU cores for our exact ground truth calculations reduced th
 
 # Approximate nearest neighbor search performance 
 Moving from exact to approximate nearest neighbor search, we evaluate the search performance
-versus accuracy using the recall@10 metric for the same *HNSW* combinations we used
+versus accuracy using the recall@10 metric for the same *HNSW* parameter combinations we used
 to evaluate indexing performance:
 
 * max-links-per-node = 8, neighbors-to-explore-at-insert 48 
@@ -352,7 +352,7 @@ of 15000 ms, we see that we achieve a speedup of 3,750x. Note that these are lat
 For example, with 4 ms average latency per search using one thread, a node with one CPU core will be able to evaluate up to about 250
 queries per second. 72 CPU cores would be 72x that, reaching 18,000 queries per second at 100% CPU
 utilization. Scaling further for increased query throughput is achieved using multiple replicas using grouped content
-distribution (Or more CPU cores per node). See more on how to size Vespa search deployments in the 
+distribution (or more CPU cores per node). See more on how to size Vespa search deployments in the 
 [Vespa sizing guide](https://docs.vespa.ai/en/performance/sizing-search.html). 
 
 # Summary 
