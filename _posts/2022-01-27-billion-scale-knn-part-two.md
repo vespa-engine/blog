@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Billion-scale vector search with Vespa - part two"
-date: '2022-01-26'
+date: '2022-01-27'
 tags: []
 author: jobergum 
 image: assets/2022-01-27-billion-scale-knn-part-two/vincentiu-solomon-ln5drpv_ImI-unsplash.jpg
