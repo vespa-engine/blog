@@ -30,10 +30,8 @@ vector search. Before diving into this post, we recommend reading the [HNSW in V
 blog post explaining why we chose the *HNSW* algorithm.   
 
 # Choosing a Vector Dataset
-When working with vector datasets and nearest neighbor search algorithms, using vectors from an
-actual data distribution is essential. Randomly generated vector data could play a role when
-exploring brute force algorithms for [nearest neighbor search (NNS)](https://en.wikipedia.org/wiki/Nearest_neighbor_search)
-but prefer vector data from an actual distribution when evaluating approximate NNS algorithms. 
+When evaluating approximate nearest neighbor search algorithms it is important to use realistic vector data. 
+If you don't have the vectors for your problem at hand, use a publicly available dataset.
 
 For our experiments, we chose the [Microsoft SPACEV-1B](https://github.com/microsoft/SPTAG/tree/main/datasets/SPACEV1B)
 from Bing as our base vector dataset. 
@@ -58,6 +56,9 @@ Quantization and dimension reduction as part of the representation learning coul
 memory and CPU cycles in the serving phase, and Microsoft researchers have undoublty had this in mind
 when using 100 dimensions with `int8` precision for the embedding. 
 
+In the [first post](../billion-scale-knn)in this series we discussed some of the benefits of working with binarized vector datasets
+where the original vector representation (e.g, `int8`) is transformed to binary. 
+We don't train a binary representation model, but instead use the unsupervised *sign* threshold function. 
 Using the threshold function, we convert the mentioned *SPACEV-1B* vector dataset to a new and binarized
 dataset. Both queries and document vectors are binarized, and we use the [hamming distance
 metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric) for the NNS 
@@ -272,12 +273,9 @@ the total document volume, so that is surely slow for 1B documents?
 To overcome the latency issue, We can use one of the essential Vespa features: Executing a query using multiple
 [search threads](https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search). 
 By using more threads per query, Vespa can make better use of multi-CPU core architectures and
-reduce query latency at the cost of increased CPU usage per query. Most search libraries or
-engines require high concurrent query throughput to drive CPU utilization. 
-On the other hand, Vespa allows micro-slicing of the intra-node document volume so that multiple threads can execute the same
-query in parallel, each search thread working on a [partition](https://docs.vespa.ai/en/reference/schema-reference.html#num-search-partitions) 
-of the node's document volume. More threads per search lowers search latency, especially at the tail, at the cost of increased resource usage per query.
-See more on using threads per search in the [Sizing and performance guide](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution). 
+reduce query latency at the cost of increased CPU usage per query. See more on scaling latency 
+versus throughput using multi-threaded search in the Vespa 
+[sizing and performance guide](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution). 
 
 To easily test multiple threading configurations, we deploy multiple 
 Vespa [rank profiles](https://docs.vespa.ai/en/ranking.html). Choosing ranking profile is 
