@@ -40,4 +40,4 @@ $ docker run --detach --name vespa --hostname vespa-container \
 ```
 
 ## Support
-Vespa on *ARM64* is published as a preview for the community to be able to test on this architecture. Help and support will be provided as a best effort through the [GitHub Issues](https://github.com/vespa-engine/vespa/issues) and on the [Vespa Slack](https://slack.vespa.ai). The timeline for a production ready release on the *ARM64* architecture is not currently available.
+Vespa on *ARM64* is published as a preview for the community to be able to test on this architecture. Help and support will be provided as a best effort through the [GitHub Issues](https://github.com/vespa-engine/vespa/issues) and on the [Vespa Slack](http://slack.vespa.ai). The timeline for a production ready release on the *ARM64* architecture is not currently available.
