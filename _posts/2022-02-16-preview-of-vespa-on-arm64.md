@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Preview of Vespa on ARM64"
-date: '2022-02-14'
+date: '2022-02-16'
 tags: []
 author: aressem 
 image: assets/2022-02-16-preview-of-vespa-on-arm64/jeremy-bezanger-wl8hZoJBSU8-unsplash.jpg
