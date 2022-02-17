@@ -40,4 +40,4 @@ To get started with Vespa's basic HTTP tests:
   `vespa prod submit`
 
 For more information, see the reference documentation:
-<a href="https://cloud.vespa.ai/en/reference/testing.html">Basic HTTP Testing</a>.
+<a href="https://docs.vespa.ai/en/reference/testing.html">Basic HTTP Testing</a>.
