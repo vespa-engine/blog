@@ -1,4 +1,4 @@
-name: Vespa Documentation Search Feed, Blogs
+name: Vespa Blog Search Feed
 on:
   push:
     branches: [ master ]
