@@ -136,7 +136,7 @@ accelerated by algorithms such as WAND.
 
 Except for any pre-processing such as lemmatization, stemming, and possibly
 stop-word removal, terms are matched exactly as found in the text. This can be
-a strength as well as a weakness. For very salient terms, e.g. names and
+a strength as well as a weakness. For salient terms, e.g. names and
 places, this cuts down the search space significantly. However, potentially
 relevant documents that don’t contain the exact term will not be retrieved
 unless one uses query expansion or related techniques. The Dense Passage
@@ -145,7 +145,7 @@ Retrieval (DPR) paper uses ElasticSearch as the providing system for BM25.
 #### Embedding-based (dense) retrieval
 
 The number of potential terms in a vocabulary can be vast indeed. The basic
-idea behind embedding vectors is to compress this very-high dimensional sparse
+idea behind embedding vectors is to compress this high dimensional sparse
 vector to a much smaller dense vector where most dimensions contain a non-zero
 value. This has the effect of projecting a query or document vector into a
 lower-dimensional space. This can be done so that vectors that are close
@@ -163,12 +163,12 @@ systems. Examples are k-means clustering, product quantization (and it's
 relatives), and locality sensitive hashing, where the centroids or buckets can
 be indexed. A method that is not compatible with inverted indexes is
 [HNSW](https://arxiv.org/abs/1603.09320) (hierarchical navigable small world).
-HNSW is based on graph structures, is very efficient, and has an attractive
+HNSW is based on graph structures, is efficient, and has an attractive
 property where the graph can be incrementally built at runtime. This is in
 contrast to most other methods that require offline, batch oriented index
 building.
 
-Retrieval based on semantic embeddings complements term-based retrieval very
+Retrieval based on semantic embeddings complements term-based retrieval 
 well. Semantically similar documents can be recalled even though they don't
 contain the exact same terms. Unlike the bag-of-words approach for term-based
 retrieval, word order can provide additional context. Historically, however,
@@ -300,7 +300,7 @@ tensors and are used as inputs to the reader model.
 The embedding vector of the title and text is precomputed and stored as a
 tensor. This vector is used for dense retrieval, so we [enable the HNSW
 index](https://docs.vespa.ai/en/approximate-nn-hnsw.html) on this
-field for approximate nearest neighbor matching. A very nice feature of Vespa
+field for approximate nearest neighbor matching. A nice feature of Vespa
 is that the HNSW index is not pre-built offline;  it is constructed online as
 data is indexed. This allows for applications that are much more responsive to
 new data being fed into the system.

@@ -106,5 +106,8 @@ DEPENDENCIES
   rouge
   webrick
 
+RUBY VERSION
+   ruby 2.6.3p62
+
 BUNDLED WITH
    2.2.29

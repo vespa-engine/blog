@@ -1,4 +1,4 @@
-# Copyright Verizon Media. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root.
+# Copyright Yahoo. Licensed under the terms of the Apache 2.0 license. See LICENSE in the project root.
 
 require 'json'
 require 'nokogiri'
@@ -33,6 +33,7 @@ module Jekyll
             input = Kramdown::Document.new(post.content).to_html
             doc = Nokogiri::HTML(input)
             doc.search('th,td').each{ |e| e.after "\n" }
+            doc.search('style').each{ |e| e.remove }
             content = doc.xpath("//text()").to_s
             post_text = content.gsub("\r"," ").gsub("\n"," ")
         end

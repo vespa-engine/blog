@@ -1,7 +1,7 @@
 shared:
   settings:
     email:
-      addresses: [kraune@verizonmedia.com]
+      addresses: [kraune@yahooinc.com]
       statuses: [SUCCESS, FAILURE]
 
 jobs:
@@ -22,4 +22,5 @@ jobs:
             --typhoeus-config '{"connecttimeout": 10, "timeout": 30}' \
             --file-ignore '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
             --url-ignore '/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/' \
+            --http-status-ignore "429" \
             _site

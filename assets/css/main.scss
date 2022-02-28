@@ -20,6 +20,10 @@
   float: right;
 }
 
+code {
+  color: #555555;
+}
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
 	"syntax",
