@@ -156,7 +156,7 @@ under the search bar.
 
 We also took the two sample applications we made and integrated them in to an
 already existing sample application
-[vespa-documentation-search](https://github.com/vespa-engine/sample-apps/tree/master/vespa-cloud/vespa-documentation-search)
+[vespa-documentation-search](https://github.com/vespa-cloud/vespa-documentation-search)
 which is deployed on to Vespa Cloud. As of now this deployment is also used for
 search suggestion on the Vespa documentation sites in the search bar.
 

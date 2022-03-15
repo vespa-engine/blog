@@ -33,9 +33,9 @@ Data in Vespa is modeled as [documents](https://docs.vespa.ai/en/documents.html)
 The document space is split into logical chunks called [buckets](https://docs.vespa.ai/en/content/buckets.html),
 and each document is mapped to a single bucket based on its [document id](https://docs.vespa.ai/en/documents.html#document-ids).
 Buckets are automatically distributed over available nodes in a content cluster using a configured redundancy level.
-Nodes can be [added to](https://docs.vespa.ai/en/elastic-vespa.html#adding-nodes)
-or [removed from](https://docs.vespa.ai/en/elastic-vespa.html#removing-nodes) the content cluster at any time,
-and Vespa will [redistribute](https://docs.vespa.ai/en/elastic-vespa.html) data in the background
+Nodes can be [added to](https://docs.vespa.ai/en/elasticity.html#adding-nodes)
+or [removed from](https://docs.vespa.ai/en/elasticity.html#removing-nodes) the content cluster at any time,
+and Vespa will [redistribute](https://docs.vespa.ai/en/elasticity.html) data in the background
 with minimal impact to query or write traffic.
 
 No explicit sharding or manual decision making is needed. In the case of a failed node,
