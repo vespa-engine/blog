@@ -124,7 +124,7 @@ Run the queries to test Vespa's _/search/_ and _/document/v1/_ interfaces!
 
 ### Credentials
 So far, we have only tested open interfaces that easily display in browsers, find the query links at
-[vespa-documentation-search](https://github.com/vespa-engine/sample-apps/tree/master/vespa-cloud/vespa-documentation-search).
+[vespa-documentation-search](https://github.com/vespa-cloud/vespa-documentation-search).
 
 [Vespa Cloud](https://cloud.vespa.ai/) interfaces,
 as well as most other services, are protected -
