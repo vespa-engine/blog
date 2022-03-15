@@ -22,7 +22,7 @@ Today, we’re excited to share the following updates:
 
 #### Faster node recovery and re-balancing
 When Vespa content nodes are added or removed,
-data is [auto-migrated between nodes](https://docs.vespa.ai/en/elastic-vespa.html)
+data is [auto-migrated between nodes](https://docs.vespa.ai/en/elasticity.html)
 to maintain the configured data distribution.
 The throughput of this migration is throttled to avoid impact to regular query and write traffic.
 We have worked to improve this throughput by using available resources better,

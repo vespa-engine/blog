@@ -15,7 +15,7 @@ The Vespa team has been working non-stop to put together the
 based on the COVID-19 Open Research Dataset (CORD-19) released by the
 [Allen Institute for AI](https://allenai.org/).
 Both [the frontend](https://github.com/vespa-engine/cord-19/blob/master/README.md) and
-[the backend](https://github.com/vespa-engine/sample-apps/tree/master/vespa-cloud/cord-19-search)
+[the backend](https://github.com/vespa-cloud/cord-19-search)
 are 100% open-sourced.
 The backend is based on [vespa.ai](https://vespa.ai/), a powerful and open-sourced computation engine.
 _Since everything is open-sourced, you can contribute to the project in multiple ways._
@@ -24,7 +24,7 @@ As a user, you can either search for articles by using the [frontend](http://cor
 or perform advanced search by using the
 [public search API](https://github.com/vespa-engine/cord-19/blob/master/cord-19-queries.md).
 As a developer, you can contribute by improving the existing application through pull requests to
-[the backend](https://github.com/vespa-engine/sample-apps/tree/master/vespa-cloud/cord-19-search) and
+[the backend](https://github.com/vespa-cloud/cord-19-search) and
 [frontend](https://github.com/vespa-engine/cord-19/blob/master/README.md)
 or you can fork and create your own application,
 either [locally](https://docs.vespa.ai/en/vespa-quick-start.html)
@@ -101,7 +101,7 @@ For example, we can use more complex match operators such as the Vespa weakAND,
 we can restrict the search to look for a match only in the abstract by adding `'default-index': 'abstract'` in the _body_ above.
 We can experiment with different ranking function at query time
 by changing the `'ranking'` parameter to one of the [rank-profiles](https://docs.vespa.ai/en/ranking.html) available in the
-[search definition file](https://github.com/vespa-engine/sample-apps/blob/master/vespa-cloud/cord-19-search/src/main/application/schemas/doc.sd).
+[search definition file](https://github.com/vespa-cloud/cord-19-search/blob/main/src/main/application/schemas/doc.sd).
 
 Additional resources:
 * The Vespa text search tutorial shows how to create a text search app on a step-by-step basis.
