@@ -19,8 +19,8 @@ jobs:
           bundle exec jekyll build
           bundle exec htmlproofer \
             --assume-extension --empty-alt-ignore \
-            --typhoeus-config '{"connecttimeout": 10, "timeout": 30}' \
+            --typhoeus '{"connecttimeout": 10, "timeout": 30}' \
+            --hydra '{"max_concurrency": 1}' \
             --file-ignore '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
             --url-ignore '/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/' \
-            --http-status-ignore "429" \
             _site
