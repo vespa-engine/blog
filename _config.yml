@@ -172,6 +172,10 @@ exclude:
   - vendor/cache/
   - vendor/gems/
   - vendor/ruby/
+  - test/
+  - "*.pem"
+  - "*.yaml"
+  - "*.py"
 
 search:
   namespace: "blog"
