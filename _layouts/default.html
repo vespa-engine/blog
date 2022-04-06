@@ -62,6 +62,16 @@ ga('send', 'pageview');
         <!-- Begin Menu -->
 
             <ul class="navbar-nav ml-auto">
+<div class="row m-20">
+  <div class="col">
+    <form action="https://docs.vespa.ai/search.html" method="GET" id="search-form">
+      <div class="input-group has-button">
+        <input style="height:40px; font-size:1.0rem; padding:10px; border:1px solid #c0c0e0; border-radius: 8px;"
+               autofocus size="40" type="text" placeholder="Search blog and documentation" id="searchinput" name="q" />
+      </div>
+    </form>
+  </div>
+</div>
 
                 {% if page.url == "/" %}
                 <li class="nav-item active">
