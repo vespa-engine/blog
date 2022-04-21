@@ -28,8 +28,8 @@ enjoy [Jo Kristian Bergum](https://twitter.com/jobergum) from the Vespa Team in 
 This is a great 90 minutes of Vespa, vector search, multi-stage ranking and approximate nearest neighbor, and more!
 
 #### Compact tensor format
-Vespa now supports short form parsing for unbound dense (e.g. tensor(d0[],d1[])),
-and partially unbound (e.g. tensor(d0[],d1[128]).
+Vespa now supports short form parsing for unbound dense (e.g. `tensor(d0[],d1[])`),
+and partially unbound (e.g. `tensor(d0[],d1[128]`).
 Available since Vespa 7.459.15.
 Refer to [document-json-format.html#tensor](https://docs.vespa.ai/en/reference/document-json-format.html#tensor) and
 [presentation.format.tensors](https://docs.vespa.ai/en/reference/query-api-reference.html#presentation.format.tensors).
