@@ -21,7 +21,24 @@ Let’s assume we’re building a disruptive startup for serving the cutest poss
 
 Our initial, relational data model might look like this:
 
-     Advertiser: id: (primary key) company\_name: string contact\_person\_email: string Campaign: id: (primary key) advertiser\_id: (foreign key to _advertiser.id_) name: string budget: int Ad: id: (primary key) campaign\_id: (foreign key to _campaign.id_) cuteness: float cat\_picture\_url: string 
+<pre>
+Advertiser:
+    id: (primary key)
+    company_name: string
+    contact_person_email: string
+
+Campaign:
+    id: (primary key)
+    advertiser_id: (foreign key to <span style="font-weight: bold">advertiser.id</span>)
+    name: string
+    budget: int
+
+Ad:
+    id: (primary key)
+    campaign_id: (foreign key to <span style="font-weight: bold">campaign.id</span>)
+    cuteness: float
+    cat_picture_url: string
+</pre>
 
 This data normalization lets us easily update the budgets for all ads in a single operation, which is important since we don’t want to serve ads for which there is no budget. We can also get the advertiser name for all individual ads transitively via their campaign.
 
@@ -29,9 +46,27 @@ This data normalization lets us easily update the budgets for all ads in a singl
 
 Since we’re expecting our startup to rapidly grow to a massive size, we want to make sure we can scale from day one. As the number of ad queries grow, we ideally want scaling up to be as simple as adding more server capacity.
 
-Unfortunately, scaling joins beyond a single server is a significant design and engineering challenge. As a consequence, most of the new data stores released in the past decade have been of the “NoSQL” variant (which might also be called “non-relational databases”). NoSQL’s horizontal scalability is usually achieved by requiring an application developer to explicitly de-normalize all data. This removes the need for joins altogether. For our use case, we have to store budget and advertiser name across multiple document types and instances (duplicated data here marked with bold text):
+Unfortunately, scaling joins beyond a single server is a significant design and engineering challenge. As a consequence, most of the new data stores released in the past decade have been of the “NoSQL” variant (which might also be called “non-relational databases”). NoSQL’s horizontal scalability is usually achieved by requiring an application developer to explicitly de-normalize all data. This removes the need for joins altogether. For our use case, we have to store budget and advertiser name across multiple document types and instances (duplicated data here marked with **bold text**):
 
-     Advertiser: id: (primary key) company\_name: string contact\_person\_email: string Campaign: id: (primary key) **advertiser\_company\_name** : string name: string budget: int Ad: id: (primary key) **campaign\_budget** : int **campaign\_advertiser\_company\_name** : string cuteness: float cat\_picture\_url: string 
+<pre>
+Advertiser:
+    id: (primary key)
+    company_name: string
+    contact_person_email: string
+
+Campaign:
+    id: (primary key)
+    <span style="font-weight: bold">advertiser_company_name : string</span>
+    name: string
+    budget: int
+
+Ad:
+    id: (primary key)
+    <span style="font-weight: bold">campaign_budget : int</span>
+    <span style="font-weight: bold">campaign_advertiser_company_name : string</span>
+    cuteness: float
+    cat_picture_url: string
+</pre>
 
 Now we can scale horizontally for queries, but updating the budget of a campaign requires updating all its ads. This turns an otherwise _O(1)_ operation into _O(n)_, and we likely have to implement this update logic ourselves as part of our application. We’ll be expecting thousands of budget updates to our cat ad campaigns per second. Multiplying this by an unknown number is likely to overload our servers or lose us money. Or both at the same time.
 
@@ -49,9 +84,54 @@ We’ll see very shortly how this can be directly mapped to Vespa’s parent-chi
 
 Vespa’s fundamental data model is that of _documents_. Each document belongs to a particular schema and has a user-provided unique identifier. Such a schema is known as a document type and is specified in a [search definition](https://docs.vespa.ai/en/schemas.html) file. A document may have an arbitrary number of fields of different types. Some of these may be indexed, some may be kept in memory, all depending on the schema. A Vespa application may contain many document types.
 
-Here’s how the Vespa equivalent of the above _denormalized_ schema could look (again bolding where we’re duplicating information):
+Here’s how the Vespa equivalent of the above _denormalized_ schema could look (again **bolding** where we’re duplicating information):
 
-    _advertiser.sd:_ search advertiser { document advertiser { field company\_name type string { indexing: attribute | summary } field contact\_person\_email type string { indexing: summary } } } _campaign.sd:_ search campaign { document campaign { **field advertiser\_company\_name type string { indexing: attribute | summary }** field name type string { indexing: attribute | summary } field budget type int { indexing: attribute | summary } } } _ad.sd:_ search ad { document ad { **field campaign\_budget type int { indexing: attribute | summary attribute: fast-search } field campaign\_advertiser\_company\_name type string { indexing: attribute | summary }** field cuteness type float { indexing: attribute | summary attribute: fast-search } field cat\_picture\_url type string { indexing: attribute | summary } } }
+<pre>
+advertiser.sd:
+    search advertiser {
+        document advertiser {
+            field company_name type string {
+                indexing: attribute | summary
+            }
+            field contact_person_email type string {
+                indexing: summary
+            }
+        }
+    }
+
+campaign.sd:
+    search campaign {
+        document campaign {
+            <span style="font-weight: bold">field advertiser_company_name type string {
+                indexing: attribute | summary
+            }</span>
+            field name type string {
+                indexing: attribute | summary
+            }
+            field budget type int {
+                indexing: attribute | summary
+            }
+        }
+    }
+
+ad.sd:
+    search ad {
+        document ad {
+            <span style="font-weight: bold">field campaign_budget type int {
+                indexing: attribute | summary attribute: fast-search
+            }
+            field campaign_advertiser_company_name type string {
+                indexing: attribute | summary
+            }</span>
+            field cuteness type float {
+                indexing: attribute | summary attribute: fast-search
+            }
+            field cat_picture_url type string {
+                indexing: attribute | summary
+            }
+        }
+    }
+</pre>
 
 Note that since all documents in Vespa must already have a unique ID, we do not need to model the primary key IDs explicitly.
 
@@ -63,41 +143,137 @@ A _reference field_ contains the unique identifier of a parent document of a giv
 
 We want each ad to reference its parent campaign, so we add the following to `ad.sd`:
 
-     field campaign\_ref type reference\<campaign\> { indexing: attribute } 
+<pre>
+    field campaign_ref type reference&lt;campaign&gt; {
+        indexing: attribute
+    }
+</pre>
 
 We also add a reference from a campaign to its advertiser in `campaign.sd`:
 
-     field advertiser\_ref type reference\<advertiser\> { indexing: attribute } 
+<pre>
+    field advertiser_ref type reference&lt;advertiser&gt; {
+        indexing: attribute
+    }
+</pre>
 
 Since a reference just points to a particular document, it cannot be directly used in queries. Instead, _imported fields_ are used to access a particular field within a referenced document. Imported fields are _virtual_; they do not take up any space in the document itself and they cannot be directly written to by put or update operations.
 
 Add to `search campaign` in `campaign.sd`:
 
-     import field advertiser\_ref.company\_name as campaign\_company\_name {} 
+<pre>
+    import field advertiser_ref.company_name as campaign_company_name {}
+</pre>
 
 Add to `search ad` in `ad.sd`:
 
-     import field campaign\_ref.budget as ad\_campaign\_budget {} 
+<pre>
+    import field campaign_ref.budget as ad_campaign_budget {}
+</pre>
 
 You can import a parent field which itself is an imported field. This enables transitive field lookups.
 
 Add to `search ad` in `ad.sd`:
 
-     import field campaign\_ref.campaign\_company\_name as ad\_campaign\_company\_name {} 
+<pre>
+    import field campaign_ref.campaign_company_name as ad_campaign_company_name {}
+</pre>
 
 After removing the now redundant fields, our _normalized_ schema looks like this:
 
-    _advertiser.sd:_ search advertiser { document advertiser { field company\_name type string { indexing: attribute | summary } field contact\_person\_email type string { indexing: summary } } } _campaign.sd:_ search campaign { document campaign { field advertiser\_ref type _reference\<advertiser\>_ { indexing: attribute } field name type string { indexing: attribute | summary } field budget type int { indexing: attribute | summary } } import field advertiser\_ref.company\_name as campaign\_company\_name {} } _ad.sd:_ search ad { document ad { field campaign\_ref type _reference\<campaign\>_ { indexing: attribute } field cuteness type float { indexing: attribute | summary attribute: fast-search } field cat\_picture\_url type string { indexing: attribute | summary } } import field campaign\_ref.budget as ad\_campaign\_budget {} import field campaign\_ref.campaign\_company\_name as ad\_campaign\_company\_name {} }
+<pre>
+advertiser.sd:
+    search advertiser {
+        document advertiser {
+            field company_name type string {
+                indexing: attribute | summary
+            }
+            field contact_person_email type string {
+                indexing: summary
+            }
+        }
+    }
+
+campaign.sd:
+    search campaign {
+        document campaign {
+            field advertiser_ref type reference&lt;advertiser&gt; {
+                indexing: attribute
+            }
+            field name type string {
+                indexing: attribute | summary
+            }
+            field budget type int {
+                indexing: attribute | summary
+            }
+        }
+        import field advertiser_ref.company_name as campaign_company_name {}
+    }
+
+ad.sd:
+    search ad {
+        document ad {
+            field campaign_ref type reference&lt;campaign&gt; {
+                indexing: attribute
+            }
+            field cuteness type float {
+                indexing: attribute | summary attribute: fast-search
+            }
+            field cat_picture_url type string {
+                indexing: attribute | summary
+            }
+        }
+        import field campaign_ref.budget as ad_campaign_budget {}
+        import field campaign_ref.campaign_company_name as ad_campaign_company_name {}
+    }
+</pre>
 
 **Feeding with references**
 
 When feeding documents to Vespa, references are assigned like any other string field:
 
-     [{ "put": "id:test:advertiser::acme", "fields": { “company\_name”: “ACME Inc. cats and rocket equipment”, “contact\_person\_email”: “wile-e@example.com” } }, { "put": "id:acme:campaign::catnip", "fields": { **“advertiser\_ref”: “id:test:advertiser::acme”** , “name”: “Most excellent catnip deals”, “budget”: 500 } }, { "put": "id:acme:ad::1", "fields": { **"campaign\_ref": "id:acme:campaign::catnip"** , “cuteness”: 100.0, “cat\_picture\_url”: “/acme/super\_cute.jpg” }] 
+<pre>
+[
+    {
+        "put": "id:test:advertiser::acme",
+        "fields": {
+            "company_name": "ACME Inc. cats and rocket equipment",
+            "contact_person_email": "wile-e@example.com"
+        }
+    },
+    {
+        "put": "id:acme:campaign::catnip",
+        "fields": {
+            <span style="font-weight: bold">"advertiser_ref": "id:test:advertiser::acme"</span>,
+            "name": "Most excellent catnip deals",
+            "budget": 500
+        }
+    },
+    {
+        "put": "id:acme:ad::1",
+        "fields": {
+            <span style="font-weight: bold">"campaign_ref": "id:acme:campaign::catnip"</span>,
+            "cuteness": 100.0,
+            "cat_picture_url": "/acme/super_cute.jpg"
+        }
+    }
+]
+</pre>
 
 We can efficiently update the budget of a single campaign, immediately affecting all its child ads:
 
-     [{ "update": "id:test:campaign::catnip", "fields": { "budget": { "assign": 450 } } }] 
+<pre>
+[
+    {
+        "update": "id:test:campaign::catnip",
+        "fields": {
+            "budget": {
+                "assign": 450
+            }
+        }
+    }
+]
+</pre>
 
 **Querying using imported fields**
 
@@ -105,15 +281,26 @@ You can use imported fields in queries as if they were a regular field. Here are
 
 Find all ads that still have a budget left in their campaign:
 
-     select \* from ad where ad\_campaign\_budget \> 0; 
+<pre>
+select * from ad where ad_campaign_budget > 0
+</pre>
 
 Find all ads that have less than $500 left in their budget and belong to an advertiser whose company name contains the word “ACME”:
 
-     select \* from ad where ad\_campaign\_budget \< 500 and ad\_campaign\_company\_name contains “ACME”; 
+<pre>
+select * from ad where ad_campaign_budget < 500 and ad_campaign_company_name contains "ACME"
+</pre>
 
 Note that imported fields are not part of the default [document summary](https://docs.vespa.ai/en/document-summaries.html), so you must add them explicitly to a separate summary if you want their values returned as part of a query result:
 
-     document-summary my\_ad\_summary { summary ad\_campaign\_budget type int {} summary ad\_campaign\_company\_name type string {} summary cuteness type float {} summary cat\_picture\_url type string {} } 
+<pre>
+document-summary my_ad_summary {
+    summary ad_campaign_budget type int {}
+    summary ad_campaign_company_name type string {}
+    summary cuteness type float {}
+    summary cat_picture_url type string {}
+}
+</pre>
 
 Add `summary=my_ad_summary` as a query HTTP request parameter to use it.
 
@@ -121,7 +308,13 @@ Add `summary=my_ad_summary` as a query HTTP request parameter to use it.
 
 One of the primary reasons why distributed, generalized joins are so hard to do well efficiently is that performing a join on node A might require looking at data that is only found on node B (or node C, or D…). Vespa gets around this problem by requiring that all documents that may be joined against are _always present on every single node_. This is achieved by marking parent documents as _global_ in the `services.xml` declaration. Global documents are automatically distributed to all nodes in the cluster. In our use case, both advertisers and campaigns are used as parents:
 
-     \<documents\> \<document mode="index" type="advertiser" global=”true”/\> \<document mode="index" type="campaign" global=”true”/\> \<document mode="index" type="ad"/\> \</documents\> 
+<pre>
+&lt;documents&gt;
+    &lt;document mode="index" type="advertiser" <span style="font-weight: bold">global="true"</span>/&gt;
+    &lt;document mode="index" type="campaign" <span style="font-weight: bold">global="true"</span>/&gt;
+    &lt;document mode="index" type="ad"/&gt;
+&lt;/documents&gt;
+</pre>
 
 You cannot deploy an application containing reference fields pointing to non-global document types. Vespa verifies this at deployment time.
 
