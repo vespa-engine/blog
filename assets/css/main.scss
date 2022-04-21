@@ -24,6 +24,10 @@ code {
   color: #555555;
 }
 
+pre {
+  white-space: pre-line;
+}
+
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
 	"syntax",
