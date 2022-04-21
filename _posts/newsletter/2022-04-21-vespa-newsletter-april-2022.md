@@ -73,3 +73,5 @@ Vespa uses [semantic versioning](https://vespa.ai/releases) and releases new fea
 _Major_ version changes are used to mark versions which break compatibility,
 by removing previously deprecated features, changing default values and similar.
 The next time this happens will be in June, when we release Vespa 8. 
+Review the [release notes](https://docs.vespa.ai/en/vespa8-release-notes.html) to make sure your applications
+are compatible with Vespa 8.
