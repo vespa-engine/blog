@@ -28,7 +28,11 @@ $ dnf install vespa
 ```
 
 #### Container image
-We also publish container images of the *ARM64* preview. As with the RPMs these are also based on [CentOS Stream 8](https://www.centos.org/centos-stream/). The images are published to the [GitHub Container Registry](https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry), and the latest image can be obtained by pulling `ghcr.io/vespa-engine/vespa-arm64-preview`.
+We also publish container images of the *ARM64* preview.
+As with the RPMs these are also based on [CentOS Stream 8](https://www.centos.org/centos-stream/).
+The images are published to the
+<a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" data-proofer-ignore>GitHub Container Registry</a>,
+and the latest image can be obtained by pulling `ghcr.io/vespa-engine/vespa-arm64-preview`.
 
 ## Vespa Quick Start on *ARM64*
 If you would like to test the *ARM64* preview, the easiest way is to use [Docker](https://docker.io) or [Podman](https://podman.io) on a *ARM64* based machine. The [Vespa Quick Start Guide](https://docs.vespa.ai/en/vespa-quick-start.html)
