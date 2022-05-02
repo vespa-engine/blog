@@ -16,7 +16,7 @@ covers these topics in full detail with hands-on instructions.
 
 ## Application packages
 
-The configuration, components and models which makes out an application to be run by Vespa is contained in an [application package](https://docs.vespa.ai/en/cloudconfig/application-packages.html). The application package:
+The configuration, components and models which makes out an application to be run by Vespa is contained in an [application package](https://docs.vespa.ai/en/application-packages.html). The application package:
 
 - Defines which clusters and services should run and how they should be configured
 - Contains the document types the application will use
@@ -44,7 +44,7 @@ The deployment specification hosts.xml contains a list of all hosts that is part
 
 ## Deploying applications
 
-After the application package has been constructed, it is deployed using&nbsp;[vespa-deploy](https://docs.vespa.ai/en/cloudconfig/application-packages.html#deploy). This uploads the package to the [configuration cluster](https://docs.vespa.ai/en/cloudconfig/config-introduction.html) and pushes the configuration to all nodes. After this, the Vespa cluster is now configured and ready for use.
+After the application package has been constructed, it is deployed using&nbsp;[vespa-deploy](https://docs.vespa.ai/en/application-packages.html#deploy). This uploads the package to the [configuration cluster](https://docs.vespa.ai/en/config-introduction.html) and pushes the configuration to all nodes. After this, the Vespa cluster is now configured and ready for use.
 
 One of the nice features is that new configurations are loaded without service disruption. When a new application package is deployed, the configuration pushes the new generation to all the defined nodes in the application, which consume and effectuate the new configuration without restarting the services. There are some rare cases that require a restart, the vespa-deploy command will notify when this is needed.
 

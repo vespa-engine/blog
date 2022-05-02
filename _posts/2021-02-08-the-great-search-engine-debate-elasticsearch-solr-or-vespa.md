@@ -83,7 +83,7 @@ maybe at 80% ease of use. With Vespa, it’s easy to go from laptop to full clou
 Use Docker to run Vespa on your laptop.
 Use Vespa application package to go from laptop to full size - it is the same config.
 
-Resources: [application packages](https://docs.vespa.ai/en/cloudconfig/application-packages.html),
+Resources: [application packages](https://docs.vespa.ai/en/application-packages.html),
 [getting started](https://docs.vespa.ai/en/getting-started.html),
 [cloud.vespa.ai](https://cloud.vespa.ai/)
 

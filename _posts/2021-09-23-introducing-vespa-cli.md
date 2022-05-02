@@ -13,7 +13,7 @@ excerpt: The official command-line tool for Vespa is now available.
 <script id="asciicast-UyZQXh1TxLo43ON0CMqgFxEj0" src="https://asciinema.org/a/UyZQXh1TxLo43ON0CMqgFxEj0.js" async data-autoplay="true" data-speed="1.5" data-cols="170" data-loop="true"></script>
 
 Historically, the primary methods for deploying and interacting with [Vespa
-applications](https://docs.vespa.ai/en/cloudconfig/application-packages.html)
+applications](https://docs.vespa.ai/en/application-packages.html)
 has been to use [Vespa APIs](https://docs.vespa.ai/en/api.html) directly or via
 our Maven plugin.
 

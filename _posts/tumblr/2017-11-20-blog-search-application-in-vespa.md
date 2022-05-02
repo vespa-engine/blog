@@ -83,7 +83,7 @@ The data fed into Vespa must match the structure of the search definition, and t
 
 ## Application Packages
 
-A Vespa [application package](https://docs.vespa.ai/en/cloudconfig/application-packages.html) is the set of configuration files and Java plugins that together define the behavior of a Vespa system: what functionality to use, the available document types, how ranking will be done and how data will be processed during feeding and indexing. The search definition, e.g., `blog_post.sd`, is a required part of an application package — the other required files are `services.xml` and `hosts.xml`.
+A Vespa [application package](https://docs.vespa.ai/en/application-packages.html) is the set of configuration files and Java plugins that together define the behavior of a Vespa system: what functionality to use, the available document types, how ranking will be done and how data will be processed during feeding and indexing. The search definition, e.g., `blog_post.sd`, is a required part of an application package — the other required files are `services.xml` and `hosts.xml`.
 
 The sample application [blog search](https://github.com/vespa-engine/sample-apps/tree/master/blog-search) creates a simple but functional blog post search engine. The application package is found in [src/main/application](https://github.com/vespa-engine/sample-apps/tree/master/blog-search/src/main/application).
 

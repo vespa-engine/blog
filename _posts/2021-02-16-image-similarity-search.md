@@ -96,7 +96,7 @@ for p in islice(iter_products('meta_Amazon_Fashion.json.gz'), 221,223):
 
 ## Build basic search functionality 
 
-A Vespa instance is described by a [Vespa application package](https://docs.vespa.ai/en/cloudconfig/application-packages.html). Let us create an application called product and define our [document schema](https://docs.vespa.ai/en/schemas.html). We use pyvespa to define our application. This is not a requirement for creating a Vespa application, one can just use a text editor of choice.  
+A Vespa instance is described by a [Vespa application package](https://docs.vespa.ai/en/application-packages.html). Let us create an application called product and define our [document schema](https://docs.vespa.ai/en/schemas.html). We use pyvespa to define our application. This is not a requirement for creating a Vespa application, one can just use a text editor of choice.  
 
 
 
