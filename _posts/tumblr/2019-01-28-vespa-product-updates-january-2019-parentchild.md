@@ -21,7 +21,7 @@ We’ve added support for multiple levels of parent-child document references. D
 
 **File URL references in application packages**
 
-Serving nodes sometimes require data files which are so large that it doesn’t make sense for them to be stored and deployed in the application package. Such files can now be included in application packages by using the [URL reference](https://docs.vespa.ai/en/cloudconfig/application-packages.html). When the application is redeployed, the files are automatically downloaded and injected into the components who depend on them.
+Serving nodes sometimes require data files which are so large that it doesn’t make sense for them to be stored and deployed in the application package. Such files can now be included in application packages by using the [URL reference](https://docs.vespa.ai/en/application-packages.html). When the application is redeployed, the files are automatically downloaded and injected into the components who depend on them.
 
 **Batch feed in java client**
 

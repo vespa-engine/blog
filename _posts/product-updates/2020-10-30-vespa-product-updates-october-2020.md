@@ -25,7 +25,7 @@ This month, we’re excited to share the following updates:
 
 #### New Container thread pool configurations
 When deploying, application changes are
-[live reloaded](https://docs.vespa.ai/en/cloudconfig/application-packages.html) into the running JVM.
+[live reloaded](https://docs.vespa.ai/en/application-packages.html) into the running JVM.
 New code requires JVM JIT compilation, which temporarily loads the container
 and causes increased query latencies for a second or two.
 Many parallel threads aggravate this problem.

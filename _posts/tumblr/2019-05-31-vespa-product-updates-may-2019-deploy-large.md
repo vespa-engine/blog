@@ -26,7 +26,7 @@ Whenever the content cluster state changes, the ideal state is calculated. This 
 
 **Download ML models during deploy**
 
-One procedure for using/importing ML models to Vespa is to put them in the application package in the [models](https://docs.vespa.ai/en/reference/application-packages-reference.html) directory. Applications where models are trained frequently in some external system can refer to the model by URL rather than including it in the application package. This use case is now documented in [deploying remote models](https://docs.vespa.ai/en/cloudconfig/application-packages.html#deploying-remote-models), and solves the challenge of deploying huge models.
+One procedure for using/importing ML models to Vespa is to put them in the application package in the [models](https://docs.vespa.ai/en/reference/application-packages-reference.html) directory. Applications where models are trained frequently in some external system can refer to the model by URL rather than including it in the application package. This use case is now documented in [deploying remote models](https://docs.vespa.ai/en/application-packages.html#deploying-remote-models), and solves the challenge of deploying huge models.
 
 We welcome your [contributions](https://github.com/vespa-engine/vespa/blob/master/CONTRIBUTING.md) and feedback ([tweet](https://twitter.com/vespaengine) or [email](mailto:info@vespa.ai)) about any of these new features or future improvements you’d like to request.
 

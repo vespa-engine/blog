@@ -34,7 +34,7 @@ Most schema changes in Vespa are effected immediately,
 but some require [re-indexing](https://docs.vespa.ai/en/operations/reindexing.html).
 Reindexing the corpus can take time, and consumes resources.
 It is now possible to configure how fast to re-index in order to balance this tradeoff,
-see [reindex speed](https://docs.vespa.ai/en/cloudconfig/deploy-rest-api-v2.html#reindex).
+see [reindex speed](https://docs.vespa.ai/en/reference/deploy-rest-api-v2.html#reindex).
 Read more about [schema changes](https://docs.vespa.ai/en/reference/schema-reference.html#modifying-schemas).
 
 #### pyvespa
