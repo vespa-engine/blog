@@ -272,14 +272,14 @@ Vespa exposes two parameters that control the filtering strategy.
 These parameters give the developer flexibility in choosing a method that fits 
 the use case at hand best from a functional point of view, but also hedging performance and resource cost. 
 
-The parameters are: 
+The schema [rank-profile](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile) parameters are: 
 
 * **post-filter-threshold** - default 1.0 
 * **approximate-threshold** - default 0.05
 
 These parameters were introduced in Vespa 7.580.54, 
 and can be configured in the [rank profile](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile), 
-defined in the schema, or set using the [query API](https://docs.vespa.ai/en/reference/query-api-reference.html on
+defined in the schema, or set using the [query API](https://docs.vespa.ai/en/reference/query-api-reference.html) on
 a per-query request basis. The query api parameters are:
 
 * **ranking.matching.postFilterThreshold** - default 1.0 
