@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Run-Time Constrained Approximate Nearest Neighbor Search 
+title: Query Time Constrained Approximate Nearest Neighbor Search 
 date: '2022-05-03'
 categories: [vector search, filters]
 tags: []
@@ -8,7 +8,7 @@ image: assets/2022-05-09-constrained-approximate-nearest-neighbor-search/christo
 author: geirst jobergum
 skipimage: true
 
-excerpt: This blog post describes Vespa's support for combining approximate nearest neighbor search, or vector search, with run time filters or constraints to tackle real-world search and recommendation use cases at scale.
+excerpt: This blog post describes Vespa's industry leading support for combining approximate nearest neighbor search, or vector search, with query constraints to solve real-world search and recommendation problems at scale.
 ---
 <img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/christopher-burns-Kj2SaNHG-hg-unsplash.jpg"/>
 <p class="image-credit">
@@ -25,9 +25,10 @@ Finally, the blog post introduces two Vespa parameters for controlling vector se
 achieve optimal functionality with the lowest possible resource usage.
 
 ## Introduction 
-Many real-world problems need run-time constrained vector search. For example, real-time recommender systems 
-using vector search for candidate retrieval need to filter recommendations by hard constraints like 
-regional availability and age group suitability. Likewise, search systems using vector search need to support filtering.
+Many real-world applications require query-time constrained vector search. For example, real-time recommender systems 
+using [vector search for candidate retrieval](https://docs.vespa.ai/en/tutorials/news-5-recommendation.html) 
+need to filter recommendations by hard constraints like regional availability and age group suitability. 
+Likewise, search systems using vector search need to support filtering.
 For example, typical e-commerce search interfaces allow users to navigate and filter search results using result facets. 
 
 Vespa's document model supports representing multiple field and collection types in the same 
@@ -154,8 +155,10 @@ finds the (`targetHits`) nearest neighbors using the configured
 [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric). 
 
 The retrieved hits are exposed to [first-phase ranking](https://docs.vespa.ai/en/ranking.html),
-where the retrieved neighbors can be re-ranked using more sophisticated ranking models beyond the pure vector similarity. 
-The examples in this blog post use the [closeness rank feature](https://docs.vespa.ai/en/reference/rank-features.html#closeness(dimension,name))
+where the retrieved neighbors can be re-ranked using more sophisticated ranking models 
+[beyond the pure vector similarity](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-4/).
+
+The query examples in this blog post use the [closeness rank feature](https://docs.vespa.ai/en/reference/rank-features.html#closeness(dimension,name))
 directly as the `first-phase` rank expression:
 
  <pre>
@@ -169,8 +172,8 @@ rank-profile closeness {
 Developers might switch between using `approximate:true`, which searches the [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
 graph data structure, and using exact search, setting `approximate:false`. 
 The ability to switch between approximate and exact enables quantifying accuracy 
-loss when turning to the faster, but approximate search. Read more about `HNSW` parameters and accuracy tradeoffs in the 
-[billion scale vector search part two](https://blog.vespa.ai/billion-scale-knn-part-two/) blog post. 
+loss when turning to the faster, but approximate search. Read more about `HNSW` parameters and accuracy versus performance 
+tradeoffs in the [billion scale vector search part two](https://blog.vespa.ai/billion-scale-knn-part-two/) blog post. 
 
 It’s trivial to combine the exact nearest neighbor search with filters, and the computational 
 complexity of the search is easy to understand. 
@@ -274,9 +277,13 @@ The parameters are:
 * **post-filter-threshold** - default 1.0 
 * **approximate-threshold** - default 0.05
 
-These parameters were introduced in Vespa 7.854.xx, 
-and can be configured in the rank profile, defined in the schema, 
-or set in the query API per-query request. 
+These parameters were introduced in Vespa 7.580.54, 
+and can be configured in the [rank profile](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile), 
+defined in the schema, or set using the [query API](https://docs.vespa.ai/en/reference/query-api-reference.html on
+a per-query request basis. The query api parameters are:
+
+* **ranking.matching.postFilterThreshold** - default 1.0 
+* **ranking.matching.approximateThreshold** - default 0.05
 
 <img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/flowchart-small.png"/>
 <em>**Figure 5** The flow chart shows how Vespa selects the 
@@ -349,15 +356,34 @@ Moderate filters (between 5% and 75%) are evaluated using `pre-filtering`
 and restrictive filters (&lt; 5%) are evaluated using exact search.  
 
 ## Summary
-This blog post described Vespa's support for combining approximate nearest 
-neighbor search with query time constraints or filters.
-It covered on a high level the data structures that Vespa builds to 
-support classic sparse retrieval and also the graph data structures 
-for fast, approximate, nearest neighbor search. The post took a deep dive into 
-the topic of how filters can be combined with vector search. 
+Constraining search for nearest neighbors using query time constraints is mission-critical for 
+real-world applications using AI-powered vector representations. By introducing these new native parameters for controlling vector search filtering behavior,  
+Vespa further fortifies its position in the industry as the leading open-source serving technology for vector search applications. 
 
-Finally, the post introduced two newly introduced parameters for controlling 
-the filtering behavior and how developers can tune these, 
-choosing between *pre-filtering* or *post-filtering* for an 
-optimal tradeoff between serving performance and functionality.  
+To try out these parameters in practice, see the [practical nearest neighbor search guide](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html) and
+especially the section on 
+[controlling filter behavior](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#controlling-filter-behavior). 
+
+See also [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
+nearest neighbor search support to build:
+
+- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md) 
+Demonstrating using vector search with AI-powered representations built on NLP Transformer models for candidate retrieval. 
+The application also demonstrates multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html) 
+serving pipelines. Furthermore, the app demonstrates how embedding models, which maps the text data to vector representation, can be 
+deployed to Vespa for [run-time inference](https://blog.vespa.ai/stateless-model-evaluation/) during both document and query processing.
+
+- [State-of-the-art image search](https://github.com/vespa-engine/sample-apps/tree/master/text-image-search) Using AI-powered multi-modal vector representations
+to retrieve images for a text query. 
+
+- [State-of-the art open-domain question answering](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann) Using AI-powered vector representations
+to retrieve passages from Wikipedia which are feed into a NLP reader model which identifies the answer. End-to-end represented using Vespa.
+
+All these are examples of applications built using AI-powered vector representations, and where real-world deployments 
+need query time constrained search. 
+
+Vespa is available as a cloud service, see [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
+or self-serve [Vespa - getting started](https://docs.vespa.ai/en/getting-started.html).  
+
+
 
