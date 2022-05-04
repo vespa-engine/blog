@@ -70,6 +70,9 @@ schema track {
     }
   }
   rank-profile closeness {
+    inputs {
+       query(query_embedding) tensor&lt;float&gt;(x[384])      
+    }
     first-phase { 
       expression: closeness(field, embedding) 
     } 
@@ -173,13 +176,12 @@ Developers might switch between using `approximate:true`, which searches the [HN
 graph data structure, and using exact search, setting `approximate:false`. 
 The ability to switch between approximate and exact enables quantifying accuracy 
 loss when turning to the faster, but approximate search. Read more about `HNSW` parameters and accuracy versus performance 
-tradeoffs in the [billion scale vector search part two](https://blog.vespa.ai/billion-scale-knn-part-two/) blog post. 
+tradeoffs in the [Billion-scale vector search with Vespa - part two](https://blog.vespa.ai/billion-scale-knn-part-two/) blog post. 
 
-It’s trivial to combine the exact nearest neighbor search with filters, and the computational 
-complexity of the search is easy to understand. 
-For example, the following query searches for the exact nearest neighbors of the query embedding using 
-the `euclidean` [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric), 
-restricting the search for neighbors to only consider documents tagged with *rock*:
+It’s trivial to combine the exact nearest neighbor search with query time filters, and the computational 
+complexity of the search is easy to understand. For example, the following query searches for the exact 
+nearest neighbors of the query embedding using the `euclidean` [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric), 
+restricting the search for neighbors to only consider tracks tagged with *rock*:
 
 <pre>
 select * from track where {targetHits:5, approximate:false}nearestNeighbor(embedding, query_embedding) and tags:rock 
