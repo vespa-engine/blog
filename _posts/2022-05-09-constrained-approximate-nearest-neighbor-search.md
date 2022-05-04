@@ -18,8 +18,8 @@ Christopher Burns</a> on <a href="https://unsplash.com/s/photos/stars">Unsplash<
 </p>
 
 This blog post describes Vespa's support for combining [approximate nearest neighbor search](https://docs.vespa.ai/en/approximate-nn-hnsw.html),
-or vector search, with run time filters or constraints to tackle real-world search and recommendation use cases at scale.
-The first section covers the data structures Vespa builds to support fast online search in vector fields and other field types. 
+or vector search, with query-time filters or constraints to tackle real-world search and recommendation use cases at scale.
+The first section covers the data structures Vespa builds to support fast search in vector fields and other field types. 
 The blog post then describes the two primary strategies for combining vector search with filters; pre- or post-filtering. 
 Finally, the blog post introduces two Vespa parameters for controlling vector search filtering behavior to 
 achieve optimal functionality with the lowest possible resource usage.
@@ -38,7 +38,7 @@ include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byt
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 
 Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types) types,
 ranging from `int8` for binary vectors to `bfloat16`, `float`, and `double` for real-valued vectors. 
-Allowing vectors and other field types in the same document schema enable searching the vector field(s) in 
+Allowing vectors and other field types in the same document schema enables searching the vector field(s) in 
 combination with filters expressed over other fields. 
 
 This blog post uses the following track [Vespa document schema](https://docs.vespa.ai/documentation/schemas.html) 
@@ -178,13 +178,13 @@ The ability to switch between approximate and exact enables quantifying accuracy
 loss when turning to the faster, but approximate search. Read more about `HNSW` parameters and accuracy versus performance 
 tradeoffs in the [Billion-scale vector search with Vespa - part two](https://blog.vespa.ai/billion-scale-knn-part-two/) blog post. 
 
-It’s trivial to combine the exact nearest neighbor search with query time filters, and the computational 
+It’s trivial to combine the exact nearest neighbor search with query-time filters, and the computational 
 complexity of the search is easy to understand. For example, the following query searches for the exact 
 nearest neighbors of the query embedding using the `euclidean` [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric), 
 restricting the search for neighbors to only consider tracks tagged with *rock*:
 
 <pre>
-select * from track where {targetHits:5, approximate:false}nearestNeighbor(embedding, query_embedding) and tags:rock 
+select * from track where {targetHits:5, approximate:false}nearestNeighbor(embedding, query_embedding) and tags contains "rock" 
 </pre>
 
 The query execution planner estimates that the exact `nearestNeighbor` query operator 
@@ -254,8 +254,7 @@ From a performance and serving cost perspective, one can on a high level summari
 
 * Pure approximate nearest neighbor search without filters is the cheapest.  
 * *Post-filtering* is less resource-intensive than pre-filtering for the same number of `targetHits`. 
-
-*Pre-filtering* uses more resources than *post-filtering* as it needs to execute the 
+* *Pre-filtering* uses more resources than *post-filtering* as it needs to execute the 
 filter and then search the `HNSW` graph, constrained by the document ID list produced by the pre-filter execution. 
 
 
@@ -270,7 +269,7 @@ and the number of vectors indexed in the Vespa instance.
 </em>
 
 ## Controlling the filtering behavior with approximate nearest neighbor search 
-Vespa exposes two parameters that control the query time filtering strategy. 
+Vespa exposes two parameters that control the query-time filtering strategy. 
 These parameters give the developer flexibility in choosing a method that fits 
 the application use case while hedging performance and resource cost. 
 
@@ -287,7 +286,7 @@ a per-query request basis. The query api parameters are:
 * **ranking.matching.postFilterThreshold** - default 1.0 
 * **ranking.matching.approximateThreshold** - default 0.05
 
-<img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/flowchart-small.png"/>
+<img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/flowchart.png"/>
 <em>**Figure 5** The flow chart shows how Vespa selects the 
 strategy for an approximate nearest neighbor (ann) search with filters using mentioned parameters.</em>
 
@@ -354,11 +353,11 @@ rank-profile hybrid-filtering {
 </pre>
 This parameter combination will trigger *post-filtering* for relaxed filters, 
 estimated to match more than 75% of the documents. 
-Moderate filters (between 5% and 75%) are evaluated using `pre-filtering` 
+Moderate filters (between 5% and 75%) are evaluated using *pre-filtering* 
 and restrictive filters (&lt; 5%) are evaluated using exact search.  
 
 ## Summary
-Constraining search for nearest neighbors using query time constraints is mission-critical for 
+Constraining search for nearest neighbors using query-time constraints is mission-critical for 
 real-world applications using AI-powered vector representations. By introducing these new native parameters for controlling vector search filtering behavior,  
 Vespa further fortifies its position in the industry as the leading open-source serving technology for vector search applications. 
 
@@ -367,22 +366,22 @@ especially the section on
 [controlling filter behavior](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#controlling-filter-behavior). 
 
 See also [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
-nearest neighbor search support to build:
+nearest neighbor search:
 
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md) 
 Demonstrating using vector search with AI-powered representations built on NLP Transformer models for candidate retrieval. 
 The application also demonstrates multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html) 
-serving pipelines. Furthermore, the app demonstrates how embedding models, which maps the text data to vector representation, can be 
+serving pipelines. Furthermore, the application demonstrates how embedding models, which maps the text data to vector representation, can be 
 deployed to Vespa for [run-time inference](https://blog.vespa.ai/stateless-model-evaluation/) during both document and query processing.
 
 - [State-of-the-art image search](https://github.com/vespa-engine/sample-apps/tree/master/text-image-search) Using AI-powered multi-modal vector representations
 to retrieve images for a text query. 
 
 - [State-of-the art open-domain question answering](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann) Using AI-powered vector representations
-to retrieve passages from Wikipedia which are feed into a NLP reader model which identifies the answer. End-to-end represented using Vespa.
+to retrieve passages from Wikipedia which are fed into a NLP reader model which identifies the answer. End-to-end represented using Vespa.
 
 All these are examples of applications built using AI-powered vector representations, and where real-world deployments 
-need query time constrained nearest neighbor search. 
+need query-time constrained nearest neighbor search. 
 
 Vespa is available as a cloud service, see [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
 or self-serve [Vespa - getting started](https://docs.vespa.ai/en/getting-started.html).  
