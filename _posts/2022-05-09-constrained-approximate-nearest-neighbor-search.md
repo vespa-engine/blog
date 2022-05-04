@@ -264,13 +264,13 @@ which satisfies the document ID list from the pre-filter execution.
 Due to this, there is a sweet spot or threshold where an exact search with filters
 has a lower computational cost than an approximate search using the document ID list from the pre-filter execution. 
 The actual threshold value depends on vector dimensionality, `HNSW` graph properties, 
-and the number of vectors in Vespa instance. 
+and the number of vectors indexed in the Vespa instance. 
 </em>
 
 ## Controlling the filtering behavior with approximate nearest neighbor search 
-Vespa exposes two parameters that control the filtering strategy. 
+Vespa exposes two parameters that control the query time filtering strategy. 
 These parameters give the developer flexibility in choosing a method that fits 
-the use case at hand best from a functional point of view, but also hedging performance and resource cost. 
+the application use case while hedging performance and resource cost. 
 
 The schema [rank-profile](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile) parameters are: 
 
@@ -287,13 +287,13 @@ a per-query request basis. The query api parameters are:
 
 <img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/flowchart-small.png"/>
 <em>**Figure 5** The flow chart shows how Vespa selects the 
-strategy for an approximate nearest neighbor search with filters using mentioned parameters.</em>
+strategy for an approximate nearest neighbor (ann) search with filters using mentioned parameters.</em>
 
 * **Filter hit estimation**:
 First, Vespa estimates the filter hit ratio of the query. 
 The resulting *estimated-hit-ratio* is compared with the two parameters to select between *pre-filtering* or *post-filtering*.
 * **Exact search with pre-filters**:
-Vespa switches from approximate to exact search with pre-filters. 
+Vespa switches from approximate to exact search with pre-filters based on *estimated-hit-ratio*. 
 * **ANN search using HNSW with post-filters**: 
 Vespa searches for the `targetHits` approximate nearest neighbors using the `HNSW` graph. 
 The retrieved hits are post-filtered. 
@@ -306,7 +306,7 @@ The accurate hit ratio is used to choose between:
 Vespa uses the list of document IDs matching the filter while searching the HNSW graph for the `targetHits` 
 nearest neighbors, skipping all neighbors of the query vector that are not on the list.  
 * **Exact search with pre-filters**:
-Vespa switches from approximate to exact search with pre-filters. 
+Vespa switches from approximate to exact search with pre-filters based on *accurate-hit-ratio*. 
 
 ## Parameter Usage Guide   
 
@@ -342,7 +342,7 @@ rank-profile post-filtering-with-fallback {
 The previous examples set extreme values for *post-filter-threshold*, either disabling or enabling it. 
 
 The following combination allows Vespa to choose the strategy 
-dynamically based on the `estimated-hit-ratio* estimate`.  
+dynamically based on the `estimated-hit-ratio` estimate.  
 
 <pre>
 rank-profile hybrid-filtering {
@@ -350,7 +350,7 @@ rank-profile hybrid-filtering {
     approximate-threshold: 0.05
 }
 </pre>
-This parameter combination will trigger post-filtering for relaxed filters, 
+This parameter combination will trigger *post-filtering* for relaxed filters, 
 estimated to match more than 75% of the documents. 
 Moderate filters (between 5% and 75%) are evaluated using `pre-filtering` 
 and restrictive filters (&lt; 5%) are evaluated using exact search.  
@@ -380,7 +380,7 @@ to retrieve images for a text query.
 to retrieve passages from Wikipedia which are feed into a NLP reader model which identifies the answer. End-to-end represented using Vespa.
 
 All these are examples of applications built using AI-powered vector representations, and where real-world deployments 
-need query time constrained search. 
+need query time constrained nearest neighbor search. 
 
 Vespa is available as a cloud service, see [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
 or self-serve [Vespa - getting started](https://docs.vespa.ai/en/getting-started.html).  
