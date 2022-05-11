@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Query Time Constrained Approximate Nearest Neighbor Search 
-date: '2022-05-03'
+date: '2022-05-11'
 categories: [vector search, filters]
 tags: []
 image: assets/2022-05-09-constrained-approximate-nearest-neighbor-search/christopher-burns-Kj2SaNHG-hg-unsplash.jpg
@@ -249,23 +249,36 @@ are more distant neighbors.
 </em>
 
 ### Filtering strategies and serving performance
-From a performance and serving cost perspective, a high level summary the filtering strategies:
+From a performance and serving cost perspective, one can summarize on a high level:
 
-* Pure approximate nearest neighbor search without filters is the cheapest.  
-* *Post-filtering* is less resource-intensive than pre-filtering for the same number of `targetHits`. 
-* *Pre-filtering* uses more resources than *post-filtering* as it needs to execute the 
-filter and then search the `HNSW` graph, constrained by the document ID list produced by the pre-filter execution. 
+* Unconstrained approximate nearest neighbor search without filters is the fastest option, but real-world applications
+needs constrained vector search. Pre-building several nearest neighbor indexes using pre-defined constraints offline also
+cost resources and index management. 
+
+* *Post-filtering* is less resource-intensive than pre-filtering for the **same** number of `targetHits`. Increasing
+`targetHits` to combat the effect of *post-filtering* changes cost of the query as increasing `targetHits` increases the
+number of distance calculations.  
+
+* *Pre-filtering* uses more resources than *post-filtering* for the **same** number of `targetHits`. 
+*pre-filtering* needs to execute the filter and then search the `HNSW` graph, 
+constrained by the document ID list produced by the pre-filter execution. 
 
 
 <img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/pre-filter-approximate-threshold.png"/>
-<em>**Figure 4** With the pre-filtering strategy, searching the `HNSW` graph with a restrictive pre-filter 
-result (few hits) causes the greedy graph search to traverse many nodes before finding the `targetHits` 
+<em>**Figure 4** Approximate search with pre-filtering versus exact search with pre-filtering</em>
+
+Figure 4 illustrates the performance characteristics of approximate search and exact search when using pre-filtering
+with increasing *hit count rate*.
+
+With the *pre-filtering* strategy, searching the `HNSW` graph with a restrictive pre-filter 
+result causes the greedy graph search to traverse many nodes before finding the `targetHits` 
 which satisfies the document ID list from the pre-filter execution.  
+
 Due to this, there is a sweet spot or threshold where an exact search with filters
 has a lower computational cost than an approximate search using the document ID list from the pre-filter execution. 
 The actual threshold value depends on vector dimensionality, `HNSW` graph properties, 
 and the number of vectors indexed in the Vespa instance. 
-</em>
+
 
 ## Controlling the filtering behavior with approximate nearest neighbor search 
 Vespa exposes two parameters that control the query-time filtering strategy. 
@@ -287,26 +300,36 @@ a per-query request basis. The query api parameters are:
 
 <img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/flowchart.png"/>
 <em>**Figure 5** The flowchart shows how Vespa selects the 
-strategy for an approximate nearest neighbor (ann) search with filters using mentioned parameters.</em>
+strategy for an approximate nearest neighbor (ann) search for `targetHits` with filters using mentioned parameters.</em>
 
 * **Filter hit estimation**:
 First, Vespa estimates the filter hit ratio of the query. 
 The resulting *estimated-hit-ratio* is compared with the two parameters to select between *pre-filtering* or *post-filtering*.
+
 * **Exact search with pre-filters**:
 Vespa switches from approximate to exact search with pre-filters based on *estimated-hit-ratio*. 
+
 * **ANN search using HNSW with post-filters**: 
-Vespa searches for the `targetHits` approximate nearest neighbors using the `HNSW` graph. 
-The retrieved hits are post-filtered. 
-The default *post-filter-threshold* is 1.0, hence effectively disabling this decision branch by default. 
+The *estimated_hit-ratio* crosses the `post-filter-threshold` and the *post-filtering* strategy is trigged.  
+Vespa will auto-adjust `targetHits` to `targetHits/estimated-hit-ratio`. 
+By adjusting by increasing the `targetHits` using the *estimated-hit-ratio* the chance of exposing the 
+user-specified `targetHits` to ranking increases. 
+
+The default `post-filter-threshold` is 1.0, hence effectively disabling this decision branch by default. 
+
 * **Pre-filter execution**:
-Vespa executes the filter using the most compact posting list representations. 
-The result of this execution is a list of document IDs matching the filter and an accurate hit ratio. 
-The accurate hit ratio is used to choose between:
+
+Vespa executes the filter using the most efficient posting list representations. 
+The result of this execution is a list of document IDs matching the filter and an *accurate-hit-ratio*. 
+The *accurate-hit-ratio* is used to choose between:
+
 * **ANN search using HNSW with pre-filters**:
 Vespa uses the list of document IDs matching the filter while searching the HNSW graph for the `targetHits` 
-nearest neighbors, skipping all neighbors of the query vector that are not on the list.  
+nearest neighbors, skipping all neighbors of the query vector that are not present in the document IDs list.  
+
 * **Exact search with pre-filters**:
-Vespa switches from approximate to exact search with pre-filters based on *accurate-hit-ratio*. 
+Vespa switches from approximate to exact search with pre-filters since *accurate-hit-ratio* is
+less than `approximate-threshold`.
 
 ## Parameter usage guide   
 
@@ -316,7 +339,7 @@ to choose the strategy dynamically based on the filter hit count ratio estimates
 ### Pre-filtering with exact search fallback
 Pre-filtering is the default evaluation strategy, and this example shows the default settings. 
 This combination will never consider *post-filtering*, only *pre-filtering*. 
-Developers can tune the `approximate-threshold` to optimize serving performance. 
+Developers can tune the `approximate-threshold` to optimize the sweet spot threshold for falling back to exact search. 
 <pre>
 rank-profile pre-filtering-with-fallback {
   post-filter-threshold: 1.0
@@ -327,9 +350,10 @@ rank-profile pre-filtering-with-fallback {
 ### Post-filtering with exact search fallback
 The following example uses *post-filtering* as a rule and *pre-filtering* is effectively disabled. 
 This strategy will always search the `HNSW` graph unconstrained, unless the `estimated-hit-ratio` 
-is less than 5%. Falling back to the exact search for estimated restrictive filters could be 
-considered a way to improve functionality as exact search will guarantee to expose `targetHits` to ranking
-as long as the filter matches more than one document. 
+is less than the `approximate-threshold` of 5% where it uses exact search. Vespa's *post-filtering*
+implementation adjusts `targetHits` to `targetHits/estimated-hit-ratio` to increase the chance 
+of exposing the real `targetHits` to ranking. By auto adjusting the `targetHits`, developers don't need
+to guess a higher value for `targetHits` to overcome the drawback of the *post-filtering* strategy. 
 
 <pre>
 rank-profile post-filtering-with-fallback {
@@ -338,11 +362,11 @@ rank-profile post-filtering-with-fallback {
 }
 </pre>
 
-### Hybrid - allow Vespa to choose between pre- and post-filtering
+### Let Vespa choose between pre- and post-filtering
 The previous examples set extreme values for *post-filter-threshold*, either disabling or enabling it. 
 
 The following combination allows Vespa to choose the strategy 
-dynamically based on the `estimated-hit-ratio` estimate.  
+dynamically for optimal performance using the `estimated-hit-ratio` estimate.  
 
 <pre>
 rank-profile hybrid-filtering {
@@ -350,10 +374,15 @@ rank-profile hybrid-filtering {
     approximate-threshold: 0.05
 }
 </pre>
-This parameter combination will trigger *post-filtering* for relaxed filters, 
+
+This parameter combination will trigger *post-filtering* with auto adjusted `targetHits` for relaxed filters, 
 estimated to match more than 75% of the documents. 
 Moderate filters (between 5% and 75%) are evaluated using *pre-filtering* 
-and restrictive filters (&lt; 5%) are evaluated using exact search.  
+and restrictive filters (&lt; 5%) are evaluated using exact search. As mentioned in the *Search query planning and estimation*
+section, the *estimated-hit-ratio* is an **estimate** which is conservative and will always overshoot. As a consequence, the 
+the auto-adjustment of `targetHits` might undershoot, resulting in exposing fewer than `targetHits` to ranking
+after *post_filtering*. 
+
 
 ## Summary
 Constraining search for nearest neighbors using query-time constraints is mission-critical for 
