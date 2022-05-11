@@ -252,7 +252,7 @@ are more distant neighbors.
 From a performance and serving cost perspective, one can summarize on a high level:
 
 * Unconstrained approximate nearest neighbor search without filters is the fastest option, but real-world applications
-needs constrained vector search. Pre-building several nearest neighbor indexes using pre-defined constraints offline also
+need constrained vector search. Pre-building several nearest neighbor indexes using pre-defined constraints offline also
 cost resources and index management. 
 
 * *Post-filtering* is less resource-intensive than pre-filtering for the **same** number of `targetHits`. Increasing
@@ -260,7 +260,7 @@ cost resources and index management.
 number of distance calculations.  
 
 * *Pre-filtering* uses more resources than *post-filtering* for the **same** number of `targetHits`. 
-*pre-filtering* needs to execute the filter and then search the `HNSW` graph, 
+*Pre-filtering* needs to execute the filter and then search the `HNSW` graph, 
 constrained by the document ID list produced by the pre-filter execution. 
 
 
@@ -310,9 +310,9 @@ The resulting *estimated-hit-ratio* is compared with the two parameters to selec
 Vespa switches from approximate to exact search with pre-filters based on *estimated-hit-ratio*. 
 
 * **ANN search using HNSW with post-filters**: 
-The *estimated_hit-ratio* crosses the `post-filter-threshold` and the *post-filtering* strategy is trigged.  
+The *estimated-hit-ratio* crosses the `post-filter-threshold` and the *post-filtering* strategy is trigged.  
 Vespa will auto-adjust `targetHits` to `targetHits/estimated-hit-ratio`. 
-By adjusting by increasing the `targetHits` using the *estimated-hit-ratio* the chance of exposing the 
+By increasing the `targetHits` using the *estimated-hit-ratio* the chance of exposing the 
 user-specified `targetHits` to ranking increases. 
 
 The default `post-filter-threshold` is 1.0, hence effectively disabling this decision branch by default. 
@@ -381,7 +381,7 @@ Moderate filters (between 5% and 75%) are evaluated using *pre-filtering*
 and restrictive filters (&lt; 5%) are evaluated using exact search. As mentioned in the *Search query planning and estimation*
 section, the *estimated-hit-ratio* is an **estimate** which is conservative and will always overshoot. As a consequence, the 
 the auto-adjustment of `targetHits` might undershoot, resulting in exposing fewer than `targetHits` to ranking
-after *post_filtering*. 
+after *post-filtering*. 
 
 
 ## Summary
