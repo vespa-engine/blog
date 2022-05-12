@@ -56,7 +56,7 @@ Quantization and dimension reduction as part of the representation learning coul
 memory and CPU cycles in the serving phase, and Microsoft researchers have undoubtedly had this in mind
 when using 100 dimensions with `int8` precision for the embedding. 
 
-In the [first post](../billion-scale-knn)in this series we discussed some of the benefits of working with binarized vector datasets
+In the [first post](../billion-scale-knn) in this series we discussed some of the benefits of working with binarized vector datasets
 where the original vector representation (e.g, `int8`) is transformed to binary. 
 We don't train a binary representation model, but instead use the unsupervised *sign* threshold function. 
 Using the threshold function, we convert the mentioned *SPACEV-1B* vector dataset to a new and binarized
