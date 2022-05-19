@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Query Time Constrained Approximate Nearest Neighbor Search 
-date: '2022-05-11'
+date: '2022-05-19'
 categories: [vector search, filters]
 tags: []
 image: assets/2022-05-09-constrained-approximate-nearest-neighbor-search/christopher-burns-Kj2SaNHG-hg-unsplash.jpg
@@ -290,7 +290,7 @@ The schema [rank-profile](https://docs.vespa.ai/en/reference/schema-reference.ht
 * **post-filter-threshold** - default 1.0 
 * **approximate-threshold** - default 0.05
 
-These parameters were introduced in Vespa 7.580.54, 
+These parameters were introduced in Vespa 7.586.113, 
 and can be configured in the [rank profile](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile), 
 defined in the schema, or set using the [query API](https://docs.vespa.ai/en/reference/query-api-reference.html) on
 a per-query request basis. The query api parameters are:
@@ -382,6 +382,10 @@ and restrictive filters (&lt; 5%) are evaluated using exact search. As mentioned
 section, the *estimated-hit-ratio* is an **estimate** which is conservative and will always overshoot. As a consequence, the 
 the auto-adjustment of `targetHits` might undershoot, resulting in exposing fewer than `targetHits` to ranking
 after *post-filtering*. 
+
+For exact fallback, one can allow the exact search to use 
+[multiple threads](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution)
+per search. 
 
 
 ## Summary
