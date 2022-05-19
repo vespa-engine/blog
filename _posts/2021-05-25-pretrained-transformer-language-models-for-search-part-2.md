@@ -85,7 +85,9 @@ If we use the above query to search the MS Marco Passages we end up ranking only
 
 ## Meet the dynamic pruning algorithm WAND
 
-The WAND algorithm is described in detail in [Efficient Query Evaluation using a Two-Level Retrieval Process (PDF)](https://www.researchgate.net/profile/David-Carmel-3/publication/221613425_Efficient_query_evaluation_using_a_two-level_retrieval_process/links/02bfe50e6854500153000000/Efficient-query-evaluation-using-a-two-level-retrieval-process.pdf)
+The WAND algorithm is described in detail in 
+<a href="https://www.researchgate.net/profile/David-Carmel-3/publication/221613425_Efficient_query_evaluation_using_a_two-level_retrieval_process/links/02bfe50e6854500153000000/Efficient-query-evaluation-using-a-two-level-retrieval-process.pdf" data-proofer-ignore>
+Efficient Query Evaluation using a Two-Level Retrieval Process (PDF)</a>
 
 *We have determined that our algorithm significantly reduces the total number of full evaluations by more
 than 90%, almost without any loss in precision or recall.
