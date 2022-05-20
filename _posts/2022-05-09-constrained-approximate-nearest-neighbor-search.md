@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Query Time Constrained Approximate Nearest Neighbor Search 
-date: '2022-05-19'
+date: '2022-05-20'
 categories: [vector search, filters]
 tags: []
 image: assets/2022-05-09-constrained-approximate-nearest-neighbor-search/christopher-burns-Kj2SaNHG-hg-unsplash.jpg
