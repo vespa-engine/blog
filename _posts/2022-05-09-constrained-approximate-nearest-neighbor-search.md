@@ -87,9 +87,9 @@ The simplified track document type used in this post contains three fields: trac
 * `title` is configured for regular text indexing and matching using the default matching mode for 
 indexed `string` fields, [match:text](https://docs.vespa.ai/en/reference/schema-reference.html#match).  
 * `tags` is an [array](https://docs.vespa.ai/en/reference/schema-reference.html#type:array) of strings, 
-configured for exact database-style matching using Vespa’s `match:exact`. 
+configured for exact database-style matching using Vespa’s [match:exact](https://docs.vespa.ai/en/reference/schema-reference.html#match).
 * `embedding` is a first-order tensor (vector) using float tensor cell precision. 
-X[384] denotes the named dimension (x) with dimensionality (384). A vector field searched using 
+`x[384]` denotes the named dimension (x) with dimensionality (384). A vector field searched using
 Vespa’s [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor)
 query operator must define a [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric). Also see the Vespa [tensor user guide](https://docs.vespa.ai/en/tensor-user-guide.html).
 
@@ -97,7 +97,8 @@ The embedding vector field can be produced by, for example, a dense embedding mo
 [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). 
 
 Vespa builds data structures for efficient query evaluation for fields with 
-[indexing: index](https://docs.vespa.ai/en/reference/schema-reference.html#index) or `attribute` fields 
+[indexing: index](https://docs.vespa.ai/en/reference/schema-reference.html#index) or
+[attribute](https://docs.vespa.ai/en/reference/schema-reference.html#attribute) fields
 defined with the [attribute: fast-search](https://docs.vespa.ai/en/reference/schema-reference.html#attribute) property. 
 The data structures used for non-tensor fields are variants of the classic inverted index data structure.
 The inverted index data structure enables fast query evaluation of boolean queries, expressed using
@@ -152,8 +153,8 @@ For example, using [rank: filter](https://docs.vespa.ai/en/reference/schema-refe
 with [fast-search](https://docs.vespa.ai/en/reference/schema-reference.html#attribute), enables compact posting list representation for frequent terms. 
 
 ## Combining exact nearest neighbor search with filters 
-Given a query vector, Vespa’s [nearestNeighbor query operator](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor) 
-finds the (`targetHits`) nearest neighbors using the configured 
+Given a query vector, Vespa’s [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor)
+query operator finds the (`targetHits`) nearest neighbors using the configured
 [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric). 
 
 The retrieved hits are exposed to [first-phase ranking](https://docs.vespa.ai/en/ranking.html),
@@ -200,7 +201,9 @@ A more restrictive filter uses less resources as it involves fewer distance calc
 </em>
 
 Note that the figure uses computational cost and not latency. 
-It is possible to reduce search latency by using more threads to parallelize the exact search, 
+It is possible to reduce search latency by using more
+[threads to parallelize](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution)
+the exact search,
 but the number of distance calculations involved in the query execution stays the same.  
 
 ## Combining approximate nearest neighbor search with filters 
@@ -292,7 +295,7 @@ The schema [rank-profile](https://docs.vespa.ai/en/reference/schema-reference.ht
 
 These parameters were introduced in Vespa 7.586.113, 
 and can be configured in the [rank profile](https://docs.vespa.ai/en/reference/schema-reference.html#rank-profile), 
-defined in the schema, or set using the [query API](https://docs.vespa.ai/en/reference/query-api-reference.html) on
+defined in the schema, or set using the [query API](https://docs.vespa.ai/en/reference/query-api-reference.html#ranking.matching) on
 a per-query request basis. The query api parameters are:
 
 * **ranking.matching.postFilterThreshold** - default 1.0 
@@ -352,7 +355,7 @@ The following example uses *post-filtering* as a rule and *pre-filtering* is eff
 This strategy will always search the `HNSW` graph unconstrained, unless the `estimated-hit-ratio` 
 is less than the `approximate-threshold` of 5% where it uses exact search. Vespa's *post-filtering*
 implementation adjusts `targetHits` to `targetHits/estimated-hit-ratio` to increase the chance 
-of exposing the real `targetHits` to ranking. By auto adjusting the `targetHits`, developers don't need
+of exposing the real `targetHits` to ranking. By auto-adjusting the `targetHits`, developers don't need
 to guess a higher value for `targetHits` to overcome the drawback of the *post-filtering* strategy. 
 
 <pre>
@@ -366,7 +369,7 @@ rank-profile post-filtering-with-fallback {
 The previous examples set extreme values for *post-filter-threshold*, either disabling or enabling it. 
 
 The following combination allows Vespa to choose the strategy 
-dynamically for optimal performance using the `estimated-hit-ratio` estimate.  
+dynamically for optimal performance using the `estimated-hit-ratio`.
 
 <pre>
 rank-profile hybrid-filtering {
@@ -375,11 +378,11 @@ rank-profile hybrid-filtering {
 }
 </pre>
 
-This parameter combination will trigger *post-filtering* with auto adjusted `targetHits` for relaxed filters, 
+This parameter combination will trigger *post-filtering* with auto-adjusted `targetHits` for relaxed filters,
 estimated to match more than 75% of the documents. 
 Moderate filters (between 5% and 75%) are evaluated using *pre-filtering* 
 and restrictive filters (&lt; 5%) are evaluated using exact search. As mentioned in the *Search query planning and estimation*
-section, the *estimated-hit-ratio* is an **estimate** which is conservative and will always overshoot. As a consequence, the 
+section, the `estimated-hit-ratio` is an **estimate** which is conservative and will always overshoot. As a consequence, the
 the auto-adjustment of `targetHits` might undershoot, resulting in exposing fewer than `targetHits` to ranking
 after *post-filtering*. 
 
