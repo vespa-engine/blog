@@ -382,8 +382,8 @@ This parameter combination will trigger *post-filtering* with auto-adjusted `tar
 estimated to match more than 75% of the documents. 
 Moderate filters (between 5% and 75%) are evaluated using *pre-filtering* 
 and restrictive filters (&lt; 5%) are evaluated using exact search. As mentioned in the *Search query planning and estimation*
-section, the `estimated-hit-ratio` is an **estimate** which is conservative and will always overshoot. As a consequence, the
-the auto-adjustment of `targetHits` might undershoot, resulting in exposing fewer than `targetHits` to ranking
+section, the `estimated-hit-ratio` is an **estimate** which is conservative and will always overshoot. As a consequence, the 
+auto-adjustment of `targetHits` might undershoot, resulting in exposing fewer than `targetHits` to ranking
 after *post-filtering*. 
 
 For exact fallback, one can allow the exact search to use 
