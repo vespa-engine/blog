@@ -22,7 +22,7 @@ communication.
 This blog post will cover how to enable mTLS for a Vespa installation. See the
 [Vespa mTLS documentation](https://docs.vespa.ai/en/mtls.html) for detailed information. A newly published sample application showing
 the configuration is available
-at [secure-vespa-with-mtls](https://github.com/vespa-engine/sample-apps/tree/master/examples/operations/secure-vespa-with-mtls)
+at [secure-vespa-with-mtls](https://github.com/vespa-engine/sample-apps/tree/master/examples/operations/multinode-HA#secure-vespa-with-mutually-authenticated-tls)
 and will be used as an example throughout this post.
 
 [Vespa Cloud](https://cloud.vespa.ai/) and Verizon Media have been running Vespa with mTLS across the entire application stack for several years.
