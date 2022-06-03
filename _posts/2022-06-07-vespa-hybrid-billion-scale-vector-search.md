@@ -356,20 +356,24 @@ This cluster uses default resources which are 2 v-cpu, 8GiB of memory and 50GiB 
 <pre>
     &lt;nodes deploy:environment="perf" count="4"/&gt;
 </pre>
+
 * A stateless `default` container cluster handling search queries. This cluster also uses default resources.
 <pre>
     &lt;nodes deploy:environment="perf" count="2"/&gt;
 </pre>
+
 * A stateful content cluster `graph` which is used with high memory instance types and `HNSW`. 
 <pre>
  &lt;nodes deploy:environment="perf" count="1" groups="1"&gt;
-    &lt;resources memory="128GB" vcpu="16" disk="200Gb" storage-type="remote"/&gt;
+  &lt;resources memory="128GB" vcpu="16" 
+  disk="200Gb" storage-type="remote"/&gt;
  &lt;/nodes&gt;
  </pre>
 * A stateful content cluster `if` used for inverted indexing (inverted file) for non-centroid vectors. 
 <pre>
 &lt;nodes deploy:environment="perf" count="4" groups="1"&gt;
-    &lt;resources memory="128GB" vcpu="16" disk="200Gb" storage-type="remote"/&gt;
+    &lt;resources memory="32GB" vcpu="8" 
+    disk="300Gb" storage-type="local"/&gt;
  &lt;/nodes&gt;
 </pre>
 
