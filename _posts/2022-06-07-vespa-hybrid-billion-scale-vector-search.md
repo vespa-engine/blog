@@ -215,18 +215,18 @@ deleting large amount of vector items, one can consider decoupling centroids fro
 and not vectors part of the dataset. 
 
 ## Vespa Experimental Setup
-The following section describes our experiments with the Vespa SPANN sample application using 
-the Vespa Cloud [performance environment](https://cloud.vespa.ai/en/reference/environments#perf). 
-The Vespa Cloud performance makes it easy to iteratively develop the application and choosing the ideal instance types 
+The following section describes our experiments with the Vespa `HNSW-F` sample application using 
+Vespa Cloud's [performance environment](https://cloud.vespa.ai/en/reference/environments#perf). 
+The Vespa Cloud performance environment makes it easy to iteratively develop applications and choosing the ideal instance types 
 for any size vector dataset. 
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/Vespa-cloud-indexing.png"/>
 <em>Vespa Cloud Console - spann deployment in Vespa Cloud *perf* environment in *aws-us-east-1c*.</em>
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/Spann-serving.excalidraw.png">
-<em>Vespa SPANN serving architecture.</em>
+<em>Vespa `HNSW-IF` serving architecture.</em>
 
-The Vespa SPANN representation uses the same 
+The Vespa `HNSW-IF` representation uses the same 
 Vespa document schema to represent centroid and non-centroid vectors.
 They are differentiated using a single field of type `bool`.    
 
