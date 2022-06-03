@@ -25,9 +25,9 @@ related to approximate nearest neighbor search using
 [Hierarchical Navigable Small World (HNSW)](https://docs.vespa.ai/en/approximate-nn-hnsw.html), 
 including memory usage, indexing performance, and query performance versus quality. 
 
-This post in this series on billion scale search covers a cost-efficient hybrid method for approximate nearest neighbor
-search combining a graph method (`HNSW`) with disk-based inverted file. We name this hybrid method for cost-efficient
-high recall billion scale vector search for `HNSW-IF`.   
+This post in this series on billion scale search covers a cost-efficient _hybrid_ method
+for approximate nearest neighbor search combining a graph method (`HNSW`) with disk based inverted file search.
+We name this hybrid method for cost-efficient, high recall, billion scale vector search for `HNSW-IF`.   
 
 ## Introduction
 
@@ -38,7 +38,7 @@ The `HNSW` algorithm requires storing the vector data in memory for quick access
 
 For example, a billion scale vector dataset using 768 dimensions with float precision requires 
 close to 3TiB of memory. In addition, the `HNSW` graph data structure needs to be in-memory and, 
-depending on `max-links-per-node (efConstruction)` setting, can add 20-40% to the vector data (depending
+depending on `max-links-per-node (efConstruction)` setting, can add 20-40% in addition to the vector data (depending
 on target accuracy). Given this, indexing a 1B vector dataset using `HNSW` will need about 4TiB of memory.
 
 In 2022, many cloud provider will offer [cloud instance types](https://aws.amazon.com/ec2/instance-types/high-memory/) 
