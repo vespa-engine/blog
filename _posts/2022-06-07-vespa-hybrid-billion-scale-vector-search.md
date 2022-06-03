@@ -7,7 +7,7 @@ tags: []
 image: assets/2022-06-07-vespa-spann-billion-scale-vector-search//graham-holtshausen-fUnfEz3VLv4-unsplash.jpg
 author: jobergum
 skipimage: true
-excerpt: This blog post describes Vespa support for hybrid HNSW-IF - A cost efficient solution for high-accuracy vector search over billion scale vector datasets.
+excerpt: This blog post describes HNSW-IF, a cost efficient solution for high-accuracy vector search over billion scale vector datasets.
 
 ---
 
@@ -180,23 +180,11 @@ The local per node second-phase ranking calculates the closeness calculation `(c
 paging the vector data into memory from disk. The re-ranking depth (per node) is
 a query time hyper-parameter. 
 
-The following hyper-parameters impact performance, resource footprint (cost), and accuracy of Vespa `HNSW-IF`:
-
-**Indexing**:
-* The number of random centroid vectors.
-* The number of centroid clusters a given non-centroid vector can belong to.  
-* The `HNSW` settings for the centroid indexing. 
-
-**Query parameters** 
-* The number of centroid vectors to retrieve by searching the `HNSW` graph. 
-* The dynamic centroid pruning threshold.
-* The re-ranking depth controls the max number of vector page-ins per node in the inverted index cluster. 
-
 ## Real-world considerations
-Real-world applications of vector search need both batch and real-time vector indexing:
+Real-world applications using vector search need both batch and real-time vector indexing:
 
-* **Batch**: A new embedder model which maps data to vector representation is trained, and embedding vector representations produced for all data items. 
-* **Incremental Real-time**: A new data item is added and encoded with the current version of the embedder model. 
+* **Batch indexing**: A new embedder model which maps data to vector representation is trained, and embedding vector representations produced for all data items. 
+* **Incremental Real-time indexing**: A new data item is added and encoded with the current version of the embedder model. 
 
 In addition, data items (with vector representation) need to be updated and deleted. The hybrid method
 described in this blog post supports all CRUD (Create, Read, Update, Delete) operations using the standard Vespa
@@ -207,15 +195,14 @@ must restrict the search for vectors to the given model id using
 standard inverted index query evaluation and constrained vector search. 
 See [Query Time Constrained Approximate Nearest Neighbor Search](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) and
 [Embedding model hot swap](https://docs.vespa.ai/en/tutorials/models-hot-swap.html). 
-Having multiple active model versions increases the deployment cost linearly with the number of models.
+Having multiple active model versions increases the storage related deployment cost linearly with the number of models.
 
 * New vectors using an existing embedding model is added to the non-centroid content cluster. 
-As long at the number of centroids is large, one can expect to grow document volume significantly from the 
-baseline size, without severely degrading accuracy. 
+As long at the number of centroids is large, one can expect to grow the vector volume significantly without degrading recall accuracy. 
 
 The only thing which the application owner needs to consider is that deleting large amounts of centroid vectors
 will impact recall negatively. For most large-scale vector use cases, this is not a real problem. If the use case requires
-deleting large amount of vector items, one can consider decoupling centroids from vectors, so that centroids 
+deleting large amount of vector items, one can consider decoupling centroids from real vectors, so that centroids 
 are in fact real centroids, and not vectors part of the dataset. 
 
 ## Vespa Experimental Setup
@@ -225,10 +212,10 @@ The Vespa Cloud performance environment makes it easy to iteratively develop app
 for any size vector dataset. 
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/Vespa-cloud-indexing.png"/>
-<em>Vespa Cloud Console - spann deployment in Vespa Cloud *perf* environment in *aws-us-east-1c*.</em>
+<em>Vespa Cloud Console - sample app deployment in Vespa Cloud *perf* environment in *aws-us-east-1c*.</em>
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/Spann-serving.excalidraw.png">
-<em>Vespa `HNSW-IF` serving architecture.</em>
+<em>Vespa `HNSW-IF` serving architecture overview.</em>
 
 The Vespa `HNSW-IF` representation uses the same 
 Vespa document schema to represent centroid and non-centroid vectors.
@@ -303,16 +290,18 @@ schema vector {
   }
 }
 </pre>
+<em>Vespa `vector` document schema.</em>
 
 The random centroid selection is performed outside of Vespa using a simple routine that reads the 
 input vector data file and randomly selects 20% to represent centroids and sets the `in_graph` field
-of type `bool`. The feeder first feed the vector data with `in_graph` set to `true`. The first feed then populates
-the `HNSW` content cluster.
+of type `bool`. The feeder first feed the vector data with `in_graph` set to `true` to populate the `graph` content
+cluster using `HNSW` indexing. 
 
 The `neighbors` field is of type 
-[weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset). This
-field is populated by a custom document processor which searches the HNSW graph during ingress. For example
-for vector 8 from *figure 1*, the field would be populated with two centroids found from searching the `HNSW` graph:
+[weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset). 
+This field is populated by a custom document processor which searches the HNSW graph during ingress. 
+For example for vector 8 from *figure 1*, the field would be populated with 
+two centroids found from searching the `HNSW` graph:
 
 <pre>
 {
@@ -332,10 +321,11 @@ for vector 8 from *figure 1*, the field would be populated with two centroids fo
 </pre>
 
 This `neighbors` field is inverted by Vespa content node process, so that a query for 
-`where neighbors contains "4"` would retrieve vector 8 and expose it to Vespa ranking. 
-The integer weight represent the closeness to the centroid id. 
-Closeness is the inverted distance, low distance means higher closeness.
-The original `float` closeness value returned from the `HNSW` search is scaled to integer weight by
+`where neighbors contains "4"` would retrieve vector 8 and expose it to Vespa ranking framework. 
+
+The integer weight represent the closeness of vector 8 to the centroid id. 
+Closeness is the inverted distance, lower distance means higher closeness. 
+The original `float` closeness value returned from the `HNSW` search is scaled to integer representation by
 multiplying with a constant and rounded to the closest integer. 
 
 The document processor clears the incoming `vector` field and instead creates 
@@ -365,15 +355,15 @@ This cluster uses default resources which are 2 v-cpu, 8GiB of memory and 50GiB 
 * A stateful content cluster `graph` which is used with high memory instance types and `HNSW`. 
 <pre>
  &lt;nodes deploy:environment="perf" count="1" groups="1"&gt;
-  &lt;resources memory="128GB" vcpu="16" 
-  disk="200Gb" storage-type="remote"/&gt;
- &lt;/nodes&gt;
+    &lt;resources memory="128GB" vcpu="16" 
+      disk="200Gb" storage-type="remote"/&gt;
+&lt;/nodes&gt;
  </pre>
 * A stateful content cluster `if` used for inverted indexing (inverted file) for non-centroid vectors. 
 <pre>
 &lt;nodes deploy:environment="perf" count="4" groups="1"&gt;
     &lt;resources memory="32GB" vcpu="8" 
-    disk="300Gb" storage-type="local"/&gt;
+      disk="300Gb" storage-type="local"/&gt;
  &lt;/nodes&gt;
 </pre>
 
@@ -381,9 +371,9 @@ The Vespa Cloud hourly cost for this deployment, supporting 1B vectors comfortab
 $6,038 per month. 
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/clusters.png"/>
-<em>Screenshot from Vespa Cloud console with app's cluster's and allocated resources.</em>
+<em>Screenshot from Vespa Cloud console with app's clusters and allocated resources.</em>
 
-As can be seen from the figure above, the deployment is slightly over-provisioned and could easily support larger vector volumes
+As can be seen from the figure above, the deployment is slightly over-provisioned and could support larger vector volumes
 comfortably. Vespa Cloud also allows a wide range of resource combinations (more memory, more cpu, more disk),  and number of nodes.  
 
 ### Vespa stateless function components 
@@ -423,10 +413,10 @@ the search in the `HNSW` graph, and annotating of nearest centroids with closene
 ## Vespa HNSW-IF Experiments 
 The following experiments use these fixed indexing side hyper-parameters
 
-- In-memory centroid indexing using `max-links-per-node: 18` and `neighbors-to-explore-at-insert: 100`.
+- In memory centroid indexing using `max-links-per-node: 18` and `neighbors-to-explore-at-insert: 100`.
 - For any given non-centroid vector index 12 closest centroid vector ids. 
 
-### Batch Indexing performance 
+### Batch indexing performance 
 With the mentioned allocated resources in Vespa Cloud *perf*, indexing the *SPACEV-1B* dataset takes approximately 28 hours. The 200M vectors (centroids) are
 fed first and indexed at around 9000 puts/s into the HNSW graph content cluster. The
 remaining 800M non-centroid vectors are indexed with similar puts/s, and also search the `HNSW` index at the same rate.
@@ -445,7 +435,7 @@ and annotates the document with the closest centroids before forwarding the docu
 The [Vespa Cloud metrics](https://cloud.vespa.ai/en/monitoring) gives insight into resource usage with concurrent read and queries over 1B
 vectors. 
 
-### HNSW-IF Accuracy 
+### HNSW-IF accuracy 
 Any approximate vector search use case needs to quantify the accuracy impact of using approximate search instead of
 exact search. Using the ground truth neighbors for the 29,3K *SPACEV-1B* query vectors, 
 we can experiment with the hybrid `HNSW-IF` solution:
@@ -456,7 +446,7 @@ we can experiment with the hybrid `HNSW-IF` solution:
 
 The above figure is produced by running all 29,3K queries with an increasing number of `k` centroids, ranging
 from 1 centroid to 256 centroids (1, 2, 4, 8 , 16, 32, 64, 128, 256). The distance prune threshold was set to 0.6 and maximum
-re-ranking depth 4K. Example run 
+re-ranking depth 4K. Example run using 32 centroid clusters `k=32`, re-ranking at most 4K vectors.  
 
 <pre>
 $ python3 recall.py --endpoint https://spann.samples.aws-us-east-1c.perf.z.vespa-app.cloud/search/ \
@@ -469,10 +459,10 @@ $ python3 recall.py --endpoint https://spann.samples.aws-us-east-1c.perf.z.vespa
   --key data-plane-private-key.pem
 </pre>
 
-With 128 centroids we reach 90% recall@10 at 50 ms end to end. 50 ms is one order of magnitude larger than what
-in-memory algorithms supports at the same recall level, but for many vector search use cases 50ms is perfectly acceptable, especially with high recall. 
-To put the number in context, 9 out of 10 queries returns the same top-10 result as expensive exact nearest neighbor search, over 1B vectors! 
-
+With 128 centroids we reach 90% recall@10 at 50 ms end-to-end. 
+50 ms is one order of magnitude larger than what in-memory algorithms supports at the same recall level, 
+but for many vector search use cases 50ms is perfectly acceptable, especially with high recall. 
+To put the number in context, 9 out of 10 queries returns the *same* top-10 result as expensive exact nearest neighbor search, over 1B vectors! 
 
 ## Summary 
 
@@ -481,7 +471,6 @@ many new real-world applications using AI-powered vector representations.
 
 You can get started today using the ready to deploy
 Vespa sample application configured and ready for using `HNSW-IF` over at [Vespa sample applications](https://github.com/vespa-engine/sample-apps).
-
 Also try other [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
 nearest neighbor search support using `HNSW`:
 
