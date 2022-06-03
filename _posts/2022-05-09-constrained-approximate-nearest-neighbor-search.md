@@ -91,7 +91,8 @@ configured for exact database-style matching using Vespa’s [match:exact](https
 * `embedding` is a first-order tensor (vector) using float tensor cell precision. 
 `x[384]` denotes the named dimension (x) with dimensionality (384). A vector field searched using
 Vespa’s [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor)
-query operator must define a [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric). Also see the Vespa [tensor user guide](https://docs.vespa.ai/en/tensor-user-guide.html).
+query operator must define a [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric). 
+Also see the Vespa [tensor user guide](https://docs.vespa.ai/en/tensor-user-guide.html).
 
 The embedding vector field can be produced by, for example, a dense embedding model like 
 [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). 
