@@ -26,7 +26,8 @@ related to approximate nearest neighbor search using
 including memory usage, indexing performance, and query performance versus quality. 
 
 This post in this series on billion scale search covers a cost-efficient hybrid method for approximate nearest neighbor
-search combining a graph method (`HNSW`) with disk based inverted file (HNSW-IF).  
+search combining a graph method (`HNSW`) with disk based inverted file. We name this hybrid method for cost-efficient
+high recall billion scale vector search for `HNSW-IF`.   
 
 ## Introduction
 
@@ -102,7 +103,7 @@ as a Vespa [sample application](https://github.com/vespa-engine/sample-apps). We
 Vespa features used to realize `HNSW-IF`:
 
 * Real-time `HNSW` vector indexing 
-* Real-time updatable inverted index data structures
+* Real-time inverted index data structures
 * Paged disk based vectors using Vespa tensors with `paged` option 
 * Phased retrieval and ranking
 * Stateless search and processor functions  
@@ -203,14 +204,16 @@ API's.
 
 * Batch indexing with a new model is handled by adding a model version field to the schema, serving queries
 must restrict the search for vectors to the given model id using standard inverted index query evaluation and constrained
-Vector search. See [Query Time Constrained Approximate Nearest Neighbor Search](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) and
-[Embedding model hot swap](https://docs.vespa.ai/en/tutorials/models-hot-swap.html). Having multiple model versions active increases
-the deployment cost linearly with the number of models that needs to be active at any time.  
+Vector search. 
+See [Query Time Constrained Approximate Nearest Neighbor Search](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) and
+[Embedding model hot swap](https://docs.vespa.ai/en/tutorials/models-hot-swap.html). 
+Having multiple model versions active increases the deployment cost linearly with the number of models that needs to be active at any time.  
+
 * New vectors using an existing embedding model is added to the non-centroid content cluster, with 20% centroids, 
 one can expect to grow document volume significantly from baseline bootstrap size, without severely degrading accuracy. 
 
 The only thing which the application owner need to consider is that deleting large amounts of centroid vectors
-will impact recall. For most large scale vector use cases this is not a realistic problem. If the use case requires
+will impact recall negatively. For most large scale vector use cases this is not a realistic problem. If the use case requires
 deleting large amount of vector items, one can consider decoupling centroids from vectors, so that centroids are in-fact real centroids,
 and not vectors part of the dataset. 
 
@@ -463,7 +466,7 @@ many new real-world applications using AI-powered vector representations. You ca
 Vespa sample application configured and ready for using `HNSW-IF` over at [Vespa sample applications](https://github.com/vespa-engine/sample-apps).
 
 Also try out other [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
-nearest neighbor search:
+nearest neighbor search support using `HNSW`:
 
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md): 
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval. 
