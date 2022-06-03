@@ -346,7 +346,8 @@ distance calculations.  One profile used for the `HNSW` search and one for the `
 implementing phased ranking heuristic.
 
 ### Vespa deployment specification (services.xml) 
-For our experiments we use multiple clusters in the same Vespa application: 
+For our experiments we use multiple stateless and stateful Vespa clusters in the same Vespa application. Everything
+is is configured using [Vespa services.xml](https://cloud.vespa.ai/en/reference/services). 
 
 * A stateless `feed` container cluster handling feed operations running a custom document processor
 which searches the HNSW graph for non-centroid vectors. 
@@ -434,6 +435,11 @@ for ultimate batch feed performance using `http/2` with `mTls` to secure the vec
 
 <em>Vespa Cloud console screenshot taken during indexing of non-centroids. During indexing, a document processor searches the HNSW graph,
 and annotates the document with the closest centroids before forwarding the document to the `if` content cluster. </em>
+
+<img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/metrics.png"/>
+<em>Vespa Cloud metrics dashboard.</em>
+The [Vespa Cloud metrics](https://cloud.vespa.ai/en/monitoring) gives insight into resource usage with concurrent read and queries over 1B
+vectors. 
 
 ### HNSW-IF Accuracy 
 Any approximate vector search use case needs to quantify the accuracy impact of using approximate search instead of
