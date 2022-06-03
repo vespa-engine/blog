@@ -140,7 +140,7 @@ the max centroid dictionary vocabulary size is 200M.
 * A non-centroid vector might be present in multiple centroid clusters. 
 Instead of storing the vector data in the posting lists, the vector data 
 is stored in a separate Vespa data structure and avoids duplication 
-caused by storing the same vector data in multiple posting lists. 
+caused by storing the same vector data in multiple posting lists.
 Instead, the Vespa posting list entry includes the centroid's inverted distance (closeness), scaled to integer weight.
 Only the vector ids are duplicated in centroid posting lists, 
 not the vector data itself. 
@@ -219,7 +219,7 @@ deleting large amount of vector items, one can consider decoupling centroids fro
 are in fact real centroids, and not vectors part of the dataset. 
 
 ## Vespa Experimental Setup
-The following section describes our experiments with the Vespa `HNSW-F` sample application using 
+The following section describes our experiments with the Vespa `HNSW-IF` sample application using 
 Vespa Cloud's [performance environment](https://cloud.vespa.ai/en/reference/environments#perf). 
 The Vespa Cloud performance environment makes it easy to iteratively develop applications and choose the ideal instance types 
 for any size vector dataset. 
@@ -391,7 +391,7 @@ Custom stateless Vespa functions implement the serving and processing logic. The
 components are deployed inside the Vespa cluster, where communication is secured, and data transfer
 is using optimized binary protocols. The gist of the custom 
 [searcher](https://docs.vespa.ai/en/searcher-development.html) implementing
-the search logic is given below:
+the search logic:
 
 <pre>
 @Override
@@ -459,9 +459,14 @@ from 1 centroid to 256 centroids (1, 2, 4, 8 , 16, 32, 64, 128, 256). The distan
 re-ranking depth 4K. Example run 
 
 <pre>
-python3 recall.py --endpoint https://spann.samples.aws-us-east-1c.perf.z.vespa-app.cloud/search/ \
-  --query_file query.i8bin --query_gt_file public_query_gt100.bin --clusters 32 --distance_prune_threshold 0.6 --rank_count 4000 \
-  --certificate data-plane-public-cert.pem --key data-plane-private-key.pem
+$ python3 recall.py --endpoint https://spann.samples.aws-us-east-1c.perf.z.vespa-app.cloud/search/ \
+  --query_file query.i8bin \
+  --query_gt_file public_query_gt100.bin \
+  --clusters 32 \
+  --distance_prune_threshold 0.6 \
+  --rank_count 4000 \
+  --certificate data-plane-public-cert.pem \
+  --key data-plane-private-key.pem
 </pre>
 
 With 128 centroids we reach 90% recall@10 at 50 ms end to end. 50 ms is one order of magnitude larger than what
@@ -477,7 +482,7 @@ many new real-world applications using AI-powered vector representations.
 You can get started today using the ready to deploy
 Vespa sample application configured and ready for using `HNSW-IF` over at [Vespa sample applications](https://github.com/vespa-engine/sample-apps).
 
-Also try out other [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
+Also try other [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
 nearest neighbor search support using `HNSW`:
 
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md): 
