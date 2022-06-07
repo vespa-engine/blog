@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Billion-scale vector search using hybrid HNSW-IF
-date: '2022-06-03'
+date: '2022-06-07'
 categories: []
 tags: []
 image: assets/2022-06-07-vespa-spann-billion-scale-vector-search//graham-holtshausen-fUnfEz3VLv4-unsplash.jpg
@@ -84,7 +84,6 @@ the result of the two different searches to return one list of ranked vector ids
 Figure 1 gives a conceptual overview of *SPANN* for a small vector dataset of 10 vectors. 
 There are two centroid vectors, vectors 4 and 9, both reference a posting list 
 consisting of the vectors that are close to the cluster the centroid represents. 
-
 A vector might be close to multiple cluster centroids, for example, vector 5 and vector 8 in the figure above. 
 These are examples of boundary vectors that lays in between multiple centroids. 
 
@@ -224,22 +223,20 @@ They are differentiated using a single field of type `bool`.
 Using two content clusters with the same document schema 
 enables using different instance types for the two vector types: 
  
-* High memory instances with remote and slower storage for the centroid vectors using in-memory `HNSW`.
+* High memory instances with remote storage for the centroid vectors using in-memory `HNSW`.
 * Inexpensive low memory instances with fast local storage for the non-centroid vectors.
 
 This optimizes the deployment and resource cost - the vectors indexed using `HNSW` 
 does not need fast local disks since queries will never page data from disk during queries. 
-Similarly, for vectors indexed using inverted file, content cluster instances don't 
-need an awful amount of memory, but higher memory instances can improve query performance due to caching.  
+Similarly, for vectors indexed using inverted file, the instances don't 
+need an awful amount of memory, but more memory can improve query performance 
+due to caching.  
 
 The Vespa inverted index posting lists do not contain the vector data. 
 Instead, vector data is stored using Vespa [paged attributes](https://docs.vespa.ai/en/attributes.html#paged-attributes),
-a type of disk-backed memory mapped forward-index.  
-
-The downside of not storing the vector data in the postings file is that 
-paging in a vector from disk for distance calculation requires one 
-additional disk seek. However, in our experience, 
-local attached SSD disks are rarely limited by random seek, 
+a type of disk-backed memory mapped forward-index. The downside of not storing the vector 
+data in the postings file is that paging in a vector from disk for distance calculation requires one 
+additional disk seek. However, in our experience, local attached SSD disks are rarely limited by random seek, 
 but by read GiB/s throughput bandwidth. 
 
 ### Vector Dataset
@@ -254,7 +251,6 @@ The *SPACEV-1B* vector dataset consists of 1-Billion 100-dimensional vectors usi
 and 29,3K queries with 100 ground truth (exact neighbors) per query. 
 The [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric) used for the dataset
 is `euclidean` which is the default Vespa nearest neighbor search distance-metric. 
-
 The dataset's ground truth neighbors are used to evaluate the 
 accuracy (recall) of the hybrid `HNSW-IF` approach. 
 
@@ -336,9 +332,9 @@ The schema also has two `rank-profile`'s which determines how vectors are ranked
 distance calculations.  One profile used for the `HNSW` search and one for the `Inverted File` search
 implementing phased ranking heuristic.
 
-### Vespa deployment specification (services.xml) 
+### Vespa deployment specification 
 For our experiments, we use multiple stateless and stateful Vespa clusters in the same Vespa application. Everything
-is is configured using [Vespa services.xml](https://cloud.vespa.ai/en/reference/services). 
+is configured using [Vespa services.xml](https://cloud.vespa.ai/en/reference/services). 
 
 * A stateless `feed` container cluster handling feed operations running a custom document processor
 which searches the HNSW graph for non-centroid vectors. 
@@ -367,21 +363,23 @@ This cluster uses default resources which are 2 v-cpu, 8GiB of memory and 50GiB 
  &lt;/nodes&gt;
 </pre>
 
-The Vespa Cloud hourly cost for this deployment, supporting 1B vectors comfortably, is $ 8.38 per hour, or
+The Vespa Cloud hourly cost for this `perf` environment deployment, supporting 1B vectors comfortably, is $ 8.38 per hour, or
 $6,038 per month. 
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/clusters.png"/>
 <em>Screenshot from Vespa Cloud console with app's clusters and allocated resources.</em>
 
-As can be seen from the figure above, the deployment is slightly over-provisioned and could support larger vector volumes
-comfortably. Vespa Cloud also allows a wide range of resource combinations (more memory, more cpu, more disk),  and number of nodes.  
+As can be seen from the cluster resource scaling summary, the deployment is slightly 
+over-provisioned and could support larger vector volumes
+comfortably. Vespa Cloud also allows a wide range of resource combinations (memory, cpu,disk) and number of nodes
+per Vespa cluster. 
 
 ### Vespa stateless function components 
 Custom stateless Vespa functions implement the serving and processing logic. The
 components are deployed inside the Vespa cluster, where communication is secured, and data transfer
 is using optimized binary protocols. The gist of the custom 
 [searcher](https://docs.vespa.ai/en/searcher-development.html) implementing
-the search logic:
+the search logic is given below:
 
 <pre>
 @Override
@@ -417,9 +415,9 @@ The following experiments use these fixed indexing side hyper-parameters
 - For any given non-centroid vector index 12 closest centroid vector ids. 
 
 ### Batch indexing performance 
-With the mentioned allocated resources in Vespa Cloud *perf*, indexing the *SPACEV-1B* dataset takes approximately 28 hours. The 200M vectors (centroids) are
-fed first and indexed at around 9000 puts/s into the HNSW graph content cluster. The
-remaining 800M non-centroid vectors are indexed with similar puts/s, and also search the `HNSW` index at the same rate.
+With the mentioned allocated resources in Vespa Cloud *perf*, indexing the *SPACEV-1B* dataset takes approximately 28 hours. 
+The 200M centroid vectors are fed first and indexed at around 9000 puts/s into the HNSW graph content cluster. 
+The remaining 800M non-centroid vectors are indexed with similar puts/s, and also search the `HNSW` index at the same rate.
 
 Vectors are read from the dataset and converted to [Vespa JSON feed format](https://docs.vespa.ai/en/reference/document-json-format.html)
 by a simple python script. The resulting JSON files are fed using [Vespa feed client](https://docs.vespa.ai/en/vespa-feed-client.html)
@@ -427,7 +425,8 @@ for ultimate batch feed performance using `http/2` with `mTls` to secure the vec
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/Vespa-cloud-indexing.png"/>
 
-<em>Vespa Cloud console screenshot was taken during indexing of non-centroid vectors. During indexing, a document processor searches the HNSW graph,
+<em>Vespa Cloud console screenshot, taken during indexing of non-centroid vectors.
+During indexing, a document processor searches the HNSW graph,
 and annotates the document with the closest centroids before forwarding the document to the `if` content cluster. </em>
 
 <img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/metrics.png"/>
@@ -461,12 +460,12 @@ $ python3 recall.py --endpoint https://spann.samples.aws-us-east-1c.perf.z.vespa
 
 With 128 centroids we reach 90% recall@10 at 50 ms end-to-end. 
 50 ms is one order of magnitude larger than what in-memory algorithms supports at the same recall level, 
-but for many vector search use cases 50ms is perfectly acceptable, especially with high recall. 
+but for many vector search use cases 50ms is perfectly acceptable, especially considering the high recall. 
 To put the number in context, 9 out of 10 queries returns the *same* top-10 result as expensive exact nearest neighbor search, over 1B vectors! 
 
 ## Summary 
 
-This blog post introduced a cost-effective hybrid method for billion-scale vector search, enabling 
+This blog post introduced a cost-effective _hybrid_ method for billion-scale vector search, enabling 
 many new real-world applications using AI-powered vector representations. 
 
 You can get started today using the ready to deploy
