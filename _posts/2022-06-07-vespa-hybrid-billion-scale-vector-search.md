@@ -7,7 +7,7 @@ tags: []
 image: assets/2022-06-07-vespa-spann-billion-scale-vector-search//graham-holtshausen-fUnfEz3VLv4-unsplash.jpg
 author: jobergum
 skipimage: true
-excerpt: This blog post describes _HNSW-IF_, a cost efficient solution for high-accuracy vector search over billion scale vector datasets.
+excerpt: This blog post describes HNSW-IF, a cost efficient solution for high-accuracy vector search over billion scale vector datasets.
 
 ---
 
