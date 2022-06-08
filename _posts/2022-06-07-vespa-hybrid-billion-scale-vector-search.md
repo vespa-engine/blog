@@ -292,7 +292,8 @@ schema vector {
 The random centroid selection is performed outside of Vespa using a
 [python script](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/python/create-vespa-feed.py) that reads the 
 input vector data file and randomly selects 20% to represent centroids and sets the `in_graph` field
-of type `bool` to `true`. The feeder feeds the vector data with `in_graph` set to `true` first, to 
+of type `bool` to `true` and populate the `vector` field with the vector data. 
+The feeder feeds the vector data with `in_graph` set to `true` first, to 
 populate the `graph` content cluster using `HNSW` indexing, before feeding the non-centroid vectors. 
 
 The `neighbors` field is of type 
