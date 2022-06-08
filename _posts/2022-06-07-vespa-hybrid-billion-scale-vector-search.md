@@ -351,7 +351,7 @@ The Vespa Cloud version specifies:
 
 * A stateless `feed` container cluster handling feed operations running a custom document processor
 which searches the HNSW graph for non-centroid vectors. 
-This cluster uses default resources which are 2 v-cpu, 8GiB of memory, and 50GiB of disk:
+This cluster uses default resources which are 2 v-CPU, 8GiB of memory, and 50GiB of disk:
 <pre>
     &lt;nodes deploy:environment="perf" count="4"/&gt;
 </pre>
@@ -384,13 +384,13 @@ $6,038 per month.
 
 As can be seen from the cluster resource scaling summary, the deployment is slightly 
 over-provisioned and could support larger vector volumes
-comfortably. Vespa Cloud also allows a wide range of resource combinations (memory, cpu,disk) and 
+comfortably. Vespa Cloud also allows a wide range of resource combinations (memory, CPU, disk) and 
 the number of nodes per Vespa cluster. 
 
 ### Vespa stateless function components 
 Custom stateless Vespa functions implement the serving and processing logic. The
-components are deployed inside the Vespa cluster, where communication is secured, and data transfer
-is using optimized binary protocols. The gist of the custom 
+components are deployed inside the Vespa cluster, where communication is secured, and data transferred
+with optimized binary protocols. The gist of the custom 
 [searcher](https://docs.vespa.ai/en/searcher-development.html) implementing
 the search logic is given below:
 
@@ -420,7 +420,7 @@ public Result search(Query query, Execution execution) {
 See the [full version](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/searcher/SPANNSearcher.java).
 
 Similarly, a custom [document processor](https://docs.vespa.ai/en/document-processing.html) implements
-the search in the `HNSW` graph, and annotates the incoming vector with nearest centroids with closeness weight. 
+the search in the `HNSW` graph, and annotates the incoming vector with the nearest centroids. 
 See [AssignNeighborsDocProc](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/docproc/AssignNeighborsDocProc.java).
 
 ## Vespa HNSW-IF Experiments 
