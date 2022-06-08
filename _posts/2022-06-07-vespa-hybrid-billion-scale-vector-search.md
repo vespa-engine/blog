@@ -7,7 +7,7 @@ tags: []
 image: assets/2022-06-07-vespa-spann-billion-scale-vector-search//graham-holtshausen-fUnfEz3VLv4-unsplash.jpg
 author: jobergum
 skipimage: true
-excerpt: This blog post describes HNSW-IF, a cost efficient solution for high-accuracy vector search over billion scale vector datasets.
+excerpt: This blog post describes HNSW-IF, a cost-efficient solution for high-accuracy vector search over billion scale vector datasets.
 
 ---
 
@@ -41,7 +41,7 @@ which adds 20-40% in addition to the vector data.
 Given this, indexing a 1B vector dataset using `HNSW` will need about 4TiB of memory.
 
 In 2022, many cloud providers offer [cloud instance types](https://aws.amazon.com/ec2/instance-types/high-memory/) 
-with large amounts of memory, but these instance types also come with many v-CPUs which 
+with large amounts of memory, but these instance types also come with many v-CPUs, which 
 drives production deployment costs. These high-memory and high-compute instance types support massive queries per second and 
 might be the optimal instance type for applications needing to support large query throughput with high recall. 
 However, many real-world applications using vector search do not need enormous query throughput but still 
@@ -122,7 +122,7 @@ requires one pass through the vector dataset, splitting the dataset into
 * The vectors representing centroids are indexed in memory using
 Vespa's support for vector indexing using
 [Hierarchical Navigable Small World (HNSW)](https://docs.vespa.ai/en/approximate-nn-hnsw.html). 
-Searching 200M centroid vectors indexed with `HNSW` typically takes 2-3 milliseconds, single threaded (depending on recall
+Searching 200M centroid vectors indexed with `HNSW` typically takes 2-3 milliseconds, single-threaded (depending on recall
 target and `HNSW` settings). Both the graph data structure and the vector data are stored in memory. 
 
 * During indexing of vectors that are not cluster centroids,
@@ -173,7 +173,7 @@ ranking phase. The `closeness(centroid,v)` weight is stored in the posting list,
 is passed as a [query term weight](https://docs.vespa.ai/en/multivalue-query-operators.html#dotproduct-example) 
 with the `dotProduct` query operator. This heuristic enables limiting the number of vector page-ins by using Vespa's support
 for controlling [phased ranking](https://docs.vespa.ai/en/phased-ranking.html). 
-The local per node second-phase ranking calculates the full `(closeness(q,v)`, which involves 
+The local per node second-phase ranking calculates the full precision, `(closeness(q,v)`, which involves 
 paging the vector data into memory from disk. The maximum re-ranking depth is
 a query time hyper-parameter enabling easy experimentation. 
 
@@ -181,7 +181,7 @@ a query time hyper-parameter enabling easy experimentation.
 Real-world applications using vector search need both batch and real-time vector indexing:
 
 * **Batch indexing**: An embedder model 
-(for example [Data2Vec](https://ai.facebook.com/blog/the-first-high-performance-self-supervised-algorithm-that-works-for-speech-vision-and-text/)) 
+(for example, [Data2Vec](https://ai.facebook.com/blog/the-first-high-performance-self-supervised-algorithm-that-works-for-speech-vision-and-text/)) 
 that maps data to vector representation is trained, and embedding vector representations are produced for all known data items. 
 * **Incremental Real-time indexing**: A new data item arrives and is encoded with the current version of the embedder model and needs to be indexed.
 
@@ -298,7 +298,7 @@ populate the `graph` content cluster using `HNSW` indexing, before feeding the n
 
 The `neighbors` field is of type 
 [weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset). 
-`weightedset&lt;string&gt;` allows mapping a string key (the centroid id in this case) to a integer weight. 
+`weightedset&lt;string&gt;` allows mapping a string key (the centroid id in this case) to an integer weight. 
 This field is populated by a 
 [custom document processor](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/docproc/AssignNeighborsDocProc.java) 
 which searches the `HNSW` graph when feeding non-centroid vectors with `in_graph` set to `false`. 
@@ -324,10 +324,10 @@ two centroids found from searching the `HNSW` graph:
 </pre>
 
 This `neighbors` field is inverted by the Vespa content process (proton), so that a query for 
-`where neighbors contains "4"` would retrieve vector 8 and expose it to Vespa ranking framework. 
+`where neighbors contains "4"` would retrieve vector 8 and expose it to the Vespa ranking framework. 
 
-The integer weight represent the closeness of vector 8 to the centroid id. 
-Closeness is the inverted distance and lower distance means higher closeness. 
+The integer weight represents the closeness of vector 8 to the centroid id. 
+Closeness is the inverted distance, and a lower distance means higher closeness. 
 The original `float` closeness value returned from the `HNSW` search is scaled to integer representation by
 multiplying with a constant and rounded to the closest integer. 
 
@@ -460,8 +460,9 @@ we can quantify `recall@10` with the hybrid `HNSW-IF` solution:
 <em>Recall@10 for 29,3K queries</em>
 
 The above figure is produced by running all 29,3K queries with an increasing number of `k` centroids, ranging
-from 1 centroid to 256 centroids (1, 2, 4, 8 , 16, 32, 64, 128, 256). The distance prune threshold was set to 0.6 and maximum
-re-ranking depth 4K. Example run using [recall.py](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/python/recall.py)
+from 1 centroid to 256 centroids (1, 2, 4, 8 , 16, 32, 64, 128, 256). The distance prune threshold was set to 0.6, 
+and the maximum re-ranking depth was 4K. 
+Example run using [recall.py](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/python/recall.py)
 with 32 centroid clusters `k=32`, re-ranking at most 4K vectors.  
 
 <pre>
@@ -475,20 +476,16 @@ $ python3 recall.py --endpoint https://spann.samples.aws-us-east-1c.perf.z.vespa
   --key data-plane-private-key.pem
 </pre>
 
-With `k=128` centroids we reach 90% recall@10 at just below 50 ms end-to-end. 
-50 ms is one order of magnitude larger than what in-memory algorithms supports at the same recall level, 
-but for many vector search use cases 50ms is perfectly acceptable, especially considering the high recall. 
-To put the number in context, 9 out of 10 queries returns the *exact same* top-10 result as the expensive nearest neighbor search, over 1B vectors! 
+With `k=128` centroids, we reach 90% recall@10 at just below 50 ms end-to-end. 
+50 ms is one order of magnitude larger than what in-memory algorithms support at the same recall level, 
+but for many vector search use cases, 50ms is perfectly acceptable, especially considering the high recall. 
+To put the number in context, 9 out of 10 queries return the *same* top-10 result as the expensive nearest neighbor search, over 1B vectors! 
 
 ## Summary 
 
 This blog post introduced a cost-effective _hybrid_ method for billion-scale vector search, enabling 
-many new real-world applications using AI-powered vector representations. 
-
-You can get started today using the ready to deploy
-[billion-scale-vector-search](https://github.com/vespa-engine/sample-apps/tree/master/billion-scale-vector-search) 
-Vespa sample applications configured and ready for using `HNSW-IF`. The sample application demonstrates
-using a smaller subset suitable for laptop trials, using a 10M subset of the vector dataset.
+many new real-world applications using AI-powered vector representations. Today, You can get started using the 
+ready-to-deploy [billion-scale-vector-search](https://github.com/vespa-engine/sample-apps/tree/master/billion-scale-vector-search).
 
 Also try other [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
 nearest neighbor search support using `HNSW`:
@@ -496,20 +493,17 @@ nearest neighbor search support using `HNSW`:
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md): 
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval. 
 The application has multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html) 
-serving pipelines. Furthermore, the application shows how embedding models, which maps the text data to vector representation, can be 
-deployed to Vespa for [run-time inference](https://blog.vespa.ai/stateless-model-evaluation/) during both document and query processing.
+pipelines. Furthermore, the application shows how embedding models, which map the text data to vector representation, can be 
+deployed to Vespa for [run-time inference](https://blog.vespa.ai/stateless-model-evaluation/) during document and query processing.
 
 - [State-of-the-art image search](https://github.com/vespa-engine/sample-apps/tree/master/text-image-search): AI-powered multi-modal vector representations
 to retrieve images for a text query. 
 
-- [State-of-the art open-domain question answering](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann): AI-powered vector representations
-to retrieve passages from Wikipedia, which are fed into a NLP reader model which identifies the answer. End-to-end represented using Vespa.
+- [State-of-the-art open-domain question answering](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann): AI-powered vector representations
+to retrieve passages from Wikipedia, which are fed into an NLP reader model which extracts the answer. End-to-end represented using Vespa.
 
-All these are examples of applications built using AI-powered vector representations, and where real-world deployments 
+These are examples of applications built using AI-powered vector representations and where real-world deployments 
 need query-time constrained nearest neighbor search. 
 
-Vespa is available as a cloud service, see [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
+Vespa is available as a cloud service; see [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
 or self-serve [Vespa - getting started](https://docs.vespa.ai/en/getting-started.html).  
-
-
-
