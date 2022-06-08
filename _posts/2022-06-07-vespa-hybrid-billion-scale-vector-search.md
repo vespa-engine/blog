@@ -298,7 +298,7 @@ populate the `graph` content cluster using `HNSW` indexing, before feeding the n
 
 The `neighbors` field is of type 
 [weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset). 
-`weightedset&lt;string&gt;` allows mapping a string key (the centroid id in this case) to an integer weight. 
+ The `weightedset<string>`type allows mapping a string key (the centroid id in this case) to an integer weight. 
 This field is populated by a 
 [custom document processor](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/docproc/AssignNeighborsDocProc.java) 
 which searches the `HNSW` graph when feeding non-centroid vectors with `in_graph` set to `false`. 
