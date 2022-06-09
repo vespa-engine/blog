@@ -25,7 +25,7 @@ Serving nodes sometimes require data files which are so large that it doesn’t 
 
 **Batch feed in java client**
 
-The new [SyncFeedClient](https://github.com/vespa-engine/vespa/blob/master/vespa-http-client/src/main/java/com/yahoo/vespa/http/client/SyncFeedClient.java) provides a simplified API for feeding batches of data with high performance using the Java HTTP client. This is convenient when feeding from systems without full streaming support such as Kafka and DynamoDB.
+The new [SyncFeedClient](https://docs.vespa.ai/en/vespa8-release-notes.html#vespa-http-client) provides a simplified API for feeding batches of data with high performance using the Java HTTP client. This is convenient when feeding from systems without full streaming support such as Kafka and DynamoDB.
 
 We welcome your contributions and feedback (tweet or email) about any of these new features or future improvements you’d like to see.
 

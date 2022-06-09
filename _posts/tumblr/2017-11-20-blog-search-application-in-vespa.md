@@ -242,7 +242,7 @@ The data fed to Vespa must match the search definition for the document type. Th
     $ head -10000 trainPosts.json > trainPostsSmall.json
     $ python parse.py trainPostsSmall.json > feed.json
 
-Send this to Vespa using one of the tools Vespa provides for feeding. Here we will use the [Java feeding API](https://docs.vespa.ai/en/vespa-http-client.html):
+Send this to Vespa using one of the tools Vespa provides for feeding. Here we will use the [Java feeding API](https://docs.vespa.ai/en/vespa8-release-notes.html#vespa-http-client):
 
     $ java -jar $VESPA_HOME/lib/jars/vespa-http-client-jar-with-dependencies.jar --verbose --file feed.json --host localhost --port 8080
 
