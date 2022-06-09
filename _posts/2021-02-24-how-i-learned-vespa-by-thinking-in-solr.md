@@ -148,7 +148,7 @@ The version of CORD-19 I used contained around 300,000 papers and their associat
 }
 ```
 
-Vespa also offers its [HTTP Client](https://docs.vespa.ai/en/vespa-http-client.html),
+Vespa also offers its [HTTP Client](https://docs.vespa.ai/en/vespa8-release-notes.html#vespa-http-client),
 which is a faster and more robust alternative for batch inserts. To use this, the records to be inserted need to be JSON serialized into a flat file, and the path to the flat file passed to the HTTP Client.
 
 ## Querying the Index

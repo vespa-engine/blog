@@ -182,7 +182,7 @@ application.
 
 ## Vector Indexing performance
 We want to quantify the impact of adding data structures for faster and approximate vector search on
-vector indexing throughput. We use the [Vespa HTTP feeding client](https://docs.vespa.ai/en/vespa-http-client.html) 
+vector indexing throughput. We use the [Vespa HTTP feeding client](https://docs.vespa.ai/en/vespa8-release-notes.html#vespa-http-client)
 to feed vector data to the Vespa instance. 
 
 Writing becomes more expensive when enabling *HNSW* indexing for
