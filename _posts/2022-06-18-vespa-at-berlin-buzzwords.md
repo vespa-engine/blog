@@ -57,7 +57,7 @@ Lester Solbakken from the Vespa team gave a talk on [Hybrid search > sum of its 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/R5BLbnXPR5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Understanding Vespa with a Lucene mindset
-Atita Arora from [Opensource connections](https://opensourceconnections.com/) gave a great talk on
+Atita Arora from [OpenSource connections](https://opensourceconnections.com/) gave a great talk on
 [Understanding Vespa with a Lucene mindset](https://pretalx.com/bbuzz22/talk/WNYRZF/). Fantastic overview
 of Vespa, Vespa's strengths and how Vespa compares to Apache Lucene based search engines. 
 
