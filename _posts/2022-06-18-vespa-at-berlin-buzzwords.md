@@ -41,6 +41,12 @@ If you were interested in this talk, why don't you check out some of our previou
 Also check out the Vespa [MS Marco sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking)
 which demonstrates how to represent state-of-the-art ranking methods with Vespa. 
 
+See also our blog posts on Vector search:
+- [Billion-scale vector search using hybrid HNSW-IF](https://blog.vespa.ai/vespa-hybrid-billion-scale-vector-search/)
+- [Query Time Constrained Approximate Nearest Neighbor Search](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/)
+- [Billion-scale vector search with Vespa - part two](https://blog.vespa.ai/billion-scale-knn-part-two/)
+- [Billion-scale vector search with Vespa - part one](https://blog.vespa.ai/billion-scale-knn/)
+
 ## Hybrid search > sum of its parts?
 Lester Solbakken from the Vespa team gave a talk on [Hybrid search > sum of its parts?](https://pretalx.com/bbuzz22/talk/YEHRTE/). 
 
