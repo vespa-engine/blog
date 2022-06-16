@@ -11,7 +11,8 @@ excerpt: Vespa at Berlin Buzzwords 2022
 
 ---
 
-<img src="/assets/2022-06-18-vespa-at-berlin-buzzwords/cover.png"/>
+<img src="/assets/2022-06-18-vespa-at-berlin-buzzwords/cover.png"
+     alt="Lester Solbakken presenting at Berlin Buzzwords 2022"/>
 <p class="image-credit">
 Lester Solbakken presenting at Berlin Buzzwords 2022
 </p>
@@ -30,7 +31,7 @@ Jo Kristian Bergum from the Vespa team gave a talk on [AI-powered Semantic Searc
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/7ozfzKLTFV4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-If you were interested in this talk, why don't you check out some of our previous work on state-of-the-art text ranking
+If you were interested in this talk, why don't you check out some of our previous work on state-of-the-art text ranking:
 
 - [Pretrained Transformer Language Models for Search - part 1](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/)
 - [Pretrained Transformer Language Models for Search - part 2](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-2/)
@@ -70,7 +71,7 @@ John Dagdelen from the department of materials science and engineering at UC Ber
 gave a great talk on [Matscholar: The search engine for materials science researchers](https://pretalx.com/bbuzz22/talk/GAGCJ3/). This talk really demonstrates how Vespa can be used to power really advanced search use cases, including entity recognition, 
 embedding, grouping and aggregation. 
 
->Matscholar (Matscholar.com) is a scientific knowledge search engine for materials science researchers. We have indexed information about materials, their properties, and the applications they are used in for millions of materials by text mining the abstracts of more than 5 million materials science research papers. Using a combination of traditional and AI-based search technologies, our system extracts the key pieces of information and makes it possible for researchers to do queries that were previously impossible. Matscholar, which utilizes Vespa.ai and our our own bespoke language models, greatly accelerates the speed at which energy and climate tech researchers can make breakthroughs and can even help them discover insights about materials and their properties that have gone unnoticed.
+>Matscholar (Matscholar.com) is a scientific knowledge search engine for materials science researchers. We have indexed information about materials, their properties, and the applications they are used in for millions of materials by text mining the abstracts of more than 5 million materials science research papers. Using a combination of traditional and AI-based search technologies, our system extracts the key pieces of information and makes it possible for researchers to do queries that were previously impossible. Matscholar, which utilizes Vespa.ai and our own bespoke language models, greatly accelerates the speed at which energy and climate tech researchers can make breakthroughs and can even help them discover insights about materials and their properties that have gone unnoticed.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5rLOO10hUeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
