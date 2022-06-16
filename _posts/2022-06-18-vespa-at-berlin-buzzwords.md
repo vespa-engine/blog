@@ -22,7 +22,6 @@ the event. Berlin Buzzwords is Germany's most exciting conference on storing, pr
 ## AI-powered Semantic Search; A story of broken promises?
 Jo Kristian Bergum from the Vespa team gave a talk on [AI-powered Semantic Search; A story of broken promises?](https://pretalx.com/bbuzz22/talk/7TYXQN/). 
 
-### Talk abstract 
 
 > Semantic search using AI-powered vector embeddings of text, where relevancy is measured using a vector similarity function, has been a hot topic for the last few years. As a result, platforms and solutions for vector search have been springing up like mushrooms. Even traditional search engines like Elasticsearch and Apache Solr ride the semantic vector search wave and now support fast but approximative vector search, a building block for supporting AI-powered semantic search at scale.
 
@@ -50,24 +49,27 @@ See also our blog posts on Vector search:
 ## Hybrid search > sum of its parts?
 Lester Solbakken from the Vespa team gave a talk on [Hybrid search > sum of its parts?](https://pretalx.com/bbuzz22/talk/YEHRTE/). 
 
-### Talk abstract 
 >Over the decades, information retrieval has been dominated by classical methods such as BM25. These lexical models are simple and effective yet vulnerable to vocabulary mismatch. With the introduction of pre-trained language models such as BERT and its relatives, deep retrieval models have achieved superior performance with their strong ability to capture semantic relationships. The downside is that training these deep models is computationally expensive, and suitable datasets are not always available for fine-tuning toward the target domain.
 
 >While deep retrieval models work best on domains close to what they have been trained on, lexical models are comparatively robust across datasets and domains. This suggests that lexical and deep models can complement each other, retrieving different sets of relevant results. But how can these results effectively be combined? And can we learn something from language models to learn new indexing methods? This talk will delve into both these approaches and exemplify when they work well and not so well. We will take a closer look at different strategies to combine them to get the best of both, even in zero-shot cases where we don't have enough data to fine-tune the deep model.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/R5BLbnXPR5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Community Talks on Vespa
+## Understanding Vespa with a Lucene mindset
 Atita Arora from [Opensource connections](https://opensourceconnections.com/) gave a great talk on
 [Understanding Vespa with a Lucene mindset](https://pretalx.com/bbuzz22/talk/WNYRZF/). Fantastic overview
 of Vespa, Vespa's strengths and how Vespa compares to Apache Lucene based search engines. 
 
+>Vespa is no more a 'new kid on the block' in the domain of search and big data. Everyone is wooed over reading about its capabilities in search, recommendation, and machine-learned aspects augmenting search especially for large data-sets. With so many great features to offer and so less documentation to how to get started on Vespa , we want to take an opportunity to introduce it to the lucene based search users.
+We will cover about Vespa architecture , getting started , leveraging advance features , important aspects all in the analogies easier for someone with a fresh or lucene based search engines mindset.
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/_ML-QB0Zxvg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-John Dagdelen gave a great talk on [Matscholar: The search engine for materials science researchers](https://pretalx.com/bbuzz22/talk/GAGCJ3/). This talk really demonstrates how Vespa can be used to power really advanced search use cases, including entity recognition, 
+## Matscholar: The search engine for materials science researchers
+John Dagdelen from the department of materials science and engineering at UC Berkeley,  
+gave a great talk on [Matscholar: The search engine for materials science researchers](https://pretalx.com/bbuzz22/talk/GAGCJ3/). This talk really demonstrates how Vespa can be used to power really advanced search use cases, including entity recognition, 
 embedding, grouping and aggregation. 
 
-### Talk abstract
 >Matscholar (Matscholar.com) is a scientific knowledge search engine for materials science researchers. We have indexed information about materials, their properties, and the applications they are used in for millions of materials by text mining the abstracts of more than 5 million materials science research papers. Using a combination of traditional and AI-based search technologies, our system extracts the key pieces of information and makes it possible for researchers to do queries that were previously impossible. Matscholar, which utilizes Vespa.ai and our our own bespoke language models, greatly accelerates the speed at which energy and climate tech researchers can make breakthroughs and can even help them discover insights about materials and their properties that have gone unnoticed.
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5rLOO10hUeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
