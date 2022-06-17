@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Vespa at Berlin Buzzwords 2022 
-date: '2022-06-16'
+date: '2022-06-17'
 categories: []
 tags: []
 image: assets/2022-06-18-vespa-at-berlin-buzzwords/cover.png
