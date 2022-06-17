@@ -7,8 +7,9 @@ tags: []
 image: assets/2022-06-18-vespa-at-berlin-buzzwords/cover.png
 author: kkraune
 skipimage: true
-excerpt: Vespa at Berlin Buzzwords 2022 
-
+excerpt: >
+    Find videos and links from four Vespa-related talks at Berlin Buzzwords 2022,
+    Germany’s most exciting conference on storing, processing, streaming and searching large amounts of digital data.
 ---
 
 <img src="/assets/2022-06-18-vespa-at-berlin-buzzwords/cover.png"
