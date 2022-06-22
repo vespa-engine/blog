@@ -12,8 +12,8 @@ excerpt: This blog post addresses the Vespa-related questions,
 
 On January 28th, 2021, at 17:00 CET,
 Charlie Hull from [OpenSource Connections](https://opensourceconnections.com/) hosted
-[The Great Search Engine Debate -
-Elasticsearch, Solr or Vespa?](https://www.meetup.com/Haystack-Search-Relevance-Online/events/275820872/) -
+<a href="https://www.meetup.com/Haystack-Search-Relevance-Online/events/275820872/" data-proofer-ignore>
+The Great Search Engine Debate - Elasticsearch, Solr or Vespa?</a> -
 a meetup on Haystack LIVE!,
 with Anshum Gupta, VP of Apache Lucene, Josh Devins from Elastic and Jo Kristian Bergum from Vespa.
 
