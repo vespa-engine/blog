@@ -1,14 +1,14 @@
 ---
 layout: post
-title: Vespa - The open-source AI Database 
+title: Managed Vector Search using Vespa Cloud 
 date: '2022-07-01'
-categories: []
+categories: [Vespa Cloud]
 tags: []
 image: assets/2022-07-01-vespa-ai-database/israel-palacio-ImcUkZ72oUs-unsplash.jpg
 author: jobergum
 skipimage: true
 excerpt: >
-    This blog post describes how your organization can unlock the full potential of multimodal AI-powered vector representations using Vespa -- the industry-leading open-source AI database.
+    This blog post describes how your organization can unlock the full potential of multimodal AI-powered vector representations using Vespa -- the industry-leading open-source big data serving engine.
 ---
 
 <img src="/assets/2022-07-01-vespa-ai-database/israel-palacio-ImcUkZ72oUs-unsplash.jpg"/>
@@ -17,7 +17,7 @@ Photo by <a href="https://unsplash.com/@othentikisra?utm_source=unsplash&utm_med
 </p>
 
 There is a growing interest in AI-powered vector representations of unstructured multimodal data 
-and searching efficiently over these representations. This blog post describes how your organization can unlock the full potential of multimodal AI-powered vector representations using Vespa -- the industry-leading open-source AI database. 
+and searching efficiently over these representations. This blog post describes how your organization can unlock the full potential of multimodal AI-powered vector representations using Vespa -- the industry-leading open-source big data serving engine. 
 
 ## Introduction
 
@@ -34,11 +34,20 @@ search ranking, which has been using AI to improve the search results for decade
 is going through a [neural paradigm shift](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/) 
 driven by language models like BERT.
 
-These emerging multimodal data-to-vector models increase the insight and knowledge organizations can extract from their unstructured data. As a result, organizations leveraging this new data paradigm will have a significant competitive advantage over organizations not participating in this paradigm shift. Learning from structured and unstructured data has historically primarily been performed offline. However, advanced organizations with access to modern infrastructure and competence have started transferring the learning process to onstage, using real-time, in-session contextual features to improve AI predictions. 
+These emerging multimodal data-to-vector models increase the insight and knowledge organizations can 
+extract from their unstructured data. As a result, organizations leveraging this 
+new data paradigm will have a significant competitive advantage over organizations 
+not participating in this paradigm shift. 
+Learning from structured and unstructured data has historically
+primarily been performed offline. 
+However, advanced organizations with access to modern infrastructure 
+and competence have started transferring the learning process to onstage, 
+using [real-time](https://huyenchip.com/2022/01/02/real-time-machine-learning-challenges-and-solutions.html), 
+in-session contextual features to improve AI predictions. 
 
 One example of real-time online inference or prediction is within-cart 
-[recommendation systems](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html), where grocery and 
-[e-commerce](https://blog.vespa.ai/e-commerce-search-and-recommendation-with-vespaai/) sites recommend or predict 
+[recommendation systems](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html), 
+where grocery and [e-commerce](https://blog.vespa.ai/e-commerce-search-and-recommendation-with-vespaai/) sites recommend or predict 
 related items to supplement the user's current cart contents. 
 An AI-powered recommendation model for this use case could use item-to-item similarity 
 or past sparse [user-to-item](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html) interactions. 
@@ -53,7 +62,7 @@ Building technology and infrastructure to perform computationally complex distri
 over billions of data items with low user-time serving latency constraints 
 is one of the most [challenging problems in computing](https://blog.vespa.ai/the-hardest-problem-in-computing/).  
 
-## Vespa - The open-source AI Database 
+## Vespa - Serving Engine
 Vespa, the open-source big data serving engine, specializes in making it easy for an 
 any-sized organization to move AI inference computations online at scale without investing a significant amount of resources in building infrastructure and technology. Vespa is a distributed computation engine that can scale in any dimension. 
 
@@ -63,9 +72,9 @@ datasets efficiently without pre-provisioning resources up-front.
 - Scale with query volume using state-of-the-art retrieval and index structures and fully use modern hardware stacks.  
 
 In Vespa, AI is a first-class citizen and not an after-thought. The following Vespa primitives are the 
-foundational building blocks for building an online AI Database.
+foundational building blocks for building an online AI serving engine:
 
-- **Database CRUD operations at scale**. Dataset sizes vary across organizations and use cases. Handling fast-paced evolving datasets is one of Vespa's core strengths. Returning to our in-cart recommendation system for a moment, handling in-stock status updates, price changes, or real-time click feedback can dramatically improve the experience - imagine recommending an item out of stock? A lost revenue opportunity and a negative user experience. 
+- **CRUD operations at scale**. Dataset sizes vary across organizations and use cases. Handling fast-paced evolving datasets is one of Vespa's core strengths. Returning to our in-cart recommendation system for a moment, handling in-stock status updates, price changes, or real-time click feedback can dramatically improve the experience - imagine recommending an item out of stock? A lost revenue opportunity and a negative user experience. 
 - **Document Model**. Vespa's document model supports structured and unstructured field types, including tensor fields representing single-order dense vectors. Vespa's [tensor storage and compute engine](https://blog.vespa.ai/computing-with-tensors/) 
 is built from the ground up. 
 The document model with tensor also enables [feature-store](https://blog.vespa.ai/parent-child-joins-tensors-content-recommendation/) functionality, accessing real-time features close to the data.
@@ -99,10 +108,12 @@ The sample application features:
 - Vespa Cloud Auto-Scaling and pricing, optimizing the deployment cost by auto-scaling by resource usage 
 - Interacting with Vespa Cloud - indexing your vector data and searching it at scale. 
 
-A 768 dimensional vector dataset, with 5M data points, deployed in Vespa Cloud production region, with redundancy supports thousands
-of puts and queries per second concurrently for as low as $3.36 per hour. 
+For only $3,36 per hour, your organization can store and search 5M 768 dimensional vectors, 
+deployed in Vespa Cloud production zones with high availability, supporting thousands
+of inserts and queries per second. 
 
-With this sample application, you have a great starting point for building next-generation AI-powered applications, such as:
+With this Vector search sample application, you have a great starting point for 
+building next-generation AI-powered applications, such as:
 
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md):
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval.
