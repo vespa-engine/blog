@@ -54,7 +54,7 @@ over billions of data items with low user-time serving latency constraints
 is one of the most [challenging problems in computing](https://blog.vespa.ai/the-hardest-problem-in-computing/).  
 
 ## Vespa - The open-source AI Database 
-Vespa, the open-source serving engine, specializes in making it easy for an 
+Vespa, the open-source big data serving engine, specializes in making it easy for an 
 any-sized organization to move AI inference computations online at scale without investing a significant amount of resources in building infrastructure and technology. Vespa is a distributed computation engine that can scale in any dimension. 
 
 - [Scale elastically](https://docs.vespa.ai/en/elasticity.html) with data volume  - handling [billion scale](https://blog.vespa.ai/vespa-hybrid-billion-scale-vector-search/) 
