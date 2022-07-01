@@ -112,8 +112,21 @@ For only $3,36 per hour, your organization can store and search 5M 768 dimension
 deployed in Vespa Cloud production zones with high availability, supporting thousands
 of inserts and queries per second. 
 
-With this Vector search sample application, you have a great starting point for 
-building next-generation AI-powered applications, such as:
+<img src="/assets/2022-07-01-vespa-ai-database/vespa-vector-cloud-auto-scaling.png"/>
+<p class="image-credit">
+Vespa Cloud Console. Snapshot while auto-scaling of stateless container cluster in progress.  
+</p>
+
+
+<img src="/assets/2022-07-01-vespa-ai-database/vespa-vector-cloud-concurrency.png"/>
+<p class="image-credit">
+Vespa Cloud Console. Concurrent real-time indexing of vectors while searching. Scale as needed to 
+meet any low latency serving use case. 
+</p>
+
+With this vector search sample application, you have a great starting point for 
+implementing your vector search use case, without worrying about managing complex infrastructure. 
+See also other Vespa sample applications using vector search:
 
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md):
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval.
@@ -127,8 +140,7 @@ to retrieve images for a text query.
 - [State-of-the-art open-domain question answering](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann): AI-powered vector representations
 to retrieve passages from Wikipedia, which are fed into an NLP reader model which extracts the answer. End-to-end represented using Vespa.
 
-These are examples of applications built using AI-powered vector representations and where real-world deployments
-need query-time constrained nearest neighbor search.
+These are examples of applications built using AI-powered vector representations. 
 
 Vespa is available as a cloud service; see [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
 or self-serve [Vespa - getting started](https://docs.vespa.ai/en/getting-started.html).
