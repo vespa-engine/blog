@@ -36,16 +36,16 @@ driven by language models like BERT.
 
 These emerging multimodal data-to-vector models increase the insight and knowledge organizations can extract from their unstructured data. As a result, organizations leveraging this new data paradigm will have a significant competitive advantage over organizations not participating in this paradigm shift. Learning from structured and unstructured data has historically primarily been performed offline. However, advanced organizations with access to modern infrastructure and competence have started transferring the learning process to onstage, using real-time, in-session contextual features to improve AI predictions. 
 
-One example of real-time online inference or prediction is within-chart 
+One example of real-time online inference or prediction is within-cart 
 [recommendation systems](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html), where grocery and 
 [e-commerce](https://blog.vespa.ai/e-commerce-search-and-recommendation-with-vespaai/) sites recommend or predict 
-related items to supplement the user's current chart contents. 
+related items to supplement the user's current cart contents. 
 An AI-powered recommendation model for this use case could use item-to-item similarity 
 or past sparse [user-to-item](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html) interactions. 
-Still, without a doubt, using the real-time context, in this case, the chart's contents,  
+Still, without a doubt, using the real-time context, in this case, the cart's contents,  
 can improve the model's accuracy. Furthermore, 
-creating add-to-chart suggestions for all possible combinations offline is impossible 
-due to the combinatoric explosion of likely chart items. 
+creating add-to-cart suggestions for all possible combinations offline is impossible 
+due to the combinatoric explosion of likely cart items. 
 This use case also has the challenging property that the number of things to choose from is extensive, 
 hundreds of millions in the case of Amazon. In addition, [business constraints](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) like in-stock status limit the candidate selection.  
 
@@ -62,13 +62,13 @@ datasets efficiently without pre-provisioning resources up-front.
 - Scale update and ingestion rates to handle evolving real-time data.  
 - Scale with query volume using state-of-the-art retrieval and index structures and fully use modern hardware stacks.  
 
-In Vespa, AI is a first-class citizen and not an after-thought. T
-he following Vespa primitives are the foundational building blocks for building an online AI Database.
+In Vespa, AI is a first-class citizen and not an after-thought. The following Vespa primitives are the 
+foundational building blocks for building an online AI Database.
 
-- **Database CRUD operations at scale**. Dataset sizes vary across organizations and use cases. Handling fast-paced evolving datasets is one of Vespa's core strengths. Returning to our in-chart recommendation system for a moment, handling in-stock status updates, price changes, or real-time click feedback can dramatically improve the experience, imaging recommending an item out of stock? A lost revenue opportunity and a negative user experience. 
+- **Database CRUD operations at scale**. Dataset sizes vary across organizations and use cases. Handling fast-paced evolving datasets is one of Vespa's core strengths. Returning to our in-cart recommendation system for a moment, handling in-stock status updates, price changes, or real-time click feedback can dramatically improve the experience - imagine recommending an item out of stock? A lost revenue opportunity and a negative user experience. 
 - **Document Model**. Vespa's document model supports structured and unstructured field types, including tensor fields representing single-order dense vectors. Vespa's [tensor storage and compute engine](https://blog.vespa.ai/computing-with-tensors/) 
 is built from the ground up. 
-Vespa's document model with tensor also enables [feature-store](https://blog.vespa.ai/parent-child-joins-tensors-content-recommendation/) functionality, accessing real-time features close to the data.
+The document model with tensor also enables [feature-store](https://blog.vespa.ai/parent-child-joins-tensors-content-recommendation/) functionality, accessing real-time features close to the data.
 Features stored as Vespa attributes support in place [real-time updates](https://docs.vespa.ai/en/partial-updates.html) 
 at scale (50K updates/s per tensor field per compute node). 
 - **A feature-rich query language**. Vespa's [SQL-like query language](https://docs.vespa.ai/en/query-language.html) 
@@ -78,26 +78,31 @@ enables efficient online selection over potentially billions of rows, combining 
 [XGboost](https://docs.vespa.ai/en/xgboost.html), and [LightGBM](https://docs.vespa.ai/en/lightgbm.html). 
 In addition, Vespa integrates with [ONNX-Runtime](https://blog.vespa.ai/stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/) 
 for [accelerated inference](https://blog.vespa.ai/ml-model-serving-at-scale/) 
-with large deep neural network models that accelerate powerful data-to-vector models. Vespa handles model versioning, distribution, and auto-scaling of online inference computations. These framework integrations complement Vespa's native 
+with large deep neural network models that accelerate powerful data-to-vector models.
+Vespa handles [model versioning](https://docs.vespa.ai/en/tutorials/models-hot-swap.html),
+distribution, and auto-scaling of online inference computations.
+These framework integrations complement Vespa's native 
 support for tensor storage and [calculations over tensors](https://blog.vespa.ai/computing-with-tensors/). 
 - **Efficient Vector Search**. AI-powered vector representations are at the core of the unstructured data revolution. Vespa implements a real-time version of the [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) algorithm for efficient Vector search, an implementation that is vetted and verified with multiple vector datasets on [ann-benchmarks.com](http://ann-benchmarks.com/). 
 Vespa supports combining vector search [with structured query filters](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) at scale. 
 
  
 ## Get Started Today with Vector Search using Vespa Cloud. 
-We have created a getting started with Vector Search sample application which, in a few steps, shows you how to deploy your Vector search use case to Vespa Cloud. Check it out at [https://github.com/vespa-cloud/vector-search](https://github.com/vespa-cloud/vector-search).
+We have created a getting started with Vector Search sample application which,
+in a few steps, shows you how to deploy your Vector search use case to Vespa Cloud.
+Check it out at [github.com/vespa-cloud/vector-search](https://github.com/vespa-cloud/vector-search).
 
 The sample application features:
 
 - Deployment to Vespa Cloud environments (dev, perf, and production) and how to perform safe deployments to production using CI/CD
 - Vespa Cloud's security model 
-- Vespa Cloud Auto-Scaling and prizing, optimizing the deployment cost by auto-scaling by resource usage 
+- Vespa Cloud Auto-Scaling and pricing, optimizing the deployment cost by auto-scaling by resource usage 
 - Interacting with Vespa Cloud - indexing your vector data and searching it at scale. 
 
 A 768 dimensional vector dataset, with 5M data points, deployed in Vespa Cloud production region, with redundancy supports thousands
 of puts and queries per second concurrently for as low as $3.36 per hour. 
 
-With this sample application, you have a great starting point for building next-generation AI-powered applications, such as 
+With this sample application, you have a great starting point for building next-generation AI-powered applications, such as:
 
 - [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md):
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval.
