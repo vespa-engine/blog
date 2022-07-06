@@ -242,8 +242,7 @@ quantized over a smaller model that has not.
 
 The Pareto front visualizes the objectively best solutions, and our subjective
 preferences would guide us in finding the optimal solution. The tests above
-have been run on a single [Intel Xeon Gold
-6240](https://ark.intel.com/content/www/us/en/ark/products/192443/intel-xeon-gold-6240-processor-24-75m-cache-2-60-ghz.html)
+have been run on a single Intel Xeon Gold 6240
 machine. More powerful processors would lower the overall latency numbers but
 not change the overall shape. The exact solution to choose is then based on our
 latency and hardware budgets. For instance, organizations with considerable
