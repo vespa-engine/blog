@@ -111,8 +111,7 @@ and the correct answer "Chris Froome" is extracted:
 ![Response from Vespa.ai](/assets/2020-11-12-from-research-to-production-scaling-a-state-of-the-art-machine-learning-system/response.png)
 
 To measure performance, we deployed the system on a single machine with an
-[Intel Xeon Gold 6240
-processor](https://ark.intel.com/content/www/us/en/ark/products/192443/intel-xeon-gold-6240-processor-24-75m-cache-2-60-ghz.html)
+Intel Xeon Gold 6240 processor
 with 200 GB RAM and SSD disk. We evaluate the system over 3610 questions and
 record the average latency and exact-match score. Initially, the system
 achieves an exact-match score of 40.64. Before any consideration has been made
@@ -243,8 +242,7 @@ quantized over a smaller model that has not.
 
 The Pareto front visualizes the objectively best solutions, and our subjective
 preferences would guide us in finding the optimal solution. The tests above
-have been run on a single [Intel Xeon Gold
-6240](https://ark.intel.com/content/www/us/en/ark/products/192443/intel-xeon-gold-6240-processor-24-75m-cache-2-60-ghz.html)
+have been run on a single Intel Xeon Gold 6240
 machine. More powerful processors would lower the overall latency numbers but
 not change the overall shape. The exact solution to choose is then based on our
 latency and hardware budgets. For instance, organizations with considerable
