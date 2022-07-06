@@ -111,8 +111,7 @@ and the correct answer "Chris Froome" is extracted:
 ![Response from Vespa.ai](/assets/2020-11-12-from-research-to-production-scaling-a-state-of-the-art-machine-learning-system/response.png)
 
 To measure performance, we deployed the system on a single machine with an
-[Intel Xeon Gold 6240
-processor](https://ark.intel.com/content/www/us/en/ark/products/192443/intel-xeon-gold-6240-processor-24-75m-cache-2-60-ghz.html)
+Intel Xeon Gold 6240 processor
 with 200 GB RAM and SSD disk. We evaluate the system over 3610 questions and
 record the average latency and exact-match score. Initially, the system
 achieves an exact-match score of 40.64. Before any consideration has been made
