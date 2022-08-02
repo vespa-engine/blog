@@ -72,7 +72,11 @@ A good approach for autosuggest was to:
 
 The figure above illustrates the autosuggest architecture. When the user starts typing in the search field, we fire a query with the search prefix to the Cloudflare worker - which in case of a cache hit returns the result (possible queries) to the client. In case of a cache miss the Cloudflare worker forwards the query to our Vespa instance handling autosuggest.
 
-Regarding external API for autosuggest we use [Cloudflare Workers](https://blog.cloudflare.com/introducing-cloudflare-workers/) (supporting Javascript on V8 and later perhaps multiple languages with [Webassembly](https://webassembly.org)) to handle API queries from Zedge apps in front of Vespa running in Google Cloud. This setup allow for simple close-to-user caching of autosuggest results.
+Regarding external API for autosuggest we use
+<a href="https://blog.cloudflare.com/introducing-cloudflare-workers/" data-proofer-ignore>Cloudflare Workers</a>
+(supporting Javascript on V8 and later perhaps multiple languages with [Webassembly](https://webassembly.org))
+to handle API queries from Zedge apps in front of Vespa running in Google Cloud.
+This setup allow for simple close-to-user caching of autosuggest results.
 
 ## Search, Recommenders and Related Content with Vespa
 
