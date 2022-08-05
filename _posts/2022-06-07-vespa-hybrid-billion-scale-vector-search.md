@@ -300,7 +300,7 @@ The `neighbors` field is of type
 [weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset). 
  The `weightedset<string>`type allows mapping a string key (the centroid id in this case) to an integer weight. 
 This field is populated by a 
-[custom document processor](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/docproc/AssignNeighborsDocProc.java) 
+[custom document processor](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/examples/docproc/AssignNeighborsDocProc.java) 
 which searches the `HNSW` graph when feeding non-centroid vectors with `in_graph` set to `false`. 
 
 For example, for vector 8 from *figure 1*, the field would be populated with 
@@ -417,7 +417,7 @@ public Result search(Query query, Execution execution) {
     return mergeResult(execution.search(query), centroidResult);
 }
 </pre>
-See the [full version](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/searcher/SPANNSearcher.java).
+See the [full version](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/examples/searcher/SPANNSearcher.java).
 
 Similarly, a custom [document processor](https://docs.vespa.ai/en/document-processing.html) implements
 the search in the `HNSW` graph, and annotates the incoming vector with the nearest centroids. 

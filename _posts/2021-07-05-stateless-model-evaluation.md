@@ -143,7 +143,7 @@ a special `ModelsEvaluator` object dependency injected into their constructors.
 
 In the following we'll take a look at some of the usages of these, and use the
 [model-evaluation sample
-app](https://github.com/vespa-engine/sample-apps/tree/master/model-evaluation)
+app](https://github.com/vespa-engine/sample-apps/tree/master/model-inference)
 for demonstratation.
 
 #### REST API
@@ -201,7 +201,7 @@ parameter, Vespa evaluates the model and returns the result as a [JSON encoded
 tensor](https://docs.vespa.ai/en/reference/document-json-format.html#tensor).
 
 Please refer to the [sample
-application](https://github.com/vespa-engine/sample-apps/tree/master/model-evaluation)
+application](https://github.com/vespa-engine/sample-apps/tree/master/model-inference)
 for a runnable example.
 
 
@@ -255,9 +255,9 @@ public class MyHandler extends ThreadedHttpRequestHandler {
 ```
 
 A full example can be seen in the [MyHandler class in the sample
-application](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/main/java/ai/vespa/example/MyHandler.java)
+application](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/main/java/ai/vespa/example/MyHandler.java)
 and it's [unit
-test](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/test/java/ai/vespa/example/MyHandlerTest.java).
+test](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/test/java/ai/vespa/example/MyHandlerTest.java).
 
 As mentioned, arbitrary code can be run here. Pragmatically, it is often more
 convenient to put the processing pipeline in the model itself. While not always
@@ -331,9 +331,9 @@ resulting embedding into a new field. This is then stored along with the
 document.
 
 Again, a full example can be seen in the [MyDocumentProcessor class in the sample
-application](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/main/java/ai/vespa/example/MyDocumentProcessor.java)
+application](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/main/java/ai/vespa/example/MyDocumentProcessor.java)
 and it's [unit
-test](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/test/java/ai/vespa/example/MyDocumentProcessorTest.java).
+test](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/test/java/ai/vespa/example/MyDocumentProcessorTest.java).
 
 
 
@@ -387,9 +387,9 @@ public class MySearcher extends Searcher {
 ```
 
 As before, a full example can be seen in the [MySearcher class in the sample
-application](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/main/java/ai/vespa/example/MySearcher.java)
+application](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/main/java/ai/vespa/example/MySearcher.java)
 and it's [unit
-test](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/test/java/ai/vespa/example/MySearcherTest.java).
+test](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/test/java/ai/vespa/example/MySearcherTest.java).
 
 
 #### Searchers: result post-processing
@@ -405,7 +405,7 @@ Post-processing is similar to the example above, but the search is executed
 first, and tensor fields from the documents are extracted and used as input to
 the models. In the sample application we have a model that compares all results
 with each other to perform another phase of ranking. See the [MyPostProcessing
-searcher](https://github.com/vespa-engine/sample-apps/blob/master/model-evaluation/src/main/java/ai/vespa/example/MyPostProcessingSearcher.java)
+searcher](https://github.com/vespa-engine/sample-apps/blob/master/model-inference/src/main/java/ai/vespa/example/MyPostProcessingSearcher.java)
 for details.
 
 
