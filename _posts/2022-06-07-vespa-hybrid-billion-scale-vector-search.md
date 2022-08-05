@@ -421,7 +421,7 @@ See the [full version](https://github.com/vespa-engine/sample-apps/blob/master/b
 
 Similarly, a custom [document processor](https://docs.vespa.ai/en/document-processing.html) implements
 the search in the `HNSW` graph, and annotates the incoming vector with the nearest centroids. 
-See [AssignNeighborsDocProc](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/docproc/AssignNeighborsDocProc.java).
+See [AssignNeighborsDocProc](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/examples/docproc/AssignNeighborsDocProc.java).
 
 ## Vespa HNSW-IF Experiments 
 The following experiments use these fixed indexing side hyper-parameters
