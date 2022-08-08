@@ -57,7 +57,7 @@ Our passage tensor representation becomes:
 </pre>
 
 
-We tokenize the passage text using a BertTokenizer deployed as a custom Vespa document processor [DocumentTensorizer.java](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/docproc/DocumentTensorizer.java). The processor uses a java based BERT tokenizer to tokenize and map the text to the tensor representation and store it in a Vespa tensor field. The tensor field is stored in-memory (using the *attribute* indexing declaration) for fast access during the reranking serving phase. This avoids tokenization of the passages at query time and reduces complexity and cost as we only need to tokenize the passage once, and not for every query which touches the passage during re-ranking.
+We tokenize the passage text using a BertTokenizer deployed as a custom Vespa document processor [DocumentTensorizer.java](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/docproc/DocumentTensorizer.java). The processor uses a java based BERT tokenizer to tokenize and map the text to the tensor representation and store it in a Vespa tensor field. The tensor field is stored in-memory (using the *attribute* indexing declaration) for fast access during the reranking serving phase. This avoids tokenization of the passages at query time and reduces complexity and cost as we only need to tokenize the passage once, and not for every query which touches the passage during re-ranking.
 
 The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd), including the new *text_token_ids* field: 
 
@@ -142,7 +142,7 @@ We pass the *query(token_ids)* tensor which
 is sent with the query and the passage token ids which is read from the in-memory attribute field (*text_token_ids*).
 The number 128 is the maximum model input sequence length. 
 
-The query tensor representation *(query(query_token_ids))* is created in a custom query processor [RetrievalModelSearcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/searcher/RetrievalModelSearcher.java)
+The query tensor representation *(query(query_token_ids))* is created in a custom query processor [RetrievalModelSearcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/searcher/RetrievalModelSearcher.java)
 which converts the free text query input from the
 user to a tensor representation using the same BertTokenizer as used by the custom document processor. 
 
