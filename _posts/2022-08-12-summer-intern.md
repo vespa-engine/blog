@@ -84,6 +84,7 @@ The first iteration of the transformation tool could handle simple traces from V
     ]
   }
 }
+</pre>
 </td>
 <td style="vertical-align: top;">
 <pre>
