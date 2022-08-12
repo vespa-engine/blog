@@ -123,6 +123,12 @@ authors:
     avatar: '/assets/avatars/mpolden.jpg'
     email: mpolden@yahooinc.com
     description: "Senior Vespa Engineer"
+  enikolaisen:
+    name: Erlend Solbakken Nikolaisen
+    display_name: Erlend Solbakken Nikolaisen
+    avatar:
+    email: ''
+    description: "Intern I, Summer of 2022"
 
 
 # Plugins
