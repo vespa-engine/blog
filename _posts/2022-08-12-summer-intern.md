@@ -3,7 +3,7 @@ layout: post
 title: "Summer internship at Vespa"
 author: enikolaisen
 date: '2022-08-12'
-image: assets/2022-08-12-summer-intern/internship.jpg
+image: assets/2022-08-12-summer-internship/internship.jpg
 tags: []
 excerpt: After the summer internship of 2022 the intern have summarized what he has done and his experience at Vespa
 ---
