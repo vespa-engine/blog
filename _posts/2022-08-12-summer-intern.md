@@ -35,7 +35,7 @@ The first iteration of the transformation tool could handle simple traces from V
 <th>Vespa trace</th>
 <th>Transformed trace</th>
 </tr>
-<td>
+<td style="vertical-align: top;">
 <pre>
 {
   "trace": {
