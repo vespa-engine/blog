@@ -5,7 +5,7 @@ author: enikolaisen
 date: '2022-08-12'
 image: assets/2022-08-12-summer-internship/internship.jpg
 tags: []
-excerpt: After the summer internship of 2022 the intern have summarized what he has done and his experience at Vespa
+excerpt: After the summer internship of 2022 the intern has summarized what he has done and his experience at Vespa
 ---
 <p class="image-credit">
 Photo by <a href="https://unsplash.com/@clark_fransa">Arnold Francisca</a> on <a href="https://unsplash.com/photos/f77Bh3inUpE">Unsplash</a></p>
