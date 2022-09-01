@@ -16,7 +16,8 @@ Given an image of a product, we want to find
 similar products, but also with the possibility to filter the returned products by inventory status, price or other real world constraints.
 
 We'll be using the 
-[Amazon Products dataset](http://jmcauley.ucsd.edu/data/amazon/links.html) as our demo dataset. The subset we use has about 22K products.  
+<a href="http://jmcauley.ucsd.edu/data/amazon/links.html" data-proofer-ignore>Amazon Products dataset</a>
+as our demo dataset. The subset we use has about 22K products.
 
 - The dataset contains product information like title, description and price and we show how to map the data into the Vespa document model 
 - The dataset also contains binary feature vectors for images, features produced by a neural network model. We'll use these image vectors and show you how to store and index vectors in Vespa. 
