@@ -57,7 +57,13 @@ Our passage tensor representation becomes:
 </pre>
 
 
-We tokenize the passage text using a BertTokenizer deployed as a custom Vespa document processor [DocumentTensorizer.java](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/docproc/DocumentTensorizer.java). The processor uses a java based BERT tokenizer to tokenize and map the text to the tensor representation and store it in a Vespa tensor field. The tensor field is stored in-memory (using the *attribute* indexing declaration) for fast access during the reranking serving phase. This avoids tokenization of the passages at query time and reduces complexity and cost as we only need to tokenize the passage once, and not for every query which touches the passage during re-ranking.
+We tokenize the passage text using a BertTokenizer deployed as a custom Vespa document processor
+<a href="https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/docproc/DocumentTensorizer.java"
+data-proofer-ignore>DocumentTensorizer.java</a>.
+The processor uses a java based BERT tokenizer to tokenize and map the text to the tensor representation and store it in a Vespa tensor field.
+The tensor field is stored in-memory (using the *attribute* indexing declaration) for fast access during the reranking serving phase.
+This avoids tokenization of the passages at query time and reduces complexity and cost as we only need to tokenize the passage once,
+and not for every query which touches the passage during re-ranking.
 
 The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd), including the new *text_token_ids* field: 
 
