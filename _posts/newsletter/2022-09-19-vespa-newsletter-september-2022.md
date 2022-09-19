@@ -44,12 +44,16 @@ New beta applications for building queries and analyzing query traces available 
 This is the first step towards helping users experiment easily with queries,
 and the Trace Visualizer can be used to help pinpoint query latency bottlenecks.
 
+<a href="https://github.com/vespa-engine/vespa/tree/master/client/js/app">
 <img src="https://raw.githubusercontent.com/vespa-engine/vespa/master/client/js/app/img/querybuilder.png"
   width="550px" height="auto" alt="Query Builder"/>
+</a>
 
 
+<a href="https://github.com/vespa-engine/vespa/tree/master/client/js/app">
 <img src="https://raw.githubusercontent.com/vespa-engine/vespa/master/client/js/app/img/result.png"
 width="550px" height="auto" alt="Trace Visualizer"/>
+</a>
 
 
 #### Rank trace profiling
