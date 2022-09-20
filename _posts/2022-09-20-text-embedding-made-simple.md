@@ -63,7 +63,7 @@ to your schema outside the document block.
 To get you started we have created a complete and minimal sample application using this:
 [simple-semantic-search](https://github.com/vespa-engine/sample-apps/tree/master/simple-semantic-search).
 
-## Furthe reading
+## Further reading
 
 This should make it easy to get started with embeddings. If you want to dig deeper into the topic, 
 be sure to check out this blog post series on 
