@@ -143,7 +143,7 @@ streaming search with prefix matching to search for documents with matching
 prefixes. After a presentation of the application and some discussion it was
 believed that streaming search would not be scalable as the number of
 concurrent users increased. To test this belief we did a benchmark of the
-application using fbench ([benchmark results](https://github.com/vespa-engine/sample-apps/blob/master/incremental-search/search-suggestions/README-benchmarking.md)).
+application using fbench ([benchmark results](https://github.com/vespa-engine/sample-apps/blob/master/incremental-search/search-suggestions/benchmarking-README.md)).
 As suspected the performance of streaming search drastically decreased as
 the number of concurrent users increased. We decided to change the application
 to use index prefix search, and after a comparison benchmark test it was
