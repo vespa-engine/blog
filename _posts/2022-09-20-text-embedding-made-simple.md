@@ -5,6 +5,7 @@ author: bratseth
 date: '2022-09-20'
 image: assets/2022-09-20-text-embedding-made-simple/embeddings.png
 tags: [vector search, semantic search, embeddings, ANN, HNSW]
+skipimage: true
 excerpt: Vespa now lets you create a production quality semantic search application from scratch in minutes
 ---
 
