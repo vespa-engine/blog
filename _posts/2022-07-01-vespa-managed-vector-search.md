@@ -128,7 +128,7 @@ With this vector search sample application, you have a great starting point for
 implementing your vector search use case, without worrying about managing complex infrastructure. 
 See also other Vespa sample applications using vector search:
 
-- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md):
+- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md):
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval.
 The application has multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html)
 pipelines. Furthermore, the application shows how embedding models, which map the text data to vector representation, can be
