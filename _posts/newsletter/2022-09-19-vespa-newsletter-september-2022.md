@@ -26,7 +26,7 @@ it is easy to measure relative query performance on a per-document-level,
 like "Which documents appear most often in results, which ones never do?".
 The statistics are written in configurable attributes per document,
 for analysis using the Vespa query- and aggregation APIs.
-Use this feature to real-time tracking of ranking performance,
+Use this feature for real-time tracking of ranking performance,
 and combine with [real-time updates](https://docs.vespa.ai/en/partial-updates.html) for tuning.
 
 
