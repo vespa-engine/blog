@@ -38,7 +38,9 @@ On Vespa 8.54.61 or higher, simply add this to your services.xml file under &lt;
 </component>
 ```
 
-The model files here can be any [BERT style model](https://www.sbert.net) and vocabulary, we recommend this one: https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3.
+The model files here can be any [BERT style model](https://www.sbert.net) and vocabulary,
+we recommend this one:
+[huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3).
 
 With this deployed, you can automatically 
 [convert query text](https://docs.vespa.ai/en/embedding.html#embedding-a-query-text) 
