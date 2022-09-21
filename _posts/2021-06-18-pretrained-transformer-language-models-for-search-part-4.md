@@ -23,7 +23,7 @@ In this 4th and last post in our blog post series on pretrained transformer mode
 We deploy this model as our final ranking stage in our multiphase retrieval and ranking pipeline. We submit our end to end retrieval and ranking result to the [MS Marco Passage Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Passage-Ranking-Submissions/leaderboard). 
 
 We benchmark all the retrieval and ranking methods introduced in this blog post series to quantify their serving cost versus ranking accuracy. 
-We also release a complete [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md) which lets try out these state of the art retrieval and ranking methods. 
+We also release a complete [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md) which lets try out these state of the art retrieval and ranking methods. 
 
 ## Introduction
 
@@ -313,7 +313,7 @@ In this blog post we have demonstrated how to represent a cross encoder model as
 * Documented the performance versus accuracy trade-offs for production deployments. 
 * Dense retrieval accelerated by nearest neighbor search versus sparse retrieval accelerated by the dynamic pruning WAND algorithm.
 
-Now, you can go check out our [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md) which lets you 
+Now, you can go check out our [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md) which lets you 
 try out these state of the art retrieval and ranking methods. 
 
  
