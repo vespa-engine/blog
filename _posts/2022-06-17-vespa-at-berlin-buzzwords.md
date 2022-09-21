@@ -82,7 +82,7 @@ and new friends and connections were made.
 
 If you were inspired by the Vespa talks you can get started by the following Vespa sample applications:
 
-- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking.md): 
+- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md): 
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval. 
 The application has multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html) 
 pipelines. Furthermore, the application shows how embedding models, which map the text data to vector representation, can be 
