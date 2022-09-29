@@ -62,4 +62,6 @@ Critical features such as [phrase search](https://docs.vespa.ai/en/reference/que
 Not anecdotes in a sales presentation, but proven ranking results,
 [available to anyone to reproduce](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md).
 
-If you are interested in learning more about Vespa and how organizations like [Spotify are using Vespa](https://engineering.atspotify.com/2022/03/introducing-natural-language-search-for-podcast-episodes/) to unlock the full potential of hybrid search and neural ranking, check out the [Vespa Blog](https://blog.vespa.ai/) or get started with one of many [Vespa sample applications](https://github.com/vespa-engine/sample-apps). All the sample applications can either be deployed on-premise on your infrastructure or [using Vespa Cloud](https://cloud.vespa.ai/).
+If you are interested in learning more about Vespa and how organizations like
+[Spotify are using Vespa](https://engineering.atspotify.com/introducing-natural-language-search-for-podcast-episodes/)
+to unlock the full potential of hybrid search and neural ranking, check out the [Vespa Blog](https://blog.vespa.ai/) or get started with one of many [Vespa sample applications](https://github.com/vespa-engine/sample-apps). All the sample applications can either be deployed on-premise on your infrastructure or [using Vespa Cloud](https://cloud.vespa.ai/).
