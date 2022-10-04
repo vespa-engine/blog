@@ -16,12 +16,12 @@ excerpt: Vespa Cloud now provides pre-trained ML models for your applications
 
 # Pre-trained models on Vespa Cloud
 
-Vespa can now [https://blog.vespa.ai/text-embedding-made-simple/](convert text to embeddings for you automatically), 
+Vespa can now [convert text to embeddings for you automatically](https://blog.vespa.ai/text-embedding-made-simple/), 
 if you don’t want to bring your own vectors - but you still need to provide the ML models to use.
 
 On Vespa Cloud we’re now making this even simpler, by also providing pre-trained models you can use for such tasks. 
 To take advantage of this, just pick the models you want from 
-[https://cloud.vespa.ai/en/model-hub](https://cloud.vespa.ai/en/model-hub) and refer 
+[cloud.vespa.ai/en/model-hub](https://cloud.vespa.ai/en/model-hub) and refer
 to them in your application by supplying a model-id where you would otherwise use path or url. For example:
 
 ```
