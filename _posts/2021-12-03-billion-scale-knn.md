@@ -136,7 +136,7 @@ distance metrics</a>, including `euclidean`, `angular`, and bitwise
 To represent binary-coded vectors in Vespa, one should use first-order tensors
 with the `int8` tensor cell precision type. For example, to represent a 128-bit code using
 Vespa tensors, one can use a 16-dimensional dense (indexed) tensor using `int8` value type
-(16*8 = 128 bits). The <a href="https://docs.vespa.ai/documentation/schemas.html">
+(16*8 = 128 bits). The <a href="https://docs.vespa.ai/en/schemas.html">
 Vespa document schema</a> below defines a numeric id field
 of type `int`, representing the vector document id in addition to the binary-coded
 vector using a dense first-order tensor. The `b` denotes the tensor dimension

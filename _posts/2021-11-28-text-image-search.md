@@ -215,7 +215,7 @@ use the cosine distance between the provided query vector and the
 
 Using the above, we can issue a [query that performs an approximate nearest
 neighbor
-search](https://docs.vespa.ai/en/approximate-nn-hnsw.html#approximate-nearest-neighbor-query):
+search](https://docs.vespa.ai/en/approximate-nn-hnsw.html#using-approximate-nearest-neighbor-search):
 
 ```
 {

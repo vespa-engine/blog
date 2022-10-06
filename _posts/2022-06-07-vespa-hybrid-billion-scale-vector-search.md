@@ -256,7 +256,7 @@ The dataset's ground truth neighbors are used to evaluate the
 accuracy (recall) of the hybrid `HNSW-IF` approach. 
 
 ### Vespa Schema 
-The sample application uses the following Vespa [document schema](https://docs.vespa.ai/documentation/schemas.html).
+The sample application uses the following Vespa [document schema](https://docs.vespa.ai/en/schemas.html).
 Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field-types) 
 include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byte`, and `tensor` fields. 
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 

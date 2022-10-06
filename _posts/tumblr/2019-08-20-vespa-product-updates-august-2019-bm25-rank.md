@@ -27,7 +27,9 @@ A [reference attribute field](https://docs.vespa.ai/en/reference/schema-referenc
 
 **Tensor in Summary Features**
 
-A tensor can now be returned in summary features. This makes rank tuning easier and can be used in custom [Searchers](https://docs.vespa.ai/en/searcher-development.html) when generating result sets. [Read more](https://docs.vespa.ai/en/ranking.html#summary-features-getting-match-information-in-the-results).
+A tensor can now be returned in summary features.
+This makes rank tuning easier and can be used in custom [Searchers](https://docs.vespa.ai/en/searcher-development.html) when generating result sets.
+[Read more](https://docs.vespa.ai/en/reference/schema-reference.html#summary-features).
 
 **Metrics Export**
 

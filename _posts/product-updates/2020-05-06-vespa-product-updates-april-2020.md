@@ -41,7 +41,7 @@ Read more in [monitoring](https://docs.vespa.ai/en/monitoring.html).
 
 
 #### CentOS 7 Dev Environment
-A [development environment](https://github.com/vespa-engine/docker-image-dev#vespa-development-on-centos-7)
+A [development environment](https://github.com/vespa-engine/docker-image-dev)
 for Vespa on CentOS 7 is now available.
 This ensures that the turnaround time between code changes and running unit tests and system tests is short,
 and makes it easier to contribute to Vespa.

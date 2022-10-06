@@ -15,7 +15,7 @@ excerpt: Learn how to secure both the application container and the Vespa intern
  Jason Dent</a> on <a href="https://unsplash.com?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
 
-Open source Vespa has always supported [securing container endpoints](https://docs.vespa.ai/en/jdisc/http-server-and-filters.html#ssl) with mutually
+Open source Vespa has always supported [securing container endpoints](https://docs.vespa.ai/en/jdisc/http-server-and-filters.html#tls) with mutually
 authenticated Transport Layer Security (*mTLS*). Recently mTLS support was extended to also include all cluster-internal
 communication.
 
@@ -76,7 +76,7 @@ hosts (assuming the user has access to the key material).
 
 ## Application container endpoints
 Application container TLS for HTTPS is configured in `services.xml`. For details see 
-[TLS in Configuring Http Servers and Filters](https://docs.vespa.ai/en/jdisc/http-server-and-filters.html#ssl).
+[TLS in Configuring Http Servers and Filters](https://docs.vespa.ai/en/jdisc/http-server-and-filters.html#tls).
 The sample application contains the following configuration inside the `<container>` tag:
 ```xml
 <http>

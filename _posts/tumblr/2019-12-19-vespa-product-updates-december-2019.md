@@ -21,7 +21,10 @@ Today, we’re excited to share the following updates:
 
 **Improved ONNX Support**
 
-Vespa has added more operations to its ONNX model API, such as GEneral Matrix to Matrix Multiplication (GEMM) - see [list of supported opsets](https://docs.vespa.ai/en/onnx.html#onnx-operation-support). Vespa has also improved support for PyTorch through ONNX, see the pytorch_test.py [example](https://github.com/vespa-engine/vespa/blob/master/model-integration/src/test/models/pytorch/pytorch_test.py#L60).
+Vespa has added more operations to its ONNX model API, such as GEneral Matrix to Matrix Multiplication (GEMM) -
+see [list of supported opsets](https://docs.vespa.ai/en/onnx.html).
+Vespa has also improved support for PyTorch through ONNX,
+see the pytorch_test.py [example](https://github.com/vespa-engine/vespa/blob/master/model-integration/src/test/models/pytorch/pytorch_test.py#L60).
 
 **New Rank Feature attributeMatch().maxWeight**
 

@@ -332,7 +332,7 @@ res.hits[0]
 
 
 We can also define the same query by using the
-[QueryModel](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespa.query.QueryModel) abstraction
+[QueryModel](https://pyvespa.readthedocs.io/en/latest/reference-api.html#querymodel) abstraction
 that allows us to specify how we want to match and rank our documents. In this case, we defined that we want to:
 
 * match our documents using the `OR` operator, which matches all the documents that share at least one term with the query.

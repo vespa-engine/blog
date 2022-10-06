@@ -13,7 +13,10 @@ In this post we’d like to introduce this new feature by discussing how it work
 
 Vespa is optimized to evaluate models repeatedly over many data items (documents). &nbsp;To do this efficiently, we do not evaluate the model using the TensorFlow inference engine. TensorFlow adds a non-trivial amount of overhead and instrumentation which it uses to manage potentially large scale computations. This is significant in our case, since we need to evaluate models on a micro-second scale. Hence our approach is to extract the parameters (weights) into Vespa tensors, and use the model specification in the TensorFlow graph to generate efficient Vespa tensor expressions.
 
-Importing TensorFlow models is as simple as saving the TensorFlow model using the [SavedModel API](https://www.tensorflow.org/programmers_guide/saved_model#overview_of_saving_and_restoring_models), adding those files to the Vespa application package, and referencing the model using the new TensorFlow ranking feature. For instance, if your files are in _models/my\_model_ in the application package:
+Importing TensorFlow models is as simple as saving the TensorFlow model using the
+[SavedModel API](https://www.tensorflow.org/guide/saved_model),
+adding those files to the Vespa application package, and referencing the model using the new TensorFlow ranking feature.
+For instance, if your files are in _models/my\_model_ in the application package:
 
 > _first-phase {  
 > &nbsp; &nbsp; expression: sum(tensorflow(“my\_model/saved”))  

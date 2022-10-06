@@ -53,7 +53,7 @@ container query profiles configuration load 10x faster for an extreme use case w
 
 
 #### Explainlevel Query Parameter
-Use the new [explainlevel](https://docs.vespa.ai/en/reference/query-api-reference.html#explainlevel)
+Use the new [explainlevel](https://docs.vespa.ai/en/reference/query-api-reference.html#trace.explainLevel)
 query parameter to trace query execution in Vespa.
 With this, you can see the query plan used in the matching and ranking engine -
 use this for low level debugging of query execution.

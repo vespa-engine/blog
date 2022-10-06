@@ -40,7 +40,7 @@ documents <em>matching</em> the query specification. The stateless layer
 merges the top 100 ranking <em>matches</em> from
 all the content nodes and retains the global 100 top-ranking hits. 
 The number of hits that are returned is controlled by the
-[hits](https://docs.vespa.ai/documentation/reference/query-api-reference.html#hits)
+[hits](https://docs.vespa.ai/en/reference/query-api-reference.html#hits)
 or the [YQL limit
 ](https://docs.vespa.ai/en/reference/query-language-reference.html#limit-offset) parameter. 
 See also [Vespa search sizing](https://docs.vespa.ai/en/performance/sizing-search.html)
