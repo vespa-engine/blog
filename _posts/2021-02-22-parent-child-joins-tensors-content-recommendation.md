@@ -65,7 +65,7 @@ One challenge is that some articles have 1 topic (so just 1 topic CTR) while som
 
 We compute the average and maximum using Vespa’s [Tensor API](https://docs.vespa.ai/en/tensor-user-guide.html). A tensor is a vector with labeled dimensions, and Vespa provides API functions like `sum`, `argmax`, and `*` (elementwise multiplication) that operate on input tensors to compute features.
 
-The [rank profile](https://docs.vespa.ai/en/ranking.html#rank-profile) code that computes these ranking features is:
+The [rank profile](https://docs.vespa.ai/en/ranking.html#rank-profiles) code that computes these ranking features is:
 
 ```
 import field ptr.topic_ctrs as global_topic_ctrs {}

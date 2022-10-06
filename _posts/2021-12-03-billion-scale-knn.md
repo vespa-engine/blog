@@ -289,7 +289,7 @@ By default, Vespa sorts documents by descending relevancy score,
 hence the `closeness(field,name)` rank feature uses
 `1/(1 + distance())` as the relevance score. 
 
-The observant reader might have noticed the <a href="https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search">
+The observant reader might have noticed the <a href="https://docs.vespa.ai/en/reference/schema-reference.html#num-threads-per-search">
 num-threads-per-search</a> ranking profile setting.
 This setting allows parallelizing the search and ranking using
 multiple CPU threads, reducing the overall serving latency at the cost of
