@@ -32,8 +32,8 @@ On Vespa 8.54.61 or higher, simply add this to your services.xml file under &lt;
 ```
 <component id="bert" class="ai.vespa.embedding.BertBaseEmbedder" bundle="model-integration">
     <config name="embedding.bert-base-embedder">
-        <transformerModel path="models/bert-embedder.onnx"/>
-        <tokenizerVocab path="models/vocab.txt"/>
+        <transformerModel path="model/bert-embedder.onnx"/>
+        <tokenizerVocab path="model/vocab.txt"/>
     </config>
 </component>
 ```
