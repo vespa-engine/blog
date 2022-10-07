@@ -37,8 +37,7 @@ scale.
 
 
 Any machine learning algorithm must transform the input and output data into a data format the machine understands. This
-is where vectors and, generally, tensors come into the picture. Everything can be represented as
-a vector in high dimensional vector space. 
+is where vectors and, generally, tensors come into the picture.
 
 > **Everything can be represented as a vector in high-dimensional vector space**
 
@@ -79,9 +78,10 @@ store.
 
 Over the past few years, we have made a few observations around scaling vector search to billions of data items:
 
-* First, surprisingly, many organizations have a lot of raw unstructured data, petabytes of data that easily reach
-* billions of rows. Second, AI models to generate vector representations from this data have become a commodity, thanks
-* to [Huggingface](https://huggingface.co/). 
+* Surprisingly, many organizations have a lot of raw unstructured data,
+  petabytes of data that easily reach billions of rows.
+* AI models to generate vector representations from this data have become a commodity,
+  thanks to [Huggingface](https://huggingface.co/). 
 * Few organizations have Google’s level of query traffic searching the data.
 * Few organizations need query serving latency much lower than the blink of an eye [^1].
 * Query volume changes and pre-provisioning resources for peak query traffic wastes resources. 
