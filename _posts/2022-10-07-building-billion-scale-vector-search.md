@@ -142,7 +142,7 @@ ann-benchmarks.com](http://ann-benchmarks.com/) and used in production by
 
 
 ### Highly Extensible Architecture
-![architecture](/assets/2022-10-07-building-billion-scale-vector-search/architecture.png)
+![architecture](https://docs.vespa.ai/assets/img/vespa-overview.svg)
 
 Vespa allows developers to embed custom components for stateless processing, allowing separation of processing from
 storage content clusters. In addition, support for multiple content clusters allows scaling stateful resources
