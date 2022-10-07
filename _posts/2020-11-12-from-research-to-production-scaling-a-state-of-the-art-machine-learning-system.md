@@ -29,8 +29,7 @@ important. Likewise, accurate responses can be produced at high cost.
 Which solution to ultimately choose lies somewhere between these extremes. A
 useful technique for selecting the best solution is to enumerate them in terms
 of accuracy and cost. The set of solutions not dominated by others is called
-the [Pareto
-frontier](https://en.wikipedia.org/wiki/Pareto_efficiency#Pareto_frontier) and
+the [Pareto frontier](https://en.wikipedia.org/wiki/Pareto_front) and
 identifies the best trade-offs between accuracy and cost.
 
 In a [previous blog

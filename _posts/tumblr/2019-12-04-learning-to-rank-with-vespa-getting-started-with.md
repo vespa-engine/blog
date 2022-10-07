@@ -12,7 +12,9 @@ tags:
 - learning to rank
 tumblr_url: https://blog.vespa.ai/post/189478730081/learning-to-rank-with-vespa-getting-started-with
 ---
-[Vespa.ai](https://vespa.ai/) have just published two tutorials to help people to get started with text search applications by building scalable solutions with Vespa. The tutorials were based on the [full document ranking task](https://github.com/microsoft/TREC-2019-Deep-Learning#document-ranking-task) released by [Microsoft’s MS MARCO dataset](http://www.msmarco.org/)’s team.
+[Vespa.ai](https://vespa.ai/) have just published two tutorials to help people to get started with text search applications by building scalable solutions with Vespa.
+The tutorials were based on the [full document ranking task](https://microsoft.github.io/msmarco/TREC-Deep-Learning-2019#document-ranking-task)
+released by [Microsoft’s MS MARCO dataset](http://www.msmarco.org/)’s team.
 
 [The first tutorial](https://docs.vespa.ai/en/tutorials/text-search.html) helps you to create and deploy a basic text search application with Vespa as well as to download, parse and feed the dataset to a running Vespa instance. They also show how easy it is to experiment with ranking functions based on built-in ranking features available in Vespa.
 

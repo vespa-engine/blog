@@ -46,7 +46,7 @@ Thanks to [Kyle Rowan](https://github.com/karowan) for submitting this in
 
 #### Improved feed-block at full node
 Vespa has protection against corrupting indices when exhausting disk or memory:
-Content nodes [block writes](https://docs.vespa.ai/en/reads-and-writes.html#feed-block ) at a given threshold.
+Content nodes [block writes](https://docs.vespa.ai/en/operations/feed-block.html) at a given threshold.
 Recovering from a blocked-write situation is now made easier with
 [resource-limits](https://docs.vespa.ai/en/reference/services-content.html#resource-limits) -
 this blocks external writes at a lower threshold than internal redistribution,

@@ -32,7 +32,7 @@ Likewise, search systems using vector search need to support filtering.
 For example, typical e-commerce search interfaces allow users to navigate and filter search results using result facets. 
 
 Vespa's document model supports representing multiple field and collection types in the same 
-[document schema](https://docs.vespa.ai/documentation/schemas.html).
+[document schema](https://docs.vespa.ai/en/schemas.html).
 Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field-types) 
 include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byte`, and `tensor` fields. 
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 
@@ -41,7 +41,7 @@ ranging from `int8` for binary vectors to `bfloat16`, `float`, and `double` for 
 Allowing vectors and other field types in the same document schema enables searching the vector field(s) in 
 combination with filters expressed over other fields. 
 
-This blog post uses the following [Vespa document schema](https://docs.vespa.ai/documentation/schemas.html) 
+This blog post uses the following [Vespa document schema](https://docs.vespa.ai/en/schemas.html)
 to exemplify combining vector search with filters:
 
 <pre>

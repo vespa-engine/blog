@@ -277,7 +277,7 @@ performance of brute force search? Without *HNSW* graph indexing, the complexity
 the total document volume, so that is surely slow for 1B documents?
 
 To overcome the latency issue, we can use one of the essential Vespa features: Executing a query using multiple
-[search threads](https://docs.vespa.ai/en/performance/sizing-search.html#num-threads-per-search). 
+[search threads](https://docs.vespa.ai/en/reference/schema-reference.html#num-threads-per-search).
 By using more threads per query, Vespa can make better use of multi-CPU core architectures and
 reduce query latency at the cost of increased CPU usage per query. See more on scaling latency 
 versus throughput using multi-threaded search in the Vespa 

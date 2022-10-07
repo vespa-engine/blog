@@ -16,7 +16,8 @@ both *x86_64* and *ARM64* architectures from version *8.37.26*.
 
 <img src="/assets/2022-02-16-preview-of-vespa-on-arm64/jeremy-bezanger-wl8hZoJBSU8-unsplash.jpg"/>
 <p class="image-credit">
-Photo by <a href="https://unsplash.com/@unarchive?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeremy Bezanger</a> on <a href="https://unsplash.com/s/photos/cpu?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by <a href="https://unsplash.com/@unarchive?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" data-proofer-ignore>Jeremy Bezanger</a>
+on <a href="https://unsplash.com/s/photos/cpu?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
 
 Vespa artifacts like RPMs and container images are currently only released for the *x86_64* CPU architecture. This is what we use internally at Yahoo and our dedication to delivering battle proven versions to the public causes this to be the architecture of choice. With the emerging interest in the *ARM64* CPU architecture that powers both the [AWS Graviton EC2 instances](https://aws.amazon.com/ec2/graviton/) and the [Apple M1 MacBooks](https://www.apple.com/macbook-pro/), we have decided to make a preview for Vespa on this architecture.

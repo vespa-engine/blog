@@ -110,7 +110,9 @@ app_package.schema.add_rank_profile(
 
 ## Deploy your application
 
-We have now defined a basic text search app containing relevant fields, a fieldset to group fields together, and a rank profile to rank matched documents. It is time to deploy our application. We can locally deploy our `app_package` using Docker without leaving the notebook, by creating an instance of [VespaDocker](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespa.package.VespaDocker), as shown below:
+We have now defined a basic text search app containing relevant fields, a fieldset to group fields together, and a rank profile to rank matched documents. It is time to deploy our application. We can locally deploy our `app_package` using Docker without leaving the notebook,
+by creating an instance of [VespaDocker](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespadocker),
+as shown below:
 
 
 ```python
@@ -329,7 +331,9 @@ res.hits[0]
 
 
 
-We can also define the same query by using the [QueryModel](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespa.query.QueryModel) abstraction that allows us to specify how we want to match and rank our documents. In this case, we defined that we want to:
+We can also define the same query by using the
+[QueryModel](https://pyvespa.readthedocs.io/en/latest/reference-api.html#querymodel) abstraction
+that allows us to specify how we want to match and rank our documents. In this case, we defined that we want to:
 
 * match our documents using the `OR` operator, which matches all the documents that share at least one term with the query.
 * rank the matched documents using the `bm25` rank profile defined in our application package.

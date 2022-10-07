@@ -147,7 +147,7 @@ Now you can _duplicate_ the imported Collection and replace the endpoint to the 
 Test that you can access the secured endpoint by running a query.
 
 Pro Tip: It is also possible to install the certificate/key-pair
-[in a browser](https://cloud.vespa.ai/en/security-model.html#using-a-browser)
+[in a browser](https://cloud.vespa.ai/en/security/guide#using-a-browser)
 to use interfaces without Postman, too.
 
 

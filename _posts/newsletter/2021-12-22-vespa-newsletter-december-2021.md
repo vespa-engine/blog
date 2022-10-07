@@ -32,7 +32,7 @@ Query latency might improve too, due to less memory bandwidth used.
 
 Refer for [#20073 Representing SPANN with Vespa](https://github.com/vespa-engine/vespa/issues/20073)
 for details on this work, and also see
-[Bringing the neural search paradigm shift to production](https://docs.google.com/presentation/d/1vWKhSvFH-4MFcs4aNa9CNAy4m_TRMNJ0oJ_va7t3OFA/edit#slide=id.p1)
+[Bringing the neural search paradigm shift to production](https://docs.google.com/presentation/d/1vWKhSvFH-4MFcs4aNa9CNAy4m_TRMNJ0oJ_va7t3OFA)
 from the London Information Retrieval Meetup Group.
 
 

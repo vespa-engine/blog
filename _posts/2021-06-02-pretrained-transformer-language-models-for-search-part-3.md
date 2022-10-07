@@ -12,7 +12,8 @@ excerpt: "This is the third blog post in a series of posts where we introduce us
 
 ![Decorative image](/assets/2021-06-02-pretrained-transformer-language-models-for-search-part-3/frank-busch-Oxe3bgeweUI-unsplash.jpg)
 <p class="image-credit">
-  Photo by <a href="https://unsplash.com/@frankbusch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Frank Busch</a> on <a href="https://unsplash.com/s/photos/dog-fetch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>  
+  Photo by <a href="https://unsplash.com/@frankbusch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" data-proofer-ignore>Frank Busch</a>
+  on <a href="https://unsplash.com/s/photos/dog-fetch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
 
 *In this blog series we demonstrate how to represent transformer models in a multiphase retrieval and ranking pipeline using Vespa.ai. We also evaluate these models on the largest Information Retrieval relevance dataset, namely the MS Marco Passage ranking dataset. We demonstrate how to achieve close to state of the art ranking using miniature transformer models with just 22M parameters,  beating large ensemble models with billions of parameters.*
