@@ -11,8 +11,9 @@ excerpt: "With the increasing adoption of ARM64 based hardware like the AWS Grav
 ---
 
 **Update 2022-08-25:**
-The preview image will no longer be published for new Vespa versions as all the [Vespa container images](https://docs.vespa.ai/en/build-install-vespa.html#docker-images) now support
-both *x86_64* and *ARM64* architectures from version *8.37.26*.
+The preview image will no longer be published for new Vespa versions as all the
+[Vespa container images](https://docs.vespa.ai/en/build-install-vespa.html#container-images)
+now support both *x86_64* and *ARM64* architectures from version *8.37.26*.
 
 <img src="/assets/2022-02-16-preview-of-vespa-on-arm64/jeremy-bezanger-wl8hZoJBSU8-unsplash.jpg"/>
 <p class="image-credit">
