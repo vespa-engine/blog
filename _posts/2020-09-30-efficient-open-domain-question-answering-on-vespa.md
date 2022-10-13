@@ -210,7 +210,7 @@ token of being a start token and an end token. The final answer is chosen by
 finding the span with the largest sum of start probability and end probability.
 This results in a sequence of tokens, which must be converted to words by the
 tokenizer before returning. The DPR paper [uses a BERT-based
-model](https://huggingface.co/transformers/model_doc/dpr.html#dprreader) to
+model](https://huggingface.co/docs/transformers/v4.23.1/en/model_doc/dpr#transformers.DPRReader) to
 output span predictions.
 
 ### Putting all this together
