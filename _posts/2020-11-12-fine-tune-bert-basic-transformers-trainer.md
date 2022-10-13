@@ -69,7 +69,7 @@ train_queries, val_queries, train_docs, val_docs, train_labels, val_labels = tra
 
 ## Create BERT encodings
 
-Create train and validation encodings. In order to do that we need to chose [which BERT model to use](https://huggingface.co/transformers/pretrained_models.html). We will use [padding and truncation](https://huggingface.co/transformers/preprocessing.html#everything-you-always-wanted-to-know-about-padding-and-truncation) because the training routine expects all tensors within a batch to have the same dimensions.
+Create train and validation encodings. In order to do that we need to chose [which BERT model to use](https://huggingface.co/transformers/pretrained_models.html). We will use [padding and truncation](https://huggingface.co/docs/transformers/pad_truncation) because the training routine expects all tensors within a batch to have the same dimensions.
 
 
 ```python
