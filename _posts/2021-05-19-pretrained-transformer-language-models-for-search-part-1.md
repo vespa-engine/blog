@@ -89,8 +89,9 @@ at query time, use nearest neighbor search for efficient document retrieval.
 
 
 Document retrieval using dense embedding models, is commonly referred to as *dense retrieval*. 
-The query and the document is embedded independently, and the model is during training given examples of the form (query, relevant passage, negative passage) and the model(s) weights are adjusted per batch of training triplets. T
-he embedding representation from the Transformer model could be based on for example the CLS token of BERT (Classification Token), or using a pooling strategy over the last Transformer layer.
+The query and the document are embedded independently, and the model is during training given examples of the form (query, relevant passage, negative passage).
+The model(s) weights are adjusted per batch of training triplets.
+The embedding representation from the Transformer model could be based on for example the CLS token of BERT (Classification Token), or using a pooling strategy over the last Transformer layer.
 
 The huge benefit of using representation based similarity on top of Transformer models is that the document representation can be produced offline by encoding them through the trained transformer and unless the model changes, this only needs to be done once when indexing the document. At online serving time, the serving system only needs to obtain the query embedding by running the query through the transformer model and use the resulting query embedding vector as the input to a nearest neighbor search in the dense embedding space to find relevant documents. On the MS Marco Passage ranking set, dense retrieval using a learned representation has demonstrated good results over the last year or so. Dense retrievers achieve much better accuracy (MRR@10 and Recall@1000) than sparse traditional search using exact lexical matching (e.g BM25) and the current state-of-the-art uses a dense retriever as the first phase candidate selection for re-ranking using a more sophisticated (and computationally expensive) all-to-all interaction model. 
 
