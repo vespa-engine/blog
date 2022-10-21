@@ -15,6 +15,7 @@ excerpt: "This is the first blog post in a series of posts where we introduce us
 <p class="image-credit"> 
 Photo by <a href="https://unsplash.com/@jamie452?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jamie Street</a> 
 on <a href="https://unsplash.com/s/photos/retriever?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+*Updated 2022-10-21: Added links and clarified some sections*
 
 In this blog series we demonstrate how to represent transformer models in a multi-phase retrieval and ranking pipeline using Vespa.ai. 
 We also evaluate these models on the largest Information Retrieval (IR) relevance dataset, namely the MS Marco Passage ranking dataset. 
