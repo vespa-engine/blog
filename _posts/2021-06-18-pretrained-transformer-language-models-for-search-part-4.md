@@ -256,8 +256,8 @@ The *{d0:0,d1:0}* access the logit score. (*d0:0* is the batch dimension which a
 - In the last phase, the top ranking 24 passages from the previous phase are evaluated by the cross attention model. 
 - The final ranking score is a linear combination of all three ranking scores. The *rerank-count* can also be adjusted by a query parameter 
 
-Observe that reusing scores from the previous ranking phases does not impact serving performance a
-s they are only evaluated once (per hit) and cached. 
+Observe that reusing scores from the previous ranking phases does not impact serving performance,
+as they are only evaluated once (per hit) and cached. 
 
 The linear weights 
 of the three different transformer scores was obtained by a simple grid search observing 
