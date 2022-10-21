@@ -14,7 +14,14 @@ excerpt: "This is the second blog post in a series of posts where we introduce u
 <p class="image-credit">
 Photo by <a href="https://unsplash.com/@robfuller?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rob Fuller</a> on <a href="https://unsplash.com/s/photos/dog-fetch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
+*Updated 2022-10-21: Added links and clarified some sections*
+
 *In this blog series we demonstrate how to represent transformer models in a multiphase retrieval and ranking pipeline using Vespa.ai. We also evaluate these models on the largest Information Retrieval relevance dataset, namely the MS Marco Passage ranking dataset. We demonstrate how to achieve close to state of the art ranking using miniature transformer models with just 22M parameters,  beating large ensemble models with billions of parameters.*
+
+- [Post one: Introduction to neural ranking and the MS Marco passage ranking dataset](../pretrained-transformer-language-models-for-search-part-1/)
+- [Post two: Efficient retrievers, sparse, dense, and hybrid retrievers](#)
+- [Post three: Re-ranking using multi-representation models (ColBERT)](../pretrained-transformer-language-models-for-search-part-3/)
+- [Post four: Re-ranking using cross-encoders](../pretrained-transformer-language-models-for-search-part-4/))
 
 In the [first post](../pretrained-transformer-language-models-for-search-part-1/) in this series we introduced using pre-trained models for ranking. In this second post we study efficient candidate retrievers which can be used to efficiently find candidate documents which are re-ranked using more advanced models. 
 
@@ -237,7 +244,8 @@ We evaluate the ranking effectiveness of two efficient retrievers on MS Marco Pa
 | nearestNeighbor  | innerproduct | 0.310  | 0.82       | 0.87       | 0.94        |
 
 
-The end to end runtime latency (including query encoding for the nearestNeighbor method) is roughly 20ms for the precision oriented run where we use it as a single stage retriever and retrieve 10 hits. 
+The end to end runtime latency (including query encoding for the nearestNeighbor method) is 
+roughly 20ms for the precision oriented run where we use it as a single stage retriever and retrieve 10 hits. 
 
 Example evaluation run using the dense retriever (single threaded client query execution). The Vespa api endpoint performs query encoding and retrieval using nearest neighbor search. 
 
@@ -255,13 +263,12 @@ QueriesRanked: 6980
 
 Sparse using WAND/BM25 is a little bit faster (no query encoding) and is at about 15 ms when used as a single stage retriever fetching 10 hits. Fetching 1000 hits to evaluate recall (using e.g [trec_eval](https://github.com/usnistgov/trec_eval)) with higher number of hits returned takes more time as one needs to transfer more data over the network. This is also an important observation as Vespa evalutes ranking stages inside the content node(s) so we don't need to transfer data to perform re-ranking in an external serving system. As we can see from the recall metrics, with sparse (bm25) single stage retrieval one needs to fetch 1000 documents to have decent recall for the re-ranker to work on. 
 
- We did not perform any HNSW parameter exploration to document vector search recall accuracy (brute force versus approximate) and we also use quantization to speed up query encoding throught the MiniLM model. 
+ We did not perform any HNSW parameter exploration to document vector search recall accuracy (brute force versus approximate) and we also use quantization to speed up query encoding through the MiniLM model. 
 
 What stands out is not only the MRR@10 which is a precision oriented metric but the good Recall@k numbers for the dense retriever. We are more interested in the Recall@k numbers as we plan to introduce re-ranking steps later on and as we can see Recall@100 for the dense retriever is almost the same as the recall@1000 for the sparse retriever. This means we can re-rank about 10x less hits and still expect almost the same precision. Note that the dense retriever is trained on MS Marco, using this dense model on a different domain might not give the same benefit over weakAnd/BM25. 
 
 #  Summary
 In this blog post we have demonstrated how one can represent three different efficient ways to retrieve 
-
 
 * Sparse lexical retrieval accelerated by the WAND query operator and how it compares to exhaustive search (OR) 
 * Dense retrieval accelerated by ANN query operator in Vespa (HNSW) and representing the Transformer based query encoder model in Vespa
@@ -269,6 +276,6 @@ In this blog post we have demonstrated how one can represent three different eff
 * Evaluation on MS Marco Passage ranking 
 
 
-In the third post in this series we will look at re-rankers using ColBERT and in the fourth post we will finally add an all-to-all interaction model to the mix.  
+In the [third post](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-3/) in this series we will look at re-rankers using ColBERT and in the [fourth post](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-4/) we will finally add an all-to-all interaction model to the mix.  
 
  
