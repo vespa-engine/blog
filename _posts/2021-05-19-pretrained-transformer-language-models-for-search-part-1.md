@@ -18,7 +18,7 @@ on <a href="https://unsplash.com/s/photos/retriever?utm_source=unsplash&utm_medi
 
 In this blog series we demonstrate how to represent transformer models in a multi-phase retrieval and ranking pipeline using Vespa.ai. 
 We also evaluate these models on the largest Information Retrieval (IR) relevance dataset, namely the MS Marco Passage ranking dataset. 
-Furthermore, We demonstrate how to achieve close to state of the art ranking using miniature transformer models with just 22M parameters,
+Furthermore, we demonstrate how to achieve close to state-of-the-art ranking using miniature transformer models with just 22M parameters,
 beating large ensemble models with billions of parameters.
 
 Blog posts in this series:
@@ -60,13 +60,13 @@ The reciprocal rank formula is simply 1/(position of the first relevant hit).
 If the judged relevant hit (as judged by a human) is ranked at position 1 the reciprocal rank score is 1. If the relevant hit is found at position 2 the reciprocal rank score is 0.5 and so on. The mean in mean reciprocal rank is simply the mean *RR* over all queries in the dev or test split which gives us an overall score. 
 The MS Marco passage ranking development (dev) set consists of 6,980 queries.
 
-The query relevance judgement list for the development (dev) set is in the public domain. Researchers can based on this compare methods. 
+The query relevance judgment list for the development (dev) set is in the public domain. Researchers can compare methods based on this. 
 The judgements for the eval query set is not in the public domain. Researchers, or industry practitioners, need to submit their ranking for the queries in the test set to have the **MRR@10** evaluated and the ranking run listed on the leaderboard. Note that the MS Marco ranking leaderboards are not run time constrained, so many of the submissions take days of computation to produce ranked lists for the queries in dev and eval splits.   
 
 
 There is unfortunately a lot of confusion in the industry on how BERT can successfully be used for text ranking. 
-The IR research field has moved so fast since the release of BERT in late 2018 that the text books on text ranking are already outdated.
-Since there is no text book, the industry practitioners need to look at how the research community is applying BERT or Transformer models for ranking. 
+The IR research field has moved so fast since the release of BERT in late 2018 that the textbooks on text ranking are already outdated.
+Since there is no textbook, industry practitioners need to look at how the research community is applying BERT or Transformer models for ranking. 
 BERT is a pre-trained language model, and to use it effectively for document or passage ranking, it needs to be fine-tuned for retrieval or ranking.
 For examples of not so great ways to use BERT for ranking, see [How not to use BERT for Document ranking](https://bergum.medium.com/how-not-to-use-bert-for-search-ranking-4586716428d9).
 
@@ -120,7 +120,7 @@ The ability to run the document and obtain the per term contextual embedding off
 
 Similar to the pure representation based model we only need to encode the query through the transformer model at query time. The query tokens only attend to other query tokens, and similar document tokens only attend to other document tokens.  
 
-As demonstrated in the ColBERT paper, the late interaction ColBERT model achieves almost the same ranking accuracy as the more computationally complex all to all query document interaction models. The model is trained in the same way as with representation or all to all interaction models. The downside of the late interaction model is the storage cost of the document term embeddings. Instead of one embedding like with the single-representation model there is an embedding vector per term in the document.  
+As demonstrated in the ColBERT paper, the late interaction ColBERT model achieves almost the same ranking accuracy as the more computationally complex all-to-all query document interaction models. The model is trained in the same way as with representation or all-to-all interaction models. The downside of the late interaction model is the storage cost of the document term embeddings. Instead of one embedding like with the single-representation model there is an embedding vector per term in the document.  
 How large depends on the number of dimensions and the precision used per value (e.g. using bfloat16 saves 50% compared to float32). 
 
 # Multi-phase retrieval and ranking 
@@ -130,7 +130,7 @@ Due to computationally complexity of especially the all to all interaction model
 
 
 Illustration of a multi-stage retrieval and ranking architecture is given in the figure above. The illustration is from [Phased ranking](https://docs.vespa.ai/en/phased-ranking.html) with Vespa. The three phases illustrated in the diagram is per content node, which is retrieving and re-ranking a subset of the total document volume. 
-In addition one can also [re-rank the global top-scoring](https://docs.vespa.ai/en/reranking-in-searcher.html) 
+In addition, one can also [re-rank the global top-scoring](https://docs.vespa.ai/en/reranking-in-searcher.html) 
 documents after the results from the nodes involved in the query are merged to find the global best documents. 
 This step might also involve diversification of the result set before final re-ranking. 
 
@@ -141,7 +141,7 @@ A multi-phase retrieval and ranking architecture is described in [Bert passage r
 Broadly there are two categories of efficient sub-linear retrieval methods and also a hybrid combination of the two. 
 
 ## Sparse Lexical Retrieval
-Classic information retrieval (IR) relying on lexical matching. A technique that has been around since the early days of Information Retrieval. One example of a popular lexical based retrieval scoring function is BM25. Retrieval can be done in sub-linear time using inverted indexes and accelerated by dynamic pruning algorithms like [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html). Dynamic pruning algorithms avoid exhaustively scoring all documents which match at least one of the query terms.  
+Classic information retrieval (IR) relies on lexical matching. A technique that has been around since the early days of Information Retrieval. One example of a popular lexical-based retrieval scoring function is BM25. Retrieval can be done in sub-linear time using inverted indexes and accelerated by dynamic pruning algorithms like [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html). Dynamic pruning algorithms avoid exhaustively scoring all documents which match at least one of the query terms.  
 
 ## Dense Retrieval
 Embedding based models embed or map queries and documents into a latent low dimensional dense embedding vector space and use vector search to retrieve documents. Dense retrieval could be accelerated by using approximate nearest neighbor search, for example indexing the document vector representation using [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) graph indexing. In-domain dense retrievers based on bi-encoder architecture trained on MS Marco passage data have demonstrated that they can outperform sparse lexical retrievers with a large margin. In a multi stage retriever and ranking pipeline, the first stage is focused on getting a good recall at k where k is the re-ranking depth we can afford from a computationally complexity perspective (cost and serving latency). 
