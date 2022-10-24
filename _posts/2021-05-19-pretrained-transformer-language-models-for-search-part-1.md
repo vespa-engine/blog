@@ -35,7 +35,7 @@ documents in a phased retrieval and ranking pipeline.
 
 ## Introduction
 
-Since BERT was first applied to search and document ranking, we at the Vespa team have been busy making it easy to use BERT or Transformer models in general for ranking and question answering with Vespa.ai. In [previous work](https://blog.vespa.ai/efficient-open-domain-question-answering-on-vespa/), 
+Since BERT was first applied to search and document ranking, we at the Vespa team have been busy making it easy to use BERT or Transformer models in general, for ranking and question answering with Vespa.ai. In [previous work](https://blog.vespa.ai/efficient-open-domain-question-answering-on-vespa/), 
 we demonstrated how to use BERT as a representation model (bi-encoder), for efficient passage retrieval for question answering. 
 We also demonstrated how we could [accelerate BERT models for production serving using distillation and quantization](https://blog.vespa.ai/stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/). 
 
