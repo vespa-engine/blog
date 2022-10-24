@@ -98,7 +98,8 @@ sum(
 )
 </pre>
 
-Where *attribute(dt)* is the ColBERT document tensor field and *query(qt)* is the ColBERT query tensor representation. The runtime *query(tq)* tensor is defined in the [query-profiles types](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/search/query-profiles/types/root.xml) as 
+Where *attribute(dt)* is the ColBERT document tensor field and *query(qt)* is the ColBERT query tensor representation.
+The runtime *query(tq)* tensor is defined in _query-profiles/types_ as:
 
 <pre>
 &lt;field name="ranking.features.query(qt)" type="tensor&lt;float&gt;(qt{},x[32])"/&gt;
