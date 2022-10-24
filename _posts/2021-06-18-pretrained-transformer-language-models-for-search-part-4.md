@@ -49,7 +49,7 @@ The cross-encoder model is a transformer based model with a classification head 
 The model has been fine-tuned using the MS Marco passage training set and is a binary classifier which classifies 
 if a query,document pair is relevant or not. 
 
-The cross-encoder model is also based on a 6-layer MiniLM model with only 22.7M parameters, same as the transformer models previously introduced in this blog series. As with the other two transformer models we introduced in previous posts in this series, we integrate this model in Vespa using [ONNX](https://onnx.ai/) format. We demonstrate how to export the model(s) from PyTorch/Transformers to ONNX format in this [Google colab notebook](https://colab.research.google.com/github/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb). The model is hosted on the  [Huggingface🤗](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) model hub. 
+The cross-encoder model is also based on a 6-layer MiniLM model with only 22.7M parameters, same as the transformer models previously introduced in this blog series. As with the other two transformer models we introduced in previous posts in this series, we integrate this model in Vespa using [ONNX](https://onnx.ai/) format. We demonstrate how to export the model(s) from PyTorch/Transformers to ONNX format in this [notebook](https://colab.research.google.com/github/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb). The model is hosted on the [Huggingface](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) model hub. 
 
 We use a quantized version where the original *float* weights have been quantized to *int8* representation to speed up inference on cpu. 
 
@@ -248,7 +248,7 @@ function crossModel() {
   expression: onnx(minilmranker){d0:0,d1:0}
 }
 </pre>
-The *{d0:0,d1:0}* access the logit score. (*d0:0* is the batch dimension which always is of size 1, and *d1:0* is the logit score). 
+The *{d0:0,d1:0}* access the logit score. (*d0:0* is the batch dimension, which always is of size 1, and *d1:0* access the logit score, which is a proxy for the relevancy). 
 
 **Ranking profile summarized**
 
@@ -285,19 +285,16 @@ See [MS Marco Passage Ranking Leaderboard](https://microsoft.github.io/MSMARCO-P
 
 ## Multithreaded retrieval and ranking
 Vespa has the ability to use multiple threads **per search query**. 
-This can in many retrieval and ranking cases reduce search latency as the document retrieval and ranking 
-for a single query can be partitioned so that each thread works on a subset of the searchable documents in an index.
-The number of threads to use is controlled on a per ranking profile,
+This ability can reduce search latency as the document retrieval and ranking 
+for a single query can be partitioned, so that each thread works on a subset of the searchable documents in an index.
+The number of threads to use is controlled on a per rank profile basis,
 but can only use less than the global setting controlled in the [application services.xml](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/services.xml#L74). 
+
 To find optimal settings, we recommend benchmarking starting with one thread per search and increasing until latency does not improve significantly. 
 See [Vespa Scaling Guide](https://docs.vespa.ai/en/performance/sizing-search.html) for details.
 
-In between the first and second ranking phases controlled in the ranking profile, there is a hit rebalancing step, 
-so that each thread re-ranks a balanced number of retrieved hits. 
-The top scoring hits from the first phase does not necessarily need to be perfectly balanced per thread used during the first-phase scoring and re-balancing helps . 
-For example if we use 6 threads per search and re-rank 24 hits with the second phase expression, each thread re-ranks 4 hits. 
 
-##  Serving performance versus ranking accuracy
+## Serving performance versus ranking accuracy
 In this section we perform benchmarking where we deploy the system on a Vespa cloud instance using 
 2 x Xeon Gold 6263CY 2.60GHz (HT enabled, 48 cores, 96 threads) with 256GB memory. 
 
@@ -316,17 +313,17 @@ load the cluster (by increasing the number of clients to reach about 70% cpu uti
 We use the queries from the development set which consist of 6980 unique queries, the same
 query might be repeated multiple times, but there is no result caching enabled. 
 
-A real world production setup would benefit from caching the result of the two query embedders, and one would expect a high 
+A real world production setup would benefit from caching the result of the two query models, and one would expect a high 
 cache hit ratio for real-world natural language queries.
 
-For the sparse retrieval using the [Vespa WAND query operator](https://docs.vespa.ai/en/using-wand-with-vespa.html), which might touch the disk, 
-we pre-warmed the index by running through the dev queries once.
-In reality WAND will have lower performance when running with continuous indexing due to IO buffer cache misses unless the index have been been configured
-with the [pre-populate search index setting](https://docs.vespa.ai/en/reference/services-content.html#index-io-search).  
+For the sparse retrieval, using the [Vespa WAND query operator](https://docs.vespa.ai/en/using-wand-with-vespa.html), which might touch the disk, 
+we pre-warm the index by running through the dev queries once.
+In reality, sparse retrieval with WAND will have worse performance than reported here, 
+when running with continuous indexing due to IO buffer cache misses.
 
 
 ### Benchmarking Results
-We summarize the benchmark result in the table below. These are end-to-end benchmarks using the Vespa http serving api, also including query encoding. 
+We summarize the benchmark result in the table below. These are end-to-end benchmarks using the Vespa http serving api, also including query encoding(s). 
 
 ![Benchmarking result](/assets/2021-06-18-pretrained-transformer-language-models-for-search-part-4/benchmark.png)
 
