@@ -207,6 +207,14 @@ we can limit the number of full-precision vectors needed for `innerproduct` calc
 the original 768-dimensional vector space. This tiered compute approach is 
 a classic example of tried and tested [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html). 
 
+With phased-ranking, we need to ensure that the scores produced by the two phases are correlating:
+
+![ONNX Ranking Compute Graph](/assets/2022-10-26-building-billion-scale-vector-search-part-two/correlation.png)
+
+*Correlation analysis between the innerproduct in the PCA-reduced space versus the innerproduct in the original space*
+
+There are ways to calculate the [correlation between two ranked lists](https://towardsdatascience.com/rbo-v-s-kendall-tau-to-compare-ranked-lists-of-items-8776c5182899), 
+but the above scatter plot gives us a visualization and confirmation that our two ranking phases do correlate. 
 
 ## Centroid Selection and Centroid Schema
 
