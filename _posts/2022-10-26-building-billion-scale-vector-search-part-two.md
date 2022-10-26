@@ -207,14 +207,20 @@ we can limit the number of full-precision vectors needed for `innerproduct` calc
 the original 768-dimensional vector space. This tiered compute approach is 
 a classic example of tried and tested [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html). 
 
-With phased-ranking, we need to ensure that the scores produced by the two phases are correlating:
+With phased ranking, we want the two ranking phases to correlate, a high `innerproduct` score in the `PCA` reduced
+vector space should also produce a high `innerproduct` score in the original vector space. If there is weak correlation,
+the overall quality becomes very sensitive to the re-ranking depth. 
 
 ![ONNX Ranking Compute Graph](/assets/2022-10-26-building-billion-scale-vector-search-part-two/correlation.png)
 
 *Correlation analysis between the innerproduct in the PCA-reduced space versus the innerproduct in the original space*
 
-There are ways to calculate the [correlation between two ranked lists](https://towardsdatascience.com/rbo-v-s-kendall-tau-to-compare-ranked-lists-of-items-8776c5182899), 
-but the above scatter plot gives us a visualization and confirmation that our two ranking phases do correlate. 
+The above simple scatter plot with Pearson correlation coefficient, gives us a visualization and 
+also confirmation that our two ranking phases do correlate. There are multiple different ways to calculate the correlation between ranked lists:
+
+- [Kendall Rank Correlation Coefficient](https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient)
+- [Rank-Biased Overlap (RBO)](http://blog.mobile.codalism.com/research/papers/wmz10_tois.pdf)
+
 
 ## Centroid Selection and Centroid Schema
 
@@ -379,7 +385,6 @@ public class RankingSearcher extends Searcher {
        reRank(result)
        result.hits().sort()
        result.hits().trim(0, userHits)
-       ensureFilled(result, "default", execution);
        return result;
    }
 }
@@ -393,12 +398,11 @@ which execute the ranking configured in the schema.
 
 After `execution.search(query)`, we have a list of hits ranked by the content nodes. 
 However, to save network bandwidth (potentially hundreds or even thousands of nodes involved in the query), 
-the hits data does not contain the actual data (fields defined with `indexing:summary`) — we need to fetch the field contents
-before we can start accessing field-level hit data. This is done by `ensureFilled(result, "vector-summary", execution)`.
-In this case, we use an optional document summary `vector-data`. An explicit `document-summary` reduces network
-traffic, serialization, and deserialization cost.
+the hits data does not contain the `summary` data — we need to fetch the field contents
+before we can start accessing field-level hit data. This is done in the `ensureFilled(result, "vector-summary", execution)` stage.
 
-The internal search and fill protocols between stateless containers and stateful content nodes are 
+In this case, we use an optional document summary `vector-data`. An explicit `document-summary` reduces network
+traffic, serialization, and deserialization cost. The Vespa internal search and fill protocols between stateless containers and stateful content nodes are 
 based on [Protocol Buffers](https://developers.google.com/protocol-buffers) over RPC, 
 avoiding huge serialization and deserialization overheads. 
 
@@ -414,22 +418,20 @@ After evaluating the ranking model, all we need to do is to update the hit score
 [RankingSearcher](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-image-search/src/main/java/ai/vespa/examples/searcher/RankingSearcher.java)
 for the detailed implementation. 
 
-By moving the final ranking stage to the stateless container nodes, we move a significant portion of the compute budget out 
+By moving the final ranking stage to the stateless container nodes, we move a significant portion of the compute out 
 of the content and storage layer, and we can quickly scale stateless resources with changes in query volume. 
 
 ## Summary
-
 In this post, we looked at design choices when implementing a cost-efficient search solution for the `LAION-5B` dataset.  
 
 - We introduced dimension reduction with `PCA`, used to reduce the memory footprint of the centroid indexing with `HNSW`.
-- Compute tiering, or phrased ranking. By performing a similarity search in the reduced vector space as a coarse level search we lower 
+- Compute tiering, or phased ranking. By performing a similarity search in the reduced vector space as a coarse-level search, we lower 
 the computational complexity of similarity calculations performed close to the data on the content nodes. 
-- Stateless re-ranking, moving majority of the vector computations to stateless containers, 
+- Stateless re-ranking, moving majority of the similarity computations to stateless containers, 
 allowing for faster auto-scaling with query volume fluctuations. 
 
 If you want to start building your copy of the `LAION-5B` index, you can already try out 
 our [billion-scale-image-search](https://github.com/vespa-engine/sample-apps/tree/master/billion-scale-image-search) sample application.
-If you operate on a smaller scale, you can read about [Vespa managed vector search](https://blog.vespa.ai/vespa-managed-vector-search/). 
 
 In the next post in this series, we look at query serving performance, integrating the CLIP encoder into the Vespa stateless container cluster, 
 and how we improve the quality of results by performing query-time diversification using `image-to-image` similarity. Stay tuned for more cat photos. 
