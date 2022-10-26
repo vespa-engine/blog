@@ -2,7 +2,7 @@
 layout: post
 title: "Building Billion-Scale Vector Search - part two"
 author: jobergum
-date: '2022-10-25'
+date: '2022-10-26'
 image: assets/2022-10-26-building-billion-scale-vector-search-part-two/julien-tromeur-EWg1-0UjeWY-unsplash.jpg
 skipimage: true
 tags: []
