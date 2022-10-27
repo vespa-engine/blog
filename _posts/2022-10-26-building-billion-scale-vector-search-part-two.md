@@ -44,7 +44,7 @@ The `LAION-5B` dataset consists of the following:
 * The URL of the image. 
 * A 64bit signed hash calculated over the caption text and URL concatenation.  
 * The height and width of the image.
-* NSWF (Not safe for work) labels, labels assigned by a machine-learned NSFW classifier. 
+* NSFW (Not safe for work) labels, labels assigned by a machine-learned NSFW classifier. 
 * A 768-dimensional vector representation of the image, obtained by running the image data through a 
 multimodal encoding model ([CLIP](https://openai.com/blog/clip/)). 
 
