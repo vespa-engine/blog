@@ -54,9 +54,10 @@ and mix and match all these capabilities in all possible ways.
 #### Improved query performance for filters with common terms
 When making text indexes,
 Vespa stores a bitvector in addition to the posting list for frequent terms to enable maximally fast matching.
-If the field is used as a filter only, no ranking is needed,
-and the bitvector will now be used instead of the posting list.
-This reduces makes queries using such terms faster and cheaper.
+If the field is used as a filter only, no ranking is needed, and the bitvector will be used instead of the posting list.
+This makes queries using such terms faster and cheaper.
+The bitvector optimization is now also available for
+[attribute fields with fast-search](https://docs.vespa.ai/en/attributes.html).
 
 
 
