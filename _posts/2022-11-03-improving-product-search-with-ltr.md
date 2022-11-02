@@ -6,7 +6,7 @@ date: '2022-11-02'
 image: assets/2022-11-03-improving-product-search-with-ltr/nathalie-ehrnleitner-BIZO6wSABOs-unsplash.jpg
 skipimage: true
 tags: []
-excerpt: This is the first blog post on applying learning to rank to enhance product search. 
+excerpt: This is the first blog post on applying learning to rank to enhance E-commerce search. 
 ---
 
 ![Decorative
@@ -16,7 +16,7 @@ Photo by <a href="https://unsplash.com/@nathanala?utm_source=unsplash&utm_medium
  </p>
 
  Over a few busy years, we have witnessed a neural ranking paradigm shift, where 
- pre-trained language models, such as BERT,  
+ pre-trained language models, such as BERT,
  [have revolutionized text ranking](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/)
  in data-rich settings with lots of labeled data. 
  Feeding the data hungry neural networks lots of labeled relevance judgments
@@ -24,10 +24,10 @@ Photo by <a href="https://unsplash.com/@nathanala?utm_source=unsplash&utm_medium
 
 However, historically, tree-based machine learning models 
 such as [Gradient Boosting (GB)](https://en.wikipedia.org/wiki/Gradient_boosting) 
-with lambdarank ranking loss have prevailed as state-of-the-art for product search ranking. 
+with lambdarank loss have prevailed as state-of-the-art for product search ranking. 
 In this blog post series, we look at improving product search using learning to rank techniques, 
 with demonstrable results on the largest publicly available product ranking dataset. 
-We will train and measure their effectiveness on this dataset, but 
+We will train and measure their effectiveness on a large dataset, but 
 without getting into the details of complex loss functions. 
  
 In this first post, we introduce a product ranking dataset and establish multiple ranking baselines
@@ -81,7 +81,7 @@ set will be the focus of upcoming blog posts.
 In this blog post we focus on the test split, and it contains 8,956 queries with 
 181,701 query-item judgments. 
 
-The judgment distribution is as follows:
+The judgment label distribution is as follows:
 
 * Exact	(Relevant)			        79,708 (44%)
 * Substitute (Somewhat Relevant)	 8,099 (4%)
@@ -89,18 +89,18 @@ The judgment distribution is as follows:
 * Irrelevant 				        30,331 (17%)
 
 Both splits have about 20 product judgments per query. As we can see from the label
-distribution, the dataset has many Exact (Relevant) judgments, especially
-compared to Substitutes (Somewhat Relevant) and Irrelevant. On average, there
-are about 9 Exact relevant products for every query in the test split. 
+distribution, the dataset has many Exact (relevant) judgments, especially
+compared to Substitutes (somewhat relevant) and Irrelevant. On average, there
+are about 9 relevant products for every query in the test split. 
 
 This product relevance dataset is the largest available product relevance
 dataset and allows us to compare the effectiveness of multiple ranking models
-using graded relevance judgments. A large dataset allows us to report real 
-information retrieval ranking metrics, and not anecdotical `LGTM@10 (Looks Good To Me)` metrics. 
+using graded relevance judgments. A large dataset allows us to report 
+information retrieval ranking metrics and not anecdotical `LGTM@10 (Looks Good To Me)` metrics. 
 
 We can evaluate ranking models used in a
 zero-shot setting without using the in-domain relevance labels and models
-trained using learning to rank techniques to exploit the relevance labels.  
+trained using learning to rank techniques, exploiting the relevance labels in the train split.  
 
 ![Product ranking example](/assets/2022-11-03-improving-product-search-with-ltr/535.png)
 
@@ -110,15 +110,17 @@ before supplements and supplements before irrelevant.
 
 ![Product ranking example](/assets/2022-11-03-improving-product-search-with-ltr/535_perfect.png)
 Perfect ordering of products for query `#535`. Note that we have converted the textual labels
-to numeric labels (E=4, S=3, C=2, I=1). 
+to numeric labels (E=4, S=3, C=2, I=1). If our ranking function is able to produce this ordering, we
+would get a perfect score for this particular query example. 
 
 ## Indexing the dataset with Vespa
 
 We use the following [Vespa document
 schema](https://docs.vespa.ai/en/schemas.html), which allows us to index all the
-products associated with English queries across both train and test split. We
-use a utility script that converts the parquet product data file to a Vespa JSON
-formatted feed file. In total we index 1.2M products in Vespa. 
+products associated with English queries across both splits. We
+use a utility script that converts the parquet product data file to a 
+[Vespa JSON](https://docs.vespa.ai/en/reference/document-json-format.html)
+formatted feed file. In total we index about 1.2M products in Vespa. 
 
 <pre>
 schema product {
@@ -344,8 +346,8 @@ In this baseline model, we combine the semantic similarity score of the
 Vespa’s nativeRank. We use a simple linear combination of the two ranking
 models. Since the nativeRank lexical feature is normalized in the range `[0,1]`,
 combining it with semantic similarity is more straightforward as we don’t need
-to normalize unbound lexical ranking features, such as BM25. 
-We use an `query(alpha)` parameter to control how each method influences the overall hybrid score. 
+to normalize unbound lexical scoring functions, such as BM25. 
+We use a `query(alpha)` parameter to control how each method influences the overall score. 
 
 <pre>
 rank-profile hybrid inherits default {
@@ -377,17 +379,17 @@ evaluating the model, for example using weighting so that popular (head) queries
 than rare (tail) queries. In other words, we don't want to introduce a ranking model that on average improves
 NDCG, but hurts many head queries. 
 
-Notice that the `random` ranking function produces a high NDCG score, this is simply because there are
-many Exact Relevant judgements (On average 9 are Exact, out of, on average 20 judgements per query). 
+Notice that the `random` ranking function produces a high NDCG score, this is because there are
+many exact (relevant) judgements per query. On average, 9 out of 20 judgments per query is exact.  
 This demonstrates that including a random baseline has value, since it allows us
-to compare other models, how to they compare with a random baseline. 
+to compare other models to a random baseline. 
 
 The `semantic 2` is the `bert-base-uncased` model. A model which have not been 
 fine-tuned for retrieval or ranking tasks, but masked-language-modeling. 
 The `bert-base-uncased` NDCG score is closest to the random baseline. 
-This demonstrates that not all vectorization models that encode text are 
+This demonstrates that not all vectorization models that encode text into vectors are 
 great for ranking. In addition, the `bert-base-uncased` model is about
-5x larger than the `semantic model 1`, which costs both storage (dimensionality),
+5x larger than the model used in `semantic model 1`, which costs both storage (dimensionality),
 and CPU cycles during inference. 
 
 The `semantic model 1`, which is the `sentence-transformers/all-MiniLM-L6-v2` model,
@@ -398,26 +400,26 @@ setting when applied on a new text domain.
 In this dataset, the hybrid combination of lexical (`nativeRank`) and semantic did not
 yield any improvement over the pure lexical ranking methods. We did not tune the
 alpha parameters, as tuning parameters to improve accuracy on the test set is a
-bad practice. 
+bad machine learning practice. 
 
 ## Summary
+In this blog post, we described a large product relevance dataset and
+evaluated several baseline ranking methods on this dataset, applied in a zero-shot setting. 
 
-In this blog post, we described the largest product relevance dataset and
-evaluated several baseline ranking methods, applied in a zero-shot setting. 
+In the next blog post in this series, we will use the labeled train split of the dataset to
+train multiple ranking models using various learning to rank techniques:
 
-In the next blog post in this series, we will use the labeled training data to
-train multiple ranking models using learning to rank techniques:
-
-* A semantic similarity model using two-tower or
+* A semantic similarity model using two-tower/
  [bi-encoder](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-2/)
  architecture. Building on a pre-tuned model, we will use the training data (query product labels) 
- to fine-tune the model for the product ranking domain. We then embed this model into Vespa for semantic search.  
+ to fine-tune the model for the product ranking domain. 
+ We then embed this model into Vespa for semantic search.  
 
 * A semantic
  [cross-encoder](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-4/)
- similarity model based on pre-trained language models, a more computationally
+ similarity model based on a pre-trained language model. A more computationally
  expensive model than bi-encoders, but generally more accurate then
- bi-encoders that maps documents and queries to a shared embedding vector space.
+ bi-encoders that reduces semantic similarity to a vector similarity.  
 
 * [Gradient Boosting (GB)](https://en.wikipedia.org/wiki/Gradient_boosting)
  models, combining multiple ranking signals. GB models are famous for their
@@ -430,6 +432,7 @@ train multiple ranking models using learning to rank techniques:
  [LightGBM](https://docs.vespa.ai/en/lightgbm) and
  [XGBoost](https://docs.vespa.ai/en/xgboost) models, two popular frameworks for
  GBDT models.
- Ensemble ranking models. Since Vespa maps different models from different
+
+ * Ensemble ranking models. Since Vespa maps different models from different
  frameworks into the same ranking framework, combining multiple models into an
  ensemble model is straightforward. 
