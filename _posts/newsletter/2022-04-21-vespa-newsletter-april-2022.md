@@ -46,9 +46,9 @@ is supported from Vespa 7.538.
 to implement use cases like number of items per category, inventory check, maximum values per category, etc.
 As the aggregation functions possibly spans the full corpus, temporary memory usage can be a problem for some queries.
 Use the new configuration parameters
-[defaultMaxGroups](https://docs.vespa.ai/en/reference/query-api-reference.html#grouping.defaultMaxGroups),
-[defaultMaxHits](https://docs.vespa.ai/en/reference/query-api-reference.html#grouping.defaultMaxHits) and 
-[globalMaxGroups](https://docs.vespa.ai/en/reference/query-api-reference.html#grouping.globalMaxGroups)
+[defaultMaxGroups](https://docs.vespa.ai/en/reference/query-api-reference.html#grouping.defaultmaxgroups),
+[defaultMaxHits](https://docs.vespa.ai/en/reference/query-api-reference.html#grouping.defaultmaxhits) and 
+[globalMaxGroups](https://docs.vespa.ai/en/reference/query-api-reference.html#grouping.globalmaxgroups)
 to control grouping result set sizes.
 
 #### pyvespa

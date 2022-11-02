@@ -38,7 +38,7 @@ Queries with many OR-terms can recall a large set of the corpus for first-phase 
 hence increasing query latency.
 In many cases, using [WeakAnd (WAND)](https://docs.vespa.ai/en/using-wand-with-vespa.html)
 can improve query performance by skipping the most irrelevant hits.
-Since Vespa 7.356, you can use [weakAnd.replace](https://docs.vespa.ai/en/reference/query-api-reference.html#weakAnd.replace)
+Since Vespa 7.356, you can use [weakAnd.replace](https://docs.vespa.ai/en/reference/query-api-reference.html#weakand.replace)
 to auto-convert from OR to WeakAnd to cut query latency.
 Thanks to [Kyle Rowan](https://github.com/karowan) for submitting this in
 [#16411](https://github.com/vespa-engine/vespa/pull/16411)!

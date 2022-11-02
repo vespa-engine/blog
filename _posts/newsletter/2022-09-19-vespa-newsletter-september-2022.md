@@ -58,9 +58,9 @@ width="550px" height="auto" alt="Trace Visualizer"/>
 
 #### Rank trace profiling
 Use rank trace profiling to expose information about how time spent on ranking is distributed between individual
-[rank features](https://docs.vespa.ai/en/reference/query-api-reference.html#trace.profileDepth).
+[rank features](https://docs.vespa.ai/en/reference/query-api-reference.html#trace.profiledepth).
 Available since Vespa 8.48,
-use [trace.profileDepth](https://docs.vespa.ai/en/reference/query-api-reference.html#trace.profileDepth)
+use [trace.profileDepth](https://docs.vespa.ai/en/reference/query-api-reference.html#trace.profiledepth)
 as a query parameter, e.g. `&tracelevel=1&trace.profileDepth=10`.
 This feature can be used for content node rank performance analysis.
 
