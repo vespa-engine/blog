@@ -16,7 +16,7 @@ Photo by <a href="https://unsplash.com/@nathanala?utm_source=unsplash&utm_medium
  </p>
 
  Over a few busy years, we have witnessed a neural ranking paradigm shift, where 
- pre-trained language models, such as BERT, have revolutionized 
+ pre-trained language models, such as BERT,  
  [have revolutionized text ranking](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/)
  in data-rich settings with lots of labeled data. 
  Feeding the data hungry neural networks lots of labeled relevance judgments
