@@ -109,16 +109,17 @@ The task is to optimize the ordering (ranking) so that products labeled as exact
 before supplements and supplements before irrelevant. 
 
 ![Product ranking example](/assets/2022-11-03-improving-product-search-with-ltr/535_perfect.png)
-Perfect ordering of products for query `#535`. Note that we have converted the textual labels
-to numeric labels (E=4, S=3, C=2, I=1). If our ranking function is able to produce this ordering, we
-would get a perfect score for this particular query example. 
+The above image shows perfect ranking of products for query `#535`. 
+Note that we have converted the textual labels (esci_label) to numeric labels using 
+E=4, S=3, C=2, I=1. If our ranking function is able to produce this ordering, we
+would get a perfect score for this query. 
 
 ## Indexing the dataset with Vespa
 
 We use the following [Vespa document
 schema](https://docs.vespa.ai/en/schemas.html), which allows us to index all the
-products associated with English queries across both splits. We
-use a utility script that converts the parquet product data file to a 
+products associated with English queries across both splits. 
+We use a utility script that converts the parquet product data file to a 
 [Vespa JSON](https://docs.vespa.ai/en/reference/document-json-format.html)
 formatted feed file. In total we index about 1.2M products in Vespa. 
 
@@ -192,8 +193,9 @@ schema product {
 </pre>
 
 The product data contains title, description, brand, color and bullets. We use
-Vespa’s support for producing vector embeddings, using the title and description
-as input. See [text embedding made simple](https://blog.vespa.ai/text-embedding-made-simple/)
+Vespa’s support for encoding text into vector embeddings, in this case 
+we use the title and description as input. 
+See [text embedding made simple](https://blog.vespa.ai/text-embedding-made-simple/)
 for details on how to embed text embedding models in Vespa.
 
 
@@ -204,28 +206,27 @@ The official dataset evaluation metric is
 Discounted Cumulative Gain), a precision-oriented metric commonly used for
 ranking datasets with graded relevance judgments. An important observation is
 that the task only considers ranking of the products that have judgment
-labels. In other words, we assume that a magic perfect retriever has
-retrieved all relevant documents (plus a few irrelevant documents), and our task is to
+labels. In other words, we assume that a magic retriever has
+retrieved all relevant documents (plus irrelevant documents), and our task is to
 re-rank the products so that the relevant ones are pushed to the top of the
 ranked list of products. This is a simpler task than implementing end-to-end
 retrieval and ranking over the 1.2M products.  
-
 
 ![Ranking overview](/assets/2022-11-03-improving-product-search-with-ltr/ranking-overview.excalidraw.png)
 
 Many deployed search systems need to hedge the deployment cost and deploy
 [multi-phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html)
 pipelines to reduce computational complexity.
-In such a retrieval and ranking funnel, one or many diverse retrievers use a
-cost-efficient retrieval ranking phase, and subsequent ranking phases re-order
+In a retrieval and ranking funnel, one or many diverse retrievers use a
+cost-efficient retrieval ranking phase, and subsequent ranking phases re-rank
 the documents, focusing on precision. In a later post in this series, we look at
-how to train a retriever function using learning-to-retrieve and how to
-represent retrieval and ranking pipelines in Vespa. 
+how to train a retriever function using `learning to retrieve` and how to
+represent [retrieval and ranking phases](https://docs.vespa.ai/en/phased-ranking.html) in Vespa. 
 
 ## Baseline zero-shot ranking models
 
 We propose and evaluate seven different baseline ranking models, all represented end-to-end in
-Vespa using [Vespa’s ranking framework](https://docs.vespa.ai/en/ranking.html). 
+Vespa using [Vespa's ranking framework](https://docs.vespa.ai/en/ranking.html). 
 
 ### Random
 Obviously not the greatest baseline, but allows us to compare other baselines with
@@ -258,7 +259,7 @@ rank-profile bm25 inherits default {
     }
 }
 </pre>
-Note that we only use the `title` and `description`. All our lexical based baselines
+Note that we only use the `title` and `description`. All our lexical baselines
 uses only these two fields. 
 
 ### Vespa nativeRank - lexical ranking
