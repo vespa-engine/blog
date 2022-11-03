@@ -302,7 +302,7 @@ encode documents and queries into a 384-dimensional dense vector space. We use
 cosine similarity between the query and the document in this shared embedding
 vector space as our relevancy measure. The vector embedding model, 
 `sentence-transformers/all-MiniLM-L6-v2`, is trained
-on a large number of sentence length texts.  
+on a large number of sentence-length texts.  
 
 Semantic similarity search over dense representations can be accelerated using
 Vespa‘s support for approximate nearest neighbor search, making it usable for
