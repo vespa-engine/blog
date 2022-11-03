@@ -2,17 +2,17 @@
 layout: post
 title: "Improving Product Search with Learning to Rank - part one"
 author: jobergum
-date: '2022-11-02'
-image: assets/2022-11-03-improving-product-search-with-ltr/nathalie-ehrnleitner-BIZO6wSABOs-unsplash.jpg
+date: '2022-11-03'
+image: assets/2022-11-03-improving-product-search-with-ltr/pawel-czerwinski-RkIsyD_AVvc-unsplash.jpg
 skipimage: true
 tags: []
 excerpt: This is the first blog post on applying learning to rank to enhance E-commerce search. 
 ---
 
 ![Decorative
-image](/assets/2022-11-03-improving-product-search-with-ltr/nathalie-ehrnleitner-BIZO6wSABOs-unsplash.jpg)
+image](/assets/2022-11-03-improving-product-search-with-ltr/pawel-czerwinski-RkIsyD_AVvc-unsplash.jpg)
 <p class="image-credit">
-Photo by <a href="https://unsplash.com/@nathanala?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathalie Ehrnleitner</a> on <a href="https://unsplash.com/s/photos/dogs-with-stick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+Photo by <a href="https://unsplash.com/@pawel_czerwinski?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pawel Czerwinski</a> on <a href="https://unsplash.com/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
  </p>
 
  Over a few busy years, we have witnessed a neural ranking paradigm shift, where 
@@ -381,7 +381,7 @@ than rare (tail) queries. In other words, we don't want to introduce a ranking m
 NDCG, but hurts many head queries. 
 
 Notice that the `random` ranking function produces a high NDCG score, this is because there are
-many exact (relevant) judgements per query. On average, 9 out of 20 judgments per query is exact.  
+many exact (relevant) judgements per query. On average, 9 out of 20 judgments per query is exact.
 This demonstrates that including a random baseline has value, since it allows us
 to compare other models to a random baseline. 
 
