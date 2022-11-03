@@ -419,7 +419,7 @@ train multiple ranking models using various learning to rank techniques:
 * A semantic
  [cross-encoder](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-4/)
  similarity model based on a pre-trained language model. A more computationally
- expensive model than bi-encoders, but generally more accurate then
+ expensive model than bi-encoders, but generally more accurate than
  bi-encoders that reduces semantic similarity to a vector similarity.  
 
 * [Gradient Boosting (GB)](https://en.wikipedia.org/wiki/Gradient_boosting)
