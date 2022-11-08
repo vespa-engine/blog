@@ -16,10 +16,13 @@ on <a href="https://unsplash.com/s/photos/datacenters?utm_source=unsplash&utm_me
 
 [Vespa Cloud](https://cloud.vespa.ai/) has run in AWS zones since its start in 2019.
 We are now happy to announce Vespa Cloud availability in Google Cloud Platform (GCP) zones!
-GCP availability makes it easier for users with their current workload in GCP to use Vespa Cloud.
+To add a gcp zone to your application, simply add `<region>gcp-us-central1-f</region>`
+to [deployment.xml](https://cloud.vespa.ai/en/reference/deployment).
 
+GCP availability makes it easier for users with their current workload in GCP to use Vespa Cloud.
 Using a GCP zone can reduce data transfer costs, simplify operations, and cut latencies
 by locating everything in the same location and cloud provider.
 
-Vespa Cloud is currently available in `gcp-us-central1-f` - see [zones](https://cloud.vespa.ai/en/reference/zones).
-[Let us know](https://cloud.vespa.ai/support) if your workload requires other zones; expect a two-week ramp-up time.
+You can always find the currently supported zones in the [zone reference](https://cloud.vespa.ai/en/reference/zones).
+[Let us know](https://cloud.vespa.ai/support) if your workload requires additional zones;
+expect a two-week ramp-up time.
