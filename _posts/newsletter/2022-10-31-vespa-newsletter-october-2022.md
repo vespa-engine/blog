@@ -19,7 +19,7 @@ Rank trace profiling, the new `--speed-test` parameter and a new video.
 Today, we’re excited to share the following updates:
 
 
-#### Create vector embeddings in Vespa without custom Java code
+### Create vector embeddings in Vespa without custom Java code
 An increasingly popular reason for using Vespa is the ability to use vector embeddings
 to be able to retrieve documents by semantic similarity in addition to retrieving by text tokens or attributes.
 Since Vespa 8.52, we have made this easier by making it possible to use BERT-style models
@@ -37,7 +37,7 @@ Give this a try at
 
 
 
-#### Model hub: Provided ML models on Vespa Cloud
+### Model hub: Provided ML models on Vespa Cloud
 The BERT base embedder allows you to use vector search without bringing your own vectors, or writing any Java code -
 but you still have to bring the model.
 For our Vespa Cloud users we have made this even simpler by
@@ -51,7 +51,7 @@ and mix and match all these capabilities in all possible ways.
 
 
 
-#### Improved query performance for filters with common terms
+### Improved query performance for filters with common terms
 When making text indexes,
 Vespa stores a bitvector in addition to the posting list for frequent terms to enable maximally fast matching.
 If the field is used as a filter only, no ranking is needed,
@@ -62,7 +62,7 @@ The bitvector optimization is now also available for
 
 
 
-#### Paged attributes
+### Paged attributes
 Fields which are stored in column stores suitable for random memory access are called attributes in Vespa.
 These are used for matching, ranking and grouping, and enabling high-throughput partial updates.
 By default, attributes are stored completely in memory to make all accesses maximally fast,
@@ -76,21 +76,21 @@ except [tensor with fast-rank](https://docs.vespa.ai/en/reference/schema-referen
 
 
 
-#### ARM64 support
+### ARM64 support
 Vespa container images are now released as multiplatform, supporting both x86_64 and ARM64.
 ARM64 is also available on Vespa Cloud.
 [Read more](https://blog.vespa.ai/vespa-on-arm64/).
 
 
 
-#### Query result highlighting for arrays of string
+### Query result highlighting for arrays of string
 Highlighting query words in results helps users see why a particular document is returned in their search result.
 Since Vespa 8.53, this is supported for arrays of string in addition to single-value strings -
 see the [schema reference](https://docs.vespa.ai/en/reference/schema-reference.html#bolding).
 
 
 
-#### Vespa scripts are becoming go only
+### Vespa scripts are becoming go only
 The Vespa Container image was set on a diet and now has zero Perl-dependencies.
 Most Vespa utilities have now instead been ported to using Go to support a wider range of client platforms
 without requiring any dependencies.
