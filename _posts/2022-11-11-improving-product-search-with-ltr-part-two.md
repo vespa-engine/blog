@@ -137,7 +137,7 @@ We have worked with the MiniLM models before in our work on [MS Marco passage
 ranking](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/), 
 so we know these models provide a reasonable tradeoff between ranking
 accuracy and inference efficiency, which impacts deployment cost. In addition,
-MiniML is a CPU-friendly model, especially with [quantizated versions](https://blog.vespa.ai/ml-model-serving-at-scale/). 
+MiniML is a CPU-friendly model, especially with [quantized versions](https://blog.vespa.ai/ml-model-serving-at-scale/). 
 As a result, we are avoiding expensive GPU instances and GPU-related failure modes. 
 
 In addition to choosing the pre-trained Transformer model, we must decide which
