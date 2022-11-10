@@ -235,7 +235,7 @@ tokens. To map text to token_ids using the fixed vocabulary associated with the
 model, we use Vespa’s support for [wordpiece
 embedding](https://docs.vespa.ai/en/embedding.html#wordpiece-embedder). 
 This avoids document side tokenization at inference time, and we can just read the product tokens
-during ranking. 
+during ranking. See the full [product schema](https://github.com/vespa-engine/sample-apps/blob/master/commerce-product-ranking/application/schemas/product.sd).
 
 
 ## Neural Bi-Encoder using pre-trained language models 
@@ -320,7 +320,7 @@ We declare two indexed tensors and use use Vespa’s support for
 embedding bi-encoder models, see [text embeddings
 made easy.](https://blog.vespa.ai/text-embedding-made-simple/) Both query and
 document-side embeddings can be produced within the Vespa cluster, not having to
-rely on external embedding services. 
+rely on external embedding services. See the full [product schema](https://github.com/vespa-engine/sample-apps/blob/master/commerce-product-ranking/application/schemas/product.sd).
 
 ## Evaluation 
 
@@ -361,8 +361,10 @@ learning to rank, as there are subtle differences.
 
 This blog post introduced two popular neural ranking methods. We evaluated their
 performance on the test split and reported their ranking results. We have
-open-sourced this work as a Vespa sample application, and you can reproduce the
-neural training routine using this notebook. 
+open-sourced this work as a Vespa [sample application](https://github.com/vespa-engine/sample-apps/tree/master/commerce-product-ranking),
+and you can reproduce the neural training routine using
+this [notebook](https://github.com/vespa-engine/sample-apps/blob/master/commerce-product-ranking/notebooks/train_neural.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/vespa-engine/sample-apps/blob/master/commerce-product-ranking/notebooks/train_neural.ipynb).
 
 
 ## Next Blog
