@@ -285,8 +285,8 @@ similarity calculations and reduces the embedding storage footprint.
 Furthermore, how we batch the input training data, the vector similarity
 function, and, most importantly, the loss function determines the quality of the
 model on the given task. While loss functions are out of the scope of this blog
-post, we would like to mention that training a bi-encoder for semantic_
-retrieval_ over a large corpus, which “sees” many irrelevant documents, needs a
+post, we would like to mention that training a bi-encoder for semantic
+_retrieval_ over a large corpus, which “sees” many irrelevant documents, needs a
 different loss function than a bi-encoder model used for re-ranking. 
 
 Like with the cross-encoder, we must decide what product fields we encode.
