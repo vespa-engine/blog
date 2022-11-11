@@ -291,8 +291,9 @@ different loss function than a bi-encoder model used for re-ranking.
 
 Like with the cross-encoder, we must decide what product fields we encode.
 Instead of inputting multiple product fields, we train two bi-encoder models,
-one that uses the product title and another that encodes the description. Both
-models are based on [sentence-transformers/all-MiniLM-L6-v2](http://sentence-transformers/all-MiniLM-L6-v2). 
+one that uses the product title and another that encodes the description.
+Both models are based on
+[sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2). 
 
 ### Representing bi-encoders in Vespa 
 
