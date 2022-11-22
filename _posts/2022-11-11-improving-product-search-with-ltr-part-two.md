@@ -137,7 +137,7 @@ We have worked with the MiniLM models before in our work on [MS Marco passage
 ranking](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/), 
 so we know these models provide a reasonable tradeoff between ranking
 accuracy and inference efficiency, which impacts deployment cost. In addition,
-MiniML is a CPU-friendly model, especially with [quantizated versions](https://blog.vespa.ai/ml-model-serving-at-scale/). 
+MiniML is a CPU-friendly model, especially with [quantized versions](https://blog.vespa.ai/ml-model-serving-at-scale/).
 As a result, we are avoiding expensive GPU instances and GPU-related failure modes. 
 
 In addition to choosing the pre-trained Transformer model, we must decide which
@@ -285,14 +285,15 @@ similarity calculations and reduces the embedding storage footprint.
 Furthermore, how we batch the input training data, the vector similarity
 function, and, most importantly, the loss function determines the quality of the
 model on the given task. While loss functions are out of the scope of this blog
-post, we would like to mention that training a bi-encoder for semantic_
-retrieval_ over a large corpus, which “sees” many irrelevant documents, needs a
+post, we would like to mention that training a bi-encoder for semantic
+_retrieval_ over a large corpus, which “sees” many irrelevant documents, needs a
 different loss function than a bi-encoder model used for re-ranking. 
 
 Like with the cross-encoder, we must decide what product fields we encode.
 Instead of inputting multiple product fields, we train two bi-encoder models,
-one that uses the product title and another that encodes the description. Both
-models are based on [sentence-transformers/all-MiniLM-L6-v2](http://sentence-transformers/all-MiniLM-L6-v2). 
+one that uses the product title and another that encodes the description.
+Both models are based on
+[sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2).
 
 ### Representing bi-encoders in Vespa 
 
