@@ -11,7 +11,8 @@ excerpt: "Part two in a blog post series on billion-scale vector search with Ves
 This post explores the many trade-offs related to nearest neighbor search."
 ---
 
-<img src="/assets/2022-01-27-billion-scale-knn-part-two/vincentiu-solomon-ln5drpv_ImI-unsplash.jpg"/>
+<img src="/assets/2022-01-27-billion-scale-knn-part-two/vincentiu-solomon-ln5drpv_ImI-unsplash.jpg"
+     alt="illustrative image"/>
 <p class="image-credit">
 Photo by <a href="https://unsplash.com/@vincentiu?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
 Vincentiu Solomon</a> on <a href="https://unsplash.com/s/photos/stars?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -43,8 +44,10 @@ The vector dataset was published last year as part of the
 [big-ann-benchmarks](http://big-ann-benchmarks.com/) challenge. 
 It consists of one billion 100-dimensional vectors using `int8` precision. In other words,
 each of the hundred vector dimensions is a number in the [-128,127] range. 
-The dataset has 29,3K queries with pre-computed ground truth nearest neighbors using the euclidean distance for each query
-vector. Vespa supports four different [tensor vector precision types](https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types), 
+The dataset has 29,3K queries with pre-computed ground truth nearest neighbors
+using the euclidean distance for each query vector.
+Vespa supports four different
+[tensor vector precision types](https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types), 
 in order of increasing precision:
 
 * `int8` (8 bits, 1 byte) per dimension
@@ -280,7 +283,7 @@ To overcome the latency issue, we can use one of the essential Vespa features: E
 [search threads](https://docs.vespa.ai/en/reference/schema-reference.html#num-threads-per-search).
 By using more threads per query, Vespa can make better use of multi-CPU core architectures and
 reduce query latency at the cost of increased CPU usage per query. See more on scaling latency 
-versus throughput using multi-threaded search in the Vespa 
+versus throughput using multithreaded search in the Vespa 
 [sizing and performance guide](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution). 
 
 To easily test multiple threading configurations, we deploy multiple 
@@ -333,7 +336,8 @@ one thread to avoid idling searcher threads which are not used for the graph tra
 in the figure below: 
 
 <figure>
-<img src="/assets/2022-01-27-billion-scale-knn-part-two/ann.png"/>
+<img src="/assets/2022-01-27-billion-scale-knn-part-two/ann.png"
+     alt="Approximate nearest neighbor search performance versus recall@10"/>
 </figure>
 <sub>*Approximate nearest neighbor search performance versus recall@10.*</sub>
 
@@ -359,7 +363,7 @@ distribution (or more CPU cores per node). See more on how to size Vespa search 
 ## Summary 
 In this blog post, we explored several trade-offs related to vector search.  
 We concluded that the quality, as measured by recall@k, must be weighed against the use case metrics 
-and the deployment cost. Furthermore, we demonstrated how multi-threaded search could reduce the 
+and the deployment cost. Furthermore, we demonstrated how multithreaded search could reduce the 
 latency of the exact search, but scaling query throughput for exact search would be prohibitively 
 expensive at this scale. However, using brute force search could be a valid and cost-effective alternative 
 for smaller data volumes with low query throughput, especially since the memory usage is considerably less,

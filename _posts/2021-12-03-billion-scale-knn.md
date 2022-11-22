@@ -11,7 +11,8 @@ excerpt: "Part one in a blog post series on billion-scale vector search.
 This post covers using nearest neighbor search with compact binary representations and bitwise hamming distance."
 ---
 
-<img src="/assets/2021-12-03-binary-codes/federico-beccari-L8126OwlroY-unsplash.jpg"/>
+<img src="/assets/2021-12-03-binary-codes/federico-beccari-L8126OwlroY-unsplash.jpg"
+     alt="illustrative image"/>
 <p class="image-credit">
 Photo by <a href="https://unsplash.com/@federize?">Federico Beccari</a> 
 on <a href="https://unsplash.com/s/photos/universe?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -77,7 +78,7 @@ using a hashing layer on top of the bi-encoder transformer architecture
 to train a binary coded representation of documents and queries
 instead of continuous real-valued representation. 
 
-<img src="/assets/2021-12-03-binary-codes/bpr.png"/>
+<img src="/assets/2021-12-03-binary-codes/bpr.png" alt="Illustrative image"/>
 
 <em>Illustration from <a href="https://arxiv.org/abs/2106.00882">
 Efficient Passage Retrieval with Hashing for Open-domain Question Answering</a></em>
@@ -194,12 +195,12 @@ millisecond latency at high throughput. The JSON feed files can be indexed with
 high throughput using the <a href="https://docs.vespa.ai/en/vespa-feed-client.html">
 Vespa feed client</a>.
 
-<img src="/assets/2021-12-03-binary-codes/feeding.gif"/>
+<img src="/assets/2021-12-03-binary-codes/feeding.gif" alt="Feeding output stream"/>
 
 Dense first-order tensors can either be in memory all the time or paged in from
 secondary storage on-demand at query time, for example, during scoring and
 ranking phases in a <a href="https://docs.vespa.ai/en/phased-ranking.html">
-multi-phased retrieval and ranking</a> pipeline. In any case,
+multiphased retrieval and ranking</a> pipeline. In any case,
 the data is <a href="https://docs.vespa.ai/en/overview.html">
 persisted and stored</a> for durability and <a href="https://docs.vespa.ai/en/elastic-vespa.html">data re-balancing</a>.
 
@@ -238,7 +239,8 @@ a document is retrieved and exposed to the ranking phases, one can also use more
 sophisticated scoring models, for example using Vespa's support for evaluating 
 <a href="https://docs.vespa.ai/en/onnx.html">ONNX</a> models.
 
-<img src="/assets/2021-12-03-binary-codes/image-search.png"/>
+<img src="/assets/2021-12-03-binary-codes/image-search.png"
+     alt="Illustration from Lin_Deep_Learning_of_2015_CVPR_paper.pdf"/>
 
 <em>A two-phased coarse to fine level search using hamming distance as the coarse-level search.  
 Illustration from <a href="https://www.cv-foundation.org/openaccess/content_cvpr_workshops_2015/W03/papers/Lin_Deep_Learning_of_2015_CVPR_paper.pdf">  
@@ -293,7 +295,7 @@ The observant reader might have noticed the <a href="https://docs.vespa.ai/en/re
 num-threads-per-search</a> ranking profile setting.
 This setting allows parallelizing the search and ranking using
 multiple CPU threads, reducing the overall serving latency at the cost of
-increased CPU usage per query. This allows better use of multi-core CPU architectures.
+increased CPU usage per query. This allows better use of multicore CPU architectures.
 
 The second ranking profile `fine-ranking` inherits the first phase 
 ranking function from the `coarse-ranking` profile and re-ranks the top k results using a more sophisticated model,
@@ -343,7 +345,7 @@ is given below.
 In the above query examples we use the <a href="https://docs.vespa.ai/en/reference/tensor.html#indexed-short-form">
 short dense (indexed)</a> tensor input format.
 Note that query input tensors do not support the compact hex string representation.  The above examples also assumed that an external
-system would do the do the binarization. 
+system would do the binarization. 
 Vespa also supports importing <a href="https://onnx.ai/">ONNX</a> models so that the binarization
 could be performed in the Vespa stateless cluster before searching the content cluster(s), 
 see <a href="https://blog.vespa.ai/stateless-model-evaluation/">stateless model evaluation</a> for examples and discussion.
