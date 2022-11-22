@@ -118,7 +118,7 @@ Vespa has first-class citizen support for representing high dimensional dense
 vectors using the <a href="https://docs.vespa.ai/en/tensor-user-guide.html">
 Vespa tensor</a> field type. Dense vectors are represented as
 dense first-order tensors in Vespa. Tensor cell values in Vespa support four
-<a href="https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types">numeric precision types</a>, 
+<a href="https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types">numeric precision types</a>, 
 in order of increasing precision:
 
 * `int8` (8 bits, 1 byte) per dimension
