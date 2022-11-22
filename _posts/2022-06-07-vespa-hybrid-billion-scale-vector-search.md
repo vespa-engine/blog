@@ -11,7 +11,7 @@ excerpt: This blog post describes HNSW-IF, a cost-efficient solution for high-ac
 
 ---
 
-<img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search//graham-holtshausen-fUnfEz3VLv4-unsplash.jpg"/>
+<img src="/assets/2022-06-07-vespa-spann-billion-scale-vector-search/graham-holtshausen-fUnfEz3VLv4-unsplash.jpg"/>
 <p class="image-credit">
 Photo by <a href="https://unsplash.com/@freedomstudios">
 Graham Holtshausen</a> on <a href="https://unsplash.com/photos/fUnfEz3VLv4">Unsplash</a>
@@ -149,7 +149,7 @@ For an input query vector, first search the vectors representing centroids, usin
 Next, using the retrieved `k` nearest centroids from `HNSW` search, 
 search the inverted index using logical disjunction (OR) of the centroid ids retrieved
 by the `HNSW` graph search. The actual implementation uses the
-Vespa [dotProduct](https://docs.vespa.ai/en/multivalue-query-operators.html#dotproduct-example) multi-valued query operator.
+Vespa [dotProduct](https://docs.vespa.ai/en/multivalue-query-operators.html#dotproduct-example) multivalued query operator.
 
 Each node involved in the inverted index query ranks the retrieved non-centroid vectors by
 calculating the distance between the vector and the query vector. Finally, the result of the two
@@ -175,7 +175,7 @@ with the `dotProduct` query operator. This heuristic enables limiting the number
 for controlling [phased ranking](https://docs.vespa.ai/en/phased-ranking.html). 
 The local per node second-phase ranking calculates the full precision, `(closeness(q,v)`, which involves 
 paging the vector data into memory from disk. The maximum re-ranking depth is
-a query time hyper-parameter enabling easy experimentation. 
+a query time hyperparameter enabling easy experimentation. 
 
 ## Real-world considerations
 Real-world applications using vector search need both batch and real-time vector indexing:
@@ -187,7 +187,7 @@ that maps data to vector representation is trained, and embedding vector represe
 
 In addition, data items (with vector representation) need to be updated and deleted. The hybrid method
 described in this blog post supports all CRUD (Create, Read, Update, Delete) operations using the standard Vespa
-API's.  
+APIs.  
 
 * Batch indexing with a new embedder model is handled by adding a model version field to the schema. Serving queries
 must restrict the search for vectors to the given model id using 
@@ -260,7 +260,7 @@ The sample application uses the following Vespa [document schema](https://docs.v
 Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field-types) 
 include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byte`, and `tensor` fields. 
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 
-Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types) types,
+Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types) types,
 including `int8`, `bfloat16`, `float`, and `double` for real-valued vectors. The `SPACEV-1B` vector dataset uses `int8` precision. 
 
 <pre>
@@ -423,8 +423,9 @@ Similarly, a custom [document processor](https://docs.vespa.ai/en/document-proce
 the search in the `HNSW` graph, and annotates the incoming vector with the nearest centroids. 
 See [AssignNeighborsDocProc](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/examples/docproc/AssignNeighborsDocProc.java).
 
+
 ## Vespa HNSW-IF Experiments 
-The following experiments use these fixed indexing side hyper-parameters
+The following experiments use these fixed indexing side hyperparameters:
 
 - In-memory centroid indexing using the following [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) settings: 
 `max-links-per-node: 18` and `neighbors-to-explore-at-insert: 100`.

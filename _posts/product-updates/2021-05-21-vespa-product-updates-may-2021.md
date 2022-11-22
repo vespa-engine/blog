@@ -25,9 +25,9 @@ This month, we’re excited to share the following updates:
 #### Bfloat16 and int8 tensor value types
 Since Vespa-7.396.22, bfloat16 and int8 are supported as tensor cell types.
 This enables model serving of larger models without increasing memory use,
-or reducing cost by using lower precision types (e.g. 50% smaller with bfloat16 compared to 32 bit float).
+or reducing cost by using lower precision types (e.g. 50% smaller with bfloat16 compared to 32-bit float).
 Find details in the [value type reference](https://docs.vespa.ai/en/reference/tensor.html#tensor-type-spec)
-and learn more about [performance considerations](https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types).
+and learn more about [performance considerations](https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types).
 For int8, one can use a compact hex-form string field to write indexed tensors representing binary data,
 see [JSON feed format](https://docs.vespa.ai/en/reference/document-json-format.html#tensor).
 
@@ -37,7 +37,7 @@ Search in string attributes is by default done in word match mode.
 This means that the attribute’s value is stored unchanged,
 and subsequent matching is done by on-the-fly lowercasing query terms / attribute data +
 a few heuristics to filter out punctuation.
-Some use cases require case sensitive matching, e.g. ID lookup,
+Some use cases require case-sensitive matching, e.g. ID lookup,
 and is enabled by using the cased match mode - available since Vespa-7.397.65.
 [Read more](https://docs.vespa.ai/en/reference/schema-reference.html#match)
 

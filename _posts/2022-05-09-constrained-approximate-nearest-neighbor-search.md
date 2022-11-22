@@ -36,7 +36,7 @@ Vespa's document model supports representing multiple field and collection types
 Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field-types) 
 include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byte`, and `tensor` fields. 
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 
-Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/tensor-user-guide.html#cell-value-types) types,
+Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types) types,
 ranging from `int8` for binary vectors to `bfloat16`, `float`, and `double` for real-valued vectors. 
 Allowing vectors and other field types in the same document schema enables searching the vector field(s) in 
 combination with filters expressed over other fields. 
@@ -134,7 +134,7 @@ The estimation process uses information present in per-field inverted index data
 Query terms searching fields with inverted index structures enabled, 
 use the size of posting lists as the hit count estimate. Other terms in the query 
 might use the number of searchable documents as an estimate, as it’s not known how many hits they will produce.
-Furthermore, sub-trees of ANDed terms use the minimum estimate of their children, 
+Furthermore, subtrees of ANDed terms use the minimum estimate of their children, 
 and OR-terms use the saturated sum of their children. 
 Finally, the complete query hit estimate is scaled with 
 the number of searchable documents to get an *estimated-hit-ratio* [0, 1].
@@ -248,7 +248,7 @@ as another constraint for the approximate `nearestNeighbor` query operator.
 <img src="/assets/2022-05-09-constrained-approximate-nearest-neighbor-search/ann-versus-pre-versus-post.png"/>
 <em>**Figure 3** summarizes the strategies used for approximate nearest neighbor search with filtering. 
 In the case of *post-filtering*, only one hit is exposed to the ranking phase after the post-filter is
-evaluated. In the the case of *pre-filtering*, two additional hits were exposed, but they 
+evaluated. In the case of *pre-filtering*, two additional hits were exposed, but they 
 are more distant neighbors. 
 </em>
 
