@@ -53,4 +53,4 @@ Linked from these is an exciting blog post series on using these models in Produ
 Now, we are happy to announce Vespa Cloud availability in Google Cloud Platform (GCP) zones!
 To add a GCP zone to your application,
 simply add `<region>gcp-us-central1-f</region>` to [deployment.xml](https://cloud.vespa.ai/en/reference/deployment).
-See the [announcement](https://blog.vespa.ai/vespa-cloud-on-gcp/) for more details.
+See the [announcement]({% post_url /2022-11-08-vespa-cloud-on-gcp %}) for more details.
