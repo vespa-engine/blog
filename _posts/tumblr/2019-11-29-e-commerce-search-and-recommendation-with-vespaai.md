@@ -40,7 +40,7 @@ A sample ranking profile which implements a tiered relevance scoring function wh
 
 _Sample hand crafted ranking profile defined in the Vespa application package._
 
-The above example is hand crafted but for optimal relevance we do recommend looking at learning to rank (LTR) methods. See [learning to Rank using TensorFlow Ranking](https://docs.vespa.ai/en/tutorials/text-search-ml.html)and [learning to Rank using XGBoost](https://docs.vespa.ai/en/learning-to-rank.html). The trained MLR models can be used in combination with the specific business ranking logic. In the example above we could replace the _default-ranking_ function with the trained MLR model, hence combining business logic with MLR models.
+The above example is hand crafted but for optimal relevance we do recommend looking at learning to rank (LTR) methods. See [learning to Rank using TensorFlow Ranking](https://docs.vespa.ai/en/tutorials/text-search-ml.html)and [learning to Rank using XGBoost](https://docs.vespa.ai/en/xgboost.html). The trained MLR models can be used in combination with the specific business ranking logic. In the example above we could replace the _default-ranking_ function with the trained MLR model, hence combining business logic with MLR models.
 
 ## Facets and grouping in e-commerce search
 
