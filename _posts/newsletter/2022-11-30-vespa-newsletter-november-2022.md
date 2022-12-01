@@ -32,7 +32,7 @@ where the filtering amounts to a significant part of the query latency.
 Applications can use [parent/child](https://docs.vespa.ai/en/parent-child.html) to normalize data -
 keeping fields common for many documents in a parent schema.
 This simplifies updating such fields and makes the update use fewer resources with many children.
-When using parent fields in ranking,
+When using parent fields in matching,
 one can use [fast-search](https://docs.vespa.ai/en/attributes.html#fast-search)
 for better performance by using a dictionary.
 Since Vespa 8.84.14, a parent field with fast-search set will have a better hit estimate using the dictionary data.
