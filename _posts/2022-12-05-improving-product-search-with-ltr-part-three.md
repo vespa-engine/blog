@@ -216,10 +216,10 @@ See full schema on [GitHub](https://github.com/vespa-engine/sample-apps/blob/mas
 
 For explicitly labeled examples like in our dataset, we can ask
 Vespa to compute and return the feature scores using a combination
-of the Vespa [recall](https://docs.vespa.ai/en/reference/query-api-reference.html#recall)l
-parameter and [match-features](https://docs.vespa.ai/en/reference/schema-reference.html#match-features)or
+of the Vespa [recall](https://docs.vespa.ai/en/reference/query-api-reference.html#recall)
+parameter and [match-features](https://docs.vespa.ai/en/reference/schema-reference.html#match-features) or
 [summary-features](https://docs.vespa.ai/en/reference/schema-reference.html#summary-features).
-The[recall](https://docs.vespa.ai/en/reference/query-api-reference.html#recall) query
+The [recall](https://docs.vespa.ai/en/reference/query-api-reference.html#recall) query
 parameter allows developers to request Vespa to calculate features
 for query document pairs without impacting other features like
 queryTermCount or text matching features.
