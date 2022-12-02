@@ -43,7 +43,7 @@ score. We aim to optimize the `NDCG` metric after sorting the products
 by this score. There are many ways to train a ranking model _f(query,
 product)_, and in this post, we introduce and evaluate tree-based
 models. Tree-based GBDT models, implemented by popular frameworks
-like [XgBoost](xgboost.readthedocs.io) and[
+like [XgBoost](https://xgboost.readthedocs.io/en/stable/) and[
 LightGBM](https://lightgbm.readthedocs.io/), excel on tabular
 (structured) features and handle feature mixes and feature value
 ranges without any ceremony.
