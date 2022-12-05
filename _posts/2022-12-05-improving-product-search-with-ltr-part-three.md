@@ -367,23 +367,23 @@ ranked using the model. Vespa allows [multiple ranking
 phases](https://docs.vespa.ai/en/phased-ranking.html) to apply the
 most computationally complex model to the top-scoring documents
 from the previous ranking phase. Search ranking and model inference
-with GBDT are highly parallelizable. Vespa’s ability to use multiple
-threads per query reduces serving latency.
+with GBDT are highly parallelizable. Vespa’s ability to use [multiple
+threads per query](https://docs.vespa.ai/en/performance/sizing-search.html#reduce-latency-with-multi-threaded-per-search-execution) reduces serving latency.
 
 ## Features and feature complexity 
 
 The number of features and the computational complexity of the
 features dramatically impact performance. For example, calculating
-a matching feature such as bm25(title) is relatively low complexity
-compared to fieldMatch(title), which again is relatively low compared
+a matching feature such as `bm25(title)` is low complexity
+compared to `fieldMatch(title)`, which again is relatively low compared
 to inference with the [previous
 post](https://blog.vespa.ai/improving-product-search-with-ltr-part-two/)'s
-cross-encoder. The benefit Vespa delivers is that it allows developers
+cross-encoder. 
+
+The benefit Vespa delivers is that it allows developers
 to understand relative feature complexity using [rank
 tracing](https://docs.vespa.ai/en/reference/query-api-reference.html#trace.profiledepth).
 The trace below shows the relative feature complexity.
-
-
 
 ![trace](/assets/2022-12-05-improving-product-search-with-ltr-part-three/trace.png)
 
@@ -430,13 +430,14 @@ See the complete feature definitions on [GitHub](https://github.com/vespa-engine
 
 ![ranking results](/assets/2022-12-05-improving-product-search-with-ltr-part-three/ranking_results.png)
 
-The above illustrates the `NDCG` scores on the test query set
-for our GBDT-based models. In addition, we include the best baseline
-zero-shot model using Vespa’s nativeRank feature. The resulting
+The above shows the `NDCG` scores 
+for our GBDT-based models (Using the test query split). 
+In addition, we include the best baseline
+zero-shot model using Vespa's [nativeRank](https://docs.vespa.ai/en/reference/nativerank.html). The resulting
 overall GBDT improvements over the bi-encoder are insignificant.
 <span style="text-decoration:underline;">However, we must remember
-that</span> the neural methods excel on unstructured text data.
-Therefore, we lose some information by converting the text data to
+that</span> the neural methods shines with unstructured text data,
+and we lose information by converting the text data to
 tabular features.
 
 The dataset doesn't have features other than text. <span
@@ -470,9 +471,9 @@ You can reproduce the training routines using the following notebooks:
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="XGBoost Notebook"/>
 </a>
 
-The notebooks are self-container. Maybe you can tune hyperparameters
+The notebooks are self-contained. Maybe you can tune hyperparameters
 to see if you can improve the `NDCG` score on the dev query split? 
-Our evaluation of the query test set is fully end-to-end represented in Vespa.
+Our evaluation of the test query set is end-to-end represented in Vespa.
 
 
 ## Next Blog
