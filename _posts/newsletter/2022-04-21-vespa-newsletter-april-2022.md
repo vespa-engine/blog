@@ -22,9 +22,10 @@ Today, we’re excited to share the following updates:
 
 #### In the news
 In [Dimitry Khan](https://twitter.com/DmitryKan)’s
-[Vector Podcast](https://open.spotify.com/show/13JO3vhMf7nAqcpvlIgOY6),
+<a href="https://open.spotify.com/show/13JO3vhMf7nAqcpvlIgOY6" data-proofer-ignore>Vector Podcast</a>,
 enjoy [Jo Kristian Bergum](https://twitter.com/jobergum) from the Vespa Team in the
-[Journey of Vespa from Sparse into Neural Search](https://open.spotify.com/episode/5eiywuzKrRRcd1EaUp4ZMo).
+<a href="https://open.spotify.com/episode/5eiywuzKrRRcd1EaUp4ZMo" data-proofer-ignore>
+Journey of Vespa from Sparse into Neural Search</a>.
 This is a great 90 minutes of Vespa, vector search, multi-stage ranking and approximate nearest neighbor, and more!
 
 #### Compact tensor format
