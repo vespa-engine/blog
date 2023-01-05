@@ -259,7 +259,7 @@ setting, the DPR model underperforms the BM25 baseline._
 This case illustrates that in-domain effectiveness does not necessarily
 transfer to an out-of-domain zero-shot application of the model.
 Generally, as observed on the BEIR [dense
-leaderboard](https://docs.google.com/spreadsheets/d/1L8aACyPaXrL8iEelJLGqlMqXKPX2oSP_R10pZoy77Ns/edit#gid=0),
+leaderboard](https://docs.google.com/spreadsheets/d/1L8aACyPaXrL8iEelJLGqlMqXKPX2oSP_R10pZoy77Ns/edit),
 dense embeddings models trained on NQ labels underperform the BM25
 baseline across almost all BEIR datasets.
 
