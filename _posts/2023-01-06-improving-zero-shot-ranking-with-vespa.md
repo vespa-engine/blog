@@ -224,7 +224,7 @@ search](https://docs.vespa.ai/en/approximate-nn-hnsw.html).
 At query time, the text query is encoded with the DPR model into a dense
 vector representation used to search the vector index. This ranking
 model is an example of [dense retrieval over vector text
-representatio](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-2/)ns
+representation](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-2/)ns
 from BERT. DPR was one of the first dense retrieval methods that
 outperformed the BM25 baseline significantly on NQ. Since then,
 much water has flown down the river, and dense vector models are
