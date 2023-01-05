@@ -254,7 +254,7 @@ about generalization in a zero-shot setting on MS MARCO.
 
 _Out-of-domain evaluation of the Dense Passage Retriever (DPR). DPR
 is an example of Embedding Based Retrieval (EMB). In this zero-shot
-setting, On the DPR model underperforms the BM25 baseline._
+setting, the DPR model underperforms the BM25 baseline._
 
 This case illustrates that in-domain effectiveness does not necessarily
 transfer to an out-of-domain zero-shot application of the model.
