@@ -180,17 +180,26 @@ differences in how these datasets were created. For example, NQ
 uses passages from Wikipedia only, while MS MARCO is sampled from
 web search results. 
 
-
+<style>
+  table, th, td {
+    border: 1px solid black;
+  }
+  th, td {
+    padding: 5px;
+  }
+</style>
 <table>
   <tr>
-   <td>Statistics/Datset</td><td>&nbsp;</td> <td><strong>MS MARCO</strong></td><td></td>
-   <td><strong>Natural Questions (NQ)</strong> </td>
-  </tr> <tr>
-   <td>query length <td>&nbsp;</td></td><td>5.9</td><td>&nbsp;</td><td>9.2</td>
-  </tr> <tr>
-   <td>document length</td><td>&nbsp;</td> <td>56.6</td><td>&nbsp;</td><td>76.0</td>
-  </tr> <tr>
-   <td>Documents </td><td>&nbsp;</td> <td>8.84M </td><td>&nbsp;</td> <td>2.68M </td>
+    <th>Statistics/Dataset</th><th>MS MARCO</th><th>Natural Questions (NQ)</th>
+  </tr>
+  <tr>
+    <td>query length</td><td>5.9</td><td>9.2</td>
+  </tr>
+  <tr>
+    <td>document length</td><td>56.6</td><td>76.0</td>
+  </tr>
+  <tr>
+    <td>documents</td><td>8.84M</td><td>2.68M</td>
   </tr>
 </table>
 
