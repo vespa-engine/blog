@@ -22,7 +22,7 @@ If you are planning to implement search functionality but have not
 interactions](https://blog.vespa.ai/the-big-data-maturity-levels/) to
 train ranking models, where should you begin? In this series of
 blog posts, we will examine the concept of zero-shot text ranking.
-We implement ranking methods using Vespa and evaluate them on a
+We implement a hybrid ranking method using Vespa and evaluate it on a
 large set of text relevancy datasets in a zero-shot setting.
 
 In the first post, we will discuss the distinction between in-domain
@@ -283,6 +283,7 @@ the point that retrieval methods must be evaluated on a broad range
 of datasets**.
 
 ## Next blog post in this series
-
 In the next post in this series on zero-shot ranking, we introduce a 
-hybrid ranking model and evaluate it on the BEIR benchmark.
+hybrid ranking model, a model which combines multi-vector representations with BM25. 
+This hybrid model overcomes the limitations of single-vector embedding models, 
+and we prove its effectiveness in a zero-shot setting on the BEIR benchmark. 
