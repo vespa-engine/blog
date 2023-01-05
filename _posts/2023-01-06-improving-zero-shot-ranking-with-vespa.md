@@ -268,7 +268,7 @@ baseline across almost all BEIR datasets.
 
 In this blog post, we introduced zero-shot and out-of-domain IR
 evaluation. We also introduced the important BEIR benchmark.
-Furthermore we highlighted a case study of the DPR model and its
+Furthermore, we highlighted a case study of the DPR model and its
 generalization when applied out-of-domain in a zero-shot setting.
 
 We summarize this blog post with the following quote from the
