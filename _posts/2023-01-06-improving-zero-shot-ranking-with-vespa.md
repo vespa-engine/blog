@@ -1,6 +1,6 @@
 --- 
-layout: 
-post title: "Improving Zero-Shot Ranking with Vespa"
+layout: post 
+title: "Improving Zero-Shot Ranking with Vespa Hybrid Search"
 author: jobergum 
 date: '2023-01-05' 
 image: assets/2023-01-06-improving-zero-shot-ranking-with-vespa/norbert-braun-uU8n5LuzpTc-unsplash.jpg
@@ -31,10 +31,9 @@ Furthermore, we highlight situations where in-domain embedding
 ranking effectiveness does not carry over to a different domain in
 a zero-shot setting.
 
-
 ## Introduction
 
-Pre-trained neural language models, such as BERT, fine-tuned for
+Pre-trained neural language models, such as [BERT](https://jalammar.github.io/illustrated-bert/), fine-tuned for
 text ranking, have demonstrated remarkable effectiveness compared
 to baseline text ranking methods when evaluating the models in-domain.
 For example, in the [Pretrained Transformer Language Models for
@@ -276,6 +275,5 @@ of datasets**.
 
 ## Next blog post in this series
 
-In the next post in this series on zero-shot ranking, we evaluate
-three different retrieval and ranking pipelines, end-to-end represented
-with Vespa, on the BEIR benchmark.
+In the next post in this series on zero-shot ranking, we introduce a 
+hybrid ranking model and evaluate it on the BEIR benchmark.
