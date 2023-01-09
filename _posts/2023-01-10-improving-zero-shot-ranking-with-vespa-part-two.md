@@ -260,7 +260,7 @@ individual Rank Learning Methods](https://plg.uwaterloo.ca/~gvcormac/cormacksigi
 
 >RRF is simpler and more effective than Condorcet Fuse, while sharing
 the valuable property that it combines ranks without regard to the
-arbitrary scores returned by particular ranking methods_
+arbitrary scores returned by particular ranking methods
 
 Another approach is to combine the model scores into a new score
 to produce a new ranking. We use a linear combination in this work
