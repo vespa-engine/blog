@@ -20,10 +20,10 @@ It's a busy winter at the Vespa HQ. We are working on some major new features, w
 We have done some deep diving into using machine learning to improve ranking in search applications lately,
 and of course, we're blogging and open-sourcing all the details to make it easy for you to build on what we are doing.
 See these recent blog posts:
-* [Improving product search with learning to rank](https://blog.vespa.ai/improving-product-search-with-ltr-part-three/).
+* [Improving product search with learning to rank]({% post_url /2022-12-05-improving-product-search-with-ltr-part-three %}).
 * Improving zero-shot ranking with Vespa hybrid search:
-  [Part 1](https://blog.vespa.ai/improving-zero-shot-ranking-with-vespa/) and
-  [part 2](https://blog.vespa.ai/improving-zero-shot-ranking-with-vespa-part-two/).
+  [Part 1]({% post_url /2023-01-06-improving-zero-shot-ranking-with-vespa %}) and
+  [part 2]({% post_url /2023-01-10-improving-zero-shot-ranking-with-vespa-part-two %}).
 
 
 
