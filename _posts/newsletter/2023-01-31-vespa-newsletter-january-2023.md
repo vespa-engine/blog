@@ -13,7 +13,8 @@ excerpt: >
     AWS PrivateLink, Autoscaling, Data Plane Access Control and Container and Content Node Performance.
 ---
 
-It's a busy winter at the Vespa HQ. We are working on some major new features, which will be announced soon, but we're also finding the time to make smaller improvements - see below!
+It's a busy winter at the Vespa HQ. We are working on some major new features,
+which will be announced soon, but we're also finding the time to make smaller improvements - see below!
 
 
 ### Interested in search ranking? Don't miss these blog posts
