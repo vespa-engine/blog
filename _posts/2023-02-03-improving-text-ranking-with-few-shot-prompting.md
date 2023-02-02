@@ -130,7 +130,7 @@ a ranking model adapted to the domain, the characteristics of the
 document corpus, and the few-show query examples.
 
 ![alt_text](/assets/2023-02-03-improving-text-ranking-with-few-shot-prompting/overview.excalidraw.png)
-_Process overview_
+_Illustration of distilling the knowledge and power of generative Large Language Models (LLMs) with billions of parameters to ranking models with a few million parameters._
 
 ## Experiments
 
