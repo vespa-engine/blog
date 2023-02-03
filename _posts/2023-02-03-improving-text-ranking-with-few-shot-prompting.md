@@ -2,7 +2,7 @@
 layout: post 
 title: "Improving Search Ranking with Few-Shot Prompting of LLMs"
 author: jobergum 
-date: '2023-02-02' 
+date: '2023-02-03' 
 image: assets/2023-02-03-improving-text-ranking-with-few-shot-prompting/maxime-valcarce-mAj8xn5zXsk-unsplash.jpg
 skipimage: true 
 tags: [] 
@@ -187,26 +187,27 @@ document: $input_document
 query:
 ```
 
-Our first prompt did not include the _The query must be specific
-and detailed_ phrase. Without it, many eye-balled queries were too
+Our first prompt attempt did not include _"the query must be specific
+and detailed"_ phrase. Without it, many eyeballed queries were too
 generic. Changing the prompt made the model produce more specific
-queries.
+queries. The change in output quality is an example of the magic of *prompt engineering*.
 
-We use three trec-covid test queries as our in-domain examples for
-few-shot instruction examples. We pick the first document annotated
+We use three first trec-covid [test queries](https://ir.nist.gov/trec-covid/data/topics-rnd5.xml) 
+as our in-domain examples for few-shot instruction examples. 
+We pick the first document annotated
 as highly relevant to form the complete query-document example.
+
 Finally, we iterate over the document collection, replace the
 $input_document variable with a concatenation of the title and
-abstract, then run an inference with the model and store the generated
-query. We use an A100 40GB GPU, which costs about 1$/hour and can
-generate about 3600 synthetic queries per hour.
+abstract, then run an inference with the `flan-t5-xl` model and store the generated
+query. We use a single A100 40GB GPU, which costs about 1$/hour and can
+generate about 3600 synthetic queries per hour (depending on prompt size).
 
 At completion, we ended up with synthetic queries for 33,099 documents
 out of 171K docs. Notice that the three query-document examples are
 the same for all document-to-query creations and that the model’s
 max input sequence length limits the number of examples we can fit
 into the prompt.
-
 
 ### Query consistency checking
 
@@ -217,7 +218,9 @@ training only if the source document is ranked #1 by the zero-shot
 model. If the question passes this test, we also sample two negative
 query-document pairs from the top 100 documents ranked by the
 zero-shot model. After the consistency filter, the number of positive
-query, document pairs drops to 14,156.
+query, document pairs drops to 14,156 (43% retention). The high retention
+percentage demonstrates that the `flan-t5-xl` and prompt combination is creating 
+specific and detailed queries. 
 
 ![alt_text](/assets/2023-02-03-improving-text-ranking-with-few-shot-prompting/training-data.png)
 _Dataframe with the generated synthetic queries and the document
@@ -316,14 +319,15 @@ In addition to these resources; we open-source the generated
 queries](https://github.com/vespa-cloud/cord-19-search/blob/main/trec-covid-queries.tsv)
 and the consistency-checked training data
 ([trec_covid_train_data_k1.parquet](https://data.vespa.oath.cloud/sample-apps-data/trec_covid_train_data_k1.parquet)).
-The training data includes the zero-shot scores, the title, and the
+The training data includes the zero-shot scores, the consistenty checked query, the document title, and the
 query contextual summarization of the abstract. The end-to-end Vespa
 application is also
 [open-sourced](https://github.com/vespa-cloud/cord-19-search).
 
 In future work, we’ll look at how generative models can be used for
-re-ranking, summarization, and generative question answering.
-Improving retrieval effectiveness is step one in improving the
+re-ranking, summarization, and generative question answering with Vespa.
+
+Regardless, improving retrieval quality is step one in improving the
 overall effectiveness of any retrieval-augmented system.
 
 ## References 
