@@ -32,8 +32,7 @@ is used to train much smaller and compute efficient ranking models.
 
 Language models built on the
 [Transformer](https://arxiv.org/abs/1706.03762) architecture have
-[revolutionized text ranking
-overnight](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/),
+[revolutionized text ranking](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-1/) overnight,
 advancing the state-of-the-art by more than 30% on the MS MARCO
 relevance dataset. However, Transformer-based ranking models need
 significant amounts of labeled data and supervision to realize their
@@ -110,7 +109,7 @@ that generate artificial questions are the most promising direction
 since all you need is a few labeled queries, document examples, and
 samples from the document corpus. In addition, with synthetic query
 generators, you avoid running inference with computationally expensive
-LLM at user time, which can be[ unrealistic for most
+LLMs at user time, which can be [unrealistic for most
 organizations](https://arxiv.org/abs/2211.05102). Instead, the
 synthetic generation process is performed offline with LLM-powered
 query generators. Offline inference with LLMs is considerably less
@@ -152,7 +151,7 @@ We chose this dataset because we have previously built a simple
 demo [search UI](https://cord19.vespa.ai/) and [Vespa
 app](https://github.com/vespa-cloud/cord-19-search), indexing the
 final CORD-19 dataset. With this demo, we can deploy the ranking
-models to a production app in Vespa cloud. The following subsections
+models to a production app in [Vespa cloud](https://cloud.vespa.ai/). The following subsections
 describe the experimental setup. We also publish three
 [notebooks](https://github.com/vespa-cloud/cord-19-search/tree/main/notebooks)
 demonstrating the 3-stage process.
@@ -237,15 +236,14 @@ a ranking model on this purely synthetic data._
 
 After query generation and consistency checking, we use the synthetic
 query and document pairs to train a ranking model. As [in previous
-work,](https://blog.vespa.ai/improving-product-search-with-ltr-part-two/)
+work](https://blog.vespa.ai/improving-product-search-with-ltr-part-two/),
 we use a cross-encoder based on a 6-layer MiniLM model with just
 22M trainable parameters. We train the model for two epochs on the
 synthetic data and export the model to [ONNX for inference in
 Vespa](https://blog.vespa.ai/stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/).
-And finally, we deploy the fine-tuned model as a re-ranking phase
-on top of the top-k results from the hybrid model, and we limit the
-re-ranking k to 30 documents.
 
+Finally, we deploy the fine-tuned model as a [re-ranking phase](https://docs.vespa.ai/en/phased-ranking.html)
+on top of the top 30 results from the hybrid model. 
 
 ## Evaluation & Results
 
@@ -274,7 +272,7 @@ XL embeddings on trec-covid.
 There are two reasons for choosing a cross-encoder model over a
 bi-encoder for our synthetic fueled ranking model.
 
-* Cross-encoders are generally more effective than bi-encoders 2.
+* Cross-encoders are generally more effective than bi-encoders.
 * Updating the cross-encoder model weight does not require re-processing
 the document corpus. With bi-encoders using single vector
 representations, developers would have to re-process the document-side
