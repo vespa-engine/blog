@@ -13,6 +13,10 @@ excerpt: Evaluate search engine experiments from python.
 
 We want to enable Vespa users to run their experiments from python. This tutorial illustrates how to define query models and evaluation metrics to perform search engine experiments.
 
+**UPDATE 2023-02-13:** Code examples and links are updated to work with the latest releases of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html)
+and [learntorank](https://vespa-engine.github.io/learntorank/).
+
 ![Decorative image](/assets/2021-06-05-build-basic-text-search-app-from-python-with-vespa-part-2/figure_1.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@eugene_golovesov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Eugene Golovesov</a> on <a href="https://unsplash.com/s/photos/feedback?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
@@ -62,12 +66,12 @@ A `QueryModel` is an abstraction that encapsulates all the relevant information 
 
 
 ```python
-from vespa.query import QueryModel, OR, WeakAnd, RankProfile as Ranking
+from learntorank.query import QueryModel, OR, WeakAnd, Ranking
 
 or_bm25 = QueryModel(
     name="or_bm25",
     match_phase=OR(), 
-    rank_profile=Ranking(name="bm25")
+    ranking=Ranking(name="bm25")
 )
 ```
 
@@ -75,12 +79,12 @@ The first model is named `or_bm25` and will match all the documents that share a
 
 
 ```python
-from vespa.query import WeakAnd
+from learntorank.query import WeakAnd
 
 wand_bm25 = QueryModel(
     name="wand_bm25", 
     match_phase=WeakAnd(hits=10), 
-    rank_profile=Ranking(name="bm25")
+    ranking=Ranking(name="bm25")
 )
 ```
 
@@ -92,7 +96,7 @@ We can define which metrics we want to compute when running our experiments.
 
 
 ```python
-from vespa.evaluation import MatchRatio, Recall, NormalizedDiscountedCumulativeGain
+from learntorank.evaluation import MatchRatio, Recall, NormalizedDiscountedCumulativeGain
 
 eval_metrics = [
     MatchRatio(), 
@@ -136,7 +140,10 @@ Once we have labeled data, the evaluation metrics to compute, and the query mode
 
 
 ```python
-evaluation = app.evaluate(
+from learntorank.evaluation import evaluate
+
+evaluation = evaluate(
+    app=app,
     labeled_data=labeled_data, 
     query_model=[or_bm25, wand_bm25], 
     eval_metrics=eval_metrics, 
@@ -157,7 +164,8 @@ The `evaluate` method returns the mean, the median, and the standard deviation o
 
 
 ```python
-evaluation = app.evaluate(
+evaluation = evaluate(
+    app=app,
     labeled_data=labeled_data, 
     query_model=[or_bm25, wand_bm25], 
     eval_metrics=eval_metrics, 
@@ -175,7 +183,8 @@ Some of the metrics have intermediate results that might be of interest. For exa
 
 
 ```python
-evaluation = app.evaluate(
+evaluation = evaluate(
+    app=app,
     labeled_data=labeled_data, 
     query_model=[or_bm25, wand_bm25], 
     eval_metrics=eval_metrics, 
@@ -194,7 +203,8 @@ When debugging the results, it is often helpful to look at the metrics on a per-
 
 
 ```python
-evaluation = app.evaluate(
+evaluation = evaluate(
+    app=app,
     labeled_data=labeled_data, 
     query_model=[or_bm25, wand_bm25], 
     eval_metrics=eval_metrics, 
@@ -215,7 +225,7 @@ We can use the same evaluation framework to find the optimal `hits` parameter of
 wand_models = [QueryModel(
     name="wand_{}_bm25".format(hits), 
     match_phase=WeakAnd(hits=hits), 
-    rank_profile=Ranking(name="bm25")
+    ranking=Ranking(name="bm25")
 ) for hits in range(1, 11)]
 ```
 
@@ -223,7 +233,8 @@ We can then call `evaluate` as before and show the match ratio and recall for ea
 
 
 ```python
-evaluation = app.evaluate(
+evaluation = evaluate(
+    app=app,
     labeled_data=labeled_data, 
     query_model=wand_models, 
     eval_metrics=eval_metrics, 
