@@ -11,6 +11,10 @@ excerpt: Introducing pyvespa simplified API. Build Vespa application from python
 
 **Introducing pyvespa simplified API. Build Vespa application from python with few lines of code.**
 
+**UPDATE 2023-02-13:** Code examples and links are updated to work with the latest releases of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html)
+and [learntorank](https://vespa-engine.github.io/learntorank/).
+
 This post will introduce you to the simplified 
 [pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) 
 API that allows us to build a basic text search application from scratch with just a few code lines from python. Follow-up posts will add layers of complexity by incrementally building on top of the basic app described here.
@@ -24,7 +28,7 @@ API that allows us to build a basic text search application from scratch with ju
 
 The pyvespa simplified API introduced here was released in version `0.2.0`
 
-`pip3 install pyvespa>=0.2.0`
+    pip3 install pyvespa>=0.2.0 learntorank
 
 ## Define the application
 
@@ -116,26 +120,22 @@ as shown below:
 
 
 ```python
-from vespa.package import VespaDocker
+from vespa.deployment import VespaDocker
 
-vespa_docker = VespaDocker(
-    port=8080, 
-    disk_folder="/Users/username/cord19_app"
-)
+vespa_docker = VespaDocker()
 
-app = vespa_docker.deploy(
-    application_package = app_package,
-)
+app = vespa_docker.deploy(application_package = app_package)
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for application status.
-
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
+    Waiting for application status, 10/300 seconds...
+    Waiting for application status, 15/300 seconds...
+    Waiting for application status, 20/300 seconds...
+    Waiting for application status, 25/300 seconds...
+    Finished deployment.
 
 `app` now holds a [Vespa](https://pyvespa.readthedocs.io/en/latest/reference-api.html#vespa.application.Vespa) instance, which we are going to use to interact with our application. Congratulations, you now have a Vespa application up and running.
 
@@ -282,13 +282,9 @@ for idx, row in parsed_feed.iterrows():
 
 You can also inspect the response to each request if desired.
 
-
 ```python
-response.json()
+response.json
 ```
-
-
-
 
     {'pathId': '/document/v1/cord19/cord19/docid/qbldmef1',
      'id': 'id:cord19:cord19::qbldmef1'}
@@ -302,7 +298,7 @@ With data fed, we can start to query our text search app. We can use the [Vespa 
 
 ```python
 query = {
-    'yql': 'select * from sources * where userQuery();',
+    'yql': 'select * from sources * where userQuery()',
     'query': 'What is the role of endothelin-1',
     'ranking': 'bm25',
     'type': 'any',
@@ -332,7 +328,7 @@ res.hits[0]
 
 
 We can also define the same query by using the
-[QueryModel](https://pyvespa.readthedocs.io/en/latest/reference-api.html#querymodel) abstraction
+[QueryModel](https://vespa-engine.github.io/learntorank/module_query.html#query-model) abstraction
 that allows us to specify how we want to match and rank our documents. In this case, we defined that we want to:
 
 * match our documents using the `OR` operator, which matches all the documents that share at least one term with the query.
@@ -340,31 +336,40 @@ that allows us to specify how we want to match and rank our documents. In this c
 
 
 ```python
-from vespa.query import QueryModel, RankProfile as Ranking, OR
+from learntorank.query import QueryModel, OR, Ranking, send_query
 
-res = app.query(
+res = send_query(
+    app=app,
     query="What is the role of endothelin-1", 
-    query_model=QueryModel(
-        match_phase = OR(),
-        rank_profile = Ranking(name="bm25")
+    query_model = QueryModel(
+        match_phase=OR(), 
+        ranking=Ranking(name="bm25")
     )
-    
 )
 res.hits[0]
 ```
 
 
+    {
+        'id': 'id:cord19:cord19::2b73a28n',
+        'relevance': 20.79338929607865,
+        'source': 'cord19_content',
+        'fields': {
+            'sddocname': 'cord19',
+            'documentid': 'id:cord19:cord19::2b73a28n',
+            'cord_uid': '2b73a28n',
+            'title': 'Role of endothelin-1 in lung disease',
+            'abstract': 'Endothelin-1 (ET-1) is a 21 amino acid peptide with diverse biological activity that has been implicated in numerous diseases. ET-1 is a potent mitogen regulator of smooth muscle tone, and inflammatory mediator that may play a key role in diseases of the airways, pulmonary circulation, and inflammatory lung diseases, both acute and chronic. This review will focus on the biology of ET-1 and its role in lung disease.'
+        }
+    }
 
+Using the Vespa Query Language as in our first example gives you the full power and flexibility that Vespa can offer.
+In contrast, the QueryModel abstraction focuses on specific use cases and can be more useful for ML experiments,
+but this is a future post topic.
 
-    {'id': 'id:cord19:cord19::2b73a28n',
-     'relevance': 20.79338929607865,
-     'source': 'cord19_content',
-     'fields': {'sddocname': 'cord19',
-      'documentid': 'id:cord19:cord19::2b73a28n',
-      'cord_uid': '2b73a28n',
-      'title': 'Role of endothelin-1 in lung disease',
-      'abstract': 'Endothelin-1 (ET-1) is a 21 amino acid peptide with diverse biological activity that has been implicated in numerous diseases. ET-1 is a potent mitogen regulator of smooth muscle tone, and inflammatory mediator that may play a key role in diseases of the airways, pulmonary circulation, and inflammatory lung diseases, both acute and chronic. This review will focus on the biology of ET-1 and its role in lung disease.'}}
+Clean up:
 
-
-
-Using the Vespa Query Language as in our first example gives you the full power and flexibility that Vespa can offer. In contrast, the QueryModel abstraction focuses on specific use cases and can be more useful for ML experiments, but this is a future post topic.
+```python
+vespa_docker.container.stop()
+vespa_docker.container.remove()
+```
