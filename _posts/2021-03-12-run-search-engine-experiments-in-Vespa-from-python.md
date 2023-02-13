@@ -11,7 +11,11 @@ excerpt: Three ways to get started with pyvespa.
 
 **Three ways to get started with pyvespa.**
 
-[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) provides a python API to Vespa. The library’s primary goal is to allow for faster prototyping and facilitate Machine Learning experiments for Vespa applications. 
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) provides a python API to Vespa.
+The library’s primary goal is to allow for faster prototyping and facilitate Machine Learning experiments for Vespa applications.
+
+**UPDATE 2023-02-13:** Code examples are updated to work with the latest releases of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html).
 
 There are three ways you can get value out of `pyvespa`: 
 
@@ -44,7 +48,7 @@ We are then good to go and ready to interact with the application through `pyves
 
 ```python
 app.query(body = {
-  'yql': 'select title from sources * where userQuery();',
+  'yql': 'select title from sources * where userQuery()',
   'hits': 1,
   'summary': 'short',
   'timeout': '1.0s',
@@ -91,34 +95,42 @@ We can then deploy `app_package` to a Docker container
 
 
 ```python
-from vespa.package import VespaDocker
+from vespa.deployment import VespaDocker
 
-vespa_docker = VespaDocker(
-    disk_folder="/Users/username/sample_app", # chose your own absolute folder
-    container_memory="8G",
-    port=8080
-)
+vespa_docker = VespaDocker()
 app = vespa_docker.deploy(application_package=app_package)
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for application status.
-    Waiting for application status.
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
+    Waiting for application status, 10/300 seconds...
+    Waiting for application status, 15/300 seconds...
+    Waiting for application status, 20/300 seconds...
+    Waiting for application status, 25/300 seconds...
     Finished deployment.
 
+`app` holds an instance of the Vespa class just like our first example,
+and we can use it to feed and query the application just deployed.
+This can be useful when we want to fine-tune our application based on Vespa features not available through the `pyvespa` API.
 
-`app` holds an instance of the Vespa class just like our first example, and we can use it to feed and query the application just deployed. We can also go to the Vespa configuration files stored in the `disk_folder`, modify them and deploy them directly from the disk using the method discussed in the next section. This can be useful when we want to fine-tune our application based on Vespa features not available through the `pyvespa` API.
+There is also the possibility to explicitly export `app_package` to Vespa configuration files (without deploying them):
 
-There is also the possibility to explicitly export `app_package` to Vespa configuration files (without deploying them) through the `export_application_package` method:
-
-
-```python
-vespa_docker.export_application_package(application_package=app_package)
 ```
+$ mkdir -p /tmp/sampleapp
+```
+```python
+app_package.to_files("/tmp/sampleapp")
+```
+
+Clean up:
+```python
+vespa_docker.container.stop()
+vespa_docker.container.remove()
+```
+
+
 
 ## Deploy from Vespa config files
 
@@ -127,51 +139,56 @@ vespa_docker.export_application_package(application_package=app_package)
 If your application requires functionality or fine-tuning not available in `pyvespa`, you simply build it directly through Vespa configuration files as shown in [many examples](https://docs.vespa.ai/en/getting-started.html) on Vespa docs. But even in this case, you can still get value out of `pyvespa` by deploying it from python based on the Vespa configuration files stored on disk. To show that, we can clone and deploy the news search app covered in this [Vespa tutorial](https://docs.vespa.ai/en/tutorials/news-3-searching.html):
 
 
-```python
-!git clone https://github.com/vespa-engine/sample-apps.git
+```
+$ git clone https://github.com/vespa-engine/sample-apps.git
 ```
 
 The Vespa configuration files of the news search app are stored in the `sample-apps/news/app-3-searching/` folder:
 
 
-```python
-!tree sample-apps/news/app-3-searching/
+```
+$ tree sample-apps/news/app-3-searching/
 ```
 
     sample-apps/news/app-3-searching/
-    ├── hosts.xml
     ├── schemas/
     │   └── news.sd
     └── services.xml
     
-    1 directory, 3 files
+    1 directory, 2 files
 
 
 We can then deploy to a Docker container from disk:
 
 
 ```python
-from vespa.package import VespaDocker
+from vespa.deployment import VespaDocker
 
-vespa_docker_news = VespaDocker(
-    disk_folder="/Users/username/sample-apps/news/app-3-searching/", # Docker requires absolute path
-    container_memory="8G", 
-    port=8081
-)
-app = vespa_docker_news.deploy_from_disk(application_name="news")
+vespa_docker_news = VespaDocker()
+app = vespa_docker_news.deploy_from_disk(
+    application_name="news",
+    application_root="sample-apps/news/app-3-searching")
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for application status.
-    Waiting for application status.
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
+    Waiting for application status, 10/300 seconds...
+    Waiting for application status, 15/300 seconds...
+    Waiting for application status, 20/300 seconds...
+    Waiting for application status, 25/300 seconds...
     Finished deployment.
 
+Again, `app` holds an instance of the Vespa class just like our first example,
+and we can use it to feed and query the application just deployed.
 
-Again, `app` holds an instance of the Vespa class just like our first example, and we can use it to feed and query the application just deployed. 
+Clean up:
+```python
+vespa_docker_news.container.stop()
+vespa_docker_news.container.remove()
+```
+
 
 ## Final thoughts
 
