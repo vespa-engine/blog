@@ -13,6 +13,9 @@ excerpt: Part 1 - News search functionality.
 
 We will build a news recommendation app in Vespa without leaving a python environment. In this first part of the series, we want to develop an application with basic search functionality. Future posts will add recommendation capabilities based on embeddings and other ML models. 
 
+**UPDATE 2023-02-13:** Code examples are updated to work with the latest release of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html).
+
 ![Decorative image](/assets/2021-03-22-build-news-search-app-from-python-with-vespa/figure_1.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@filipthedesigner?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Filip Mishevski</a> on <a href="/?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
@@ -64,8 +67,8 @@ len(data)
 ## Install pyvespa
 
 
-```python
-!pip install pyvespa
+```
+$ pip install pyvespa
 ```
 
 ## Create the search app
@@ -136,30 +139,23 @@ If you have Docker installed on your machine, you can deploy the `app_package` i
 
 
 ```python
-from vespa.package import VespaDocker
+from vespa.deployment import VespaDocker
 
-vespa_docker = VespaDocker(
-    port=8080,
-    container_memory="8G", 
-    disk_folder="/Users/tmartins/news" # change for your desired absolute folder    
-)
+vespa_docker = VespaDocker()
 app = vespa_docker.deploy(
     application_package=app_package, 
 )
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for application status.
-    Waiting for application status.
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
+    Waiting for application status, 10/300 seconds...
+    Waiting for application status, 15/300 seconds...
+    Waiting for application status, 20/300 seconds...
+    Waiting for application status, 25/300 seconds...
     Finished deployment.
-
 
 `vespa_docker` will parse the `app_package` and write all the necessary Vespa config files to the `disk_folder`. It will then create the docker containers and use the Vespa config files to deploy the Vespa application. We can then use the `app` instance to interact with the deployed application, such as for feeding and querying. If you want to know more about what happens behind the scenes, we suggest you go through [this getting started with Docker tutorial](https://docs.vespa.ai/en/tutorials/news-1-getting-started.html). 
 
@@ -173,6 +169,7 @@ We can use the `feed_data_point` method. We need to specify:
 
 * `schema`: name of the schema we want to feed data to. When we created an application package, we created a schema by default with the same name as the application name, `news` in our case.
 
+This takes 10 minutes or so:
 
 ```python
 for article in data:
@@ -193,35 +190,45 @@ Select all the fields from documents where `default` (title or abstract) contain
 
 
 ```python
-res = app.query(body={"yql" : "select * from sources * where default contains 'music';"})
+res = app.query(body={"yql" : "select * from sources * where default contains 'music'"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'index:news_content/0/5f1b30d14d4a15050dae9f7f',
-     'relevance': 0.25641557752127125,
-     'source': 'news_content'}
-
-
+    {
+        'id': 'id:news:news::N14152',
+        'relevance': 0.25641557752127125,
+        'source': 'news_content',
+        'fields': {
+            'sddocname': 'news',
+            'documentid': 'id:news:news::N14152',
+            'news_id': 'N14152',
+            'category': 'music',
+            'subcategory': 'musicnews',
+            'title': 'Music is hot in Nashville this week',
+            'abstract': 'Looking for fun, entertaining music events to check out in Nashville this week? Here are top picks with dates, times, locations and ticket links.', 'url': 'https://www.msn.com/en-us/music/musicnews/music-is-hot-in-nashville-this-week/ar-BBWImOh?ocid=chopendata',
+            'date': 20191101,
+            'clicks': 0,
+            'impressions': 3
+        }
+    }
 
 Select `title` and `abstract` where `title` contains 'music' and `default` contains 'festival'.
 
 
 ```python
-res = app.query(body = {"yql" : "select title, abstract from sources * where title contains 'music' AND default contains 'festival';"})
+res = app.query(body = {"yql" : "select title, abstract from sources * where title contains 'music' AND default contains 'festival'"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'index:news_content/0/988f76793a855e48b16dc5d3',
-     'relevance': 0.19587240022210403,
-     'source': 'news_content',
-     'fields': {'title': "At Least 3 Injured In Stampede At Travis Scott's Astroworld Music Festival",
-      'abstract': "A stampede Saturday outside rapper Travis Scott's Astroworld musical festival in Houston, left three people injured. Minutes before the gates were scheduled to open at noon, fans began climbing over metal barricades and surged toward the entrance, according to local news reports."}}
+    {
+        'id': 'index:news_content/0/988f76793a855e48b16dc5d3',
+        'relevance': 0.19587240022210403,
+        'source': 'news_content',
+        'fields': {
+            'title': "At Least 3 Injured In Stampede At Travis Scott's Astroworld Music Festival",
+            'abstract': "A stampede Saturday outside rapper Travis Scott's Astroworld musical festival in Houston, left three people injured. Minutes before the gates were scheduled to open at noon, fans began climbing over metal barricades and surged toward the entrance, according to local news reports."
+        }
+    }
 
 
 
@@ -231,17 +238,18 @@ Select the title of all the documents with document type equal to `news`. Our ap
 
 
 ```python
-res = app.query(body = {"yql" : "select title from sources * where sddocname contains 'news';"})
+res = app.query(body = {"yql" : "select title from sources * where sddocname contains 'news'"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'index:news_content/0/698f73a87a936f1c773f2161',
-     'relevance': 0.0,
-     'source': 'news_content',
-     'fields': {'title': 'The Brands Queen Elizabeth, Prince Charles, and Prince Philip Swear By'}}
+    {
+        'id': 'index:news_content/0/698f73a87a936f1c773f2161',
+        'relevance': 0.0,
+        'source': 'news_content',
+        'fields': {
+            'title': 'The Brands Queen Elizabeth, Prince Charles, and Prince Philip Swear By'
+        }
+    }
 
 
 
@@ -249,58 +257,56 @@ res.hits[0]
 
 Since `date` is not specified with `attribute=["fast-search"]` there is no index built for it. Therefore, search over it is equivalent to doing a linear scan over the values of the field.
 
-
 ```python
-res = app.query(body={"yql" : "select title, date from sources * where date contains '20191110';"})
+res = app.query(body={"yql" : "select title, date from sources * where date contains '20191110'"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'index:news_content/0/debbdfe653c6d11f71cc2353',
-     'relevance': 0.0017429193899782135,
-     'source': 'news_content',
-     'fields': {'title': 'These Cranberry Sauce Recipes Are Perfect for Thanksgiving Dinner',
-      'date': 20191110}}
-
-
+    {
+        'id': 'index:news_content/0/debbdfe653c6d11f71cc2353',
+        'relevance': 0.0017429193899782135,
+        'source': 'news_content',
+        'fields': {
+            'title': 'These Cranberry Sauce Recipes Are Perfect for Thanksgiving Dinner',
+            'date': 20191110
+        }
+    }
 
 Since the `default` fieldset is formed by indexed fields, Vespa will first filter by all the documents that contain the keyword 'weather' within `title` or `abstract`, before scanning the `date` field for '20191110'.
 
 
 ```python
-res = app.query(body={"yql" : "select title, abstract, date from sources * where default contains 'weather' AND date contains '20191110';"})
+res = app.query(body={"yql" : "select title, abstract, date from sources * where default contains 'weather' AND date contains '20191110'"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'index:news_content/0/bb88325ae94d888c46538d0b',
-     'relevance': 0.27025156546141466,
-     'source': 'news_content',
-     'fields': {'title': 'Weather forecast in St. Louis',
-      'abstract': "What's the weather today? What's the weather for the week? Here's your forecast.",
-      'date': 20191110}}
-
-
+    {
+        'id': 'index:news_content/0/bb88325ae94d888c46538d0b',
+        'relevance': 0.27025156546141466,
+        'source': 'news_content',
+        'fields': {
+            'title': 'Weather forecast in St. Louis',
+            'abstract': "What's the weather today? What's the weather for the week? Here's your forecast.",
+            'date': 20191110
+        }
+    }
 
 We can also perform range searches:
 
 
 ```python
-res = app.query({"yql" : "select date from sources * where date <= 20191110 AND date >= 20191108;"})
+res = app.query({"yql" : "select date from sources * where date <= 20191110 AND date >= 20191108"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'index:news_content/0/c41a873213fdcffbb74987c0',
-     'relevance': 0.0017429193899782135,
-     'source': 'news_content',
-     'fields': {'date': 20191109}}
+    {
+        'id': 'index:news_content/0/c41a873213fdcffbb74987c0',
+        'relevance': 0.0017429193899782135,
+        'source': 'news_content',
+        'fields': {
+            'date': 20191109
+        }
+    }
 
 
 
@@ -310,71 +316,87 @@ By default, Vespa sorts the hits by descending relevance score. The relevance sc
 
 
 ```python
-res = app.query(body={"yql" : "select title, date from sources * where default contains 'music';"})
+res = app.query(body={"yql" : "select title, date from sources * where default contains 'music'"})
 res.hits[:2]
 ```
 
+    [
+        {
+            'id': 'index:news_content/0/5f1b30d14d4a15050dae9f7f',
+            'relevance': 0.25641557752127125,
+            'source': 'news_content',
+            'fields': {
+                'title': 'Music is hot in Nashville this week',
+                'date': 20191101
+            }
+        },
+        {
+            'id': 'index:news_content/0/6a031d5eff95264c54daf56d',
+            'relevance': 0.23351089409559303,
+            'source': 'news_content',
+            'fields': {
+                'title': 'Apple Music Replay highlights your favorite tunes of the year',
+                'date': 20191105
+            }
+        }
+    ]
 
-
-
-    [{'id': 'index:news_content/0/5f1b30d14d4a15050dae9f7f',
-      'relevance': 0.25641557752127125,
-      'source': 'news_content',
-      'fields': {'title': 'Music is hot in Nashville this week',
-       'date': 20191101}},
-     {'id': 'index:news_content/0/6a031d5eff95264c54daf56d',
-      'relevance': 0.23351089409559303,
-      'source': 'news_content',
-      'fields': {'title': 'Apple Music Replay highlights your favorite tunes of the year',
-       'date': 20191105}}]
-
-
-
-However, we can explicitly order by a given field with the `order` keyword. 
-
+However, we can explicitly order by a given field with the `order` keyword.
 
 ```python
-res = app.query(body={"yql" : "select title, date from sources * where default contains 'music' order by date;"})
+res = app.query(body={"yql" : "select title, date from sources * where default contains 'music' order by date"})
 res.hits[:2]
 ```
 
-
-
-
-    [{'id': 'index:news_content/0/d0d7e1c080f0faf5989046d8',
-      'relevance': 0.0,
-      'source': 'news_content',
-      'fields': {'title': "Elton John's second farewell tour stop in Cleveland shows why he's still standing after all these years",
-       'date': 20191031}},
-     {'id': 'index:news_content/0/abf7f6f46ff2a96862075155',
-      'relevance': 0.0,
-      'source': 'news_content',
-      'fields': {'title': 'The best hair metal bands', 'date': 20191101}}]
-
-
+    [
+        {
+            'id': 'index:news_content/0/d0d7e1c080f0faf5989046d8',
+            'relevance': 0.0,
+            'source': 'news_content',
+            'fields': {
+                'title': "Elton John's second farewell tour stop in Cleveland shows why he's still standing after all these years",
+                'date': 20191031
+            }
+        },
+        {
+            'id': 'index:news_content/0/abf7f6f46ff2a96862075155',
+            'relevance': 0.0,
+            'source': 'news_content',
+            'fields': {
+                'title': 'The best hair metal bands',
+                'date': 20191101
+            }
+        }
+    ]
 
 `order` sorts in ascending order by default, we can override that with the `desc` keyword:
 
 
 ```python
-res = app.query(body={"yql" : "select title, date from sources * where default contains 'music' order by date desc;"})
+res = app.query(body={"yql" : "select title, date from sources * where default contains 'music' order by date desc"})
 res.hits[:2]
 ```
 
-
-
-
-    [{'id': 'index:news_content/0/934a8d976ff8694772009362',
-      'relevance': 0.0,
-      'source': 'news_content',
-      'fields': {'title': 'Korg Minilogue XD update adds key triggers for synth sequences',
-       'date': 20191113}},
-     {'id': 'index:news_content/0/4feca287fdfa1d027f61e7bf',
-      'relevance': 0.0,
-      'source': 'news_content',
-      'fields': {'title': 'Tom Draper, Black Music Industry Pioneer, Dies at 79',
-       'date': 20191113}}]
-
+    [
+        {
+            'id': 'index:news_content/0/934a8d976ff8694772009362',
+            'relevance': 0.0,
+            'source': 'news_content',
+            'fields': {
+                'title': 'Korg Minilogue XD update adds key triggers for synth sequences',
+                'date': 20191113
+            }
+        },
+        {
+            'id': 'index:news_content/0/4feca287fdfa1d027f61e7bf',
+            'relevance': 0.0,
+            'source': 'news_content',
+            'fields': {
+                'title': 'Tom Draper, Black Music Industry Pioneer, Dies at 79',
+                'date': 20191113
+            }
+        }
+    ]
 
 
 ### Grouping
@@ -389,32 +411,53 @@ We can use Vespa's [grouping](https://docs.vespa.ai/en/grouping.html) feature to
 
 
 ```python
-res = app.query(body={"yql" : "select * from sources * where sddocname contains 'news' limit 0 | all(group(category) max(3) order(-count())each(output(count())));"})
+res = app.query(body={"yql" : "select * from sources * where sddocname contains 'news' limit 0 | all(group(category) max(3) order(-count())each(output(count())))"})
 res.hits[0]
 ```
 
-
-
-
-    {'id': 'group:root:0',
-     'relevance': 1.0,
-     'continuation': {'this': ''},
-     'children': [{'id': 'grouplist:category',
-       'relevance': 1.0,
-       'label': 'category',
-       'continuation': {'next': 'BGAAABEBGBC'},
-       'children': [{'id': 'group:string:news',
-         'relevance': 1.0,
-         'value': 'news',
-         'fields': {'count()': 9115}},
-        {'id': 'group:string:sports',
-         'relevance': 0.6666666666666666,
-         'value': 'sports',
-         'fields': {'count()': 6765}},
-        {'id': 'group:string:finance',
-         'relevance': 0.3333333333333333,
-         'value': 'finance',
-         'fields': {'count()': 1886}}]}]}
+    {
+        'id': 'group:root:0',
+        'relevance': 1.0,
+        'continuation': {
+            'this': ''
+        },
+        'children': [
+            {
+                'id': 'grouplist:category',
+                'relevance': 1.0,
+                'label': 'category',
+                'continuation': {
+                    'next': 'BGAAABEBGBC'
+                },
+                'children': [
+                    {
+                        'id': 'group:string:news',
+                        'relevance': 1.0,
+                        'value': 'news',
+                        'fields': {
+                            'count()': 9115
+                        }
+                    },
+                    {
+                        'id': 'group:string:sports',
+                        'relevance': 0.6666666666666666,
+                        'value': 'sports',
+                        'fields': {
+                            'count()': 6765
+                        }
+                    },
+                    {
+                        'id': 'group:string:finance',
+                        'relevance': 0.3333333333333333,
+                        'value': 'finance',
+                        'fields': {
+                            'count()': 1886
+                        }
+                    }
+                ]
+            }
+        ]
+    }
 
 
 
@@ -470,25 +513,14 @@ app = vespa_docker.deploy(
 )
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for application status.
-    Waiting for application status.
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
+    Waiting for application status, 10/300 seconds...
     Finished deployment.
 
-
+<!-- ToDo: app.deployment_message does snot seem to print the below -->
 
 ```python
 app.deployment_message
@@ -518,28 +550,33 @@ When the redeployment is complete, we can use it to rank the matched documents b
 
 ```python
 res = app.query(body={
-    "yql" : "select * from sources * where default contains 'music';", 
+    "yql" : "select * from sources * where default contains 'music'",
     "ranking" : "popularity"
 })
 res.hits[0]
 ```
 
+    {
+        'id': 'id:news:news::N5870',
+        'relevance': 5.156596018746151,
+        'source': 'news_content',
+        'fields': {
+            'sddocname': 'news',
+            'documentid': 'id:news:news::N5870',
+            'news_id': 'N5870',
+            'category': 'music',
+            'subcategory': 'musicnews',
+            'title': 'Country music group Alabama reschedules their Indy show until next October 2020',
+            'abstract': 'INDIANAPOLIS, Ind.   Fans of the highly acclaimed country music group Alabama, scheduled to play Bankers Life Fieldhouse Saturday night, will have to wait until next year to see the group. The group famous for such notable songs like "If You\'re Gonna Play in Texas", "Love In The First Degree", and "She and I", made the announcement that their 50th Anniversary Tour is being rescheduled till ...',
+            'url': 'https://www.msn.com/en-us/music/musicnews/country-music-group-alabama-reschedules-their-indy-show-until-next-october-2020/ar-BBWB0d7?ocid=chopendata',
+            'date': 20191108,
+            'clicks': 1,
+            'impressions': 2
+        }
+    }
 
-
-
-    {'id': 'id:news:news::N5870',
-     'relevance': 5.156596018746151,
-     'source': 'news_content',
-     'fields': {'sddocname': 'news',
-      'documentid': 'id:news:news::N5870',
-      'news_id': 'N5870',
-      'category': 'music',
-      'subcategory': 'musicnews',
-      'title': 'Country music group Alabama reschedules their Indy show until next October 2020',
-      'abstract': 'INDIANAPOLIS, Ind.   Fans of the highly acclaimed country music group Alabama, scheduled to play Bankers Life Fieldhouse Saturday night, will have to wait until next year to see the group. The group famous for such notable songs like "If You\'re Gonna Play in Texas", "Love In The First Degree", and "She and I", made the announcement that their 50th Anniversary Tour is being rescheduled till ...',
-      'url': 'https://www.msn.com/en-us/music/musicnews/country-music-group-alabama-reschedules-their-indy-show-until-next-october-2020/ar-BBWB0d7?ocid=chopendata',
-      'date': 20191108,
-      'clicks': 1,
-      'impressions': 2}}
-
-
+## Clean up:
+```python
+vespa_docker.container.stop()
+vespa_docker.container.remove()
+```
