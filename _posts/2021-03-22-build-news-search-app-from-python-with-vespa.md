@@ -575,8 +575,8 @@ res.hits[0]
         }
     }
 
-## Clean up:
-```python
-vespa_docker.container.stop()
-vespa_docker.container.remove()
-```
+
+## Next steps
+See [conclusion](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship#conclusion)
+for how to clean up the Docker container instances,
+or step to [part 2](https://blog.vespa.ai/build-news-recommendation-app-from-python-with-vespa/).

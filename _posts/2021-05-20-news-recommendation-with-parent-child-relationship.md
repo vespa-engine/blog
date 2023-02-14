@@ -11,6 +11,9 @@ excerpt: Part 3 - Efficient use of click-through rate via parent-child relations
 
 **Part 3 - Efficient use of click-through rate via parent-child relationship.**
 
+**UPDATE 2023-02-14:** Code examples are updated to work with the latest releases of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html).
+
 This part of the series introduces a new ranking signal: category click-through rate (CTR). The idea is that we can recommend popular content for users that don’t have a click history yet. Rather than just recommending based on articles, we recommend based on categories. However, these global CTR values can often change continuously, so we need an efficient way to update this value for all documents. We’ll do that by introducing parent-child relationships between documents in Vespa. We will also use sparse tensors directly in ranking. This post replicates [this more detailed Vespa tutorial](https://docs.vespa.ai/en/tutorials/news-7-recommendation-with-parent-child.html).
 
 ![Decorative image](/assets/2021-05-20-news-recommendation-with-parent-child-relationship/figure_1.jpg)
@@ -115,6 +118,8 @@ With the `category_tensor` field as defined above, we can use the tensor express
 
 
 ```python
+from vespa.package import Function
+
 app_package.get_schema("news").add_rank_profile(
     RankProfile(
         name="recommendation_with_global_category_ctr", 
@@ -149,21 +154,19 @@ We can reuse the same container named `news` created in the first part of this t
 
 
 ```python
-from vespa.package import VespaDocker
+from vespa.deployment import VespaDocker
 
 vespa_docker = VespaDocker.from_container_name_or_id("news")
 app = vespa_docker.deploy(application_package=app_package)
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for application status.
-    Waiting for application status.
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
+    Waiting for application status, 10/300 seconds...
     Finished deployment.
+
 
 
 ## Feed
@@ -180,26 +183,28 @@ global_category_ctr = json.loads(
 global_category_ctr
 ```
 
-
-
-
-    {'ctrs': {'cells': [{'address': {'category': 'entertainment'},
-        'value': 0.029266420380943244},
-       {'address': {'category': 'autos'}, 'value': 0.028475809103747123},
-       {'address': {'category': 'tv'}, 'value': 0.05374837981352176},
-       {'address': {'category': 'health'}, 'value': 0.03531784305129329},
-       {'address': {'category': 'sports'}, 'value': 0.05611187986670051},
-       {'address': {'category': 'music'}, 'value': 0.05471192953054426},
-       {'address': {'category': 'news'}, 'value': 0.04420778372641991},
-       {'address': {'category': 'foodanddrink'}, 'value': 0.029256852366228187},
-       {'address': {'category': 'travel'}, 'value': 0.025144552013730358},
-       {'address': {'category': 'finance'}, 'value': 0.03231013195899643},
-       {'address': {'category': 'lifestyle'}, 'value': 0.04423279317474416},
-       {'address': {'category': 'video'}, 'value': 0.04006693315980292},
-       {'address': {'category': 'movies'}, 'value': 0.03335647459420146},
-       {'address': {'category': 'weather'}, 'value': 0.04532171803495617},
-       {'address': {'category': 'northamerica'}, 'value': 0.0},
-       {'address': {'category': 'kids'}, 'value': 0.043478260869565216}]}}
+    {
+        'ctrs': {
+            'cells': [
+                {'address': {'category': 'entertainment'}, 'value': 0.029266420380943244},
+                {'address': {'category': 'autos'}, 'value': 0.028475809103747123},
+                {'address': {'category': 'tv'}, 'value': 0.05374837981352176},
+                {'address': {'category': 'health'}, 'value': 0.03531784305129329},
+                {'address': {'category': 'sports'}, 'value': 0.05611187986670051},
+                {'address': {'category': 'music'}, 'value': 0.05471192953054426},
+                {'address': {'category': 'news'}, 'value': 0.04420778372641991},
+                {'address': {'category': 'foodanddrink'}, 'value': 0.029256852366228187},
+                {'address': {'category': 'travel'}, 'value': 0.025144552013730358},
+                {'address': {'category': 'finance'}, 'value': 0.03231013195899643},
+                {'address': {'category': 'lifestyle'}, 'value': 0.04423279317474416},
+                {'address': {'category': 'video'}, 'value': 0.04006693315980292},
+                {'address': {'category': 'movies'}, 'value': 0.03335647459420146},
+                {'address': {'category': 'weather'}, 'value': 0.04532171803495617},
+                {'address': {'category': 'northamerica'}, 'value': 0.0},
+                {'address': {'category': 'kids'}, 'value': 0.043478260869565216}
+            ]
+        }
+    }
 
 
 
@@ -220,20 +225,24 @@ news_category_ctr = json.loads(
 news_category_ctr[0]
 ```
 
+    {
+        'id': 'N3112',
+        'fields': {
+            'category_ctr_ref': 'id:category_ctr:category_ctr::global',
+            'category_tensor': {
+                'cells': [
+                    { 'address': {'category': 'lifestyle'}, 'value': 1.0}
+                ]
+            }
+        }
+    }
 
 
-
-    {'id': 'N3112',
-     'fields': {'category_ctr_ref': 'id:category_ctr:category_ctr::global',
-      'category_tensor': {'cells': [{'address': {'category': 'lifestyle'},
-         'value': 1.0}]}}}
-
-
-
+This takes ten minutes or so:
 
 ```python
 for data_point in news_category_ctr:
-    app.update_data(schema="news", data_id=data_point["id"], fields=data_point["fields"])
+    response = app.update_data(schema="news", data_id=data_point["id"], fields=data_point["fields"])
 ```
 
 ## Testing the new rank-profile
@@ -243,14 +252,16 @@ We will redefine the `query_user_embedding` function defined in the second part 
 
 ```python
 def parse_embedding(hit_json):
-    embedding_json = hit_json["fields"]["embedding"]["cells"]
+    embedding_json = hit_json["fields"]["embedding"]["values"]
     embedding_vector = [0.0] * len(embedding_json)
+    i=0
     for val in embedding_json:
-        embedding_vector[int(val["address"]["d0"])] = val["value"]
+        embedding_vector[i] = val
+        i+=1
     return embedding_vector
 
 def query_user_embedding(user_id):
-    result = app.query(body={"yql": "select * from sources user where user_id contains '{}';".format(user_id)})
+    result = app.query(body={"yql": "select * from sources user where user_id contains '{}'".format(user_id)})
     embedding = parse_embedding(result.hits[0])
     return embedding
 ```
@@ -258,7 +269,7 @@ def query_user_embedding(user_id):
 
 ```python
 yql = "select * from sources news where " \
-      "([{'targetHits': 10}]nearestNeighbor(embedding, user_embedding));"
+      "({targetHits:10}nearestNeighbor(embedding, user_embedding))"
 result = app.query(
     body={
         "yql": yql,        
@@ -276,49 +287,65 @@ The first hit below is a sports article. The global CTR document is also listed 
 result.hits[0]
 ```
 
-
-
-
-    {'id': 'id:news:news::N5316',
-     'relevance': 0.008369192847921151,
-     'source': 'news_content',
-     'fields': {'sddocname': 'news',
-      'documentid': 'id:news:news::N5316',
-      'news_id': 'N5316',
-      'category': 'sports',
-      'subcategory': 'football_nfl',
-      'title': "Matthew Stafford's status vs. Bears uncertain, Sam Martin will play",
-      'abstract': "Stafford's start streak could be in jeopardy, according to Ian Rapoport.",
-      'url': "https://www.msn.com/en-us/sports/football_nfl/matthew-stafford's-status-vs.-bears-uncertain,-sam-martin-will-play/ar-BBWwcVN?ocid=chopendata",
-      'date': 20191112,
-      'clicks': 0,
-      'impressions': 1,
-      'summaryfeatures': {'attribute(category_tensor)': {'type': 'tensor<float>(category{})',
-        'cells': [{'address': {'category': 'sports'}, 'value': 1.0}]},
-       'attribute(global_category_ctrs)': {'type': 'tensor<float>(category{})',
-        'cells': [{'address': {'category': 'entertainment'},
-          'value': 0.029266420751810074},
-         {'address': {'category': 'autos'}, 'value': 0.0284758098423481},
-         {'address': {'category': 'tv'}, 'value': 0.05374838039278984},
-         {'address': {'category': 'health'}, 'value': 0.03531784191727638},
-         {'address': {'category': 'sports'}, 'value': 0.05611187964677811},
-         {'address': {'category': 'music'}, 'value': 0.05471193045377731},
-         {'address': {'category': 'news'}, 'value': 0.04420778527855873},
-         {'address': {'category': 'foodanddrink'}, 'value': 0.029256852343678474},
-         {'address': {'category': 'travel'}, 'value': 0.025144552811980247},
-         {'address': {'category': 'finance'}, 'value': 0.032310131937265396},
-         {'address': {'category': 'lifestyle'}, 'value': 0.044232793152332306},
-         {'address': {'category': 'video'}, 'value': 0.040066931396722794},
-         {'address': {'category': 'movies'}, 'value': 0.033356472849845886},
-         {'address': {'category': 'weather'}, 'value': 0.045321717858314514},
-         {'address': {'category': 'northamerica'}, 'value': 0.0},
-         {'address': {'category': 'kids'}, 'value': 0.043478261679410934}]},
-       'rankingExpression(category_ctr)': 0.05611187964677811,
-       'rankingExpression(nearest_neighbor)': 0.14915188666574342,
-       'vespa.summaryFeatures.cached': 0.0}}}
+    {
+        'id': 'id:news:news::N5316',
+        'relevance': 0.008369192847921151,
+        'source': 'news_content',
+        'fields': {
+            'sddocname': 'news',
+            'documentid': 'id:news:news::N5316',
+            'news_id': 'N5316',
+            'category': 'sports',
+            'subcategory': 'football_nfl',
+            'title': "Matthew Stafford's status vs. Bears uncertain, Sam Martin will play",
+            'abstract': "Stafford's start streak could be in jeopardy, according to Ian Rapoport.",
+            'url': "https://www.msn.com/en-us/sports/football_nfl/matthew-stafford's-status-vs.-bears-uncertain,-sam-martin-will-play/ar-BBWwcVN?ocid=chopendata",
+            'date': 20191112,
+            'clicks': 0,
+            'impressions': 1,
+            'summaryfeatures': {
+                'attribute(category_tensor)': {
+                    'type': 'tensor<float>(category{})',
+                    'cells': [
+                        {'address': {'category': 'sports'}, 'value': 1.0}
+                    ]
+                },
+                'attribute(global_category_ctrs)': {
+                    'type': 'tensor<float>(category{})',
+                    'cells': [
+                        {'address': {'category': 'entertainment'}, 'value': 0.029266420751810074},
+                        {'address': {'category': 'autos'}, 'value': 0.0284758098423481},
+                        {'address': {'category': 'tv'}, 'value': 0.05374838039278984},
+                        {'address': {'category': 'health'}, 'value': 0.03531784191727638},
+                        {'address': {'category': 'sports'}, 'value': 0.05611187964677811},
+                        {'address': {'category': 'music'}, 'value': 0.05471193045377731},
+                        {'address': {'category': 'news'}, 'value': 0.04420778527855873},
+                        {'address': {'category': 'foodanddrink'}, 'value': 0.029256852343678474},
+                        {'address': {'category': 'travel'}, 'value': 0.025144552811980247},
+                        {'address': {'category': 'finance'}, 'value': 0.032310131937265396},
+                        {'address': {'category': 'lifestyle'}, 'value': 0.044232793152332306},
+                        {'address': {'category': 'video'}, 'value': 0.040066931396722794},
+                        {'address': {'category': 'movies'}, 'value': 0.033356472849845886},
+                        {'address': {'category': 'weather'}, 'value': 0.045321717858314514},
+                        {'address': {'category': 'northamerica'}, 'value': 0.0},
+                        {'address': {'category': 'kids'}, 'value': 0.043478261679410934}
+                    ]
+                },
+                'rankingExpression(category_ctr)': 0.05611187964677811,
+                'rankingExpression(nearest_neighbor)': 0.14915188666574342,
+                'vespa.summaryFeatures.cached': 0.0
+            }
+        }
+    }
 
 
 
 ## Conclusion
 
 This tutorial introduced parent-child relationships and demonstrated it through a global CTR feature we used in ranking. We also introduced ranking with (sparse) tensor expressions.
+
+Clean up Docker container instances:
+```python
+vespa_docker.container.stop()
+vespa_docker.container.remove()
+```
