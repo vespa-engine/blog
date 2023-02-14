@@ -333,3 +333,8 @@ result.hits[0:2]
        'title': "'Monday Night Football' commentator under fire after belittling criticism of 49ers kicker for missed field goal"}}]
 
 
+
+## Next steps
+See [conclusion](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship#conclusion)
+for how to clean up the Docker container instances,
+or step to [part 3](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship/).
