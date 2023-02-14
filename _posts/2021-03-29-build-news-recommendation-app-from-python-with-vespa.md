@@ -11,6 +11,9 @@ excerpt: Part 2 - From news search to news recommendation with embeddings.
 
 **Part 2 - From news search to news recommendation with embeddings.**
 
+**UPDATE 2023-02-14:** Code examples are updated to work with the latest releases of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html).
+
 In this part, we'll start transforming our application from news search to news recommendation using the embeddings created in [this tutorial](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html). An embedding vector will represent each user and news article. We will make the embeddings used available for download to make it easier to follow this post along. When a user comes, we retrieve his embedding and use it to retrieve the closest news articles via an approximate nearest neighbor (ANN) search. We also show that Vespa can jointly apply general filtering and ANN search, unlike competing alternatives available in the market.
 
 ![Decorative image](/assets/2021-03-29-build-news-recommendation-app-from-python-with-vespa/figure_1.jpg)
@@ -111,7 +114,7 @@ from vespa.package import QueryTypeField
 
 app_package.query_profile_type.add_fields(
     QueryTypeField(
-        name="ranking.features.query(user_embedding)", 
+        name="ranking.features.query(user_embedding)",
         type="tensor<float>(d0[51])"
     )
 )
@@ -125,19 +128,17 @@ We made all the required changes to turn our news search app into a news recomme
 
 
 ```python
-from vespa.package import VespaDocker
+from vespa.deployment import VespaDocker
 
 vespa_docker = VespaDocker.from_container_name_or_id("news")
 app = vespa_docker.deploy(application_package=app_package)
 ```
 
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
-    Waiting for configuration server.
+    Waiting for configuration server, 0/300 seconds...
+    Waiting for configuration server, 5/300 seconds...
+    Waiting for application status, 0/300 seconds...
+    Waiting for application status, 5/300 seconds...
     Finished deployment.
-
 
 
 ```python
@@ -190,7 +191,7 @@ for user_embedding in user_embeddings:
 ```
 
 For the news documents, we just need to update the `embedding` field added to the `news` schema.
-
+This takes ten minutes or so:
 
 ```python
 for news_embedding in news_embeddings:
@@ -208,14 +209,16 @@ Next, we create a `query_user_embedding` function to retrieve the user `embeddin
 
 ```python
 def parse_embedding(hit_json):
-    embedding_json = hit_json["fields"]["embedding"]["cells"]
+    embedding_json = hit_json["fields"]["embedding"]["values"]
     embedding_vector = [0.0] * len(embedding_json)
+    i=0
     for val in embedding_json:
-        embedding_vector[int(val["address"]["d0"])] = val["value"]
+        embedding_vector[i] = val
+        i+=1
     return embedding_vector
 
 def query_user_embedding(user_id):
-    result = app.query(body={"yql": "select * from sources user where user_id contains '{}';".format(user_id)})
+    result = app.query(body={"yql": "select * from sources user where user_id contains '{}'".format(user_id)})
     embedding = parse_embedding(result.hits[0])
     return embedding
 ```
@@ -227,14 +230,13 @@ The function will query Vespa, retrieve the embedding and parse it into a list o
 query_user_embedding(user_id="U63195")[:5]
 ```
 
-
-
-
-    [0.0,
-     -0.1694680005311966,
-     -0.0703359991312027,
-     -0.03539799898862839,
-     0.14579899609088898]
+    [
+        0.0,
+        -0.1694680005311966,
+        -0.0703359991312027,
+        -0.03539799898862839,
+        0.14579899609088898
+    ]
 
 
 
@@ -246,7 +248,7 @@ The following `yql` instructs Vespa to select the `title` and the `category` fro
 
 
 ```python
-yql = "select title, category from sources news where ([{'targetHits': 10}]nearestNeighbor(embedding, user_embedding));" 
+yql = "select title, category from sources news where ({targetHits:10}nearestNeighbor(embedding, user_embedding))" 
 ```
 
 We also specify that we want to rank those documents by the `recommendation` rank-profile that we defined earlier and send the user embedding via the query profile type `ranking.features.query(user_embedding)` that we also defined in our `app_package`.  
@@ -270,19 +272,26 @@ Here are the first two hits out of the ten returned.
 result.hits[0:2]
 ```
 
-
-
-
-    [{'id': 'index:news_content/0/aca03f4ba2274dd95b58db9a',
-      'relevance': 0.1460561756063909,
-      'source': 'news_content',
-      'fields': {'category': 'music',
-       'title': 'Broadway Star Laurel Griggs Suffered Asthma Attack Before She Died at Age 13'}},
-     {'id': 'index:news_content/0/bd02238644c604f3a2d53364',
-      'relevance': 0.14591827245062294,
-      'source': 'news_content',
-      'fields': {'category': 'tv',
-       'title': "Rip Taylor's Cause of Death Revealed, Memorial Service Scheduled for Later This Month"}}]
+    [
+        {
+            'id': 'index:news_content/0/aca03f4ba2274dd95b58db9a',
+            'relevance': 0.1460561756063909,
+            'source': 'news_content',
+            'fields': {
+                'category': 'music',
+                'title': 'Broadway Star Laurel Griggs Suffered Asthma Attack Before She Died at Age 13'
+            }
+        },
+        {
+            'id': 'index:news_content/0/bd02238644c604f3a2d53364',
+            'relevance': 0.14591827245062294,
+            'source': 'news_content',
+            'fields': {
+                'category': 'tv',
+                'title': "Rip Taylor's Cause of Death Revealed, Memorial Service Scheduled for Later This Month"
+            }
+        }
+    ]
 
 
 
@@ -295,8 +304,8 @@ The following `yql`  search over news documents that have `sports` as their cate
 
 ```python
 yql = "select title, category from sources news where " \
-      "([{'targetHits': 10}]nearestNeighbor(embedding, user_embedding)) AND " \
-      "category contains 'sports';" 
+      "({targetHits:10}nearestNeighbor(embedding, user_embedding)) AND " \
+      "category contains 'sports'"
 ```
 
 
@@ -318,18 +327,25 @@ Here are the first two hits out of the ten returned. Notice the `category` field
 result.hits[0:2]
 ```
 
-
-
-
-    [{'id': 'index:news_content/0/375ea340c21b3138fae1a05c',
-      'relevance': 0.14417346200569972,
-      'source': 'news_content',
-      'fields': {'category': 'sports',
-       'title': 'Charles Rogers, former Michigan State football, Detroit Lions star, dead at 38'}},
-     {'id': 'index:news_content/0/2b892989020ddf7796dae435',
-      'relevance': 0.14404365847394848,
-      'source': 'news_content',
-      'fields': {'category': 'sports',
-       'title': "'Monday Night Football' commentator under fire after belittling criticism of 49ers kicker for missed field goal"}}]
+    [
+        {
+            'id': 'index:news_content/0/375ea340c21b3138fae1a05c',
+            'relevance': 0.14417346200569972,
+            'source': 'news_content',
+            'fields': {
+                'category': 'sports',
+                'title': 'Charles Rogers, former Michigan State football, Detroit Lions star, dead at 38'
+            }
+        },
+        {
+            'id': 'index:news_content/0/2b892989020ddf7796dae435',
+            'relevance': 0.14404365847394848,
+            'source': 'news_content',
+            'fields': {
+                'category': 'sports',
+                'title': "'Monday Night Football' commentator under fire after belittling criticism of 49ers kicker for missed field goal"
+            }
+        }
+    ]
 
 
