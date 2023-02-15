@@ -367,7 +367,8 @@ Using the Vespa Query Language as in our first example gives you the full power 
 In contrast, the QueryModel abstraction focuses on specific use cases and can be more useful for ML experiments,
 but this is a future post topic.
 
-Clean up:
+Jump to [Build a basic text search application from python with Vespa: Part 2]({% post_url /2021-06-05-build-basic-text-search-app-from-python-with-vespa-part-2 %})
+or clean up:
 
 ```python
 vespa_docker.container.stop()

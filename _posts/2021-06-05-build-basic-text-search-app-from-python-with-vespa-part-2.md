@@ -248,6 +248,14 @@ evaluation.loc[["match_ratio", "recall_10"], ["wand_{}_bm25".format(hits) for hi
 
 As expected, we can see that a higher `hits` parameter implies a higher match ratio. But the recall metric remains the same as long as we pick `hits > 3`. So, using `WeakAnd` with `hits = 4` is enough for this specific application and dataset, leading to a further reduction in the number of documents matched on average by our queries.
 
+Clean up:
+
+```python
+vespa_docker.container.stop()
+vespa_docker.container.remove()
+```
+
+
 ## Conclusion
 
 We want to enable Vespa users to run their experiments from python. This tutorial illustrates how to define query models and evaluation metrics to run search engine experiments via the evaluate method. We used a simple example that compares two different match operators and another that optimizes the parameter of one of those operators. Our key finding is that we can reduce the size of the retrieved set of hits without losing recall and precision by using the `WeakAnd` instead of the `OR` match operator.
