@@ -14605,6 +14605,7 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>UPDATE 2023-02-14:</strong> Code examples and links are updated to work with the latest releases of pyvespa and learntorank.</p>
 <p>When working with search engine apps, be it a text search or a recommendation system, part of the job is doing experiments around components such as ranking functions and deciding which experiments deliver the best result.</p>
 
 </div>
@@ -14831,16 +14832,12 @@ body[data-format='mobile'] .jp-OutputArea-child .jp-OutputArea-output {
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Waiting for configuration server, 0/300 seconds...
 Waiting for configuration server, 5/300 seconds...
-Waiting for configuration server, 10/300 seconds...
-Waiting for configuration server, 15/300 seconds...
 Waiting for application status, 0/300 seconds...
 Waiting for application status, 5/300 seconds...
 Waiting for application status, 10/300 seconds...
 Waiting for application status, 15/300 seconds...
 Waiting for application status, 20/300 seconds...
 Waiting for application status, 25/300 seconds...
-Waiting for application status, 30/300 seconds...
-Waiting for application status, 35/300 seconds...
 Finished deployment.
 </pre>
 </div>
@@ -15380,7 +15377,7 @@ Batch progress: 1/1.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Create the <code>bm25</code> <a href="https://pyvespa.readthedocs.io/en/latest/reference-api.html#querymodel">QueryModel</a>, which uses <a href="https://docs.vespa.ai/en/reference/query-language-reference.html#weakand">Vespa's weakAnd</a> operator to match documents relevant to the query and use the <code>bm25</code> <code>rank-profile</code> that we defined in the application package above to rank the documents.</p>
+<p>Create the <code>bm25</code> <a href="https://vespa-engine.github.io/learntorank/module_query.html#query-model">QueryModel</a>, which uses <a href="https://docs.vespa.ai/en/reference/query-language-reference.html#weakand">Vespa's weakAnd</a> operator to match documents relevant to the query and use the <code>bm25</code> <code>rank-profile</code> that we defined in the application package above to rank the documents.</p>
 
 </div>
 </div>
@@ -15550,10 +15547,8 @@ Batch progress: 1/1.
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>{&#39;ranking&#39;: {&#39;listFeatures&#39;: &#39;false&#39;, &#39;profile&#39;: &#39;bm25&#39;},
- &#39;yql&#39;: &#39;select * from sources * where ([{&#34;targetNumHits&#34;: &#39;
-        &#39;100}]weakAnd(default contains &#34;why&#34;, default contains &#34;say&#34;, default &#39;
-        &#39;contains &#34;the&#34;, default contains &#34;sky&#34;, default contains &#34;is&#34;, &#39;
-        &#39;default contains &#34;the&#34;, default contains &#34;limit&#34;));&#39;}
+ &#39;yql&#39;: &#39;select * from sources * where ({grammar: "weakAnd", targetHits: 100, &#39;
+        &#39;defaultIndex: "default"}userInput("why say the sky is the limit"));&#39;}
 </pre>
 </div>
 </div>
@@ -15908,7 +15903,7 @@ Batch progress: 1/1.
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">evaluation_per_query</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span>
-    <span class="n">app</span><span class="o">=</span><span class="n">app</span>
+    <span class="n">app</span><span class="o">=</span><span class="n">app,</span>
     <span class="n">labeled_data</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">get_labels</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">"dev"</span><span class="p">),</span>
     <span class="n">eval_metrics</span><span class="o">=</span><span class="n">metrics</span><span class="p">,</span>
     <span class="n">query_model</span><span class="o">=</span><span class="p">[</span><span class="n">native_query_model</span><span class="p">,</span> <span class="n">bm25_query_model</span><span class="p">],</span>
@@ -16181,7 +16176,7 @@ Batch progress: 1/1.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can then create plots based on this data to make it easier to judge the magnitude of the differences between ranking functions.</p>
+<p>We can then create plots based on this data to make it easier to judge the magnitude of the differences between ranking functions - requires <em>plotnine</em> installed:</p>
 
 </div>
 </div>
@@ -16264,7 +16259,7 @@ class="
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vespa_docker</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">600</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">vespa_docker</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">stop</span><span class="p">(</span><span class="p">)</span>
 <span class="n">vespa_docker</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 </pre></div>
 
