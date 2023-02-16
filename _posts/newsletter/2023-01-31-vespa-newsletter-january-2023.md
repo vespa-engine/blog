@@ -96,7 +96,7 @@ Most applications spend the majority of their hardware resources on content node
 Vespa runs in many environments, from various self-hosted technology stacks to Vespa Cloud -
 see [multinode-systems](https://docs.vespa.ai/en/operations/multinode-systems.html)
 and [basic-search-on-gke](https://github.com/vespa-engine/sample-apps/tree/master/examples/operations/basic-search-on-gke/).
-To support running root-less in containers with better debug support,
+To support running as a non-root user inside containers with better debug support,
 the vespa start/stop-scripts are now refactored and simplified -
 this will also make Vespa start/stop snappier in some cases.
 
