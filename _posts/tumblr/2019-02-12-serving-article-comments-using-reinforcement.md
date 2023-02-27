@@ -56,22 +56,94 @@ To explore the space of possible rankings, the team implemented a sampling algor
 
 To implement this on Vespa, the team configured the neural net as the ranking function for comments. This was done as a manually written [ranking function over tensors](https://docs.vespa.ai/en/tensor-user-guide.html) in a [rank profile](https://docs.vespa.ai/en/ranking.html). Here is the production configuration used:
 
-    rank-profile neuralNet { &nbsp;function get\_model\_weights(field) { &nbsp; &nbsp;expression: if(query(field) == 0, constant(field), query(field))
-     &nbsp;} &nbsp;function layer\_0() { # returns tensor(hidden[9]) &nbsp; &nbsp;expression: elu(xw\_plus\_b(nn\_input, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;get\_model\_weights(W\_0), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;get\_model\_weights(b\_0), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;x)) &nbsp;} &nbsp;function layer\_1() { # returns tensor(out[9]) &nbsp; &nbsp;expression: elu(xw\_plus\_b(layer\_0, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;get\_model\_weights(W\_1), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;get\_model\_weights(b\_1), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;hidden)) &nbsp;} &nbsp;# xw\_plus\_b returns tensor(out[1]), so sum converts to double &nbsp;function layer\_out() { &nbsp; &nbsp;expression: sum(xw\_plus\_b(layer\_1, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;get\_model\_weights(W\_out), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;get\_model\_weights(b\_out), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;out)) &nbsp;} &nbsp;first-phase { &nbsp; &nbsp;expression: freshnessRank &nbsp;} &nbsp;second-phase { &nbsp; &nbsp;expression: layer\_out &nbsp; &nbsp;rerank-count: 2000 &nbsp;} }
+    rank-profile neuralNet {
+        function get_model_weights(field) {
+            expression: if(query(field) == 0, constant(field), query(field))
+        }
+        function layer_0() { # returns tensor(hidden[9])     
+            expression: elu(xw_plus_b(nn_input, get_model_weights(W_0), get_model_weights(b_0), x))   
+        }
+        function layer_1() { # returns tensor(out[9])
+            expression: elu(xw_plus_b(layer_0 get_model_weights(W_1), get_model_weights(b_1), hidden))   
+        }
+        # xw_plus_b returns tensor(out[1]), so sum converts to double   
+        function layer_out() {
+            expression: sum(xw_plus_b(layer_1, get_model_weights(W_out), get_model_weights(b_out), out))   
+        }    
+        first-phase {     
+            expression: freshnessRank   
+        }    
+        second-phase {
+            expression: layer_out
+            rerank-count: 2000   
+        }
+    }
 
 More recently Vespa added support for [deploying TensorFlow SavedModels directly](https://docs.vespa.ai/en/tensorflow.html) (as well as [similar support for tools saving in the ONNX format](https://docs.vespa.ai/en/onnx.html)), which would also be a good option here since the training happens in TensorFlow.
 
-Neural nets have a pair of weight and bias tensors for each layer, which is what the team wanted the training process to optimize. The simplest way to include the weights and biases in the model is to add them as constant tensorsto the application package. However, with reinforcement learning it is necessary to be able update these tensor parameters frequently. This could be achieved by redeploying the application package frequently, as Vespa allows that to be done without restarts or disruption to ongoing queries. However, it is still a somewhat heavy-weight process, so another approach was chosen: Store the neural net parameters as tensors in a separate document type in Vespa, and create a [Searcher](https://docs.vespa.ai/en/searcher-development.html) component which looks up this document on each incoming query, and adds the parameter tensors to it before it’s passed to the content nodes for evaluation.
+Neural nets have a pair of weight and bias tensors for each layer, which is what the team wanted the training process to optimize. The simplest way to include the weights and biases in the model is to add them as constant tensors to the application package. However, with reinforcement learning it is necessary to be able to update these tensor parameters frequently. This could be achieved by redeploying the application package frequently, as Vespa allows that to be done without restarts or disruption to ongoing queries. However, it is still a somewhat heavy-weight process, so another approach was chosen: Store the neural net parameters as tensors in a separate document type in Vespa, and create a [Searcher](https://docs.vespa.ai/en/searcher-development.html) component which looks up this document on each incoming query, and adds the parameter tensors to it before it’s passed to the content nodes for evaluation.
 
 Here is the full production code needed to accomplish this serving-time operation:
 
-    import com.yahoo.document.Document; import com.yahoo.document.DocumentId; import com.yahoo.document.Field; import com.yahoo.document.datatypes.FieldValue; import com.yahoo.document.datatypes.TensorFieldValue; import com.yahoo.documentapi.DocumentAccess; import com.yahoo.documentapi.SyncParameters; import com.yahoo.documentapi.SyncSession; import com.yahoo.search.Query; import com.yahoo.search.Result; import com.yahoo.search.Searcher; import com.yahoo.search.searchchain.Execution; import com.yahoo.tensor.Tensor; import java.util.Map; public class LoadRankingmodelSearcher extends Searcher { &nbsp; &nbsp;private static final String VESPA\_ID\_FORMAT = "id:canvass\_search:rankingmodel::%s"; &nbsp; &nbsp;// [https://docs.vespa.ai/en/ranking.html#using-query-variables:](https://docs.vespa.ai/en/ranking.html#using-query-variables:) &nbsp; &nbsp;private static final String FEATURE\_FORMAT = "query(%s)"; &nbsp; &nbsp; &nbsp;/\*\* To fetch model documents from Vespa index \*/ &nbsp; &nbsp;private final SyncSession fetchDocumentSession; &nbsp; &nbsp;public LoadRankingmodelSearcher() { &nbsp; &nbsp; &nbsp; &nbsp;this.fetchDocumentSession = &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DocumentAccess.createDefault() &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .createSyncSession(new SyncParameters.Builder().build()); &nbsp; &nbsp;} &nbsp; &nbsp;@Override &nbsp; &nbsp;public Result search(Query query, Execution execution) { &nbsp; &nbsp; &nbsp; &nbsp;// Fetch model document from Vespa &nbsp; &nbsp; &nbsp; &nbsp;String id = String.format(VESPA\_ID\_FORMAT, query.getRanking().getProfile()); &nbsp; &nbsp; &nbsp; &nbsp;Document modelDoc = fetchDocumentSession.get(new DocumentId(id)); &nbsp; &nbsp; &nbsp; &nbsp;// Add it to the query &nbsp; &nbsp; &nbsp; &nbsp;if (modelDoc != null) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;modelDoc.iterator().forEachRemaining((Map.Entry\<Field, FieldValue\> e) -\> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;addTensorFromDocumentToQuery(e.getKey().getName(), e.getValue(), query) &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ); &nbsp; &nbsp; &nbsp; &nbsp;} &nbsp; &nbsp; &nbsp; &nbsp;return execution.search(query); &nbsp; &nbsp;} &nbsp; &nbsp;private static void addTensorFromDocumentToQuery(String field, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; FieldValue value, &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Query query) { &nbsp; &nbsp; &nbsp; &nbsp;if (value instanceof TensorFieldValue) { &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Tensor tensor = ((TensorFieldValue) value).getTensor().get(); &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;query.getRanking().getFeatures().put(String.format(FEATURE\_FORMAT, field), &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tensor); &nbsp; &nbsp; &nbsp; &nbsp;} &nbsp; &nbsp;} }
+    import com.yahoo.document.Document;
+    import com.yahoo.document.DocumentId;
+    import com.yahoo.document.Field;
+    import com.yahoo.document.datatypes.FieldValue;
+    import com.yahoo.document.datatypes.TensorFieldValue;
+    import com.yahoo.documentapi.DocumentAccess;
+    import com.yahoo.documentapi.SyncParameters;
+    import com.yahoo.documentapi.SyncSession;
+    import com.yahoo.search.Query;
+    import com.yahoo.search.Result;
+    import com.yahoo.search.Searcher;
+    import com.yahoo.search.searchchain.Execution;
+    import com.yahoo.tensor.Tensor;
+    import java.util.Map;
+
+    public class LoadRankingmodelSearcher extends Searcher {
+        private static final String VESPA_ID_FORMAT = "id:canvass_search:rankingmodel::%s";
+        // https://docs.vespa.ai/en/ranking-expressions-features.html#using-query-variables
+        private static final String FEATURE_FORMAT = "query(%s)";
+
+        /** To fetch model documents from Vespa index */
+        private final SyncSession fetchDocumentSession;
+        public LoadRankingmodelSearcher() {
+            this.fetchDocumentSession = DocumentAccess.createDefault().createSyncSession(new SyncParameters.Builder().build());
+        }
+
+        @Override
+        public Result search(Query query, Execution execution) {
+            // Fetch model document from Vespa
+            String id = String.format(VESPA_ID_FORMAT, query.getRanking().getProfile());
+            Document modelDoc = fetchDocumentSession.get(new DocumentId(id));
+            // Add it to the query
+            if (modelDoc != null) {
+                modelDoc.iterator().forEachRemaining((Map.Entry<Field, FieldValue> e) ->
+                    addTensorFromDocumentToQuery(e.getKey().getName(), e.getValue(), query)
+                );
+            }
+            return execution.search(query);
+        }
+
+        private static void addTensorFromDocumentToQuery(String field, FieldValue value, Query query) {
+            if (value instanceof TensorFieldValue) {
+                Tensor tensor = ((TensorFieldValue) value).getTensor().get();
+                query.getRanking().getFeatures().put(String.format(FEATURE_FORMAT, field), tensor);
+            }
+        }
+    }
 
 The model weight document definition is added to the same content cluster as the comment documents and simply contains attribute fields for each weight and bias tensor of the neural net (where each field below is configured with “indexing: attribute | summary”):
 
     document rankingmodel {
-     &nbsp;
-     &nbsp;field modelTimestamp type long { … } &nbsp;field W\_0 type tensor(x[9],hidden[9]) { … } &nbsp;field b\_0 type tensor(hidden[9]) { … } &nbsp;field W\_1 type tensor(hidden[9],out[9]) { … } &nbsp;field b\_1 type tensor(out[9]) { … } &nbsp;field W\_out type tensor(out[9]) { … } &nbsp;field b\_out type tensor(out[1]) { … } }
+        field modelTimestamp type long { … }
+        field W_0 type tensor(x[9],hidden[9]) { … }
+        field b_0 type tensor(hidden[9]) { … } 
+        field W_1 type tensor(hidden[9],out[9]) { … } 
+        field b_1 type tensor(out[9]) { … }
+        field W_out type tensor(out[9]) { … } 
+        field b_out type tensor(out[1]) { … } 
+    }
 
 Since updating documents is a lightweight operation it is now possible to make frequent changes to the neural net to implement the reinforcement learning process.
 

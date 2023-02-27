@@ -40,7 +40,7 @@ A sample ranking profile which implements a tiered relevance scoring function wh
 
 _Sample hand crafted ranking profile defined in the Vespa application package._
 
-The above example is hand crafted but for optimal relevance we do recommend looking at learning to rank (LTR) methods. See [learning to Rank using TensorFlow Ranking](https://docs.vespa.ai/en/tutorials/text-search-ml.html)and [learning to Rank using XGBoost](https://docs.vespa.ai/en/xgboost.html). The trained MLR models can be used in combination with the specific business ranking logic. In the example above we could replace the _default-ranking_ function with the trained MLR model, hence combining business logic with MLR models.
+The above example is hand crafted but for optimal relevance we do recommend looking at learning to rank (LTR) methods. See [learning to Rank using TensorFlow Ranking](https://docs.vespa.ai/en/tutorials/text-search-ml.html) and [learning to Rank using XGBoost](https://docs.vespa.ai/en/xgboost.html). The trained MLR models can be used in combination with the specific business ranking logic. In the example above we could replace the _default-ranking_ function with the trained MLR model, hence combining business logic with MLR models.
 
 ## Facets and grouping in e-commerce search
 
@@ -89,7 +89,7 @@ Vespa is able to evaluate complex Machine Learned (ML) models over many data poi
 In our <a href="https://docs.vespa.ai/en/tutorials/blog-recommendation.html" data-proofer-ignore>blog recommendation tutorial</a>
 we demonstrate how to apply a collaborative filtering model for content recommendation and in
 <a href="https://docs.vespa.ai/en/tutorials/blog-recommendation-nn.html" data-proofer-ignore>part 2 of the blog recommendation tutorial</a>
-we show to use a neural network trained with _TensorFlow_ to serve recommendations in user time. Similar recommendation approaches are used with success in e-commerce.
+we show how to use a neural network trained with _TensorFlow_ to serve recommendations in user time. Similar recommendation approaches are used with success in e-commerce.
 
 ## Keeping your e-commerce index up to date with real time updates
 
@@ -130,5 +130,5 @@ The holiday season online query traffic can be very spiky, a query traffic patte
 
 ## Summary
 
-In this post we have explored some of the challenges in e-commerce Search and Recommendation and highlighted some of the features of Vespa which can be used to tackle e-commerce search and recommendation use cases. If you want to try Vespa for your e-commerce application you can go check out our e-commerce sample application found [here](https://docs.vespa.ai/en/use-case-shopping.html) . The sample application can be scaled to full production size using our hosted Vespa Cloud Service at [https://cloud.vespa.ai/](https://cloud.vespa.ai/). Happy Holiday Shopping Season!
+In this post we have explored some challenges in e-commerce Search and Recommendation and highlighted some features of Vespa which can be used to tackle e-commerce search and recommendation use cases. If you want to try Vespa for your e-commerce application you can go check out our e-commerce sample application found [here](https://docs.vespa.ai/en/use-case-shopping.html) . The sample application can be scaled to full production size using our hosted Vespa Cloud Service at [https://cloud.vespa.ai/](https://cloud.vespa.ai/). Happy Holiday Shopping Season!
 

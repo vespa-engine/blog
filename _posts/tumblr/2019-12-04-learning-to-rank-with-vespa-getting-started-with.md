@@ -32,17 +32,21 @@ Apart from some additional details described in [the tutorial](https://docs.vesp
         document msmarco {
             field title type string
             field body type string 
-        }    fieldset default {
+        }
+        fieldset default {
             fields: title, body
-        }    rank-profile default {
+        }    
+        rank-profile default {
             first-phase {
                 expression: nativeRank(title, body)
             }
-        }    rank-profile bm25 inherits default {
+        }
+        rank-profile bm25 inherits default {
             first-phase {
                 expression: bm25(title) + bm25(body)
             }
-        } }
+        } 
+    }
 
 When we have more than one rank-profile defined, we can chose which one to use at query time, by including the `ranking` parameter in the query:
 
