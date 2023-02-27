@@ -84,7 +84,7 @@ val_encodings = tokenizer(val_queries, val_docs, truncation=True, padding='max_l
 
 ## Create a custom dataset
 
-Now that we have the encodings and the labels we can create a `Dataset` object as described in the transformers webpage about [custom datasets](https://huggingface.co/transformers/custom_datasets.html).
+Now that we have the encodings and the labels we can create a `Dataset` object as described in the transformers webpage about [custom datasets](https://huggingface.co/transformers/v3.2.0/custom_datasets.html).
 
 
 ```python
