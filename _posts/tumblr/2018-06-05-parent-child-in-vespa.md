@@ -406,4 +406,4 @@ Have an exciting use case for parent-child that you’re working on? Got any que
 
 [vespa.ai](https://vespa.ai)  
 [Vespa Engine on GitHub](https://github.com/vespa-engine/vespa)  
-[Vespa Engine on Gitter](https://app.gitter.im/#/room/#vespa-engine_Lobby:gitter.im)
+<a href="https://app.gitter.im/#/room/#vespa-engine_Lobby:gitter.im" data-proofer-ignore>Vespa Engine on Gitter</a>
