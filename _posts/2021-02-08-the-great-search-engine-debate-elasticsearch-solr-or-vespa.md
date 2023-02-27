@@ -24,7 +24,7 @@ We have also extracted the unanswered questions from the chat log, linking to Ve
 Please let us know if this is useful.
 Feel free to follow up with the Vespa Team using the resources at
 [https://vespa.ai/support](https://vespa.ai/support),
-including the [Gitter live chat](https://gitter.im/vespa-engine/Lobby).
+including the [Gitter live chat](https://app.gitter.im/#/room/#vespa-engine_Lobby:gitter.im).
 You will also find us in the #vespa channel of [Relevance Slack](http://www.opensourceconnections.com/slack).
 You can also find Charlie’s summary post at
 [Solr vs Elasticsearch vs Vespa – what did we learn at The Great Search Engine Debate?](https://opensourceconnections.com/blog/2021/02/02/solr-vs-elasticsearch-vs-vespa-what-did-we-learn-at-the-great-search-engine-debate/).
@@ -253,7 +253,7 @@ Where should we go to ask questions and have discussion?**
 
 [ [quicklink](https://youtu.be/SzZ_A9G6PMY?t=5352) ].
 [\#vespa on Stack Overflow](https://stackoverflow.com/questions/tagged/vespa),
-[Gitter channel](https://gitter.im/vespa-engine/Lobby),
+[Gitter channel](https://app.gitter.im/#/room/#vespa-engine_Lobby:gitter.im),
 \#vespa channel of [Relevance Slack](http://www.opensourceconnections.com/slack).
 Asking the extended Vespa team to document use cases / blog posts.
 
