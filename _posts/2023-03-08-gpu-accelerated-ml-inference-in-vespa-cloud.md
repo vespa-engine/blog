@@ -74,10 +74,9 @@ and includes retrieval and inference.
 
 We compared the following node configurations:
 
-- GPU: 4 vCPUs, 16GB memory, 125 GB disk, 1 GPU with 16GB memory (AWS flavor
-  `g4dn.xlarge`, Vespa Cloud cost: 1.87$/hour)
-- CPU: 16 vCPUs, 32GB memory, 125 GB disk (AWS flavor `c5.4xlarge`, Vespa Cloud
-  cost: $2.16/hour)
+- GPU: 4 vCPUs, 16GB memory, 125 GB disk, 1 GPU with 16GB memory (Vespa Cloud
+  cost: 1.87$/hour)
+- CPU: 16 vCPUs, 32GB memory, 125 GB disk (Vespa Cloud cost: $2.16/hour)
 
 ### Results
 
