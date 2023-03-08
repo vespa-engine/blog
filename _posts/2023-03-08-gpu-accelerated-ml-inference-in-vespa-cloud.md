@@ -69,8 +69,12 @@ Vespa application serving the COVID-19 Open Research Dataset. Its source code is
 available on [GitHub](https://github.com/vespa-cloud/cord-19-search).
 
 Our benchmark consisted of a query where the top 30 hits are re-ranked, using a
-22M transformer model using batch inference. The measured latency is end-to-end,
+22M Transformer model using batch inference. The measured latency is end-to-end,
 and includes retrieval and inference.
+
+See [our recent blog
+post](https://blog.vespa.ai/improving-text-ranking-with-few-shot-prompting/) for
+more information about using a Transformer language model to re-rank results.
 
 We compared the following node configurations:
 
