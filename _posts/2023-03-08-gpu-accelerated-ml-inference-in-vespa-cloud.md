@@ -21,9 +21,13 @@ In machine learning, computing model inference is a good candidate for being
 accelerated by special-purpose hardware, such as GPUs. Vespa supports
 [evaluating multiple types of machine-learned models in stateless
 containers](https://docs.vespa.ai/en/stateless-model-evaluation.html), for
-example TensorFlow, ONNX, XGBoost and LightGBM models. For many use-cases using
-a GPU makes it possible to perform model inference with higher performance, and
-at a lower price point, compared to using a general purpose CPU.
+example [TensorFlow](https://docs.vespa.ai/en/tensorflow.html),
+[ONNX](https://docs.vespa.ai/en/onnx.html),
+[XGBoost](https://docs.vespa.ai/en/xgboost.html) and
+[LightGBM](https://docs.vespa.ai/en/lightgbm.html) models. For many use-cases
+using a GPU makes it possible to perform model inference with higher
+performance, and at a lower price point, compared to using a general purpose
+CPU.
 
 Today we're introducing support for GPU-accelerated ONNX model inference in
 Vespa, together with support for GPU instances in Vespa Cloud!
