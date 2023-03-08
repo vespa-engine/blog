@@ -107,6 +107,5 @@ end-to-end request latency at 212 ms and a throughput of 18.8 QPS. The CPU
 instance had a higher average latency, at 1011 ms with 4 clients and a
 comparatively low throughput of 3.95 QPS.
 
-In our benchmark we've shown that the average latency is reduced by 79% when
-using a GPU instance, while also being cheaper, costing 13% less than the CPU
-instance.
+So, in this example, the average latency is reduced by 79% when using a GPU,
+while costing 13% less.
