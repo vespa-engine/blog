@@ -39,11 +39,6 @@ Vespa now has a fluent library for composing [queries](https://docs.vespa.ai/en/
 see the [client](https://github.com/vespa-engine/vespa/tree/master/client) module for details.
 
 
-#### Hadoop integration
-Vespa is integrated with [Hadoop](https://docs.vespa.ai/en/feed-using-hadoop-pig-oozie.html) and it is easy to feed from a grid.
-The grid integration now also supports conditional writes, see [#12081](https://github.com/vespa-engine/vespa/pull/12081). 
-
-
 ___
 About Vespa: Largely developed by Yahoo engineers,
 [Vespa](https://github.com/vespa-engine/vespa) is an open source big data processing and serving engine.
