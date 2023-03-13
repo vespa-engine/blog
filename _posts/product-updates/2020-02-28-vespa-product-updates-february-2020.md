@@ -40,7 +40,9 @@ see the [client](https://github.com/vespa-engine/vespa/tree/master/client) modul
 
 
 #### Hadoop integration
-Vespa is integrated with [Hadoop](https://docs.vespa.ai/en/feed-using-hadoop-pig-oozie.html) and it is easy to feed from a grid.
+Vespa is integrated with
+<a href="https://docs.vespa.ai/en/feed-using-hadoop-pig-oozie.html" data-proofer-ignore>Hadoop</a>
+and it is easy to feed from a grid.
 The grid integration now also supports conditional writes, see [#12081](https://github.com/vespa-engine/vespa/pull/12081). 
 
 
