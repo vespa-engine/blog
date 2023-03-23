@@ -10,7 +10,7 @@ skipimage: true
 
 excerpt: Set up private endpoint services on your Vespa Cloud application, and access them from your own VPC, in the same region, through the cloud provider's private network. 
 ---
-![Decorative image](assets/2023-03-24-private-regional-endpoints/taylor-vick-M5tzZtFCOfs-unsplash-2.jpg)
+![Decorative image](/assets/2023-03-24-private-regional-endpoints/taylor-vick-M5tzZtFCOfs-unsplash-2.jpg)
 <p class="image-credit">
   Photo by <a href="https://unsplash.com/@tvick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Taylor Vick</a> on <a href="https://unsplash.com/photos/M5tzZtFCOfs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
@@ -25,7 +25,7 @@ through the private network of the cloud provider.
 Traffic to private, regional endpoints avoid the trip out onto the public internet,
 and both latency and costs are reduced:
 
-![Public vs private routing](assets/2023-03-24-private-regional-endpoints/privatelink-service-connect.png)
+![Public vs private routing](/assets/2023-03-24-private-regional-endpoints/privatelink-service-connect.png)
 
 With private endpoints enabled, it is also possible to disable the public endpoints
 of the application, for another layer of access control and security.
