@@ -123,6 +123,18 @@ authors:
     avatar: '/assets/avatars/mpolden.jpg'
     email: mpolden@yahooinc.com
     description: "Principal Vespa Engineer"
+  arnej:
+    name: Arne H Juul 
+    display_name: Arne H Juul 
+    avatar: '/assets/avatars/arnej.jpg'
+    email: arnej@yahooinc.com
+    description: "Senior Principal Vespa Engineer"
+  tegge:
+    name: Tor Egge 
+    display_name: Tor Egge 
+    avatar: '/assets/avatars/tegge.jpg'
+    email: tegge@yahooinc.com
+    description: "Senior Principal Vespa Engineer"
   enikolaisen:
     name: Erlend Solbakken Nikolaisen
     display_name: Erlend Solbakken Nikolaisen
