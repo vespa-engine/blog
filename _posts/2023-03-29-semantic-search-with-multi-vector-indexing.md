@@ -179,7 +179,7 @@ schema wiki
 </pre>
 
 This is straightforward, mapping the Wikipedia article schema to a
-Vespa schema; as before, semantic search with vector embeddings
+Vespa schema; as before semantic search with vector embeddings
 made their entry. With length-limited embedding models, developers
 need to chunk the content into an array of strings to overcome
 length limitations.
@@ -233,7 +233,7 @@ format](https://docs.vespa.ai/en/reference/document-json-format.html):
 Note that the developer controls the text chunking strategy. Suppose
 the developer wants to map vectors to the text paragraphs that
 produced them. In that case, the developer can use the index in the
-paragraphs array as the tensor dimension key. This helps the developer
+paragraphs array as the mapped dimension label. This helps the developer
 present the best matching paragraph(s) on the search result page,
 as described in the ranking section below.
 
@@ -270,7 +270,7 @@ that matches the distance metric used during model training.
 The following demonstrates a Vespa [query
 api](https://docs.vespa.ai/en/query-api.html) request with [native
 embedder
-functionality.](https://docs.vespa.ai/en/embedding.html#bertbase-embedder)
+functionality](https://docs.vespa.ai/en/embedding.html#bertbase-embedder).
 The native embedder encodes the input text ‘_metric spaces_’, and
 uses the resulting 384-dimensional vector in the nearest neighbor
 search. See [text embeddings made
@@ -281,7 +281,7 @@ details.
 curl \
  --json "
   {
-   'yql': 'select title,url from articles where {targetHits:10}nearestNeighbor(content_embeddings, q)',
+   'yql': 'select title,url from wiki where {targetHits:10}nearestNeighbor(paragraph_embeddings, q)',
    input.query(q)': 'embed(metric spaces)' 
   }" \
  https://vespaendpoint/search/
@@ -306,7 +306,7 @@ accuracy](https://blog.vespa.ai/improving-zero-shot-ranking-with-vespa-part-two/
 curl \
  --json "
   {
-   'yql': 'select title,url from articles where (userQuery())  or ({targetHits:10}nearestNeighbor(content_embeddings, q))',
+   'yql': 'select title,url from wiki where (userQuery())  or ({targetHits:10}nearestNeighbor(paragraph_embeddings, q))',
    input.query(q)': 'embed(metric spaces)', 
    'query': 'metric spaces',
    'ranking': 'hybrid'
@@ -323,7 +323,7 @@ Developers can also use multiple _nearestNeighbor_ query operators
 in the query; see the [nearest neighbor search in the Vespa
 guide](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#multiple-nearest-neighbor-search-operators-in-the-same-query).
 Multiple _nearestNeighbor_ operators in the same query are convenient
-for query rewrites and expansions —notice also that the query request
+for query rewrites and expansions. Notice also that the query request
 includes a [ranking](https://docs.vespa.ai/en/ranking.html) parameter.
 
 ### Ranking
@@ -337,7 +337,7 @@ fields, two new rank features are introduced: _closest(name)_ and
 _closest(name, label)_. The optional label is useful when querying
 with multiple [labeled nearestNeighbor query
 operators](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#multiple-nearest-neighbor-search-operators-in-the-same-query).
-The output of the closest feature is a tensor with one mapped
+The output of the _closest_ feature is a tensor with one mapped
 dimension and one point (with a value of 1). For example:
 
 <pre>
@@ -379,7 +379,7 @@ How results are presented to the user is commonly overlooked when
 introducing semantic search, and most vector search databases do
 not support snippeting or highlighting. With Vespa, developers can
 display the best matching paragraph when displaying articles on the
-search result page using the closest feature combined with
+search result page using the _closest_ feature combined with
 match-features. Vespa also supports [dynamic
 summaries](https://docs.vespa.ai/en/document-summaries.html#dynamic-summaries)
 and bolding of query terms in single and multi-valued string fields.
@@ -417,10 +417,10 @@ on the tensor type of the tensor field.
 ![Graph](/assets/2023-03-29-semantic-search-with-multi-vector-indexing/image4.png "image_tooltip")
 <font size="3"><i>Illustration showing how a set of graph nodes are linked together
 on each layer in the graph hierarchy. Graph nodes are stored in a
-vector data structure where the nodeid provides direct lookup. When
+vector data structure where the _nodeid_ provides direct lookup. When
 indexing multiple vectors per document, extra metadata is stored
 per graph node to uniquely access the vector from the tensor field
-attribute. In addition, a structure mapping from docid to nodeids
+attribute. In addition, a structure mapping from _docid_ to _nodeids_
 is maintained.</i></font><br/>
 
 ### Single vector per document
@@ -450,7 +450,7 @@ _nodeids_ is used to find the graph nodes to be removed.
 The greedy search algorithm that finds the K closest neighbors to
 a query vector is slightly altered compared to the single-vector
 case. The greedy search continues until graph nodes with K unique
-_docids_ are found. Among these the graph node (vector), each _docid_
+For each _docid_, the graph node (vector) that is
 closest to the query vector is chosen. The result is the K nearest
 _docids_ of the query vector.
 
@@ -486,7 +486,7 @@ c6id.metal](https://aws.amazon.com/ec2/instance-types/c6i/) instance
 with 128 vCPUs, 256 GB Memory, and 4x1900 NVMe SSD. 64 vCPUs were
 reserved for the test. The following was measured:
 
-* Total feed time and throughput.  
+* Total feed time and write throughput.  
 * End-to-end average query latency when using the
 [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor)
 query operator, asking for _targetHits=100_.
@@ -576,7 +576,7 @@ field word2vec type tensor&lt;float&gt;(word{}, x[300])
 Multi-vector indexing is particularly useful for product and
 [e-commerce applications
 ](https://docs.vespa.ai/en/use-case-shopping.html)where the product
-has lots of metadata to[
+has lots of metadata to [
 filter](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/)
 and rank on and where the product metadata is [constantly
 evolving](https://docs.vespa.ai/en/partial-updates.html#use-cases).
@@ -595,9 +595,9 @@ field product_bullet_embeddings type tensor&lt;bfloat16&gt;(p{},x[384])
 field product_embedding type tensor&lt;int8&gt;(x[256])
 </pre>
 
-Using multiple_ nearestNeighbor_ search query operators in the same
+Using multiple_ nearestNeighbor_ query operators in the same
 query request, coupled with a ranking function, e-commerce apps can
-retrieving efficiently over multiple vector fields and expose the
+retrieve efficiently over multiple vector fields and expose the
 retrieved products to [ML powered ranking
 functions](https://blog.vespa.ai/improving-product-search-with-ltr-part-three/).
 
