@@ -6,7 +6,7 @@ date: '2023-03-28'
 image: assets/2023-03-29-semantic-search-with-multi-vector-indexing/peter-herrmann-aT88kga0g_M-unsplash.jpg
 skipimage: true 
 tags: [] 
-excerpt: announcing multi-vector support in Vespa, which allows you to index multiple vectors per document and retrieve documents by the closest vector in each 
+excerpt: Announcing multi-vector indexing support in Vespa, which allows you to index multiple vectors per document and retrieve documents by the closest vector in each document.
 ---
 
 ![Decorative
@@ -14,8 +14,8 @@ image](/assets/2023-03-29-semantic-search-with-multi-vector-indexing/peter-herrm
 <p class="image-credit">Photo by <a href="https://unsplash.com/@tama66?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Peter Herrmann</a> on <a href="https://unsplash.com/photos/aT88kga0g_M?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
 
-Finding data items by nearest neighbor search in vector space has
-become popular in recent years, but suffers from one big limitation:
+Finding data items by [nearest neighbor search](https://docs.vespa.ai/en/nearest-neighbor-search.html) 
+in vector space has become popular in recent years, but suffers from one big limitation:
 Each data item must be well representable by a single vector. This
 is often far from possible, for example, when your data is text
 documents of non-trivial length. Now we are announcing multi-vector
@@ -24,13 +24,12 @@ document and retrieve documents by the closest vector in each.
 
 
 ## Background
-
 Advances in self-supervised deep learning models have revolutionized
 how to represent unstructured data like text, audio, image, and
 videos in a language native to machines; Vectors.
 
 ![overview](/assets/2023-03-29-semantic-search-with-multi-vector-indexing/image1.png "image_tooltip")
-<font size="2"><i>Embedding data into vector space.</i></font><br/>
+<font size="2"><i>Embedding data into vector space using deep neural networks.</i></font><br/>
 
 Encoding objects using deep learning models allows for representing
 objects in a high-dimensional vector space. In this latent embedding
@@ -68,7 +67,7 @@ representation.
 <a href="https://en.wikipedia.org/wiki/Metric_space">Wikipedia:Metric_space</a>
 article. The highlighted text is exactly 128 wordpieces long after
 tokenization. This illustrates the narrow context window of Transformer
-based embedding models.</i></font><br/>
+based embedding models.</i></font>
 
 Due to the context length limited Transformers, developers that
 want to index Wikipedia or any text dataset using embedding models
@@ -104,7 +103,7 @@ modeling approach.
 ### Relationships and fan-out
 
 The developer needs to manage the fan-out relationship between
-articles and paragraphs.  When the article changes, the user must
+articles and paragraphs.  When the article changes, the developer must
 re-process the article into paragraphs which might leave orphaned
 paragraphs in the paragraph index. Deletion of an article requires
 a cascading deletion of all associated paragraphs from the index.
@@ -274,9 +273,9 @@ functionality](https://docs.vespa.ai/en/embedding.html#bertbase-embedder).
 The native embedder encodes the input text ‘_metric spaces_’, and
 uses the resulting 384-dimensional vector in the nearest neighbor
 search. See [text embeddings made
-simple](https://blog.vespa.ai/text-embedding-made-simple/) for
-details.
-
+simple](https://blog.vespa.ai/text-embedding-made-simple/) and
+[Vespa query language](https://docs.vespa.ai/en/query-language.html)
+for details.
 <pre>
 curl \
  --json "
@@ -286,10 +285,8 @@ curl \
   }" \
  https://vespaendpoint/search/
 </pre>
-
-### Semantic vector search
-
-The `targetHits` variable is the target number of **articles** the
+The `targetHits` annotation to the `nearestNeighbor` query operator 
+is the target number of **articles** the
 nearest neighbors the search should expose to Vespa
 [ranking](https://docs.vespa.ai/en/ranking.html) phases. Selecting
 articles overcomes the article diversity issue associated with a
@@ -367,8 +364,8 @@ rank-profile semantic inherits default {
 }
 </pre>
 
-Using [Vespa tensors
-expressions](https://docs.vespa.ai/en/tensor-user-guide.html),
+Using [Vespa tensor
+compute expressions](https://blog.vespa.ai/computing-with-tensors/),
 developers can also compute distance aggregates, over all the vectors
 in the document and also the distance to all the vectors in the
 field.
@@ -376,8 +373,8 @@ field.
 ### Result presentation and snippeting
 
 How results are presented to the user is commonly overlooked when
-introducing semantic search, and most vector search databases do
-not support snippeting or highlighting. With Vespa, developers can
+introducing semantic search, and most [vector databases](https://blog.vespa.ai/will-vector-dbs-dislodge-search-engines/) 
+do not support snippeting or highlighting. With Vespa, developers can
 display the best matching paragraph when displaying articles on the
 search result page using the _closest_ feature combined with
 match-features. Vespa also supports [dynamic
@@ -417,10 +414,10 @@ on the tensor type of the tensor field.
 ![Graph](/assets/2023-03-29-semantic-search-with-multi-vector-indexing/image4.png "image_tooltip")
 <font size="3"><i>Illustration showing how a set of graph nodes are linked together
 on each layer in the graph hierarchy. Graph nodes are stored in a
-vector data structure where the _nodeid_ provides direct lookup. When
+vector data structure where the <strong>nodeid</strong> provides direct lookup. When
 indexing multiple vectors per document, extra metadata is stored
 per graph node to uniquely access the vector from the tensor field
-attribute. In addition, a structure mapping from _docid_ to _nodeids_
+attribute. In addition, a structure mapping from <strong>docid</strong> to <strong>nodeids</strong>
 is maintained.</i></font><br/>
 
 ### Single vector per document
@@ -434,7 +431,7 @@ field attribute. No extra metadata is stored per graph node.
 ### Multiple vectors per document
 
 The tensor type is mixed with one mapped dimension and one indexed
-dimension, e.g. `tensor<float>(p{}, x[384])`.
+dimension, e.g., `tensor<float>(p{}, x[384])`.
 
 In this case the _nodeid_ is no longer equal to the _docid_, and
 an additional mapping structure is maintained. When inserting the
@@ -447,7 +444,7 @@ _[0, num-vectors-for-that-document>_. When removing the vectors of
 a document from the HNSW index, the mapping from _docid_ to set of
 _nodeids_ is used to find the graph nodes to be removed.
 
-The greedy search algorithm that finds the K closest neighbors to
+The greedy search algorithm that finds the K (`targetHits`) closest neighbors to
 a query vector is slightly altered compared to the single-vector
 case. The greedy search continues until graph nodes with K unique
 For each _docid_, the graph node (vector) that is
@@ -503,10 +500,10 @@ query operator, asking for _targetHits=100_.
 <table>
   <tr>
    <td> </td> <td><strong>Total feed time (seconds)</strong>
-   </td> <td><strong>Throughput</strong>
+   </td> <td><strong>Write throughput</strong>
   <strong>(vectors / second)</strong>
-   </td> <td><strong>Throughput (documents / second)</strong> </td>
-   <td><strong>Throughput </strong>
+   </td> <td><strong>Write throughput (documents / second)</strong> </td>
+   <td><strong>Write throughput </strong>
   <strong>(MB / second)</strong>
    </td> <td><strong>Avg query latency (ms)</strong> </td>
   </tr> <tr>
@@ -530,7 +527,7 @@ differences are explained by:
 greedy search algorithm must consider document-level uniqueness.
 
 * Accessing a single vector in a mixed tensor field attribute (e.g.,
-tensor&lt;float&gt;(p{},x[384]) using the tuple _{docid, vectorid}_
+`tensor<float>(p{},x[384])` using the tuple _{docid, vectorid}_
 requires an extra memory access and calculations to locate the
 vector in memory.
 
@@ -595,7 +592,7 @@ field product_bullet_embeddings type tensor&lt;bfloat16&gt;(p{},x[384])
 field product_embedding type tensor&lt;int8&gt;(x[256])
 </pre>
 
-Using multiple_ nearestNeighbor_ query operators in the same
+Using multiple _nearestNeighbor_ query operators in the same
 query request, coupled with a ranking function, e-commerce apps can
 retrieve efficiently over multiple vector fields and expose the
 retrieved products to [ML powered ranking
