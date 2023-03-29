@@ -98,8 +98,8 @@ With minimum distance aggregation, it’s possible to use a vector
 search library and index paragraphs, combining the article id and
 a paragraph id to form a new primary key. For example, using
 incremental paragraph numbers per article, instead of indexing the
-article _Metric_space_, developers could index _Metric_space_#1,
-Metric_space_#2, Metric_space_#3_, and so forth. This might seem
+article _Metric_space_, developers could index _Metric_space_#1_,
+_Metric_space_#2_, _Metric_space_#3_, and so forth. This might seem
 easy at first sight, but there are many disadvantages to this
 modeling approach.
 
@@ -598,7 +598,7 @@ without introducing fan-out complexity. Vespa also allows using
 multi-vector indexing for multiple fields in the same schema.
 
 <pre>
-field image_clip_embeddings type tensor&lt;float&gt;(i{}, x[512])
+field image_clip_embeddings type tensor&lt;float&gt;(i{},x[512])
 field product_bullet_embeddings type tensor&lt;bfloat16&gt;(p{},x[384])
 field product_embedding type tensor&lt;int8&gt;(x[256])
 </pre>
