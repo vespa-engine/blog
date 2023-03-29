@@ -123,7 +123,7 @@ page?
 
 ### Result diversity
 
-The closest k nearest neighbors in the paragraph level embedding
+The closest K nearest neighbors in the paragraph level embedding
 space could be from the same article. Increasing the diversity of
 sources is especially important when used for retrieval-augmented
 generative question answering, where the generative model also has
@@ -174,14 +174,14 @@ language](https://docs.vespa.ai/en/schemas.html):
 <pre>
 schema wiki
   document wiki {
-     field title type string {} 
-     field content type string {}   
-  }  
+    field title type string {}
+    field content type string {}
+  }
 }
 </pre>
 
 This is straightforward, mapping the Wikipedia article schema to a
-Vespa schema; as before semantic search with vector embeddings
+Vespa schema as before semantic search with vector embeddings
 made their entry. With length-limited embedding models, developers
 need to chunk the content into an array of strings to overcome
 length limitations.
@@ -189,9 +189,9 @@ length limitations.
 <pre>
 schema wiki {
   document wiki {
-     field title type string {}    
-     field paragraphs type array&lt;string&gt; {}  
-     field paragraph_embeddings type tensor&lt;float&gt;(p{},x[384]) {}
+    field title type string {}
+    field paragraphs type array&lt;string&gt; {}
+    field paragraph_embeddings type tensor&lt;float&gt;(p{},x[384]) {}
   } 
 }
 </pre>
@@ -221,15 +221,15 @@ format](https://docs.vespa.ai/en/reference/document-json-format.html):
   "put": "id:wikipedia:wiki::Metric_space", 
   "fields": {
     "title": "Metric space",
-    "paragraphs" : [
+    "paragraphs": [
       "In mathematics, a metric space...",
       "strings can be equipped with the Hamming distance, which measures the number.. " 
-	],
-	"paragraph_embeddings": {
-          "0": [0.12,0.03,....,0.04],
-          "1": [0.03, 0.02,...,0.02]
-	}
-   }
+    ],
+    "paragraph_embeddings": {
+      "0": [0.12,0.03,....,0.04],
+      "1": [0.03, 0.02,...,0.02]
+    }
+  }
 }
 </pre>
 Note that the developer controls the text chunking strategy. Suppose
@@ -251,12 +251,12 @@ In this case, the schema becomes:
 <pre>
 schema wiki {
   document wiki {
-     field title type string {}    
-     field paragraphs type array&lt;string&gt; {}  
+    field title type string {}
+    field paragraphs type array&lt;string&gt; {}
   } 
-  field paragraph_embeddings type tensor&lt;float&gt;(p{},x[384]) { 
+  field paragraph_embeddings type tensor&lt;float&gt;(p{},x[384]) {
     indexing: input paragraphs | embed | attribute | index | summary
-   }
+  }
 }
 </pre>
 
@@ -284,13 +284,13 @@ curl \
  --json "
   {
    'yql': 'select title,url from wiki where {targetHits:10}nearestNeighbor(paragraph_embeddings, q)',
-   input.query(q)': 'embed(metric spaces)' 
+   'input.query(q)': 'embed(metric spaces)'
   }" \
  https://vespaendpoint/search/
 </pre>
-The `targetHits` annotation to the `nearestNeighbor` query operator 
+The `targetHits` annotation to the _nearestNeighbor_ query operator
 is the target number of **articles** the
-nearest neighbors the search should expose to Vespa
+nearest neighbor search should expose to Vespa
 [ranking](https://docs.vespa.ai/en/ranking.html) phases. Selecting
 articles overcomes the article diversity issue associated with a
 paragraph index, avoiding that all closest retrieved nearest neighbors
@@ -306,8 +306,8 @@ accuracy](https://blog.vespa.ai/improving-zero-shot-ranking-with-vespa-part-two/
 curl \
  --json "
   {
-   'yql': 'select title,url from wiki where (userQuery())  or ({targetHits:10}nearestNeighbor(paragraph_embeddings, q))',
-   input.query(q)': 'embed(metric spaces)', 
+   'yql': 'select title,url from wiki where (userQuery()) or ({targetHits:10}nearestNeighbor(paragraph_embeddings, q))',
+   'input.query(q)': 'embed(metric spaces)',
    'query': 'metric spaces',
    'ranking': 'hybrid'
   }" \
@@ -317,7 +317,7 @@ curl \
 The _userQuery()_ matches against the full article across all
 paragraphs and the title. Searching across all the fields improves
 recall of the traditional text retrieval component. The semantic
-_nearestNeighbor()_ component searches at the paragraph level,
+_nearestNeighbor_ component searches at the paragraph level,
 finding the closest paragraphs in the paragraph embedding space.
 Developers can also use multiple _nearestNeighbor_ query operators
 in the query; see the [nearest neighbor search in the Vespa
@@ -338,13 +338,13 @@ _closest(name, label)_. The optional label is useful when querying
 with multiple [labeled nearestNeighbor query
 operators](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#multiple-nearest-neighbor-search-operators-in-the-same-query).
 The output of the _closest_ feature is a tensor with one mapped
-dimension and one point (with a value of 1). For example:
+dimension and one point (with a value of 1.0). For example:
 
 <pre>
-tensor&lt;float&gt;(p{}):{ {"p":1: 1.0} }
+tensor&lt;float&gt;(p{}):{ 3: 1.0 }
 </pre>
 
-In this example, the vector with label 1 is the closest paragraph
+In this example, the vector with label 3 is the closest paragraph
 to the query, which retrieved the document into Vespa ranking phases.
 
 The following rank-profile orders the articles by the maximum
@@ -357,13 +357,13 @@ result page.
 
 <pre>
 rank-profile semantic inherits default {
-   inputs {
-      query(q) tensor&lt;float&gt;(x[384])
-    }
-   first-phase {
-  	expression: cos(closeness(field, paragraph_embeddings))
-   }
-   match-features: closest(paragraph_embeddings)
+  inputs {
+    query(q) tensor&lt;float&gt;(x[384])
+  }
+  first-phase {
+    expression: cos(closeness(field, paragraph_embeddings))
+  }
+  match-features: closest(paragraph_embeddings)
 }
 </pre>
 
@@ -448,11 +448,11 @@ a document from the HNSW index, the mapping from _docid_ to set of
 _nodeids_ is used to find the graph nodes to be removed.
 
 The greedy search algorithm that finds the K (`targetHits`) closest neighbors to
-a query vector is slightly altered compared to the single-vector
-case. The greedy search continues until graph nodes with K unique
-For each _docid_, the graph node (vector) that is
-closest to the query vector is chosen. The result is the K nearest
-_docids_ of the query vector.
+a query vector is slightly altered compared to the single-vector case.
+The greedy search continues until graph nodes with K unique _docids_ are found.
+For each _docid_, the graph node (vector) with the minimum distance to the query vector is used
+as the distance between that document and the query vector.
+The result is the K nearest _docids_ of the query vector.
 
 The following summarized the changes to the HNSW index implementation:
 
@@ -473,14 +473,22 @@ Wikipedia articles. Each text paragraph was converted to a
 384-dimensional vector embedding using the
 [minilm-l6-v2](https://cloud.vespa.ai/en/model-hub#available-models)
 transformer model using Vespa’s [embedder
-](https://docs.vespa.ai/en/embedding.html#bertbase-embedder)functionality.
-Two schemas were created and corresponding feed files. In both setups, the size of the dataset was 746 MB (485851 * 384 * 4).
+](https://docs.vespa.ai/en/embedding.html#bertbase-embedder) functionality.
+Two schemas were created and corresponding feed files.
+In both setups, the size of the dataset was 746 MB (485851 * 384 * 4).
 
-* Paragraph: 485851 documents with one vector embedding (paragraph)
-per document.  
-* Article 187340 documents with multiple vector
-embeddings (paragraphs) per document, 2.59 vectors on average per document.
+* Paragraph:
+  - 485851 documents with one vector embedding (paragraph) per document.
+  - Tensor field type: `tensor<float>(x[384])`
+* Article:
+  - 187340 documents with multiple vector embeddings (paragraphs) per document.
+  - 2.59 vectors on average per document.
+  - Tensor field type: `tensor<float>(p{}, x[384])`
 
+The tensor fields were configured with
+[angular distance metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric)
+and an [HNSW index](https://docs.vespa.ai/en/reference/schema-reference.html#index-hnsw)
+with `max-links-per-node: 16` and `neighbors-to-explore-at-insert: 100`.
 The performance tests were executed on a [AWS EC2
 c6id.metal](https://aws.amazon.com/ec2/instance-types/c6i/) instance
 with 128 vCPUs, 256 GB Memory, and 4x1900 NVMe SSD. 64 vCPUs were
@@ -511,10 +519,10 @@ query operator, asking for _targetHits=100_.
    </td> <td><strong>Avg query latency (ms)</strong> </td>
   </tr> <tr>
    <td>Paragraph (single-vector) </td> <td>88 </td> <td>5521 </td>
-   <td>5521 </td> <td>8.48 MB </td> <td>2.56 </td>
+   <td>5521 </td> <td>8.48 </td> <td>2.56 </td>
   </tr> <tr>
-   <td>Wiki (multi-vector) </td> <td>97 </td> <td>5009 </td> <td>1931
-   </td> <td>7.69 MB </td> <td>3.43 </td>
+   <td>Article (multi-vector) </td> <td>97 </td> <td>5009 </td> <td>1931
+   </td> <td>7.69 </td> <td>3.43 </td>
   </tr>
 </table>
 <br/>
@@ -575,7 +583,7 @@ field word2vec type tensor&lt;float&gt;(word{}, x[300])
 
 Multi-vector indexing is particularly useful for product and
 [e-commerce applications
-](https://docs.vespa.ai/en/use-case-shopping.html)where the product
+](https://docs.vespa.ai/en/use-case-shopping.html) where the product
 has lots of metadata to [
 filter](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/)
 and rank on and where the product metadata is [constantly
