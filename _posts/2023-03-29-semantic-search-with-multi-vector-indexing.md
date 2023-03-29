@@ -2,7 +2,7 @@
 layout: post 
 title: "Revolutionizing Semantic Search with Multi-Vector HNSW Indexing in Vespa"
 author: geirst tegge jobergum 
-date: '2023-03-28' 
+date: '2023-03-29' 
 image: assets/2023-03-29-semantic-search-with-multi-vector-indexing/peter-herrmann-aT88kga0g_M-unsplash.jpg
 skipimage: true 
 tags: [] 
