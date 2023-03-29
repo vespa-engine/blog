@@ -24,12 +24,13 @@ document and retrieve documents by the closest vector in each.
 
 
 ## Background
+
 Advances in self-supervised deep learning models have revolutionized
 how to represent unstructured data like text, audio, image, and
 videos in a language native to machines; Vectors.
 
 ![overview](/assets/2023-03-29-semantic-search-with-multi-vector-indexing/image1.png "image_tooltip")
-<font size="2"><i>Embedding data into vector space using deep neural networks.</i></font><br/>
+<font size="2"><i>Embedding data into vector space using deep neural networks.</i></font>
 
 Encoding objects using deep learning models allows for representing
 objects in a high-dimensional vector space. In this latent embedding
@@ -45,6 +46,8 @@ two nearest neighbors of the query in vector space are documents A
 and C. Using representation learning, the model is adjusted (by
 gradient descent) so that relevant (q,d) pairs have a low distance,
 and irrelevant pairs a have a higher distance.</i></font><br/>
+
+
 
 For embedding text data, models based on the
 [Transformer](https://en.wikipedia.org/wiki/Transformer_(machine_learning_model))
@@ -71,7 +74,7 @@ based embedding models.</i></font>
 
 Due to the context length limited Transformers, developers that
 want to index Wikipedia or any text dataset using embedding models
-must split the text input into paragraph-sized chunks that align
+must split the text input into chunks that align
 with lengths used during fine-tuning of the model for optimal
 embedding quality.
 
