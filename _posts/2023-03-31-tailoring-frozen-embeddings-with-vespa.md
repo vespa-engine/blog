@@ -77,7 +77,7 @@ garbage collect either the new or old embedding data.
 
 That's a lot of complexity and cost to evaluate a model online, but now we can relax? 
 Wait, our PM now wants to introduce [news article recommendations](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html)
-for the home page, and the ML team is planning on using embeddins for this project. We also hear they are 
+for the home page, and the ML team is planning on using embeddings for this project. We also hear they are 
 discussing a related articles feature, where for each article, one can suggest related articles. 
 At the end of the year, we will face the challenge of maintaining and operating three different
 embedding-based use cases. There must be a better way? What if we could somehow re-use the embeddings for multiple
