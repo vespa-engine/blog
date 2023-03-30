@@ -6,7 +6,7 @@ date: '2023-03-30'
 image: assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/fabio-oyXis2kALVg-unsplash.jpg
 skipimage: true 
 tags: [] 
-excerpt: Pre-trained data embeddings have become an popular method for simplifying the operationalizing of machine-learned (ML) embeddings. We introduce three techniques for tailoring frozen embeddings in Vespa.
+excerpt: Deep learned embeddings are becoming popular for search and recommendation use cases and the need for efficient ways to operationalize these in production is becoming critical.
 ---
 
 ![Decorative
@@ -14,21 +14,12 @@ image](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/fabio-oyXis2kAL
 <p class="image-credit">Photo by <a href="https://unsplash.com/@fabioha?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">fabio</a> on <a href="https://unsplash.com/photos/oyXis2kALVg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
 
-With the increasing use of deep learning models to embed data into
-an embedding vector representation for search and recommendation
-use cases, the need for efficient ways to operationalize these
-models in production is becoming critical. As a result, fixed
-pre-trained foundational data embeddings have become an increasingly
-popular method in the industry for simplifying the operationalizing
-of machine-learned (ML) embeddings.
+Deep learned embeddings are becoming popular for search and recommendation use cases
+and the need for efficient ways to operationalize these
+in production is becoming critical. One emerging approach is to use 
+fixed <em>foundational embeddings</em> that are re-used and tailored for different tasks. 
 
-Complexity is significantly reduced by freezing the embedding
-representation of objects, However, to make frozen embeddings more
-task-versatile, we must find ways to customize and fine-tune them
-without incurring operational costs and complexity. This post
-introduces three techniques for tailoring frozen embeddings and
-operationalizing them with Vespa.
-
+This post introduces three efficient techniques for tailoring frozen embeddings with Vespa. 
 
 ## Background
 
@@ -57,7 +48,7 @@ for efficient retrieval.
 Suppose we want to modify an embedding model by fine-tuning it or
 replacing it entirely. Then, all our data objects must be reprocessed
 and embedded again. This might be easy to manage for small-scale
-toy applications with a few million data points, but it quickly
+applications with a few million data points, but it quickly
 gets out of hand with larger-scale evolving datasets in production.
 
 Consider a case where we have an evolving dataset of 10M news
@@ -70,12 +61,10 @@ embedding model, a model which has demonstrated strong performance
 during offline evaluation.  Now, to get this new model into production
 for online evaluation we need to follow [these steps](https://docs.vespa.ai/en/tutorials/models-hot-swap.html):
 
-* Run inference with the new model over all documents (including new documents) to obtain the
-new vector embedding. This stage requires infrastructure to run
-inferences with the model or pay an embedding inference provider
-per inference. We still need to serve the current embedding model
-which is in production and embedding new documents and the
-real-time stream of queries. 
+* Run inference with the new model over all documents to obtain the new vector embedding. 
+This stage requires infrastructure to run inferences with the model or pay an embedding inference provider per inference.
+ We still need to serve the current embedding model which is in production, used to embed new documents and the current real-time stream of queries. 
+ 
 * Index the new vector embedding representation to the
 serving infrastructure that we use for efficient vector search. If
 we are fortunate enough to be using [Vespa](https://vespa.ai/), which supports 
@@ -84,15 +73,14 @@ we can index the new embedding in a new field, without duplicating
 other schema fields. Adding the new vector field still adds to the serving cost,
 as we double the resource usage footprint related to indexing and storage. 
 
-* At this stage, we are finally ready to perform an online evaluation of the new embedding
-model. Depending on the outcome of the online evaluation, we can
-garbage collect either the new model embedding data or the old
-model.
+* After all this, we are finally ready evaluate the new embedding
+model online. Depending on the outcome of the online evaluation, we can
+garbage collect either the new or old embedding data. 
 
 That's a lot of complexity and cost to evaluate a model online, but now we can relax? 
 Two months after finishing this MLOps exercise for our search infra,
 product management wants to introduce [news article recommendations](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html)
-for the home page. Maybe it will also include a related
+for the home page. We also hear they are discussing a related
 articles feature, where for each article, the site can suggest related articles. 
 At the end of the year, we will face the challenge of operationalizing three different
 embedding-based use cases. There must be a better way?
@@ -140,7 +128,7 @@ weights for both the query and document encoder. This is not ideal
 as if we tune the model, we would need to re-embed all our items
 again. By de-coupling the model weights of the query and document
 tower, developers can treat the document embeddings as frozen,
-avoiding re-encoding all items. When fine-tuning the model for the
+to avoid re-encoding all the items. When fine-tuning the model for the
 specific task, developers can instead just tune the query tower and
 leave the frozen document tower alone.
 
@@ -159,7 +147,7 @@ higher than 2x.
 
 On the serving side in Vespa, there is no need to re-process the
 frozen document embedding, this saves the compute of performing the
-inference and avoids introducing embedding versioning. Furthermore,
+inference and avoids introducing embedding versioning. And,
 because Vespa allows deploying multiple query tower models, frozen
 embeddings simplifies A/B testing; applications may test the accuracy
 of new models, without re-processing documents, which allows for frequent model
