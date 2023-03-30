@@ -76,7 +76,7 @@ model online. Depending on the outcome of the online evaluation, we can
 garbage collect either the new or old embedding data. 
 
 That's a lot of complexity and cost to evaluate a model online, but now we can relax? 
-What if, our PM wants to introduce [news article recommendations](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html)
+Wait, our PM now wants to introduce [news article recommendations](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html)
 for the home page, and the ML team is planning on using embeddins for this project. We also hear they are 
 discussing a related articles feature, where for each article, one can suggest related articles. 
 At the end of the year, we will face the challenge of maintaining and operating three different
@@ -173,11 +173,11 @@ schema doc {
 }
 </pre>
 
-In this case, Vespa will produce embeddings using a frozen embedding
+In this case, Vespa will produce embeddings using a `frozen` embedding
 model, and at query time, we can either use the frozen model to
-encode the query or a fine-tuned model. Deplying multipe query tower models allows
+encode the query or a new fine-tuned model. Deplying multipe query tower models allows
 for query time A/B testing which increases model deployment velocity and shortens
-the feedback loop. 
+the ML feedback loop. 
 
 <pre>
 curl \
@@ -379,10 +379,9 @@ deployment of ranking and embedding models._
 ## Summary
 In this post, we covered three different ways to use frozen models and frozen embeddings
 with Vespa while still allowing for task-specific customization of
-the embeddings. Frozen document-side embeddings are a promising
-direction for deploying ML embeddings to production. 
+the embeddings. 
 
-Get started with Vespa embedding tailoring using the [custom
+Simplify your ML-embedding use cases by getting started with the [custom
 embeddings sample
 application](https://github.com/vespa-engine/sample-apps/tree/master/custom-embeddings).
 Deploy the sample application locally using the Vespa container
