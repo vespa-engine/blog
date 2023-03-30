@@ -175,7 +175,7 @@ schema doc {
 
 In this case, Vespa will produce embeddings using a `frozen` embedding
 model, and at query time, we can either use the frozen model to
-encode the query or a new fine-tuned model. Deplying multipe query tower models allows
+encode the query or a new fine-tuned model. Deploying multiple query tower models allows
 for query time A/B testing which increases model deployment velocity and shortens
 the ML feedback loop. 
 
