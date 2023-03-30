@@ -330,11 +330,15 @@ includes a [ranking](https://docs.vespa.ai/en/ranking.html) parameter.
 
 Vespa allows [declarative rank
 expressions](https://docs.vespa.ai/en/ranking-expressions-features.html) in
-the schema. The existing _distance(dimension, name)_ rank feature
-now also supports mapped-indexed tensor fields and return the
+the schema. The existing
+[distance(dimension,name)](https://docs.vespa.ai/en/reference/rank-features.html#distance%28dimension,name%29)
+rank feature now also supports mapped-indexed tensor fields and return the
 distance of the closest vector. With support for searching multi-vector
-fields, two new rank features are introduced: _closest(name)_ and
-_closest(name, label)_. The optional label is useful when querying
+fields, two new rank features are introduced:
+[closest(name)](https://docs.vespa.ai/en/reference/rank-features.html#closest%28name%29)
+and
+[closest(name,label)](https://docs.vespa.ai/en/reference/rank-features.html#closest%28name,label%29)
+The optional label is useful when querying
 with multiple [labeled nearestNeighbor query
 operators](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#multiple-nearest-neighbor-search-operators-in-the-same-query).
 The output of the _closest_ feature is a tensor with one mapped
