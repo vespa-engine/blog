@@ -73,7 +73,7 @@ we can index the new embedding in a new field, without duplicating
 other schema fields. Adding the new vector field still adds to the serving cost,
 as we double the resource usage footprint related to indexing and storage. 
 
-* After all this, we are finally ready evaluate the new embedding
+* After all this, we are finally ready to evaluate the new embedding
 model online. Depending on the outcome of the online evaluation, we can
 garbage collect either the new or old embedding data. 
 
@@ -140,13 +140,13 @@ tower, because there is no need to encode the document vector over
 again, the document’s embedding representation can be fetched
 directly from Vespa during training. This saves at least 2x of
 computational complexity during training as one does not need to
-run inference with the document tower during training. In practice,
+run inference with the document tower. In practice,
 since documents are longer than queries and Transformer models
 scales quadratic with input lengths, the computational saving is
 higher than 2x.
 
 On the serving side in Vespa, there is no need to re-process the
-frozen document embedding, this saves the compute of performing the
+frozen document embedding. This saves the compute of performing the
 inference and avoids introducing embedding versioning. And,
 because Vespa allows deploying multiple query tower models, frozen
 embeddings simplifies A/B testing; applications may test the accuracy
@@ -280,7 +280,7 @@ returning a modified vector of the same dimensionality.
 This representation is used to score the documents in the first-phase
 ranking expression. Note that this is effectively represented as
 [a re-ranking phase](https://docs.vespa.ai/en/phased-ranking.html)
-as the query tensor used for the nearestNeighbor search is untouched.
+as the query tensor used for the [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor) search is untouched.
 
 The weight tensor does not necessarily need to be a constant across
 all users. For example, one can have a weight tensor per user, as
@@ -295,7 +295,7 @@ Another approach for customization is to use the query and document
 embeddings as input to another Deep Neural Network (DNN) model.
 This approach can be combined with the previously mentioned
 approaches because it's applied as a re-scoring model in a [phased
-ranking ](https://docs.vespa.ai/en/phased-ranking.html)pipeline.
+ranking](https://docs.vespa.ai/en/phased-ranking.html)pipeline.
 
 <pre>
 import torch.nn as nn
@@ -332,14 +332,14 @@ torch.onnx.export(ranker,
 </pre>
 The above [PyTorch](https://pytorch.org/) [model.py](https://github.com/vespa-engine/sample-apps/blob/master/custom-embeddings/model.py) snippet defines a custom
 DNN-based similarity model which takes the query and document
-embedding as input. This model is exported to[ ONNX](https://onnx.ai/)
+embedding as input. This model is exported to [ONNX](https://onnx.ai/)
 format for [accelerated
 inference](https://blog.vespa.ai/stateful-model-serving-how-we-accelerate-inference-using-onnx-runtime/)
 using Vespa’s support for [ranking with
 ONNX](https://docs.vespa.ai/en/onnx.html) models.
 
-Notice that [PyTorch ](https://pytorch.org/)model uses batch
-dimensions, this means that the query and document function needs
+Notice that the [PyTorch](https://pytorch.org/) model uses batch
+dimensions. This means that the query and document function needs
 to multiple with a batch tensor to match the expected ONNX model
 input. See [ranking with ONNX](https://docs.vespa.ai/en/onnx.html)
 for details.
