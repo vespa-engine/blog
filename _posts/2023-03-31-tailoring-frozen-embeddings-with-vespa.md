@@ -99,7 +99,7 @@ versioning, storage, or inference infrastructure.
 ![Vector Space Illustration](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/image2.png)
 
 _A frozen model embeds data Q and D into vector space. By transforming
-the frozen Q representation to Q’, the vector distance is reduced
+the Q representation to Q’, the vector distance is reduced
 `(d(D,Q) < d(D,Q’)`. This figure illustrates fine-tuning of metric
 distances over frozen embeddings. Note that the D representation
 does not change, which is a practical property for search and
