@@ -1,30 +1,29 @@
 ---  
 layout: post 
-title: "Tailoring Frozen Embeddings with Vespa"
+title: "Customizing Reusable Frozen ML-Embeddings with Vespa"
 author: jobergum 
-date: '2023-03-30' 
+date: '2023-03-31' 
 image: assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/fabio-oyXis2kALVg-unsplash.jpg
 skipimage: true 
 tags: [] 
-excerpt: Deep learned embeddings are becoming popular for search and recommendation use cases and the need for efficient ways to manage and operate embeddings in production is becoming critical.
+excerpt: Deep-learned embeddings are popular for search and recommendation use cases. This post introduces the concept of using reusable frozen embeddings and tailoring them with Vespa.
 ---
 
 ![Decorative
 image](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/fabio-oyXis2kALVg-unsplash.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@fabioha?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">fabio</a> on <a href="https://unsplash.com/photos/oyXis2kALVg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 </p>
+Deep-learned embeddings are popular for search and recommendation use cases, and organizations must manage and operate these
+embeddings efficiently in production. One emerging strategy which reduces embedding lifecycle complexity is to use 
+frozen models which output frozen foundational embeddings that are reusable and customizable for different tasks. 
 
-Deep learned embeddings are becoming popular for search and recommendation use cases and the need for efficient ways to manage and operate embeddings in production is becoming critical. One emerging approach is to use 
-frozen models which outputs frozen embeddings that are re-used and tailored for different tasks. 
-
-This post introduces three techniques for using and tailoring frozen embeddings with Vespa. 
+This post introduces the concept of using reusable frozen embeddings and tailoring them with Vespa.
 
 ## Background
 
 ![Deep Learning for Embeddings Overview](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/image1.png)
 
-
-Encoding data objects using deep learning models allow for representing
+Encoding data objects using deep learning models allows for representing
 objects in a high-dimensional vector space. In this latent **embedding
 vector** space, one can compare the objects using vector distance
 functions, which can be used for search, recommendation, classification,
@@ -36,17 +35,17 @@ embedding representations of data in their applications:
 * Training custom embedding models
 
 All three incur training and inference (computational) costs, which
-are proportional to the size of the model, the number of objects
-and the input sizes. In addition, the output vector embedding must
+are proportional to the model size, the number of objects,
+and the object input sizes. In addition, the output vector embedding must
 be stored and potentially [indexed](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
 for efficient retrieval.
 
-## Deploy and Maintain ML Embeddings in Production (EmbeddingOps)
+## Operating and maintaining embeddings in production #MLEmbeddingOps
 
-Suppose we want to modify an embedding model by fine-tuning it or
-replacing it entirely. Then, all our data objects must be reprocessed
-and embedded again. This might be easy to manage for small-scale
-applications with a few million data points, but it quickly
+Suppose we want to modify an embedding model by fine-tuning it for a task or
+replacing it with a new model with a different vector dimensionality. Then, all our data objects must be reprocessed
+and embedded again. Reprocessing for any model change might be easy for small-scale
+applications with a few million data points. Still, it quickly
 gets out of hand with larger-scale evolving datasets in production.
 
 Consider a case where we have an evolving dataset of 10M news
@@ -55,45 +54,42 @@ search](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/)
 for, using a model that embeds query and document texts into vector
 representations. Our search service has been serving production
 traffic for some time, but now the ML team wants to change the
-embedding model, a model which has demonstrated strong performance
-during offline evaluation.  Now, to get this new model into production
-for online evaluation we need to follow [these steps](https://docs.vespa.ai/en/tutorials/models-hot-swap.html):
+embedding model. Now, to get this new model into production
+for online evaluation, we roughly need to follow [these steps](https://docs.vespa.ai/en/tutorials/models-hot-swap.html):
 
-* Run inference with the new model over all documents to obtain the new vector embedding. 
+* Run inference with the new model over all documents in the index to obtain the new vector embedding. 
 This stage requires infrastructure to run inferences with the model or pay an embedding inference provider per inference.
- We still need to serve the current embedding model which is in production, used to embed new documents and the current real-time stream of queries. 
+We  must also serve the current embedding model, which is in production, used to embed new documents and the current real-time stream of queries. 
  
-* Index the new vector embedding representation to the
-serving infrastructure that we use for efficient vector search. If
-we are fortunate enough to be using [Vespa](https://vespa.ai/), which supports 
-[nearest neighbor search with filtering](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/),
-we can index the new embedding in a new field, without duplicating
-other schema fields. Adding the new vector field still adds to the serving cost,
+* Index the new vector embedding representation to our serving infrastructure used for efficient vector search. 
+Suppose, we are fortunate enough to be using [Vespa](https://vespa.ai/), which supports 
+multiple embedding fields per document schema. In that case, we can index the new embedding in a new field without duplicating
+other fields and creating an entirely new schema or index. Adding the new tensor field still adds to the serving cost,
 as we double the resource usage footprint related to indexing and storage. 
 
 * After all this, we are finally ready to evaluate the new embedding
 model online. Depending on the outcome of the online evaluation, we can
-garbage collect either the new or old embedding data. 
+garbage collect either the new or old embedding field. 
 
-That's a lot of complexity and cost to evaluate a model online, but now we can relax? 
-Wait, our PM now wants to introduce [news article recommendations](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html)
+That's a lot of complexity and cost to evaluate a model online, but now we can relax. 
+But, wait, our PM now wants to introduce [news article recommendations](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html)
 for the home page, and the ML team is planning on using embeddings for this project. We also hear they are 
-discussing a related articles feature, where for each article, one can suggest related articles. 
-At the end of the year, we will face the challenge of maintaining and operating three different
-embedding-based use cases. There must be a better way? What if we could somehow re-use the embeddings for multiple
+discussing a related articles feature they want to launch soon. 
+
+Very quickly we will face the challenge of maintaining and operating three different embedding-based use cases, each with model iterations, and going
+through the above process. There must be a better way. What if we could somehow reuse the embeddings for multiple
 tasks? 
 
-## Frozen Embeddings to the Rescue
+## Frozen embeddings to the rescue
 ![Frozen embeddings](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/image6.png)
 <br/>
 
-An emerging industry trend that addresses operationalizing related
-complexity is to use [frozen foundational
+An emerging industry trend that helps reduce **#MLEmbeddingOps** complexity is to use [frozen foundational
 embeddings](https://ai.facebook.com/blog/multiray-large-scale-AI-models/)
 that can be [reused
 ](https://medium.com/pinterest-engineering/searchsage-learning-search-query-representations-at-pinterest-654f2bb887fc) for
 different tasks without incurring the usual costs related to embedding
-versioning, storage, or inference infrastructure.
+versioning, storage, inference, and training.
 
 
 ![Vector Space Illustration](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/image2.png)
@@ -108,9 +104,10 @@ representations of items._
 
 With frozen embeddings from frozen models, the data is embedded once using a foundational
 embedding model. Developers can then tailor the representation to
-specific tasks by adding transformation layers. The frozen model, will for the same
-input, always produce the same frozen embedding representation. So as long as the input data
-does not change, we will not need to invoke the model again. 
+specific tasks by adding transformation layers. The fixed model will always produce the 
+same frozen embedding representation for the same input. So as long as the input data
+does not change, we will not need to invoke the model again. In our news search example, we
+can use the same frozen document embeddings for all three use cases.
 
 The following sections describe different methods
 for tailoring frozen embeddings for search or recommendation use
@@ -128,28 +125,28 @@ architecture based on a [Transformer](https://en.wikipedia.org/wiki/Transformer_
 This architecture is also called a _bi-encoder_ model, as there is a query and document
 encoder.  Most of the two-tower architecture models use the same
 weights for both the query and document encoder. This is not ideal
-as if we tune the model, we would need to re-embed all our items
+as if we tune the model, we would need to reprocess all our items
 again. By de-coupling the model weights of the query and document
 tower, developers can treat the document tower as frozen. 
 Then, when fine-tuning the model for the
 specific task, developers tune the query tower and
-leave the frozen document tower alone.
+freeze the document tower. 
 
 ![Frozen Query Tower](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/image3.png)
 
-The frozen document tower and embeddings significantly reduce the
+The frozen document tower and corresponding embeddings significantly reduce the
 complexity and cost of serving and training. For example, during training, 
-there is no need to encode the document as the document’s embedding representation can be fetched
+there is no need to encode the document in the training data, it can be fetched
 directly from Vespa. This saves at least 2x of
 computational complexity during training. In practice,
 since documents are generally longer than queries and Transformer models
-scales quadratic with input lengths, the computational saving is
+scale quadratic with input lengths, the computational saving is
 higher than that. 
 
 On the serving side in Vespa, there is no need to re-process the
 documents, as the same input will produce the exact same frozen document embedding representation. 
 This saves the compute of performing the
-inference and avoids introducing embedding versioning. And,
+inference and avoids introducing new embedding fields or embedding versioning. And,
 because Vespa allows deploying multiple query tower models, 
 applications may test the accuracy of new models, without re-processing documents, 
 which allows for frequent model deployment and evaluations.
@@ -189,11 +186,12 @@ curl \
  https://vespaendpoint/search/
 </pre>
 
-Notice the first argument to the query request `embed` command. 
+The first argument of the `embed` command is the model to use when encoding the query.  
 For each new query tower model, developers will add the model to a directory in
 the [Vespa application
 package](https://docs.vespa.ai/en/application-packages.html), and
 give it a name, which is referenced at query inference time.
+
 Re-deployment of new models is a live change, where Vespa automates
 the model distribution to all the nodes in the cluster, without
 service interruption or downtime.
@@ -273,13 +271,13 @@ The learned weights are exported from any ML framework (e.g.,
 matrix weights. And the weights are exported to a [constant
 tensor](https://docs.vespa.ai/en/tensor-user-guide.html#constant-tensors)
 file. Meanwhile, the `transform_query` function [performs a vector
-matrix
+-matrix
 product](https://docs.vespa.ai/playground/#N4KABGBEBmkFxgNrgmUrWQPYAd5QGNIAaFDSPBdDTAF30gDUBTA2rAJwFoBbAQ1ocAlgA8wODlgAmAVzYA6MADEhHAM60wAd2ZgpzaEIB2uvmABurdhzAADRrbB8jUp2H6DRdgOq24kMlQAX0Cg0gxqclwGZhJAiAp8SJpIIwZGOJpMWIRIWmYjNU4AChFEAGYAXQBKOEQABnkAVmIwRpa25sqArJCMMMDkhOjc2PCUyjR4zDTc70ysqByofMKSrUQAFkriMqraxEQARnl61pOj8-kAJh2ka9PWh8uwB9viY8ewC6v3z7PvvIXidbt1pn1guMIEMoCNCAtyJMYQl6LkAIIWKycXgCYRiCTSOSaIRqMC0AAWuh4MgANrQhDgaUICAIhFgjGAsNAyZTMWxOE4XO5cV5nK41DIeDxjABzTmWGwU3QELBS9l6IQ8ApqNlGfzg0JQqZZbCTSBjaaJKjTBKzKAIlLLSASnjFRhgABUYG8rS01R6NAhEAhlRAQSAA),
 returning a modified vector of the same dimensionality.
 
-This representation is used to score the documents in the first-phase
+This representation is then used to score the documents in the first-phase
 ranking expression. Note that this is effectively represented as
-[a re-ranking phase](https://docs.vespa.ai/en/phased-ranking.html)
+a [re-ranking phase](https://docs.vespa.ai/en/phased-ranking.html)
 as the query tensor used for the [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor) search is untouched. It's possible to transform the query tensor, before 
 the `nearestNeighbor` search as well, using a custom [stateless searcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/searcher/RetrievalModelSearcher.java). 
 
@@ -360,8 +358,8 @@ rank-profile custom-similarity inherits simple-similarity {
   }
 }
 </pre>
-This model might be complex, so one typically use it as a second-phase expression, only scoring
-the the highest ranking documents from the `first-phase` expression.
+This model might be complex, so one typically use it as a `second-phase` expression, only scoring
+the highest ranking documents from the `first-phase` expression.
 
 ![Architecture](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/image5.png)
 
@@ -379,7 +377,7 @@ deployment of ranking and embedding models._
 ## Summary
 In this post, we covered three different ways to use frozen models and frozen embeddings
 with Vespa while still allowing for task-specific customization of
-the embeddings. 
+the embeddings or the similarity function. 
 
 Simplify your ML-embedding use cases by getting started with the [custom
 embeddings sample
