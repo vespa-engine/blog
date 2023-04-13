@@ -796,6 +796,9 @@ iframe {
 
 .card .img-fluid {
     width: 100%;
+    max-height: 230px;
+    object-fit: cover;
+    object-position: bottom;
 }
 
 .sticky-top-80 {
