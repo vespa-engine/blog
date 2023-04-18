@@ -28,5 +28,5 @@ jobs:
             --typhoeus '{"connecttimeout": 10, "timeout": 30, "accept_encoding": "zstd,br,gzip,deflate"}' \
             --hydra '{"max_concurrency": 1}' \
             --ignore-files '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
-            --ignore-urls '/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/,/docs.vespa.ai/playground/,/www.facebook.com/sharer/' \
+            --ignore-urls '/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/,/docs.vespa.ai/playground/,/facebook.com/sharer/' \
             _site
