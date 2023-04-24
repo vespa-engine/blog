@@ -262,7 +262,7 @@ retrieval methods we have discussed:
 
 We set up all of this in a single document schema:
 
-```
+<pre>
 schema wiki {
   document wiki {
 
@@ -290,7 +290,7 @@ schema wiki {
     }
   }
 }
-```
+</pre>
 
 Here, each passage's title and text content is represented both by a string and
 a token sequence field. The string fields are indexed to support BM25 and
@@ -326,7 +326,7 @@ ranking](https://docs.vespa.ai/en/phased-ranking.html), and we
 exploit that here so that the first phase represents the retriever, and the
 second phase the reader. We set up the first phase ranking profile like this:
 
-```
+<pre>
 rank-profile sparse inherits openqa {
   first-phase {
     expression: bm25(text) + bm25(title)
@@ -342,7 +342,7 @@ rank-profile hybrid inherits openqa {
     expression: 1000*closeness(field, text_embedding) + bm25(text) + bm25(title)
   }
 }
-```
+</pre>
 
 Here, we set up three ranking profiles, one for sparse retrieval, one for dense
 retrieval, and one for hybrid retrieval. The sparse ranking profile uses the
@@ -355,7 +355,7 @@ the retriever.
 For the reader model we set up the base profile `openqa` which introduces a
 second phase, common between the retrieval strategies:
 
-```
+<pre>
 onnx-model reader {
   file: files/reader.onnx
   input  input_ids: input_ids
@@ -375,7 +375,7 @@ rank-profile openqa {
     onnxModel(reader).end_logits
   }
 }
-```
+</pre>
 
 Here, the top 10 documents are re-ranked by the reader model, defined be the
 onnxModel rank feature. The actual model we use is a [pre-trained

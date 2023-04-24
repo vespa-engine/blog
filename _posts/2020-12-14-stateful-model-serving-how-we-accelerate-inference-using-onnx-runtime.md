@@ -160,7 +160,7 @@ together. For instance, one could use a small, fast model in an early phase,
 and a more complex and computationally expensive model that only runs on the
 most promising candidates. For instance:
 
-```
+<pre>
 document my_document {
   field text_embedding type tensor(x[769]) {
     indexing: attribute | index
@@ -189,7 +189,7 @@ rank-profile my_profile {
     expression: onnx(my_model)
   }
 }
-```
+</pre>
 
 This is an example of configuring Vespa.ai to calculate the euclidean distance
 between a query vector and the stored `text_embedding` vector in the first stage.
@@ -251,11 +251,11 @@ During this development we turned to [ONNX
 Runtime](https://github.com/microsoft/onnxruntime) for reference. ONNX Runtime
 is easy to use:
 
-```
+<pre>
 import onnxruntime as ort
 session = ort.InferenceSession(“model.onnx”)
 session.run( output_names=[...], input_feed={...} )
-```
+</pre>
 
 This was invaluable, providing us with a reference for correctness and a
 performance target.
@@ -285,7 +285,7 @@ by quantization for even more efficient inference.
 
 Consider the following:
 
-```
+<pre>
 onnx-model my_model {
   file: files/my_model.onnx
   input input_0: query(my_query_input)
@@ -297,7 +297,7 @@ rank-profile my_profile {
     expression: sum( onnx(my_model) )
   }
 }
-```
+</pre>
 
 Here we have a single ONNX model that has two inputs. During application
 deployment, Vespa.ai distributes this ONNX model to all content nodes. There,
@@ -324,8 +324,7 @@ multi-threading and input/output tensor allocations.
 
 During setup, we initialize an ONNX Runtime session for each onnx feature and
 thread:
-
-```
+<pre>
 #include <onnxruntime/onnxruntime_cxx_api.h>
 
 Ort::Env shared_env;
@@ -336,7 +335,7 @@ options.SetInterOpNumThreads(1);
 options.SetGraphOptimizationLevel(ORT_ENABLE_ALL);
 
 Ort::Session session = Ort::Session(shared_env, “local_file_path”, options);
-```
+</pre>
 
 The session includes options for
 [thread management](https://github.com/microsoft/onnxruntime/blob/9cca219b1aa2dd649d731298ba1249a184c9133f/docs/ONNX_Runtime_Perf_Tuning.md#thread-management).
@@ -380,12 +379,12 @@ version without OpenMP.
 As much as possible, memory allocation and ownership of input and output
 tensors happen within Vespa.ai. Consider the following types:
 
-```
+<pre>
 std::vector<const char *> input_names;
 std::vector<const char *> output_names;
 std::vector<Ort::Value>   input_values;
 std::vector<Ort::Value>   output_values;
-```
+</pre>
 
 The input values come from other ranking features using Vespa.ai’s tensor
 framework. The values in the input vector are wrappers for Vespa.ai tensors. So
@@ -396,12 +395,12 @@ features.
 
 We use these directly when evaluating the model:
 
-```
+<pre>
 Ort::RunOptions run_opts(nullptr);
 session.Run(run_opts,
     input_names.data(), input_values.data(), input_values.size(),
     output_names.data(), output_values.data(), output_values.size());
-```
+</pre>
 
 This zero-copying of tensors is obviously desirable from a performance
 perspective. This works for outputs as tensors in Vespa.ai currently are fixed

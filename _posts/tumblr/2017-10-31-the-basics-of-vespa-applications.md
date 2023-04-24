@@ -30,15 +30,15 @@ This is enough to set up a basic production ready Vespa applications, like, e.g.
 [sample application](https://github.com/vespa-engine/sample-apps/tree/master).
 Most applications however, are much larger and may contain machine-learned ranking models and application specific Java components which perform various application specific tasks such as query enrichment and post-search processing.
 
-**The search definition**
+### The schema definition
 
-Data stored in Vespa is represented as a set of documents of a type defined in the application package. An application can have multiple document types. Each [search definition](https://docs.vespa.ai/en/schemas.html)&nbsp;describes one such document type: it lists the name and data type of each field found in the document, and configures the behaviour of these. Examples are like whether field values are in-memory or can be stored on disk, and whether they should be indexed or not. It can also contain ranking profiles, which are used to select the most relevant documents among the set of matches for a given query - and it specifies which fields to return.
+Data stored in Vespa is represented as a set of documents of a type defined in the application package. An application can have multiple document types. Each [search definition](https://docs.vespa.ai/en/schemas.html) describes one such document type: it lists the name and data type of each field found in the document, and configures the behaviour of these. Examples are like whether field values are in-memory or can be stored on disk, and whether they should be indexed or not. It can also contain ranking profiles, which are used to select the most relevant documents among the set of matches for a given query - and it specifies which fields to return.
 
-**The services definition**
+### The services definition
 
 A Vespa application consists of a set of services, such as stateless query and document processing containers and stateful content clusters. Which services to run, where to run those services and the configuration of those services are all set up in services.xml. This includes the search endpoint(s), the document feeding API, the content cluster, and how documents are stored and searched.
 
-**The hosts definition**
+### The hosts definition
 
 The deployment specification hosts.xml contains a list of all hosts that is part of the application, with an alias for each of them. The aliases are used in services.xml to define which services is to be started on which nodes.
 
@@ -62,7 +62,9 @@ If you know the id of the document you want, you can fetch it directly using the
 
 Basic querying in Vespa is done through [YQL](https://docs.vespa.ai/en/query-language.html) which is an SQL-like language. An example is:
 
-> _select title,isbn from music where artist contains “kygo”;_
+<pre>
+select title,isbn from music where artist contains "kygo"
+</pre>
 
 Here we select the fields “title” and “isbn” from document type “music” where the field called “artist” contains the string “kygo”. Wildcards (\*) are supported in the result fields and the document types to return all available fields in all defined document types.
 
@@ -76,12 +78,13 @@ A ranking expression is a mathematical function over features (named values).
 
 Features are either sent with the query, attributes of the document, constants in the application package or features computed by Vespa from both the query and document - example:
 
-> _rank-profile popularity inherits default {  
-> &nbsp; &nbsp; first-phase {  
-> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;expression: 0.7 \* nativeRank(title, description) +&nbsp;  
-> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 0.3 \* attribute(popularity)  
-> &nbsp; &nbsp; }  
-> }_
+<pre>
+rank-profile popularity inherits default {  
+    first-phase {  
+        expression: 0.7 * nativeRank(title, description) + 0.3 * attribute(popularity)  
+    }
+}
+</pre>
 
 Here, each document is ranked by the [nativeRank](https://docs.vespa.ai/en/reference/nativerank.html) function but boosted by a popularity score. This score can be updated at regular intervals, for instance from user feedback, using partial document updates from some external system such as a Hadoop cluster.
 

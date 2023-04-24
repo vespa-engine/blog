@@ -283,7 +283,7 @@ See [MS Marco Passage Ranking Leaderboard](https://microsoft.github.io/MSMARCO-P
 
 
 
-## Multithreaded retrieval and ranking
+## Multi-threaded retrieval and ranking
 Vespa has the ability to use multiple threads **per search query**. 
 This ability can reduce search latency as the document retrieval and ranking 
 for a single query can be partitioned, so that each thread works on a subset of the searchable documents in an index.

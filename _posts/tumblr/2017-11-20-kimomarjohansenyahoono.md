@@ -12,7 +12,7 @@ Several Vespa developers from Norway are in Sunnyvale, use this opportunity to l
 
 **WHEN:** Monday, December 4th, 6:00pm - 8:00pm PDT
 
-**WHERE:** &nbsp;Oath/Yahoo Sunnyvale Campus  
+**WHERE:** Oath/Yahoo Sunnyvale Campus  
 Building E, Classroom 9 & 10  
 700 First Avenue, Sunnyvale, CA 94089
 
@@ -20,7 +20,7 @@ Building E, Classroom 9 & 10
 
 **Agenda**
 
-6.00 pm:&nbsp; Welcome & Intro
+6.00 pm: Welcome & Intro
 
 6.15 pm: Vespa tips and tricks
 
