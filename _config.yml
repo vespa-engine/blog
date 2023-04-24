@@ -197,6 +197,7 @@ exclude:
 
 search:
   namespace: "blog"
+  doc_type: "doc"
   do_feed  : true
   do_index_removal_before_feed: false
   feed_endpoints:
