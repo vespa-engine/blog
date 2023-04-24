@@ -32,7 +32,7 @@ jobs:
         pip3 install PyYAML spacy mmh3 requests html5lib beautifulsoup4 markdownify tiktoken
         ./feed_to_vespa.py _config.yml
 
-		 - name: Feed paragraphs site
+    - name: Feed paragraphs site
       env:
         DATA_PLANE_PUBLIC_KEY : ${{ secrets.VESPA_TEAM_DATA_PLANE_PUBLIC_CERT }}
         DATA_PLANE_PRIVATE_KEY: ${{ secrets.VESPA_TEAM_DATA_PLANE_PRIVATE_KEY }}
