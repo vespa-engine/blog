@@ -26,8 +26,8 @@ jobs:
 
     - name: Feed site
       env:
-        VESPA_TEAM_DATA_PLANE_PUBLIC_CERT: ${{ secrets.VESPA_TEAM_DATA_PLANE_PUBLIC_CERT }}
-        VESPA_TEAM_DATA_PLANE_PRIVATE_KEY: ${{ secrets.VESPA_TEAM_DATA_PLANE_PRIVATE_KEY }}
+        DATA_PLANE_PUBLIC_CERT: ${{ secrets.VESPA_TEAM_DATA_PLANE_PUBLIC_CERT }}
+        DATA_PLANE_PRIVATE_KEY: ${{ secrets.VESPA_TEAM_DATA_PLANE_PRIVATE_KEY }}
       run: |
         pip3 install PyYAML spacy mmh3 requests html5lib beautifulsoup4 markdownify tiktoken
         ./feed_to_vespa.py _config.yml
