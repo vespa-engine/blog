@@ -22,33 +22,32 @@ You can run the code from [Google Colab](https://colab.research.google.com/githu
 
 ## Install required libraries
 
-```python
+<pre>
 pip install pandas transformers
-```
+</pre>
 
 ## Load the dataset
 
 In order to fine-tune the BERT models for the cord19 application we need to generate a set of query-document features as well as labels that indicate which documents are relevant for the specific queries. For this exercise we will use the `query` string to represent the query and the `title` string to represent the documents.
 
-```python
+<pre>
 training_data = read_csv("https://thigm85.github.io/data/cord19/cord19-query-title-label.csv")
 training_data.head()
-```
+</pre>
 
 ![Table 1](/assets/2020-11-12-fine-tune-bert-basic-transformers-trainer/table_1.png)
 
 There are 50 unique queries.
-
-```python
+<pre>
 len(training_data["query"].unique())
 50
-```
+</pre>
 
 For each query we have a list of documents, divided between relevant (`label=1`) and irrelevant (`label=0`). 
 
-```python
+<pre>
 training_data[["title", "label"]].groupby("label").count()
-```
+</pre>
 
 ![Table 2](/assets/2020-11-12-fine-tune-bert-basic-transformers-trainer/table_2.png)
 
@@ -57,7 +56,7 @@ training_data[["title", "label"]].groupby("label").count()
 We are going to use a simple data split into train and validation sets for illustration purposes. Even though we have more than 50 thousand data points when we consider unique query and document pairs, I believe this specific case would benefit from cross-validation since it has only 50 queries containing relevance judgement.
 
 
-```python
+<pre>
 from sklearn.model_selection import train_test_split
 train_queries, val_queries, train_docs, val_docs, train_labels, val_labels = train_test_split(
     training_data["query"].tolist(), 
@@ -65,14 +64,14 @@ train_queries, val_queries, train_docs, val_docs, train_labels, val_labels = tra
     training_data["label"].tolist(), 
     test_size=.2
 )
-```
+</pre>
 
 ## Create BERT encodings
 
 Create train and validation encodings. In order to do that we need to chose [which BERT model to use](https://huggingface.co/transformers/pretrained_models.html). We will use [padding and truncation](https://huggingface.co/docs/transformers/pad_truncation) because the training routine expects all tensors within a batch to have the same dimensions.
 
 
-```python
+<pre>
 from transformers import BertTokenizerFast
 
 model_name = "google/bert_uncased_L-4_H-512_A-8"
@@ -80,14 +79,14 @@ tokenizer = BertTokenizerFast.from_pretrained(model_name)
 
 train_encodings = tokenizer(train_queries, train_docs, truncation=True, padding='max_length', max_length=128)
 val_encodings = tokenizer(val_queries, val_docs, truncation=True, padding='max_length', max_length=128)
-```
+</pre>
 
 ## Create a custom dataset
 
 Now that we have the encodings and the labels we can create a `Dataset` object as described in the transformers webpage about [custom datasets](https://huggingface.co/transformers/v3.2.0/custom_datasets.html).
 
 
-```python
+<pre>
 import torch
 
 class Cord19Dataset(torch.utils.data.Dataset):
@@ -105,31 +104,30 @@ class Cord19Dataset(torch.utils.data.Dataset):
 
 train_dataset = Cord19Dataset(train_encodings, train_labels)
 val_dataset = Cord19Dataset(val_encodings, val_labels)
-```
+</pre>
 
 ### Fine-tune the BERT model
 
 We are going to use `BertForSequenceClassification`, since we are trying to classify query and document pairs into two distinct classes (non-relevant, relevant).
 
 
-```python
+<pre>
 from transformers import BertForSequenceClassification
-
 model = BertForSequenceClassification.from_pretrained(model_name)
-```
+</pre>
 
 We can set `requires_grad` to `False` for all the base model parameters in order to fine-tune only the task-specific parameters.
 
 
-```python
+<pre>
 for param in model.base_model.parameters():
     param.requires_grad = False
-```
+</pre>
 
 We can then fine-tune the model with `Trainer`. Below is a basic routine with out-of-the-box set of parameters. Care should be taken when chosing the parameters below, but this is out of the scope of this piece.
 
 
-```python
+<pre>
 from transformers import Trainer, TrainingArguments
 
 training_args = TrainingArguments(
@@ -152,14 +150,14 @@ trainer = Trainer(
 )
 
 trainer.train()
-```
+</pre>
 
 ### Export the model to onnx
 
 Once training is complete we can export the model using the [ONNX](https://onnx.ai/) format to be deployed elsewhere. I assume below that you have access to a GPU, which you can get from Google Colab for example.
 
 
-```python
+<pre>
 from torch.onnx import export
 
 device = torch.device("cuda") 
@@ -176,4 +174,4 @@ export(
     model, dummy_input, model_onnx_path, input_names = input_names, 
     output_names = output_names, verbose=False, opset_version=11
 )
-```
+</pre>

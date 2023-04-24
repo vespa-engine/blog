@@ -79,7 +79,7 @@ Generally, there are 3 ways to use Transformer models for text ranking and all o
 
 Figure from [ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](https://arxiv.org/abs/2004.12832) illustrating various deep neural networks for ranking. In the following section we give an overview of three of these methods  using Transformer models. 
 
-# Representation based ranking using Transformer models
+## Representation based ranking using Transformer models
 It is possible to use the Transformer model as the underlying deep neural network for representation based learning. Given training data, one can learn a representation of documents and queries so that relevant documents are closer or more similar in this representation than irrelevant documents. The representation based ranking approach falls under the broad representation learning research field and representation learning can be applied to text, images, videos or even combinations (multi-modal representations). 
 For text ranking, queries and documents are embedded into a dense embedding space using one or two Transformer models (bi-encoders). 
 The embedding representation is learned by the training examples given to the model. Once the model has been trained, one can pre-compute the embeddings for all documents, and
@@ -99,7 +99,7 @@ The huge benefit of using representation based similarity on top of Transformer 
 
 Since the query is usually short, the online encoding complexity is relatively low and encoding latency is acceptable even on a cpu serving stack. Transformer models with full all to all cross attention have quadratic run time complexity with the input sequence length so the smaller the sequence input the better the performance is. Most online serving systems can also cache the query embedding representation to save computations and reduce latency.  
 
-# All to all interaction ranking using Transformers 
+## All to all interaction ranking using Transformers 
 The *“classic* way to use BERT for ranking is to use it as an all-to-all interaction model where both the query and the document is fed through the Transformer model simultaneously and not independently as with the representation based ranking model. For BERT this is usually accomplished with a classification layer on top of the CLS token output, and the ranking task is converted into a classification task where one classifies if the document is relevant for the query or not (binary classification). This approach is called monoBERT or vanilla BERT, or BERT cat (categorization).  It’s a straightforward approach and inline with the proposed suggestions of the original BERT paper for how to use BERT for task specific fine tuning. 
 
 ![table](/assets/2021-05-19-pretrained-transformer-language-models-for-search-part-1/image5.png)
@@ -109,7 +109,7 @@ Similar to the representation model, all to all interaction models need to be tr
 
 With all to all interaction there is no known way to efficiently pre-compute the document representation offline. Running online inference with cross-attention models over all documents in a collection is computationally prohibitively expensive even for large organizations like Google or Microsoft, so to deploy it for production one needs a way to reduce the number of candidate documents which are fully evaluated using the all to all cross attention model. This has led to increased interest in multi-stage retrieval and ranking architectures but also more efficient Transformer models without quadratic complexity due to the cross attention mechanisms (all to all attention).  
 
-# Late Interaction using Transformers 
+## Late Interaction using Transformers 
 An alternative approach for using Transformers for ranking was suggested in [ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT](https://arxiv.org/abs/2004.12832).
 
 Unlike the all to all query document interaction model, the late contextualized interaction over BERT enables processing the documents offline since the per document token contextual embedding is generated independent of the query tokens. The embedding outputs of the last Transformer layer is calculated at document indexing time and stored in the document. For a passage of 100 tokens we end up with 100 embedding vectors of dimensionality n where n is a tradeoff between ranking accuracy and storage (memory) footprint.  The dimensionality does not necessarily need to be the same as the transformer model’s hidden size. Using 32 dimensions per token embedding gives almost the same accuracy as the larger 768 dim of BERT base. Similar one can use low precision like float16 or quantization (int8) to reduce the memory requirements per dimension. 
@@ -125,7 +125,7 @@ Similar to the pure representation based model we only need to encode the query 
 As demonstrated in the ColBERT paper, the late interaction ColBERT model achieves almost the same ranking accuracy as the more computationally complex all-to-all query document interaction models. The model is trained in the same way as with representation or all-to-all interaction models. The downside of the late interaction model is the storage cost of the document term embeddings. Instead of one embedding like with the single-representation model there is an embedding vector per term in the document.  
 How large depends on the number of dimensions and the precision used per value (e.g. using bfloat16 saves 50% compared to float32). 
 
-# Multi-phase retrieval and ranking 
+## Multi-phase retrieval and ranking 
 Due to computationally complexity of especially the all to all interaction model there has been renewed interest in multiphase retrieval and ranking. In a multiphased retrieval and ranking pipeline, the first phase retrieves candidate documents using a cost efficient retrieval method and the more computationally complex cross-attention or late interaction model inference is limited to the top ranking documents from the first phase. 
 
 ![table](/assets/2021-05-19-pretrained-transformer-language-models-for-search-part-1/image4.png)
@@ -158,7 +158,7 @@ see for example [A Replication Study of Dense Passage Retriever](https://arxiv.o
 The hybrid approach combines dense and sparse retrieval but requires search technology which supports both sparse lexical and dense retrieval. 
 Vespa.ai supports hybrid retrieval in the same query by combining the WAND and ANN algorithms. 
 
-#  Summary
+## Summary
 In this blog post we have introduced the MS Marco Passage Ranking dataset and how BERT or Transformer models in general have significantly advanced the state of the art of text ranking. We looked at the three different approaches for using Transformers for retrieval and (re)ranking and finally we covered multi-stage retrieval and ranking. 
 
 In the [next blog post](../pretrained-transformer-language-models-for-search-part-2/) in this series, 

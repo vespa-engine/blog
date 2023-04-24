@@ -25,7 +25,7 @@ Photo by <a href="https://unsplash.com/@robfuller?utm_source=unsplash&utm_medium
 
 In the [first post](../pretrained-transformer-language-models-for-search-part-1/) in this series we introduced using pre-trained models for ranking. In this second post we study efficient candidate retrievers which can be used to efficiently find candidate documents which are re-ranked using more advanced models. 
 
-# Multiphase retrieval and ranking 
+## Multiphase retrieval and ranking 
 
 Due to computational complexity of cross interaction transformer models there has been renewed interest in multiphase retrieval and ranking. In a multiphased retrieval and ranking pipeline, the first phase retrieves candidate documents using a cost efficient retrieval method and the more computationally complex cross-attention or late interaction model inference is limited to the top ranking documents from the first phase. 
 
@@ -42,7 +42,7 @@ Broadly there are two categories of efficient sub-linear retrieval methods
 In the next sections we take a deep dive into these two methods and we also evaluate their effectiveness on the MS Marco Passage Ranking relevancy dataset. We also show how these
 two methods can be combined with Vespa. 
 
-## Sparse lexical retrieval 
+### Sparse lexical retrieval 
 
 Classic information retrieval (IR) relying on lexical matching which has been around since the early days of Information Retrieval. One example of a popular lexical based retrieval scoring function is [BM25](https://docs.vespa.ai/en/reference/bm25.html). Retrieval can be done in sub-linear time using inverted indexes and accelerated by dynamic pruning algorithms like [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html). Dynamic pruning algorithms avoid scoring exhaustively all documents which match at least one of the query terms.  In the below [Vespa document schema](https://docs.vespa.ai/en/schemas.html) we declare a minimal passage document type which we can use to index the MS Marco Passage ranking dataset introduced in post 1. 
 
@@ -90,7 +90,7 @@ Once we have indexed our data we can search using the Vespa HTTP POST query api:
 
 If we use the above query to search the MS Marco Passages we end up ranking only 2 passages and the query takes 7 ms.  If we change *type* to *any* instead of *all* we end up ranking 7,926,256 passages (89% of the total collection) and the query takes 120 ms.  Exact timing depends obviously on HW and number of threads used to evaluate the query but the main point is that brute force matching all documents which contains at least one term is expensive. While restricting to *all* is too restrictive, failing to recall the relevant documents. So what is the solution to this problem? How can we find the relevant documents without having to fully score almost all passages in the collection?
 
-## Meet the dynamic pruning algorithm WAND
+### Meet the dynamic pruning algorithm WAND
 
 The WAND algorithm is described in detail in 
 <a href="https://www.researchgate.net/profile/David-Carmel-3/publication/221613425_Efficient_query_evaluation_using_a_two-level_retrieval_process/links/02bfe50e6854500153000000/Efficient-query-evaluation-using-a-two-level-retrieval-process.pdf" data-proofer-ignore>
@@ -120,7 +120,7 @@ which rewrites type any queries to using WAND instead.
 
 There are two WAND/WeakAnd implementations in Vespa where in the above example we used *weakAnd()* which fully integrates with text processing (tokenization and index statistics like IDF(Inverse Document Frequency)). The alternative is  *wand()* where the end user can control the query and document side weights explicitly. The latter *wand()* operator can be used to implement [DeepCT and HDCT: Context-Aware Term Importance Estimation For First Stage Retrieval](https://github.com/AdeDZY/DeepCT) as Vespa gives the user full control of query and document term weighting without having to bloat the regular index by repeating terms to increase or lower the term frequency. Read more in [Using WAND with Vespa](https://docs.vespa.ai/en/using-wand-with-vespa.html).  
 
-## Dense Retrieval using bi-encoders over Transformer models 
+### Dense Retrieval using bi-encoders over Transformer models 
 Embedding based models embed or map queries and documents into a latent low dimensional dense embedding vector space and use vector search to retrieve documents. Dense retrieval could be accelerated by using approximate nearest neighbor search, for example indexing the document vector representation using [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) graph indexing. In-domain dense retrievers based on bi-encoder architecture trained on MS Marco passage data have demonstrated that they can outperform sparse lexical retrievers with a large margin. Let us introduce using dense retrievers with Vespa. 
 
 In this example we use a pre-trained dense retriever model from Huggingface 🤗 [sentence-transformers/msmarco-MiniLM-L-6-v3](https://huggingface.co/sentence-transformers/msmarco-MiniLM-L-6-v3) . The model is based on MiniLM and the output layer has 384 dimensions. The model has just 22.7M trainable parameters and encoding the query using a quantized model takes approximately 8 ms on cpu. The original model uses mean pooling over the last layer of the MiniLM model but we also add a L2 normalization to normalize vectors to unit length (1) so that we can use innerproduct distance metric instead of angular distance metric. This saves computations during the approximate nearest neighbor search.
@@ -193,7 +193,7 @@ We have demonstrated how to represent query encoders in
 [Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
 
 
-## Hybrid Dense Sparse Retrieval 
+### Hybrid Dense Sparse Retrieval 
 
 Recent research indicates that combining dense and sparse retrieval could improve the recall, see for example [A Replication Study of Dense Passage Retriever](https://arxiv.org/abs/2104.05740). The hybrid approach combines dense and sparse retrieval but requires search technology which supports both sparse lexical and dense retrieval. Vespa.ai supports hybrid retrieval in the same query by combining the WAND and ANN algorithms. There are two ways to do this: 
 
@@ -239,7 +239,7 @@ Using [*rank()*](https://docs.vespa.ai/en/reference/query-language-reference.htm
 
 
 
-# Retriever evaluation 
+## Retriever evaluation 
 
 We evaluate the ranking effectiveness of two efficient retrievers on MS Marco Passage Ranking dev query split (6980 queries):
 
@@ -273,7 +273,7 @@ Sparse using WAND/BM25 is a little bit faster (no query encoding) and is at abou
 
 What stands out is not only the MRR@10 which is a precision oriented metric but the good Recall@k numbers for the dense retriever. We are more interested in the Recall@k numbers as we plan to introduce re-ranking steps later on and as we can see Recall@100 for the dense retriever is almost the same as the recall@1000 for the sparse retriever. This means we can re-rank about 10x less hits and still expect almost the same precision. Note that the dense retriever is trained on MS Marco, using this dense model on a different domain might not give the same benefit over weakAnd/BM25. 
 
-#  Summary
+## Summary
 In this blog post we have demonstrated how one can represent three different efficient ways to retrieve 
 
 * Sparse lexical retrieval accelerated by the WAND query operator and how it compares to exhaustive search (OR) 

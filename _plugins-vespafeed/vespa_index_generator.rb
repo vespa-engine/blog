@@ -14,12 +14,16 @@ module Jekyll
             operations = []
             site.posts.docs.each do |post|
                 if post.data["index"] == true
+                    url = post.url
+                    url += 'index.html' if url[-1, 1] == '/'
                     operations.push({
+                        :put => "id:" + namespace + ":doc::" + namespace + url,
                         :fields => {
                             :path => post.url,
                             :namespace => namespace,
                             :title => post.data["title"],
                             :content => from_markdown(post),
+                            :html => Kramdown::Document.new(post.content).to_html,
                         }
                     })
                 end

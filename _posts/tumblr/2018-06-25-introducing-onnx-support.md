@@ -7,8 +7,10 @@ tumblr_url: https://blog.vespa.ai/post/175233055656/introducing-onnx-support
 ---
 **ONNX (Open Neural Network eXchange) is an open format for the sharing of neural network and other machine learned models between various machine learning and deep learning frameworks. As the open big data serving engine, Vespa aims to make it simple to evaluate machine learned models at serving time at scale. By adding ONNX support in Vespa in addition to our existing TensorFlow support, we’ve made it possible&nbsp;to evaluate models from all the commonly used ML frameworks with low latency&nbsp;over large amounts of data.**
 
+## Introduction
 With the rise of deep learning in the last few years, we’ve naturally enough seen an increase of deep learning frameworks as well: TensorFlow, PyTorch/Caffe2, MxNet etc. One reason for these different frameworks to exist is that they have been developed and optimized around some characteristic, such as fast training on distributed systems or GPUs, or efficient evaluation on mobile devices. Previously, complex projects with non-trivial data pipelines have been unable to pick the best framework for any given subtask due to lacking interoperability between these frameworks. ONNX is a solution to this problem.
 
+## ONNX
 [ONNX](https://onnx.ai/) is an open format for AI models, and represents an effort to push open standards in AI forward. The goal is to help increase the speed of innovation in the AI community by enabling interoperability between different frameworks and thus streamlining the process of getting models from research to production.
 
 There is one commonality between the frameworks mentioned above that enables an open format such as ONNX, and that is that they all make use of dataflow graphs in one way or another. While there are differences between each framework, they all provide APIs enabling developers to construct computational graphs and runtimes to process these graphs. Even though these graphs are conceptually similar, each framework has been a siloed stack of API, graph and runtime. The goal of ONNX is to empower developers to select the framework that works best for their project, by providing an extensible computational graph model that works as a common intermediate representation at any stage of development or deployment.
@@ -17,7 +19,9 @@ Vespa is an open source project which fits well within such an ecosystem, and we
 
 Our ONNX support is quite similar to our [TensorFlow support]({% post_url /tumblr/2018-03-14-introducing-tensorflow-support %}). Importing ONNX models is as simple as adding the model to the Vespa application package (under “models/”) and referencing the model using the new ONNX ranking feature:
 
-    expression: sum(onnx("my\_model.onnx"))
+<pre>
+    expression: sum(onnx("my_model.onnx"))
+</pre>
 
 The above expression runs the model and sums it to a single scalar value to use in ranking. You will have to provide the inputs to the graph. Vespa expects you to provide a macro with the same name as the input tensor. In the macro you can specify where the input should come from, be it a document field, constant or a parameter sent along with the query. More information can be had [in the documentation about ONNX import](https://docs.vespa.ai/en/onnx.html).
 

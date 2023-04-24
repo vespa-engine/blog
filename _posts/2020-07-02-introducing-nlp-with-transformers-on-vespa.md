@@ -83,7 +83,7 @@ computationally expensive model that only runs on the most promising
 candidates. From a text search perspective that could be BM25 combined with a
 Transformer model. For instance:
 
-```
+<pre>
 rank-profile bm25_and_transformer {
     first-phase {
         expression: bm25(content)
@@ -93,7 +93,7 @@ rank-profile bm25_and_transformer {
         expression: onnx("bert.onnx")
     }
 }
-```
+</pre>
 
 This is an example of how to instruct Vespa to calculate the BM25 score as a
 first stage and send the top 10 candidates to the BERT model. Note that this is
@@ -155,7 +155,7 @@ document schema which includes setting up expressions for how candidates for
 retrieval should be calculated. The fields we set up for this sample
 application are:
 
-```
+<pre>
 field id type string {
     indexing: summary | attribute
 }
@@ -171,7 +171,7 @@ field body type string {
 field tokens type tensor<float>(d0[128]) {
     indexing: attribute
 }
-```
+</pre>
 
 The `id`, `title`, `url` and `body` fields come directly from MS MARCO. The
 `tokens` field stores the token sequence from the tokenizer mentioned above. Note
@@ -187,7 +187,7 @@ explicitly in this application.
 We also need to define how to compute each result. Evaluating the model is
 fairly easy in Vespa:
 
-```
+<pre>
 rank-profile transformer {
     first-phase {
         expression: bm25(title) + bm25(body)
@@ -197,7 +197,7 @@ rank-profile transformer {
         expression: onnx("rankmodel.onnx", "default", "output_1")
     }
 }
-```
+</pre>
 
 The first-phase expression tells Vespa to calculate the BM25 score of the query
 against the `title` and `body` fields. We use this as a first pass to avoid
@@ -214,7 +214,7 @@ the combined sequence of tokens from both the query and document. When Vespa
 imports the model it looks for functions with the same names as the inputs to
 the model. So a simplified version of the `input_ids` function can be as follows:
 
-```
+<pre>
 # Create input sequence: CLS + query + SEP + document + SEP + 0's
 function input_ids() {
     expression {
@@ -231,7 +231,7 @@ function input_ids() {
         )))))
     }
 }
-```
+</pre>
 
 This constructs the input tensor (of size 1x128) by extracting tokens from the
 query or the document based on the dimension iterators. The values `input_length`
@@ -260,13 +260,13 @@ After feeding the documents to Vespa, we are ready to query. We use the queries
 in MS MARCO and tokenize them using the same tokenizer as the input, resulting
 in a query looking something like this:
 
-```
+<pre>
 http://localhost:8080/search/?hits=10&ranking=transformer&
 yql=select+%2A+from+sources+%2A+where+content+CONTAINS+
 %22what%22+or+content+CONTAINS+%22are%22+or+content+CONTAINS+
 %22turtle%22+or+content+CONTAINS+%22beans%22%3B&
 ranking.features.query(input)=%5B2054%2C2024%2C13170%2C13435%5D
-```
+</pre>
 
 Here, the YQL statement sets up an OR query for “what are turtle beans”. This
 means Vespa will match all documents that have at least one occurrence of each
