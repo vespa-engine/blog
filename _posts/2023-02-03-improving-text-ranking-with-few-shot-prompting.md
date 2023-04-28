@@ -225,7 +225,7 @@ specific and detailed queries.
 _Dataframe with the generated synthetic queries and the document
 metadata. The document abstract is summarized by the query contextual
 [Vespa dynamic
-summary](https://docs.vespa.ai/en/document-summaries.html#dynamic-summaries)
+summary](https://docs.vespa.ai/en/document-summaries.html#dynamic-snippets)
 feature. There are three rows in the data frame for each unique
 generated question, one positive (relevant) document and two
 irrelevant. This is the input to the next step, which is to train
@@ -284,7 +284,7 @@ Cross-encoder’s downside is the computational complexity at query
 time, which is quadratic with model sequence input length. We deploy
 a trick to reduce the model input sequence; we input the query,
 title, and a query contextual [Vespa dynamic
-summary](https://docs.vespa.ai/en/document-summaries.html#dynamic-summaries)
+summary](https://docs.vespa.ai/en/document-summaries.html#dynamic-snippets)
 of the abstract. The dynamic abstract summarization reduces the
 sequence length while retaining segments of the abstract that matches
 the query. Furthermore, we limit the complexity by reducing the
