@@ -385,7 +385,7 @@ do not support snippeting or highlighting. With Vespa, developers can
 display the best matching paragraph when displaying articles on the
 search result page using the _closest_ feature combined with
 match-features. Vespa also supports [dynamic
-summaries](https://docs.vespa.ai/en/document-summaries.html#dynamic-summaries)
+summaries](https://docs.vespa.ai/en/document-summaries.html#dynamic-snippets)
 and bolding of query terms in single and multi-valued string fields.
 
 
