@@ -173,7 +173,14 @@ of GPU-powered stateless container instances, Vespa users can benefit
 from reduced serving-related costs and increased performance. Enable
 GPU acceleration by specifying the GPU device number to run the
 model on.
-
+<pre>
+rank-profile global-phased {
+   onnx-model transformer {
+      ...
+      gpu-device: 0
+   }
+}
+</pre>
 
 ## Summary
 
