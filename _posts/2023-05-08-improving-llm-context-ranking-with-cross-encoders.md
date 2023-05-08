@@ -122,7 +122,7 @@ rank-profile global-phased {
     expression { firstPhase + lightgbm("f834_v2.json")}
     rerank-count: 1000
   }
-   global-phase {
+  global-phase {
     expression { sum(onnx(transformer).score) } 
     rerank-count: 100
   }
