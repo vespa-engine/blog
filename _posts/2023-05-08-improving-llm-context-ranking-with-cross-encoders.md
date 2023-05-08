@@ -58,7 +58,7 @@ significantly pruned the number of documents in advance.
 Vespa has best-in-class support for expressing [multi-phased retrieval
 and ranking](https://docs.vespa.ai/en/phased-ranking.html). Using
 multi-stage retrieval and ranking pipelines is an industry best
-practice for _efficiently _matching and ranking content. The basic
+practice for _efficiently_ matching and ranking content. The basic
 concept behind this approach is to use a ranking model at each stage
 of the pipeline to filter out less relevant candidates, thereby
 reducing the number of documents ranked at each subsequent stage.
