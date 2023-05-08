@@ -181,6 +181,7 @@ rank-profile global-phased {
    }
 }
 </pre>
+See [documentation](https://docs.vespa.ai/en/reference/schema-reference.html#onnx-model) for details.
 
 ## Summary
 
