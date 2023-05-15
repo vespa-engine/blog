@@ -199,5 +199,5 @@ sample application and [documentation
 ](https://docs.vespa.ai/en/phased-ranking.html#global-phase)to get
 started with global-phase ranking and reduce LLM distraction. Got
 questions about this feature or Vespa in general? Join our community
-[Slack channel](https://slack.vespa.ai/) to learn more.
+[Slack channel](http://slack.vespa.ai/) to learn more.
 
