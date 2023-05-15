@@ -193,7 +193,7 @@ cross-encoders for re-ranking. As demonstrated on the BEIR benchmark,
 cross-encoders are generally more robust and achieve far better
 zero-shot ranking than single vector models using cosine similarity.
 
-Global phase re-ranking is available from Vespa 8.153. See the [transformer
+Global phase re-ranking is available from Vespa 8.164. See the [transformer
 ranking](https://github.com/vespa-engine/sample-apps/tree/master/transformers)
 sample application and [documentation
 ](https://docs.vespa.ai/en/phased-ranking.html#global-phase)to get
