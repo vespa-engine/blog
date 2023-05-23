@@ -33,7 +33,7 @@ For example, typical e-commerce search interfaces allow users to navigate and fi
 
 Vespa's document model supports representing multiple field and collection types in the same 
 [document schema](https://docs.vespa.ai/en/schemas.html).
-Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field-types) 
+Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field)
 include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byte`, and `tensor` fields. 
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 
 Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types) types,
@@ -86,7 +86,7 @@ The simplified track document type used in this post contains three fields: trac
 
 * `title` is configured for regular text indexing and matching using the default matching mode for 
 indexed `string` fields, [match:text](https://docs.vespa.ai/en/reference/schema-reference.html#match).  
-* `tags` is an [array](https://docs.vespa.ai/en/reference/schema-reference.html#type:array) of strings, 
+* `tags` is an [array](https://docs.vespa.ai/en/reference/schema-reference.html#array) of strings,
 configured for exact database-style matching using Vespa’s [match:exact](https://docs.vespa.ai/en/reference/schema-reference.html#match).
 * `embedding` is a first-order tensor (vector) using float tensor cell precision. 
 `x[384]` denotes the named dimension (x) with dimensionality (384). A vector field searched using

@@ -257,7 +257,7 @@ accuracy (recall) of the hybrid `HNSW-IF` approach.
 
 ### Vespa Schema 
 The sample application uses the following Vespa [document schema](https://docs.vespa.ai/en/schemas.html).
-Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field-types) 
+Supported Vespa schema [field types](https://docs.vespa.ai/en/reference/schema-reference.html#field)
 include `string`, `long`, `int`, `float`, `double`, geo `position`, `bool`, `byte`, and `tensor` fields. 
 Vespa’s first-order dense [tensor](https://docs.vespa.ai/en/tensor-user-guide.html) fields represent vector fields. 
 Vespa's tensor fields support different [tensor cell precision](https://docs.vespa.ai/en/performance/feature-tuning.html#cell-value-types) types,
@@ -297,7 +297,7 @@ The feeder feeds the vector data with `in_graph` set to `true` first, to
 populate the `graph` content cluster using `HNSW` indexing, before feeding the non-centroid vectors. 
 
 The `neighbors` field is of type 
-[weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset). 
+[weightedset&lt;string&gt;](https://docs.vespa.ai/en/reference/schema-reference.html#weightedset).
  The `weightedset<string>`type allows mapping a string key (the centroid id in this case) to an integer weight. 
 This field is populated by a 
 [custom document processor](https://github.com/vespa-engine/sample-apps/blob/master/billion-scale-vector-search/src/main/java/ai/vespa/examples/docproc/AssignNeighborsDocProc.java) 
