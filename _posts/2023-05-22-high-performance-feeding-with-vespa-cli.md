@@ -89,4 +89,4 @@ Cloud](https://cloud.vespa.ai/en/getting-started).
 Found a bug or have a feature request? Feel free to file a [GitHub
 issue](https://github.com/vespa-engine/vespa/issues). Need help with Vespa CLI
 or Vespa in general? Drop by our community [Slack
-channel](https://slack.vespa.ai/).
+channel](http://slack.vespa.ai/).

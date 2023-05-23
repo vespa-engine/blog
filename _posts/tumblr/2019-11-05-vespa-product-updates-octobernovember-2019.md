@@ -32,7 +32,7 @@ Vespa is used in many use cases with structured data - documents can have arrays
 
 **Large Weighted Set Update Performance**
 
-[Weighted sets](https://docs.vespa.ai/en/reference/schema-reference.html#type:weightedset) in documents are used to store a large number of elements used in ranking. Such sets are often updated at high volume, in real-time, enabling online big data serving. Vespa-7.129 includes a performance optimization for updating large sets. E.g. a set with 10K elements, without [fast-search](https://docs.vespa.ai/en/attributes.html#fast-search), is 86.5% faster to update.
+[Weighted sets](https://docs.vespa.ai/en/reference/schema-reference.html#weightedset) in documents are used to store a large number of elements used in ranking. Such sets are often updated at high volume, in real-time, enabling online big data serving. Vespa-7.129 includes a performance optimization for updating large sets. E.g. a set with 10K elements, without [fast-search](https://docs.vespa.ai/en/attributes.html#fast-search), is 86.5% faster to update.
 
 **Datadog Monitoring Support**
 
