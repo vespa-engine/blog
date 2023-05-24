@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 <link rel="icon" href="{{ site.baseurl }}/{{ site.favicon }}">
+<link rel="alternate" type="application/rss+xml" title="Vespa Blog RSS feed" href="{{ site.baseurl }}/feed.xml" />
+
 
 <title>{{ page.title }} | {{site.name}}</title>
 
@@ -144,7 +146,7 @@ ga('send', 'pageview');
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-6 text-center text-lg-left">
-                Copyright © {{ site.time | date: "%Y" }} {{ site.name }} - <a target="_blank" href="https://vespa.ai/mailing-list.html">Subscribe to updates</a>
+                Copyright © {{ site.time | date: "%Y" }} {{ site.name }} - <a target="_blank" href="https://vespa.ai/mailing-list.html">Subscribe to updates</a> - <a href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" type="application/rss+xml">Vespa Blog RSS feed</a>
             </div>
             <div class="col-md-6 col-sm-6 text-center text-lg-right">    
                 <a target="_blank" href="https://www.wowthemes.net/mediumish-free-jekyll-template/">Mediumish Jekyll Theme</a> by WowThemes.net
