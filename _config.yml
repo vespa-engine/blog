@@ -147,6 +147,12 @@ authors:
     avatar: '/assets/avatars/leandroalves.jpg'
     email: 'leandroalves@yahooinc.com'
     description: "Software Engineer"
+  freva:
+    name: Valerij Fredriksen
+    display_name: Valerij Fredriksen
+    avatar:
+    email: valerijf@yahooinc.com
+    description: "Principal Vespa Engineer"
 
 
 # Plugins
