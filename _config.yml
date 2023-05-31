@@ -141,6 +141,12 @@ authors:
     avatar:
     email: ''
     description: "Intern I, Summer of 2022"
+  leandroalves:
+    name: Leandro Alves
+    display_name: Leandro Alves
+    avatar: '/assets/avatars/leandroalves.jpg'
+    email: 'leandroalves@yahooinc.com'
+    description: "Software Engineer"
 
 
 # Plugins
