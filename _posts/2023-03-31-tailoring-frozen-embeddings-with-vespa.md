@@ -9,6 +9,8 @@ tags: []
 excerpt: Deep-learned embeddings are popular for search and recommendation use cases. This post introduces the concept of using reusable frozen embeddings and tailoring them with Vespa.
 ---
 
+**UPDATE 2023-06-06:** use new syntax to configure [Bert embedder](https://docs.vespa.ai/en/embedding.html).
+
 ![Decorative
 image](/assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/fabio-oyXis2kALVg-unsplash.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@fabioha?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">fabio</a> on <a href="https://unsplash.com/photos/oyXis2kALVg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -197,18 +199,14 @@ the model distribution to all the nodes in the cluster, without
 service interruption or downtime.
 
 <pre>
-&lt;component id=&quot;frozen&quot; class=&quot;ai.vespa.embedding.BertBaseEmbedder&quot; bundle=&quot;model-integration&quot;&gt;
-    &lt;config name=&quot;embedding.bert-base-embedder&quot;&gt;
-        &lt;transformerModel path=&quot;models/frozen.onnx&quot;/&gt;
-        &lt;tokenizerVocab path=&quot;models/vocab.txt&quot;/&gt;
-    &lt;/config&gt;
+&lt;component id=&quot;frozen&quot; type=&quot;bert-embedder&quot;&gt;
+    &lt;transformer-model path=&quot;models/frozen.onnx&quot;/&gt;
+    &lt;tokenizer-vocab path=&quot;models/vocab.txt&quot;/&gt;
 &lt;/component&gt;
 
-&lt;component id=&quot;tuned&quot; class=&quot;ai.vespa.embedding.BertBaseEmbedder&quot; bundle=&quot;model-integration&quot;&gt;
-    &lt;config name=&quot;embedding.bert-base-embedder&quot;&gt;
-        &lt;transformerModel path=&quot;models/tuned.onnx&quot;/&gt;
-        &lt;tokenizerVocab path=&quot;models/vocab.txt&quot;/&gt;
-    &lt;/config&gt;
+&lt;component id=&quot;tuned&quot; type=&quot;bert-embedder&quot;&gt;
+    &lt;transformer-model path=&quot;models/tuned.onnx&quot;/&gt;
+    &lt;tokenizer-vocab path=&quot;models/vocab.txt&quot;/&gt;
 &lt;/component&gt;
 </pre>
 
