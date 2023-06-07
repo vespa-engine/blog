@@ -9,6 +9,8 @@ skipimage: true
 excerpt: Vespa now lets you create a production quality semantic search application from scratch in minutes
 ---
 
+**UPDATE 2023-06-06:** use new syntax to configure [Bert embedder](https://docs.vespa.ai/en/embedding.html).
+
 ![Decorative image](/assets/2022-09-20-text-embedding-made-simple/embeddings.png)
 <p class="image-credit">
 "searching data using vector embeddings, unreal engine, high quality render, 4k, glossy, vivid colors, intricate detail" by Stable Diffusion
@@ -30,11 +32,9 @@ Now, we’re providing this building block out of the platform as well.
 On Vespa 8.54.61 or higher, simply add this to your services.xml file under &lt;container&gt;:
 
 ```
-<component id="bert" class="ai.vespa.embedding.BertBaseEmbedder" bundle="model-integration">
-    <config name="embedding.bert-base-embedder">
-        <transformerModel path="model/bert-embedder.onnx"/>
-        <tokenizerVocab path="model/vocab.txt"/>
-    </config>
+<component id="bert" type="bert-embedder">
+    <transformer-model path="model/bert-embedder.onnx"/>
+    <tokenizer-vocab path="model/vocab.txt"/>
 </component>
 ```
 

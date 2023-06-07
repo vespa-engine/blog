@@ -9,6 +9,8 @@ skipimage: true
 excerpt: Vespa Cloud now provides pre-trained ML models for your applications
 ---
 
+**UPDATE 2023-06-06:** use new syntax to configure [Bert embedder](https://docs.vespa.ai/en/embedding.html).
+
 ![Decorative image](/assets/2022-10-04-pre-trained-models-on-vespa-cloud/pre-trained.png)
 <p class="image-credit">
 "searching data using pre-trained models, unreal engine high quality render, 4k, glossy, vivid_colors, intricate_detail" by Stable Diffusion
@@ -25,13 +27,9 @@ To take advantage of this, just pick the models you want from
 to them in your application by supplying a model-id where you would otherwise use path or url. For example:
 
 ```
-<component id="myEmbedderId"
-           class="ai.vespa.embedding.BertBaseEmbedder"
-           bundle="model-integration">
-    <config name="embedding.bert-base-embedder">
-        <transformerModel model-id="minilm-l6-v2"/>
-        <tokenizerVocab model-id="bert-base-uncased"/>
-    </config>
+<component id="myEmbedderId" type="bert-embedder">
+    <transformer-model model-id="minilm-l6-v2"/>
+    <tokenizer-vocab model-id="bert-base-uncased"/>
 </component>
 ```
 
