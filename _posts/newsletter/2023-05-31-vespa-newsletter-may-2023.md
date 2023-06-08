@@ -69,7 +69,7 @@ See the announcement at [vespa-support-in-langchain](https://blog.vespa.ai/vespa
 
 ### Optimizations and features
 * Since Vespa 8.141, [attributes](https://docs.vespa.ai/en/attributes.html) can now be of
-  [type raw](https://docs.vespa.ai/en/reference/schema-reference.html#type:raw).
+  [type raw](https://docs.vespa.ai/en/reference/schema-reference.html#raw).
   A primary usecase is using it as key-value store, serving from memory -
   read more in [#26242](https://github.com/vespa-engine/vespa/issues/26242).
 * Developers use the Vespa Cloud Dev Console for rapid iterations on schema and document corpus.
