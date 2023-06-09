@@ -272,7 +272,7 @@ that matches the distance metric used during model training.
 The following demonstrates a Vespa [query
 api](https://docs.vespa.ai/en/query-api.html) request with [native
 embedder
-functionality](https://docs.vespa.ai/en/embedding.html#bertbase-embedder).
+functionality](https://docs.vespa.ai/en/embedding.html#bert-embedder).
 The native embedder encodes the input text ‘_metric spaces_’, and
 uses the resulting 384-dimensional vector in the nearest neighbor
 search. See [text embeddings made
@@ -477,7 +477,7 @@ Wikipedia articles. Each text paragraph was converted to a
 384-dimensional vector embedding using the
 [minilm-l6-v2](https://cloud.vespa.ai/en/model-hub#available-models)
 transformer model using Vespa’s [embedder
-](https://docs.vespa.ai/en/embedding.html#bertbase-embedder) functionality.
+](https://docs.vespa.ai/en/embedding.html#bert-embedder) functionality.
 Two schemas were created and corresponding feed files.
 In both setups, the size of the dataset was 746 MB (485851 * 384 * 4).
 

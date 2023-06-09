@@ -25,7 +25,7 @@ to be able to retrieve documents by semantic similarity in addition to retrievin
 Since Vespa 8.52, we have made this easier by making it possible to use BERT-style models
 to create document and query embeddings inside Vespa without writing any custom code.
 
-The [BertBase embedder](https://docs.vespa.ai/en/embedding.html#bertbase-embedder) bundled with Vespa
+The [BertBase embedder](https://docs.vespa.ai/en/embedding.html#bert-embedder) bundled with Vespa
 uses a WordPiece embedder to produce a token sequence that is then input to a transformer model.
 A BERT-Base compatible transformer model must have three inputs:
 *  A token sequence (`input_ids`)
