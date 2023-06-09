@@ -272,7 +272,7 @@ that matches the distance metric used during model training.
 The following demonstrates a Vespa [query
 api](https://docs.vespa.ai/en/query-api.html) request with [native
 embedder
-functionality](https://docs.vespa.ai/en/embedding.html#bertbase-embedder).
+functionality](https://docs.vespa.ai/en/embedding.html#bert-embedder).
 The native embedder encodes the input text ‘_metric spaces_’, and
 uses the resulting 384-dimensional vector in the nearest neighbor
 search. See [text embeddings made
