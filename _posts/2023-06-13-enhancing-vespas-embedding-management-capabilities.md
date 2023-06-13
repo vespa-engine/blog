@@ -55,12 +55,12 @@ and import them in ONNX format in Vespa for accelerated inference:
 </container>
 ```
 
-The HuggingfaceEmbedder also supports multilingual embedding models that handle 100s of languages.
+The Huggingface Embedder also supports multilingual embedding models that handle 100s of languages.
 Multilingual embedding representations open new possibilities for cross-lingual applications
 using [Vespa linguistic processing](https://docs.vespa.ai/en/linguistics.html)
 and multilingual vector representations to implement
 [hybrid search](https://blog.vespa.ai/improving-zero-shot-ranking-with-vespa/).
-The new HuggingfaceEmbedder also supports
+The new Huggingface Embedder also supports
 [multi-vector representations](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/),
 simplifying deploying semantic search applications at scale
 without maintaining complex fan-out relationships due to embedding model input length constraints.
@@ -95,7 +95,7 @@ We expand the hub with the following best-in-class open-source embedding models:
 
 <style>
 .styled-table {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 </style>
 
@@ -113,7 +113,7 @@ These embedding models perform strongly on various tasks,
 as demonstrated on the [MTEB: Massive Text Embedding Benchmark leaderboard](https://huggingface.co/blog/mteb).
 The MTEB  leaderboard provides a holistic view of the best text embedding models for various tasks.
 MTEB includes 56 datasets across 8 tasks, such as semantic search, clustering, classification, and re-ranking.
-The e5 embedding series from Microsoft comes in 3 sizes small 384, base 768, and large 1024 dimensions.
+The E5 embedding series from Microsoft comes in 3 sizes: small 384, base 768, and large 1024 dimensions.
 
 ![MTEB](/assets/2023-06-13-enhancing-vespas-embedding-management-capabilities/mteb.png)
 <small><em>MTEB Leaderboard, notice the strong performance of the E5-v2 models</em></small>
@@ -131,7 +131,8 @@ Producing the embeddings closer to the Vespa storage and indexes avoids network 
 which can be substantial for high-dimensional vector representations.
 In addition, with Vespa Cloud’s [auto-scaling feature](https://cloud.vespa.ai/en/autoscaling),
 developers do not need to worry about scaling with changes in traffic or compute demanding batch jobs.
-Vespa Cloud also allows bringing your models using the generic HuggingFaceEmbedder.
+Vespa Cloud also allows bringing your models using the [HuggingFace Embedder](https://docs.vespa.ai/en/embedding.html#huggingface-embedder) 
+with model files in the application package.
 Embedding models are automatically accelerated with GPU if the application uses
 [Vespa Cloud GPU instances](https://blog.vespa.ai/gpu-accelerated-ml-inference-in-vespa-cloud/).
 Read more on the [Vespa Cloud model hub](https://cloud.vespa.ai/en/model-hub).
