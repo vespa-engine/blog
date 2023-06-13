@@ -4,7 +4,7 @@ title: Enhancing Vespa’s Embedding Management Capabilities
 date: '2023-06-13'
 image: assets/2023-06-13-enhancing-vespas-embedding-management-capabilities/multilingual-embedding-model.png
 tags: []
-author: jobergum bjorncs
+author: jobergum
 skipimage: true
 excerpt: >
     We are thrilled to announce significant updates to Vespa’s support for inference with text embedding models
@@ -43,7 +43,7 @@ With the new HuggingfaceEmbedder functionality,
 developers can export embedding models from Huggingface
 and import them in ONNX format in Vespa for accelerated inference:
 
-```xml
+```
 <container id="default" version="1.0">
     <component id="e5" type="hugging-face-embedder">
         <transformer-model model-id="cloud-model-id"
@@ -101,7 +101,7 @@ We expand the hub with the following best-in-class open-source embedding models:
 
 {:.styled-table}
 
-| Model                                                                                                | Dim  | Metric  | Language     | Model id             |
+| Embedding Model                                                                                      | Dim  | [Metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric)  | Language     | Model Id             |
 |------------------------------------------------------------------------------------------------------|------|---------|--------------|----------------------|
 | [huggingface.co/intfloat/e5-small-v2](https://huggingface.co/intfloat/e5-small-v2)                   | 384  | angular | English      | e5-small-v2          |
 | [huggingface.co/intfloat/e5-base-v2](https://huggingface.co/intfloat/e5-base-v2)                     | 768  | angular | English      | e5-base-v2           |
@@ -115,10 +115,13 @@ The MTEB  leaderboard provides a holistic view of the best text embedding models
 MTEB includes 56 datasets across 8 tasks, such as semantic search, clustering, classification, and re-ranking.
 The e5 embedding series from Microsoft comes in 3 sizes small 384, base 768, and large 1024 dimensions.
 
+![MTEB](/assets/2023-06-13-enhancing-vespas-embedding-management-capabilities/mteb.png)
+<small><em>MTEB Leaderboard, notice the strong performance of the E5-v2 models</em></small>
+
 Developers can point their configuration to a Vespa Cloud Model hub identifier
 and do not need to provide anything else:
 
-```xml
+```
 <component id="e5" type="hugging-face-embedder">
     <transformer-model model-id="e5-small-v2"/>
 </component>
