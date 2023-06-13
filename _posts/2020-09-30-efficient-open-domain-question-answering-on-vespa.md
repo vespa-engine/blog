@@ -382,7 +382,7 @@ onnxModel rank feature. The actual model we use is a [pre-trained
 model](https://huggingface.co/facebook/dpr-reader-single-nq-base) the DPR team
 has published on HuggingFace's model repository. HuggingFace has released an
 excellent [transformer model
-export](https://huggingface.co/transformers/serialization.html), which makes it
+export](https://huggingface.co/docs/transformers/serialization), which makes it
 easy to export Transformer models (from either PyTorch or TensorFlow) to [ONNX
 format](https://onnx.ai/). After the model is exported to ONNX, we can put the
 model file in the application package and configure its use in the document
