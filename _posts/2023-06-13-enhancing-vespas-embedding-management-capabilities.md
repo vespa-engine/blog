@@ -4,7 +4,7 @@ title: Enhancing Vespa’s Embedding Management Capabilities
 date: '2023-06-13'
 image: assets/2023-06-13-enhancing-vespas-embedding-management-capabilities/multilingual-embedding-model.png
 tags: []
-author: jobergum
+author: jobergum bjorncs
 skipimage: true
 excerpt: >
     We are thrilled to announce significant updates to Vespa’s support for inference with text embedding models
