@@ -18,7 +18,7 @@ image](/assets/2023-06-13-enhancing-vespas-embedding-management-capabilities/vnw
 on <a href="https://unsplash.com/photos/Zqmia99hgF8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
 
 We are thrilled to announce significant updates to Vespa’s support for inference with text embedding models
-that maps texts into vector representations.
+that maps texts into vector representations: General support for Huggingface models including multi-lingual embedding, embedding inference on GPUs, and new recommended models available on the Vespa Cloud model hub.
 
 Vespa’s best-in-class vector and [multi-vector](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/)
 search support and [inferences with embedding models](https://blog.vespa.ai/text-embedding-made-simple/)
