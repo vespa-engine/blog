@@ -231,9 +231,8 @@ the batch dimension (d0) and reads the predicted score.
 Vespa provides convenience tensor functions to calculate the three inputs to the
 Transformer models; `tokenInputIds`, `tokenTypeIds`, and `tokenAttentionMask`. 
 We just need to provide the query tokens and field from which we can read the document
-tokens. To map text to token_ids using the fixed vocabulary associated with the
-model, we use Vespa’s support for [wordpiece
-embedding](https://docs.vespa.ai/en/embedding.html#wordpiece-embedder). 
+tokens. To map text to token_ids using the fixed vocabulary associated with the model,
+we use Vespa’s support for [wordpiece embedding](https://docs.vespa.ai/en/reference/embedding-reference.html#wordpiece-embedder).
 This avoids document side tokenization at inference time, and we can just read the product tokens
 during ranking. See the full [product schema](https://github.com/vespa-engine/sample-apps/blob/master/commerce-product-ranking/application/schemas/product.sd).
 

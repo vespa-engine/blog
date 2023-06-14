@@ -79,7 +79,8 @@ The example passage text is represented as a tensor by:
 [2798, 2139, 28724, 1006, 3729, 2290, 1007, 3199, 2003, 2485, 2000, 3000]
 </pre>
 
-We use the native Vespa [WordPiece embedder](https://docs.vespa.ai/en/embedding.html#wordpiece-embedder) to map the text into tensor representation.  
+We use the native Vespa [WordPiece embedder](https://docs.vespa.ai/en/reference/embedding-reference.html#wordpiece-embedder)
+to map the text into tensor representation.
 
 The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd), 
 including the new *text_token_ids* field: 
@@ -349,8 +350,8 @@ increases by close to 18x. This increase in cost, can be worth it in many cases,
 In this blog post we have demonstrated how to represent a cross-encoder model as final re-ranking step on top of the previous 
 retrieval and ranking methods introduced in previous blog posts.
 
-* Passage subword tokenization using [embedding](https://docs.vespa.ai/en/embedding.html#wordpiece-embedder), and tensor fields in the document schema, 
-for fast access during re-ranking (CoLBERT tensor and the BERT token ids).
+* Passage subword tokenization using [embedding](https://docs.vespa.ai/en/reference/embedding-reference.html#wordpiece-embedder),
+  and tensor fields in the document schema, for fast access during re-ranking (CoLBERT tensor and the BERT token ids).
 * Representing the cross-encoder model in Vespa ranking framework.
 * Multi-phase retrieval and ranking using three phases (dense retrieval, ColBERT re-ranking and finally cross-encoder re-ranking).
 * Documented the performance versus accuracy trade-offs for production deployments. 

@@ -475,9 +475,8 @@ per document the [wikipedia-22-12-simple-embeddings](https://huggingface.co/data
 dataset was used. This consists of 485851 paragraphs across 187340
 Wikipedia articles. Each text paragraph was converted to a
 384-dimensional vector embedding using the
-[minilm-l6-v2](https://cloud.vespa.ai/en/model-hub#available-models)
-transformer model using Vespa’s [embedder
-](https://docs.vespa.ai/en/embedding.html#bert-embedder) functionality.
+[minilm-l6-v2](https://cloud.vespa.ai/en/model-hub#minilm-l6-v2)
+transformer model using Vespa’s [embedder](https://docs.vespa.ai/en/embedding.html#bert-embedder) functionality.
 Two schemas were created and corresponding feed files.
 In both setups, the size of the dataset was 746 MB (485851 * 384 * 4).
 
