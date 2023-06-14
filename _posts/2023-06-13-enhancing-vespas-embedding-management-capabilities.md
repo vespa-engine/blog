@@ -85,7 +85,7 @@ For open-source Vespa, specify the GPU device using the
 
 ## Vespa Model Hub Updates
 To make it easier to create embedding applications,
-we introduce new state-of-the-art text embedding models on the [Vespa Model Hub](https://cloud.vespa.ai/en/model-hub) for 
+we have added new state-of-the-art text embedding models on the [Vespa Model Hub](https://cloud.vespa.ai/en/model-hub) for 
 [Vespa Cloud](https://cloud.vespa.ai/) users. The Vespa Model Hub is a centralized repository of selected models,
 making it easier for developers to discover and use powerful open-source embedding models.
 
