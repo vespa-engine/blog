@@ -41,7 +41,7 @@ Embedding models trained on multilingual datasets can represent concepts across 
 diverse linguistic contexts.
 
 ## Embedder Models from Huggingface
-One of the key enhancements is the introduction of generic support for embedding models hosted on [Huggingface](https://huggingface.co/).
+Vespa now comes with generic support for embedding models hosted on [Huggingface](https://huggingface.co/).
 
 With the new Huggingface Embedder functionality,
 developers can export embedding models from Huggingface
