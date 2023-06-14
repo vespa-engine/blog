@@ -49,7 +49,7 @@ and import them in [ONNX](https://onnx.ai/) format in Vespa for accelerated infe
 
 ```
 <container id="default" version="1.0">
-    <component id="e5" type="hugging-face-embedder">
+    <component id="my-embedder-id" type="hugging-face-embedder">
         <transformer-model model-id="cloud-model-id"
                            path="my-models/model.onnx"/>
         <tokenizer-model   model-id="cloud-model-id"
