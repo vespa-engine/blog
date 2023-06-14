@@ -84,7 +84,7 @@ For open-source Vespa, specify the GPU device using the
 [embedder ONNX configuration](https://docs.vespa.ai/en/reference/embedding-reference.html#embedder-onnx-reference-config).  
 
 ## Vespa Model Hub Updates
-To further enrich the Vespa Cloud ecosystem,
+To make it easier to create embedding applications,
 we introduce new state-of-the-art text embedding models on the [Vespa Model Hub](https://cloud.vespa.ai/en/model-hub) for 
 [Vespa Cloud](https://cloud.vespa.ai/) users. The Vespa Model Hub is a centralized repository of selected models,
 making it easier for developers to discover and use powerful open-source embedding models.
