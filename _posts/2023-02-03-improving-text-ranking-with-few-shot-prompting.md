@@ -146,7 +146,7 @@ to the new domain.
 In this work, we want to see if we can improve the effectiveness
 by using a large language model to create synthetic training data
 for the new domain. We focus on one of the BEIR datasets, the
-bio-medical [trec-covid](https://ir.nist.gov/trec-covid/) IR dataset.
+bio-medical [trec-covid](https://arxiv.org/abs/2104.09632) IR dataset.
 We chose this dataset because we have previously built a simple
 demo [search UI](https://cord19.vespa.ai/) and [Vespa
 app](https://github.com/vespa-cloud/cord-19-search), indexing the
