@@ -145,7 +145,7 @@ Read more on the [Vespa Cloud model hub](https://cloud.vespa.ai/en/model-hub).
 
 
 ## Summary
-The improved Vespa embedding management options offer a significant leap forward in Vespa’s embedding capabilities,
+The improved Vespa embedding management options offer a significant leap in capabilities for anybody working with embeddings in online applications,
 enabling developers to leverage state-of-the-art models, accelerate inference with GPUs,
 and access a broader range of embedding options through the Vespa model hub.
 All this functionality is available in Vespa version 8.176.13 and later.  
