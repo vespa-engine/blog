@@ -255,18 +255,17 @@ applications. With pyvespa, it is easy to connect to either a local Vespa
 running in a Docker container or [Vespa cloud](https://cloud.vespa.ai/), a
 service for running Vespa applications.
 
-The [pyvespa text-image sample app
-notebook](https://github.com/vespa-engine/sample-apps/blob/master/text-image-search/src/python/compare-pre-trained-clip-for-text-image-search.ipynb)
+The [text-image sample app
+notebook](https://github.com/vespa-engine/learntorank/blob/main/notebooks/compare-pre-trained-clip-for-text-image-search.ipynb)
 contains a full end-to-end example of setting up the application, feeding
 images, and querying. This example also uses all 6 different model variants
 found in CLIP and includes an evaluation analysis. As is shown there, the
 `ViT-B/32` model is found to be superior.
 
-The sample application contains a [streamlit demo
+The [streamlit demo
 app](https://github.com/vespa-engine/sample-apps/blob/master/text-image-search/src/python/README.md#demo-the-search-app),
-which can be set up to query the python application after it is deployed and
-images are fed. With this application, one can visually evaluate the
-differences in the model variants.
+can be set up to query the python application after it is deployed and images are fed.
+With this application, one can visually evaluate the differences in the model variants.
 
 ![streamlist example](/assets/2021-11-28-text-image-search/streamlit_example.png)
 
