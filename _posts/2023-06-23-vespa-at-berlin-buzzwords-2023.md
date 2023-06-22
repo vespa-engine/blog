@@ -48,7 +48,8 @@ of search engine and vector search experts to discuss and contrast search techno
 <p></p>
 
 ## Privacy-Preserving Web Search
-Lara Perinetti from [Qwant.com](https://www.qwant.com/) gave a talk about building privacy preserving web search. 
+[Lara Perinetti](https://www.linkedin.com/in/lara-perinetti-7a0632b9/) 
+from [Qwant.com](https://www.qwant.com/) gave a talk about building privacy preserving web search. 
 Qwant uses Vespa for indexing and ranking 5B web documents. 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ciCh85w8FfM" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -68,7 +69,7 @@ largest e-commerce site, presented on using Vespa for search suggestions.
 Tom Gilke from Otto.de presenting at Berlin Buzzwords 2023.
 </p>
 
-Tom Gilke presented on introducing semantic search suggestions using 
+[Tom Gilke](https://www.linkedin.com/in/tom-gilke) presented on introducing semantic search suggestions using 
 [Vespa nearest neighbor search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
 combined with [Vespa's embedding inference capabilities](https://blog.vespa.ai/enhancing-vespas-embedding-management-capabilities/).
 
