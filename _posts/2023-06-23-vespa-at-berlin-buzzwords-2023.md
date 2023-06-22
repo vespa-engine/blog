@@ -58,7 +58,7 @@ Qwant uses Vespa for indexing and ranking 5B web documents.
 Berlin Buzzword's Barcamp is an informal session with a schedule decided on the day. This
 session was not recorded. 
 
-Tom Gilke from [otto.de](https://www.otto.de/), Germany's second
+Tom Gilke from otto.de ([see their Tech Blog](https://www.otto.de/jobs/en/technology/techblog/)), Germany's second
 largest e-commerce site, presented on using Vespa for search suggestions. 
 
 <img src="/assets/2023-06-23-vespa-at-berlin-buzzwords-2023/otto-talk.jpeg"
@@ -71,15 +71,16 @@ Tom Gilke presented on introducing semantic search suggestions using
 [Vespa nearest neighbor search](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
 combined with [Vespa's embedding inference capabilities](https://blog.vespa.ai/enhancing-vespas-embedding-management-capabilities/).
 
-We also recommend a talk on how the Otto.de team migrated from Elasticsearch to Vespa for powering search suggestions in 
-[How we built autosuggest infrastructure for otto.de](https://www.youtube.com/watch?v=hZ9sCxj5fEk).  
+We also recommend a talk on how the otto.de team migrated their infrastructure for powering search suggestions. They 
+present their iterations moving from Elasticsearch to a simple python solution and in the end to vespa in 
+[How we built the autosuggest infrastructure for otto.de](https://www.youtube.com/watch?v=hZ9sCxj5fEk).  
 
 ## Learning to hybrid search
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TBGkis0U1bg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 Roman Grebennikov and Vsevolod Goloviznin presented on hybrid search ranking alternatives, all evaluated on 
 the Amazon's ESCI product ranking dataset.
 
-We at the Vespa team has also worked with this large e-commerce ranking dataset in our blog series on 
+We at the Vespa team have also worked with this large e-commerce ranking dataset in our blog series on 
 <em>Improving Product Search with Learning to Rank</em>:
 
 - [Part one: introduction to ESCI product ranking dataset](/improving-product-search-with-ltr/)
