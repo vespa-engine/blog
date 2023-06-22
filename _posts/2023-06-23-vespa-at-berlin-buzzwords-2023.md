@@ -58,7 +58,8 @@ Qwant uses Vespa for indexing and ranking 5B web documents.
 Berlin Buzzword's Barcamp is an informal session with a schedule decided on the day. This
 session was not recorded. 
 
-Tom Gilke from otto.de ([see their Tech Blog](https://www.otto.de/jobs/en/technology/techblog/)), Germany's second
+[Tom Gilke](https://www.linkedin.com/in/tom-gilke) 
+from otto.de ([see their Tech Blog](https://www.otto.de/jobs/en/technology/techblog/)), Germany's second
 largest e-commerce site, presented on using Vespa for search suggestions. 
 
 <img src="/assets/2023-06-23-vespa-at-berlin-buzzwords-2023/otto-talk.jpeg"
@@ -72,7 +73,7 @@ Tom Gilke presented on introducing semantic search suggestions using
 combined with [Vespa's embedding inference capabilities](https://blog.vespa.ai/enhancing-vespas-embedding-management-capabilities/).
 
 We also recommend a talk on how the otto.de team migrated their infrastructure for powering search suggestions. They 
-present their iterations moving from Elasticsearch to a simple python solution and in the end to vespa in 
+present their iterations moving from Elasticsearch to a simple python solution and in the end to Vespa in 
 [How we built the autosuggest infrastructure for otto.de](https://www.youtube.com/watch?v=hZ9sCxj5fEk).  
 
 ## Learning to hybrid search
