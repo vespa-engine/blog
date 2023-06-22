@@ -76,7 +76,8 @@ We also recommend a talk on how the Otto.de team migrated from Elasticsearch to 
 
 ## Learning to hybrid search
 <iframe width="560" height="315" src="https://www.youtube.com/embed/TBGkis0U1bg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-Roman Grebennikov and Vsevolod Goloviznin presented on hybrid search ranking alternatives, all evaluated on 
+[Roman Grebennikov](https://www.linkedin.com/in/romangrebennikov/) 
+and [Vsevolod Goloviznin](https://www.linkedin.com/in/vgoloviznin/) presented on hybrid search ranking alternatives, all evaluated on 
 the Amazon's ESCI product ranking dataset.
 
 We at the Vespa team has also worked with this large e-commerce ranking dataset in our blog series on 
@@ -104,19 +105,18 @@ One key takeaway from the talk was a relevance evaluation breakdown by query typ
 we clearly can see that vector search alone [does not solve all search use cases](https://blog.vespa.ai/will-vector-dbs-dislodge-search-engines/).
 
 ## The state of Neural Search and LLMs, interview with Jo Kristian Bergum - Berlin Buzzwords 2023
-Jo Kristian Bergum from the Vespa team joined Founder and CEO Jakub Zavrel to talk about 
-the state of Neural Search and LLMs. 
+Jo Kristian Bergum from the Vespa team joined Founder and CEO [Jakub Zavrel](https://www.linkedin.com/in/jakubzavrel/) 
+at Zeta Alpha to talk about the state of Neural Search and LLMs. 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/vVhfgRS_IAo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 <p></p>
 
 ## Hybrid search is buzzing
 This year, the conference was filled with talks on hybrid search and we think it's worthwile mentioning Lester Solbakken's great talk
-from Berlin Buzzwords 2022 where he presented [Hybrid search > sum of its parts?](https://pretalx.com/bbuzz22/talk/YEHRTE/). 
+from Berlin Buzzwords 2022 where he presented [Hybrid search > sum of its parts?](https://pretalx.com/bbuzz22/talk/YEHRTE/) 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/R5BLbnXPR5c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <p></p>
-
 
 ## Summary
 
