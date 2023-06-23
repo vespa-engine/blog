@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Vespa at Berlin Buzzwords 2023 
-date: '2023-06-22'
+date: '2023-06-23'
 categories: []
 tags: []
 image: assets/2023-06-23-vespa-at-berlin-buzzwords-2023/bb2023.png
