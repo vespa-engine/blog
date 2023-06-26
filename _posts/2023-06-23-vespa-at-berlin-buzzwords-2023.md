@@ -31,7 +31,7 @@ Jo Kristian Bergum from the Vespa team gave a talk on [Boosting Ranking Performa
 If you were interested in this talk, why don't you check out some of our previous work on zero-shot ranking and 
 adapting ranking models to new domains using LLMs:
 
-- [Improving Search Ranking with Few-Shot Prompting of LLMs](improving-text-ranking-with-few-shot-prompting/)
+- [Improving Search Ranking with Few-Shot Prompting of LLMs](/improving-text-ranking-with-few-shot-prompting/)
 - [Improving Zero-Shot Ranking with Vespa Hybrid Search](/improving-zero-shot-ranking-with-vespa/)
 - [Improving Zero-Shot Ranking with Vespa Hybrid Search - part two](/improving-zero-shot-ranking-with-vespa-part-two/)
 
