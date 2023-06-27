@@ -170,8 +170,9 @@ You may want a little more to deliver a sufficient query throughput for a highly
 but this is the kind of savings you’ll see for real production systems.
 
 You can also use Vespa’s streaming support to combine personal vector search with regular text search
-and search over metadata with little additional cost, and with advanced machine-learned ranking on the content nodes,
-which are features you’ll also need if you want to create a solution with high quality.
+and search over metadata with little additional cost.
+Combine this with advanced machine-learned ranking on the content nodes -
+these are features you’ll also need if you want to create a high-quality solution!
 
 
 ## How to use streaming search
@@ -191,7 +192,7 @@ To use streaming search in your application, make these changes:
 [streaming.groupname](https://docs.vespa.ai/en/reference/query-api-reference.html#streaming.groupname) to the user id.
 
 See the [streaming search documentation](https://docs.vespa.ai/en/streaming-search.html) for more details,
-and try out the [vector streaming search sample application](https://github.com/vespa-engine/sample-apps/tree/master/vector-streaming-search)to get started.
+and try out the [vector streaming search sample application](https://github.com/vespa-engine/sample-apps/tree/master/vector-streaming-search) to get started.
 
 
 ## Performance case study
@@ -231,7 +232,12 @@ These nodes equate to the AWS Graviton 2 c6g.2xlarge instance.
 
 ```
 <nodes deploy:environment="perf" count="32">
-    <resources vcpu="8" memory="16Gb" disk="20Gb" storage-type="remote" architecture="arm64"/>
+    <resources
+        vcpu="8"
+        memory="16Gb"
+        disk="20Gb"
+        storage-type="remote"
+        architecture="arm64"/>
 </nodes>
 ```
 
@@ -246,7 +252,17 @@ while feeding the documents. In total each document is around 800 bytes, includi
 Example document put for user with id 10000021:
 
 ```
-{"put":"id:test:test:g=10000021:81","fields":{"id":81, "embedding":[0.424140,0.663390,..,0.261550,0.860670]}}
+{
+    "put":"id:test:test:g=10000021:81",
+    "fields":{
+        "id":81,
+        "embedding":[
+            0.424140,0.663390,
+            ..,
+            0.261550,0.860670
+        ]
+    }
+}
 ```
 
 To feed the dataset we used three instances of [Vespa CLI](https://docs.vespa.ai/en/vespa-cli-feed.html)
