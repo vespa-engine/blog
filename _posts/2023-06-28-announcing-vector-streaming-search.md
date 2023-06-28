@@ -6,8 +6,9 @@ date: '2023-06-28'
 image: assets/2023-06-28-announcing-vector-streaming-search/marc-sendra-martorell--Vqn2WrfxTQ-unsplash.jpg
 skipimage: true 
 tags: [] 
-excerpt: "When working with vector search in personal data, you need to handle large amounts of data and deliver complete results, but vector databases fail on both counts.
-Here we introduce Vespa's Vector Streaming Search - a solution which delivers complete results in personal data at an order of magnitude lower cost."
+excerpt: "With personal data, you need complete results at low cost, something vector databases cannot provide.
+Vespa's new vector streaming search delivers complete results at a fraction of the cost.
+"
 ---
 
 ![Decorative
@@ -16,21 +17,22 @@ image](/assets/2023-06-28-announcing-vector-streaming-search/marc-sendra-martore
 </p>
 
 If you are using a large language model to build a personal assistant
-you usually need to give it access to personal data such as email, documents or images.
+you often need to give it access to personal data such as email, documents or images.
 This is usually done by indexing the vectors in a vector database and retrieving by approximate nearest neighbor (ANN) search. 
 
 In this post we’ll explain why this is not a good solution for personal data
-and introduce an alternative which is an order of magnitude cheaper while actually solving the problem: Vector streaming search.
+and introduce an alternative which is an order of magnitude cheaper while actually solving the problem: 
+**Vector streaming search.**
 
 
 ## Let’s just build an ANN index?
 
 Let’s say you’re building a personal assistant who’s working with personal data averaging 10k documents per user,
 and that you want to scale to a million users - that is 10B documents.
-And let’s say you are using typical cost effective embeddings of 384 bfloat16s - 768 bytes per document.
+And let’s say you are using typical cost-effective embeddings of 384 bfloat16s - 768 bytes per document.
 How efficient can we make this in a vector database?
 
-Let’s try to handle this the normal way by maintaining a global (but sharded) approximate nearest neighbor vector index.
+Let’s try to handle it the normal way by maintaining a global (but sharded) approximate nearest neighbor vector index.
 Queries will need to calculate distances for vectors in a random access pattern as they are found in the index,
 which means they’ll need to be in memory to deliver interactive latency.
 Here, we need 10B * 768 bytes = 7.68 Tb of memory for the vector,
@@ -39,10 +41,10 @@ In practice though you need two copies to be able to deliver a user’s data rel
 some headroom for other in-memory data (say 10%), and about 35% headroom for working memory.
 This gives a grand total of 9.2 * 2 * 1.1 / 0.65 = 31Tb.
 
-If we use nodes with 128Gb memory that works out to 31Tb/128Gb = 242 nodes.
+If we use nodes with 128Gb memory that works out to 31Tb / 128Gb = 242 nodes.
 On AWS, we can use i4i.4xlarge nodes at a cost of about $33 per node per day, so our total cost becomes 242 * 33 = $8000 per day.
 
-Hefty, but at least we get a great solution right? Well, not really. 
+**Hefty, but at least we get a great solution right? Well, not really.**
 
 The A in ANN stands for approximate - the results from an ANN index will be missing some documents,
 including likely some of the very best ones. That is often fine when working with global data,
@@ -51,35 +53,47 @@ but is it really acceptable to miss the one crucial mail, photo or document the 
 In addition - ANN indexes shine when most of the vectors in the data are eligible for a given query,
 that is when query filters are weak. But here we need to filter on the user’s own data,
 so our filter is very strong indeed and our queries will be quite expensive despite all the effort of building the index.
-In fact it would be cheaper to not make use of the index at all, (which is what Vespa would automatically do when given these queries).
+In fact it would be cheaper to not make use of the index at all (which is what Vespa would automatically do when given these queries).
 
 Lastly, there’s write speed. A realistic speed here is about 8k inserts per node per second.
 Since we have 2 * 10B/242 = 82 M documents per node that means it will take about
 82M/(8k * 3600) = 2.8 hours to feed the entire data set even though we have this massive amount of powerful nodes.
 
-To recap, this solution has four problems:
+To recap, this solution has four problems as shown in this table:
 
 <style>
 .styled-table {
     font-size: 0.9rem;
     border-collapse: separate;
-    border-spacing: 5px;
+    padding-top: 0px;
+    padding-bottom: 25px;
 }
 .styled-table td,
 .styled-table th {
-  padding: 5px; 
+  padding: 3px;
+  padding-left: 30px;
 }
 </style>
 
-{:.styled-table}
-
-| Regular ANN for personal data |
-|-------------------------------|------------------------------------------------------------------------|
-| ❌ Cost                       | All the vectors must be in memory, which becomes very expensive.       |
-| ❌ Coverage                   | ANN doesn’t find all the best matches, problematic with personal data. |
-| ❌ Query performance          | Queries are expensive to the point of making an ANN index moot.        |
-| ❌ Write performance          | Writing the data set is slow.                                          |
-
+<table class="styled-table">
+  <th colspan="2">Regular ANN for personal data</th>
+  <tr>
+    <td>❌ Cost</td>
+    <td>All the vectors must be in memory, which becomes very expensive.</td>
+  </tr>
+  <tr>
+    <td>❌ Coverage</td>
+    <td>ANN doesn’t find all the best matches, problematic with personal data.</td>
+  </tr>
+  <tr>
+    <td>❌ Query performance</td>
+    <td>Queries are expensive to the point of making an ANN index moot.</td>
+  </tr>
+  <tr>
+    <td>❌ Write performance</td>
+    <td>Writing the data set is slow.</td>
+  </tr>
+</table>
 
 ## Can we do better?
 Let’s consider some alternatives.
@@ -90,42 +104,78 @@ So, could we build a single ANN index per user instead?
 
 This actually makes the ANN indexes useful since there is no user filter. However, the other three problems remain.
 
-{:.styled-table}
+<table class="styled-table">
+  <th colspan="2">NN (exact nearest neighbor) for personal data</th>
+  <tr>
+    <td>❌ Cost</td>
+    <td>All the vectors must be in memory, which becomes very expensive.</td>
+  </tr>
+  <tr>
+    <td>❌ Coverage</td>
+    <td>ANN doesn’t find all the best matches, problematic with personal data.</td>
+  </tr>
+  <tr>
+    <td>✅ Query performance</td>
+    <td>One index per user makes queries cheap.</td>
+  </tr>
+  <tr>
+    <td>❌ Write performance</td>
+    <td>Writing the data set is slow.</td>
+  </tr>
+</table>
 
-| ANN with one index per user for personal data |
-|-----------------------------------------------|------------------------------------------------------------------------|
-| ❌ Cost                                       | All the vectors must be in memory, which becomes very expensive.       |
-| ❌ Coverage                                   | ANN doesn’t find all the best matches, problematic with personal data. |
-| ✅ Query performance                          | One index per user makes queries cheap.                                |
-| ❌ Write performance                          | Writing the data set is slow.                                          |
 
 Can we drop the ANN index and do vector calculations brute force?
 This is actually not such a bad option (and Vespa trivially supports it).
 Since each user has a limited number of documents, there is no problem getting good latency by brute forcing over a user’s vectors.
+However, we still store all the vectors in memory so the cost problem remains.
 
-{:.styled-table}
+<table class="styled-table">
+  <th colspan="2">NN (exact nearest neighbor) for personal data</th>
+  <tr>
+    <td>❌ Cost</td>
+    <td>All the vectors must be in memory, which becomes very expensive.</td>
+  </tr>
+  <tr>
+    <td>✅ Coverage</td>
+    <td>All the best matches are guaranteed to be found.</td>
+  </tr>
+  <tr>
+    <td>✅ Query performance</td>
+    <td>Cheap enough: One user’s data is a small subset of a node’s data.</td>
+  </tr>
+  <tr>
+    <td>✅ Write performance</td>
+    <td>Writing data is an order of magnitude faster than with ANN.</td>
+  </tr>
+</table>
 
-| NN (exact nearest neighbor) for personal data |
-|-----------------------------------------------|-------------------------------------------------------------------|
-| ❌ Cost                                       | All the vectors must be in memory, which becomes very expensive.  | 
-| ✅ Coverage                                   | All the best matches are guaranteed to be found.                  |
-| ✅ Query performance                          | Cheap enough: One user’s data is a small subset of a node’s data. |
-| ✅  Write performance                         | Writing data is an order of magnitude faster than with ANN.       |
 
-However, we still store all the vectors in memory so the cost problem remains. 
-
-Can we avoid that? Vespa provides an option to mark vectors paged, meaning portions of the data will be swapped out to disk.
+Can we avoid the memory cost? Vespa provides an option to mark vectors [paged](https://docs.vespa.ai/en/attributes.html#paged-attributes), 
+meaning portions of the data will be swapped out to disk.
 However, since this vector store is not localizing the data of each user
 we still need a good fraction of the data in memory to stay responsive, and even so both query and write speed will suffer.
 
-{:.styled-table}
+<table class="styled-table">
+  <th colspan="2">NN (exact nearest neighbor) with paged vectors for personal data</th>
+  <tr>
+    <td>🟡 Cost</td>
+    <td>A significant fraction of data must be in memory. </td>
+  </tr>
+  <tr>
+    <td>✅ Coverage</td>
+    <td>All the best matches are guaranteed to be found.</td>
+  </tr>
+  <tr>
+    <td>🟡 Query performance</td>
+    <td>Reading vectors from disk with random access is slow.</td>
+  </tr>
+  <tr>
+    <td>✅ Write performance</td>
+    <td>Writing data is an order of magnitude faster than with ANN.</td>
+  </tr>
+</table>
 
-| NN (exact nearest neighbor) with paged vectors for personal data |
-|---------------------------------------|--------------------------------------------------------------------|
-| 🟡 Cost                               | Not all vector data must be in memory, but a significant fraction. |
-| ✅ Coverage                           | All the best matches are guaranteed to be found.                   |
-| 🟡 Query performance                  | Reading vectors from disk with random access is slow.              |
-| ✅  Write performance                 | Writing data is an order of magnitude faster than with ANN.        |
 
 Can we do even better, by localizing the vector data of each user
 and so avoid the egregious memory cost altogether while keeping good performance?
@@ -133,6 +183,7 @@ Yes, with Vespa’s new vector streaming search you can!
 
 
 ## The solution: Vector streaming search
+
 Vespa’s streaming search solution lets you make the user id a part of the document id
 so that Vespa can use it to co-locate the data of each user on a small set of nodes and on the same chunk of disk.
 This allows you to do searches over a user’s data with low latency without keeping any user’s data in memory
@@ -142,52 +193,62 @@ This mode has been available for a long time for text and metadata search,
 and we have now extended it to support vectors and tensors as well, both for search and ranking.
 
 With this mode you can store billions of user vectors, along other data, on each node without running out of memory,
-write it at a very high throughput thanks to Vespa’s log data store, and run queries with 
+write it at a very high throughput thanks to Vespa’s log data store, and run queries with: 
 
-- high throughput since data is co-located on disk (or in memory buffers containing recently written data)
-- low latency regardless of the size of a given user’s data, since Vespa will,
+- High throughput: Data is co-located on disk, or in memory buffers for recently written data.
+- Low latency regardless user data size: Vespa will,
 in addition to co-locating a user’s data, also automatically spread it over a sufficient number of nodes to bound query latency.
 
-In addition you’ll see about an order of magnitude higher write throughput than with a vector solution.
+In addition you’ll see about an order of magnitude higher write throughput per node than with a vector indexing solution.
 
-The driving cost factor instead moves to disk I/O capacity, which makes this much cheaper.
+The resource driving cost instead moves to disk I/O capacity, which is what makes streaming so much cheaper.
 To compare with our initial solution which required 242 128Gb nodes - streaming requires 45b to be stored in memory per document
 so we’ll be able to cram about 128Gb / 45 * 0.65 = 1.84 B documents on each node.
-We can then fit two copies of the 10B documents on 20B/1.84B = 11 nodes. 
+We can then fit two copies of the 10B document corpus on 20B / 1.84B = 11 nodes. 
 
-Quite a reduction! 
+Quite a reduction! In a very successful application you may want a little more to deliver sufficient query capacity 
+(see the performance case study below),  but this is the kind of savings you’ll see for real production systems.
 
-{:.styled-table}
+<table class="styled-table">
+  <th colspan="2">Vector streaming search for personal data</th>
+  <tr>
+    <td>✅ Cost</td>
+    <td>No vector data (or other document data) must be in memory.</td>
+  </tr>
+  <tr>
+    <td>✅ Coverage</td>
+    <td>All the best matches are guaranteed to be found.</td>
+  </tr>
+  <tr>
+    <td>✅ Query performance</td>
+    <td>Localized disk reads are fast.</td>
+  </tr>
+  <tr>
+    <td>✅ Write performance</td>
+    <td>Writing data is faster even with less than 1/20 of the nodes.</td>
+  </tr>
+</table>
 
-| Streamed vector search for personal data |
-|------------------------------------------|---------------------------------------------------------------|
-| ✅ Cost                                  | No vector data (or other document data) must be in memory.    |
-| ✅ Coverage                              | All the best matches are guaranteed to be found.              |
-| ✅ Query performance                     | Localized disk reads are fast.                                |
-| ✅ Write performance                     | Writing data is faster even with less than 1/20 of the nodes. |
 
-You may want a little more to deliver a sufficient query throughput for a highly successful application (see the performance case study),
-but this is the kind of savings you’ll see for real production systems.
-
-You can also use Vespa’s streaming support to combine personal vector search with regular text search
-and search over metadata with little additional cost.
-Combine this with advanced machine-learned ranking on the content nodes -
-these are features you’ll also need if you want to create a high-quality solution!
+You can also combine vector streaming search with regular text search
+and metadata search with little additional cost, and with advanced machine-learned ranking on the content nodes.
+These are features you’ll also need if you want to create an application that gives users high quality responses.
 
 
 ## How to use streaming search
-To use streaming search in your application, make these changes:
+
+To use streaming search in your application, make these changes to it:
 
 - Set streaming search mode for the document type in services.xml:
 
 ```
-<documents>
-    <document type="my-document-type" mode="streaming" />
-</documents>
+        <documents>
+            <document type="my-document-type" mode="streaming" />
+        </documents>
 ```
 
 - Feed documents with ids that includes the user id of each document by
-[setting the group value on ids](https://docs.vespa.ai/en/documents.html#document-ids): `id:my-namespace:my-document-type:g=my-user-id:my-locally-unique-id`
+[setting the group value on ids](https://docs.vespa.ai/en/documents.html#document-ids). Id's will then be on the form `id:myNamespace:myType:g=myUserid:myLocalId` where the g=myUserId is new.
 - Set the user id to search on each query by setting the parameter
 [streaming.groupname](https://docs.vespa.ai/en/reference/query-api-reference.html#streaming.groupname) to the user id.
 
@@ -196,6 +257,7 @@ and try out the [vector streaming search sample application](https://github.com/
 
 
 ## Performance case study
+
 To measure the performance of Vespa’s vector streaming search we deployed a modified version of the
 [nearest neighbor streaming performance test](https://github.com/vespa-engine/system-test/tree/master/tests/performance/nearest_neighbor_streaming)
 to [Vespa Cloud](https://cloud.vespa.ai/).
@@ -226,7 +288,6 @@ These nodes equate to the AWS i4i.4xlarge instance with 1 3750Gb AWS Nitro local
 
 ![Content nodes](/assets/2023-06-28-announcing-vector-streaming-search/console_content_nodes.png "image_tooltip")
 <font size="3"><i>Vespa Cloud console showing the 20 content nodes allocated to store the dataset.</i></font><br/>
-
 We used the following settings for container nodes. The node count was adjusted based on the particular test to run.
 These nodes equate to the AWS Graviton 2 c6g.2xlarge instance.
 
@@ -272,10 +333,8 @@ The total feed throughput was around 300k documents per second, and the total fe
 
 ![Feed throughput](/assets/2023-06-28-announcing-vector-streaming-search/console_feed.png "image_tooltip")
 <font size="3"><i>Vespa Cloud console showing feed throughput towards the end of feeding 48B documents.</i></font><br/>
-
 ![Feed throughput](/assets/2023-06-28-announcing-vector-streaming-search/console_container_nodes.png "image_tooltip")
 <font size="3"><i>Vespa Cloud console showing the 32 container nodes allocated when feeding the dataset.</i></font><br/>
-
 
 ### Query performance
 
@@ -324,14 +383,12 @@ for various number of vespa-fbench clients when running queries for users with 1
 
 ![QPS vs query latency](/assets/2023-06-28-announcing-vector-streaming-search/graph_qps_vs_latency.png "image_tooltip")
 <font size="3"><i>Graph showing QPS vs 99 percent latency when running queries for users with 10k documents each.</i></font><br/>
-
 This shows that we start reaching the bottleneck of the disks on the content nodes when reading around 1Gb / sec per content node.
 However, the sweet spot QPS is around 2000, with an average query latency of 15ms when reading around 800Mb / sec per content node.
 
 ![Query latency and throughput](/assets/2023-06-28-announcing-vector-streaming-search/console_query.png "image_tooltip")
 <font size="3"><i>Vespa Cloud dashboard showing query latency and query throughput when running vespa-fbench
 for users with 10k documents each. 4 container nodes were used.</i></font><br/>
-
 The results are similar for users with 1k, 50k and 100k documents each.
 The bottleneck is the read speed of the disk of the content nodes,
 and the performance scales linearly with the number of documents per user.
@@ -350,6 +407,7 @@ For high QPS more container nodes are required to handle the traffic.</i></font>
 
 
 ## How to scale vector streaming search
+
 Based on the results in the previous section we observe that a sweet spot QPS is achieved
 when reading around 800Mb / sec from the disk per content node. This uses 6 CPU cores per content node.
 With this we can calculate the theoretical QPS of a given dataset.
@@ -363,14 +421,13 @@ with the number of content nodes, so to handle a higher load, add more nodes.
 
 
 ## Key takeaways
+
 If you want to do vector search over personal data, the ANN indexes usually offered by vector databases
 are a poor solution because of their high cost and inability to surface all of the user’s most relevant data.
 By using Vespa’s vector streaming search you reduce cost by an order of magnitude while getting all the user’s relevant data. 
-
 In addition, you can combine this solution with metadata search, hybrid text search,
 advanced relevance and grouping with little additional cost.
-Try it out now with Vespa 8.184.20, fully open source or on the [Vespa Cloud](https://cloud.vespa.ai/),
-by cloning our
+
+Try it out now by cloning the open source
 [vector streaming search sample application](https://github.com/vespa-engine/sample-apps/tree/master/vector-streaming-search).
-
-
+Run it yourself on Vespa 8.181.15 or higher, or deploy it for free on the [Vespa Cloud](https://cloud.vespa.ai/).
