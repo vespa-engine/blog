@@ -43,7 +43,7 @@ trying to would mean a vector may not be its own closest neighbor,
 which usually has catastrophic consequences for NNS index building.
 
 In some cases, pre-normalizing all vectors to the same magnitude is possible, and then MIPS becomes identical to angular distance.
-Therefore many NNS implementations offer using the negative or inverse of dot product as a distance,
+Therefore, many NNS implementations offer using the negative or inverse of dot product as a distance,
 e.g., NMSLIB has [negdotprod](https://github.com/nmslib/nmslib/blob/master/manual/spaces.md#inner-product-spaces).
 
 Vespa also has this feature as part of its NNS implementation, named
@@ -72,7 +72,7 @@ Alternatively, one could set some parameter beforehand (describing the data glob
 With Vespa, we cannot make these assumptions, as we allow our users to start with an empty index and feed in data - often generated
 in real-time - so no such a priori knowledge is available.
 
-Therefore Vespa will build the HNSW index incrementally and keep track of the maximal vector norm seen so far.
+Therefore, Vespa will build the HNSW index incrementally and keep track of the maximal vector norm seen so far.
 The extra dimension will be computed on demand to allow this value to change as more data is seen.
 In practice, even with a large variation, a good approximation is reached very soon,
 and the graph will adapt to the parameter change as it grows.
@@ -167,10 +167,10 @@ to explore more neighbors when searching the HNSW index. The results are summari
 
 | exploreAdditionalHits | Order: Random | Order: Ascending | Order: Descending |
 |-----------------------|---------------|------------------|-------------------|
-| 0 | 54.2 | 55.3 | 81.9 |
-| 90 | 81.9 | 90.5 | 98.6 |
-| 190 | 87.4 | 95.1 | 99.6 |
-| 490 | 92.4 | 98.2 | 99.8 |
+| 0                     | 54.2          | 55.3             | 81.9              |
+| 90                    | 81.9          | 90.5             | 98.6              |
+| 190                   | 87.4          | 95.1             | 99.6              |
+| 490                   | 92.4          | 98.2             | 99.8              |
 
 The best recall is achieved by feeding the document with the largest embedding vector norm first.
 This matches the transform and technique used in the research literature.
