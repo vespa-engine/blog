@@ -56,7 +56,7 @@ But in order to train model suitable for generation of frozen embeddings, we wou
 
 First, we would need to decide how to achieve asymmetry in the representation of query and document.
 
-In the context of `sentence-transformenrs`, there are 2 possible ways to reach this asymmetry:
+In the context of `sentence-transformers, there are 2 possible ways to reach this asymmetry:
 
 1. Share transformer weights and use 2 dense layers on the top of transformer to generate asymmetric representations of query and document.
     ```
