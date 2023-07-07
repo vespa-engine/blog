@@ -129,7 +129,7 @@ In the context of `sentence-transformers, there are 2 possible ways to reach thi
 
 Additional dense layers could be added here as well to decrease dimensionality. We skip it here for simplicity.
 
-According to the experiments conducted with our proprietary data, these 2 approaches provide similar information retrieval performance. But first one is much more efficient with regard to disc memory usage. 
+According to the experiments conducted with our proprietary data, these 2 approaches provide similar information retrieval performance. But first one is much more efficient with regard to disc and memory usage. 
 
 It is especially important if we take into account current limitation of 2GB on the content of `models/` folder in Vespa's application package.
 
