@@ -42,7 +42,7 @@ The most effective approach to training a semantic similarity model that would p
 
 Bi-encoder is trained using dataset consisting of text pairs annotated with similarity labels. In e-commerce setting, for example, text pair would be (search query, product title) with associated similarity score or class.
 
-By passing each element of the text pair through encoder, we obtain 2 vector representations. Then, using specified loss function, encoder weights are updated depending on how close predicted similarity between these vectors was to ground true similarity.
+By passing each element of the text pair through encoder, we obtain 2 vector representations. Then, using specified loss function, encoder weights are updated depending on how close predicted similarity between these vectors was to ground truth similarity.
 
 Despite it's name, this "two-tower" transformer often uses shared transformer weights. As a result, the same model is used to encode both queries and documents. 
 
