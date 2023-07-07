@@ -22,7 +22,7 @@ Despite being pretty easy to setup with Vespa, hybrid search could be very tedio
 
 One example of such a setting could be e-commerce.
 
-Updating tens of millions document embeddings every time similarity model is retrained is not fun. As mentioned in the [Vespa's article](https://blog.vespa.ai/tailoring-frozen-embeddings-with-vespa/) on the topic, getting new embedding model into production requires roughly 3 steps:
+Updating tens of millions document embeddings every time the similarity model is retrained is not fun. As mentioned in [Vespa's article](https://blog.vespa.ai/tailoring-frozen-embeddings-with-vespa/) on the topic, getting new embedding model into production requires roughly 3 steps:
 
 * Re-calculating embeddings for all existing documents using new embedding model
 * Index new vectors with Vespa
