@@ -154,6 +154,12 @@ authors:
     avatar:
     email: valerijf@yahooinc.com
     description: "Principal Vespa Engineer"
+  dnmca:
+    name: Andrii Yurkiv
+    display_name: Andrii Yurkiv
+    avatar: '/assets/avatars/dnmca.jpg'
+    email: andriy.y.yurkiv@gmail.com
+    description: "Data Scientist"
 
 
 # Plugins
