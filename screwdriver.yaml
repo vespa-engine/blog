@@ -1,4 +1,6 @@
 shared:
+  annotations:
+    screwdriver.cd/restrictPR: fork
   settings:
     email:
       addresses: [kraune@yahooinc.com]
