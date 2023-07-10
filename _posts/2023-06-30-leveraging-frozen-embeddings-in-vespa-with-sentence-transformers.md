@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Leveraging frozen embeddings in Vespa with SentenceTransformers
-date: '2023-06-30'
+date: '2023-07-10'
 image: assets/2023-06-30-leveraging-frozen-embeddings-in-vespa-with-sentence-transformers/abstract.png
 categories: []
 tags: []
