@@ -4,6 +4,7 @@ title: "Revolutionizing Semantic Search with Multi-Vector HNSW Indexing in Vespa
 author: geirst tegge jobergum 
 date: '2023-03-29' 
 image: assets/2023-03-29-semantic-search-with-multi-vector-indexing/peter-herrmann-aT88kga0g_M-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@tama66?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Peter Herrmann</a> on <a href="https://unsplash.com/photos/aT88kga0g_M?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: Announcing multi-vector indexing support in Vespa, which allows you to index multiple vectors per document and retrieve documents by the closest vector in each document.

@@ -4,6 +4,7 @@ title: "Announcing Maximum Inner Product Search"
 author: arnej geirst
 date: '2023-07-03' 
 image: assets/2023-07-03-announcing-maximum-inner-product-search/nicole-avagliano-TeLjs2pL5fA-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/es/@nicolescapturedmoments?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nicole Avagliano</a> on <a href="https://unsplash.com/photos/TeLjs2pL5fA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: "Vespa can now solve Maximum Inner Product Search problems using an internal transformation to a Nearest Neighbor search.

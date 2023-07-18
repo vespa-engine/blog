@@ -4,6 +4,7 @@ title: "Building Billion-Scale Vector Search - part two"
 author: jobergum
 date: '2022-10-26'
 image: assets/2022-10-26-building-billion-scale-vector-search-part-two/julien-tromeur-EWg1-0UjeWY-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/es/@julientromeur?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">julien Tromeur</a> on <a href="https://unsplash.com/photos/EWg1-0UjeWY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: []
 excerpt: Searching billion-scale datasets without breaking the bank. 

@@ -4,6 +4,7 @@ title: "Vespa Cloud on Google Cloud Platform"
 author: kkraune
 date: '2022-11-08'
 image: assets/images/nasa-Q1p7bh3SHj8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/de/@nasa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">NASA</a> on <a href="https://unsplash.com/photos/Q1p7bh3SHj8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 tags: [GCP, Google Cloud Platform]
 skipimage: false
 excerpt: Vespa Cloud is now available on Google Cloud Platform

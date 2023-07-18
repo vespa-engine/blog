@@ -5,6 +5,7 @@ date: '2023-03-24'
 categories: [product updates]
 tags: []
 image: assets/2023-03-24-private-regional-endpoints/taylor-vick-M5tzZtFCOfs-unsplash-2.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@tvick?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Taylor Vick</a> on <a href="https://unsplash.com/photos/M5tzZtFCOfs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 author: jvenstad
 skipimage: true
 
