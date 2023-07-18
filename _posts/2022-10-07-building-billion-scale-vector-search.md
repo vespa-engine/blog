@@ -4,6 +4,7 @@ title: "Building Billion-Scale Vector Search - part one"
 author: jobergum
 date: '2022-10-06'
 image: assets/2022-10-07-building-billion-scale-vector-search/arnaud-mariat-45Z6hW1dQMI-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@arnaudmariat?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Arnaud Mariat</a> on <a href="https://unsplash.com/photos/45Z6hW1dQMI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: []
 excerpt: How fast is fast? Many consider the blink of an eye, around 100-250ms, to be plenty fast. 

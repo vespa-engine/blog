@@ -3,6 +3,7 @@ layout: post
 title: High performance feeding with Vespa CLI
 date: '2023-05-22'
 image: assets/2023-05-22-high-performance-feeding-with-vespa-cli/shiro-hatori-WR-ifjFy4CI-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/es/@shiroscope?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Shiro hatori</a> on <a href="https://unsplash.com/photos/WR-ifjFy4CI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 categories: [product updates]
 tags: []
 author: mpolden

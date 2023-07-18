@@ -4,6 +4,7 @@ title: "Improving Search Ranking with Few-Shot Prompting of LLMs"
 author: jobergum 
 date: '2023-02-03' 
 image: assets/2023-02-03-improving-text-ranking-with-few-shot-prompting/maxime-valcarce-mAj8xn5zXsk-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@maximevalcarce?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Maxime VALCARCE</a> on <a href="https://unsplash.com/photos/mAj8xn5zXsk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: Distilling the knowledge and power of generative Large Language Models (LLMs) with billions of parameters to ranking models with a few million parameters. 

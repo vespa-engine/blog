@@ -4,6 +4,7 @@ title: "Improving Zero-Shot Ranking with Vespa Hybrid Search"
 author: jobergum 
 date: '2023-01-05' 
 image: assets/2023-01-06-improving-zero-shot-ranking-with-vespa/norbert-braun-uU8n5LuzpTc-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@medion4you?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Norbert Braun</a> on <a href="https://unsplash.com/photos/uU8n5LuzpTc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: If you are planning to implement search functionality but have not yet collected data from user interactions to train ranking models, where should you begin?  

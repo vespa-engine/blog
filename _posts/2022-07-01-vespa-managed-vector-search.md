@@ -5,6 +5,7 @@ date: '2022-07-01'
 categories: [Vespa Cloud]
 tags: []
 image: assets/2022-07-01-vespa-ai-database/israel-palacio-ImcUkZ72oUs-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@othentikisra?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">israel palacio</a> on <a href="https://unsplash.com/photos/ImcUkZ72oUs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 author: jobergum
 skipimage: true
 excerpt: >
