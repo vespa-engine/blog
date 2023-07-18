@@ -5,6 +5,7 @@ author: kkraune
 date: '2021-11-23'
 categories: [newsletter]
 image: assets/images/scott-graham-5fNmWej4tAA-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@homajob?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Scott Graham</a> on <a href="https://unsplash.com/photos/5fNmWej4tAA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: [big data serving, big data, search engines, search, database]
 index: false
