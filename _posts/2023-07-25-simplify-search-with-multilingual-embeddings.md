@@ -23,7 +23,7 @@ information retrieval (IR) datasets.
 
 The fundamental concept behind embedding models is transforming
 textual data into a continuous vector space, wherein similar items
-are brought closer together. In contrast, dissimilar ones are pushed
+are brought close together and dissimilar ones are pushed
 farther apart. Mapping multilingual texts into a unified vector
 embedding space makes it possible to represent and compare queries
 and documents from various languages within this shared space.
