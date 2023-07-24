@@ -16,6 +16,19 @@
     margin-top: 10px;
 }
 
+.card .image-credit {
+  font-size: 10px;
+  text-align: left;
+  margin-top: 2px;
+  margin-left: 2px;
+  color: lightgray;
+}
+
+.card .img-fluid {
+    height: 230px;
+    object-position: center;
+}
+
 .subscribebtn-header {
   float: right;
 }
