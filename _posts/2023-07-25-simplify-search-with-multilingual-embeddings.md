@@ -4,17 +4,17 @@ title: "Simplify Search with Multilingual Embedding Models"
 author: jobergum 
 date: '2023-07-24' 
 image: assets/2023-07-25-simplify-search-with-multilingual-embeddings/bruno-martins-4cwf-iW6I1Q-unsplash.jpg
+image_credit: 'Photo by <a
+href="https://unsplash.com/@brunus?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Bruno
+Martins</a> on <a
+href="https://unsplash.com/photos/4cwf-iW6I1Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: This blog post presents and shows how to represent a robust multilingual embedding model of the E5 family in Vespa. 
 ---
 
-![Decorative image](/assets/2023-07-25-simplify-search-with-multilingual-embeddings/bruno-martins-4cwf-iW6I1Q-unsplash.jpg)
-<p class="image-credit"> Photo by <a
-href="https://unsplash.com/@brunus?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Bruno
-Martins</a> on <a
-href="https://unsplash.com/photos/4cwf-iW6I1Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
-</p>
+![Decorative image](/{{ page.image }})
+<p class="image-credit">{{ page.image_credit }}</p>
 
 This blog post presents and shows how to represent a robust
 multilingual embedding model of the E5 family in Vespa. We also
