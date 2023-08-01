@@ -23,10 +23,10 @@ jobs:
           bundle exec jekyll build
           bundle exec htmlproofer \
             --assume-extension .html \
-            --ignore-missing-alt true \
-            --ignore-empty-alt true \
-            --enforce-https false \
-            --allow-missing-href true \
+            --ignore-missing-alt \
+            --ignore-empty-alt \
+            --no-enforce-https \
+            --allow-missing-href \
             --typhoeus '{"connecttimeout": 10, "timeout": 30, "accept_encoding": "zstd,br,gzip,deflate"}' \
             --hydra '{"max_concurrency": 1}' \
             --ignore-files '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
