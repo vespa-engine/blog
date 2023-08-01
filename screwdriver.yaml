@@ -31,4 +31,5 @@ jobs:
             --hydra '{"max_concurrency": 1}' \
             --ignore-files '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
             --ignore-urls '/twitter.com/,/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/,/docs.vespa.ai/playground/,/facebook.com/sharer/' \
+            --swap-urls '(https\://github.com.*/master/.*)#.*:\1,(https\://github.com.*/main/.*)#.*:\1' \
             _site
