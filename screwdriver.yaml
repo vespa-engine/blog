@@ -9,7 +9,7 @@ shared:
 jobs:
   link-checker-blog:
     requires: [~pr, ~commit]
-    image: ruby:2.6
+    image: ruby:3.1
     environment:
       USER_SHELL_BIN: bash
     annotations:
