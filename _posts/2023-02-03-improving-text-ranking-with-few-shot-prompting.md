@@ -192,6 +192,7 @@ and detailed"_ phrase. Without it, many eyeballed queries were too
 generic. Changing the prompt made the model produce more specific
 queries. The change in output quality is an example of the magic of *prompt engineering*.
 
+
 We use the three first trec-covid test queries (originally from
 https://ir.nist.gov/trec-covid/data/topics-rnd5.xml, which is not available anymore)
 as our in-domain examples for few-shot instruction examples. 
