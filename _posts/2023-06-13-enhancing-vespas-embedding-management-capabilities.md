@@ -3,6 +3,7 @@ layout: post
 title: Enhancing Vespa’s Embedding Management Capabilities
 date: '2023-06-14'
 image: assets/2023-06-13-enhancing-vespas-embedding-management-capabilities/vnwayne-fan-Zqmia99hgF8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@vnwayne?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">vnwayne fan</a> on <a href="https://unsplash.com/photos/Zqmia99hgF8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 tags: []
 author: jobergum bjorncs
 skipimage: true

@@ -4,6 +4,7 @@ title: "Minimizing LLM Distraction with Cross-Encoder Re-Ranking"
 author: bjorncs arnej jobergum 
 date: '2023-05-08' 
 image: assets/2023-05-08-improving-llm-context-ranking-with-cross-encoders/will-van-wingerden-dsvJgiBJTOs-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@willvanw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Will van Wingerden</a> on <a href="https://unsplash.com/photos/dsvJgiBJTOs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: "Announcing global-phase re-ranking support in Vespa, unlocking efficient re-ranking with precise cross-encoder models. Cross-encoder

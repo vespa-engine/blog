@@ -4,6 +4,7 @@ title: "Will new vector databases dislodge traditional search engines?"
 author: jobergum
 date: '2022-09-19'
 image: assets/2022-09-20-will-vector-dbs-dislodge-search-engines/joshua-sortino-LqKhnDzSF-8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@sortino?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Joshua Sortino</a> on <a href="https://unsplash.com/photos/LqKhnDzSF-8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: []
 excerpt: Doug Turnbull asks an interesting question on Linkedin; Will new vector databases dislodge traditional search engines?

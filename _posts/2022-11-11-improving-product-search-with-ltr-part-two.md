@@ -4,6 +4,7 @@ title: "Improving Product Search with Learning to Rank - part two"
 author: jobergum
 date: '2022-11-10'
 image: assets/2022-11-11-improving-product-search-with-ltr-part-two/carl-campbell-sUhjgTt_M58-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@carlbcampbell?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Carl Campbell</a> on <a href="https://unsplash.com/photos/sUhjgTt_M58?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: []
 excerpt: This is the second blog post on applying learning to rank to enhance E-commerce search. 

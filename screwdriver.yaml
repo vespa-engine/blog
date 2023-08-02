@@ -1,4 +1,6 @@
 shared:
+  annotations:
+    screwdriver.cd/restrictPR: fork
   settings:
     email:
       addresses: [kraune@yahooinc.com]
@@ -7,13 +9,14 @@ shared:
 jobs:
   link-checker-blog:
     requires: [~pr, ~commit]
-    image: ruby:2.6
+    image: ruby:3.1
     environment:
       USER_SHELL_BIN: bash
     annotations:
       screwdriver.cd/buildPeriodically: H H(0-5) * * 1-5 # some time between 12:00 AM UTC (midnight) to 5:59 AM UTC Mon-Fri
     steps:
       - install-deps: |
+          gem update --system 3.3.3
           gem install bundler
       - check-links: |
           export LANG=C.UTF-8
@@ -21,12 +24,13 @@ jobs:
           bundle exec jekyll build
           bundle exec htmlproofer \
             --assume-extension .html \
-            --ignore-missing-alt true \
-            --ignore-empty-alt true \
-            --enforce-https false \
-            --allow-missing-href true \
+            --ignore-missing-alt \
+            --ignore-empty-alt \
+            --no-enforce-https \
+            --allow-missing-href \
             --typhoeus '{"connecttimeout": 10, "timeout": 30, "accept_encoding": "zstd,br,gzip,deflate"}' \
             --hydra '{"max_concurrency": 1}' \
             --ignore-files '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
             --ignore-urls '/twitter.com/,/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/,/docs.vespa.ai/playground/,/facebook.com/sharer/' \
+            --swap-urls '(https\://github.com.*/master/.*)#.*:\1,(https\://github.com.*/main/.*)#.*:\1,(https\://github.com.*/blob/.*)#.*:\1' \
             _site

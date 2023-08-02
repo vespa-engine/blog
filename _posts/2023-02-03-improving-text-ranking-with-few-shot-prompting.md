@@ -4,6 +4,7 @@ title: "Improving Search Ranking with Few-Shot Prompting of LLMs"
 author: jobergum 
 date: '2023-02-03' 
 image: assets/2023-02-03-improving-text-ranking-with-few-shot-prompting/maxime-valcarce-mAj8xn5zXsk-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@maximevalcarce?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Maxime VALCARCE</a> on <a href="https://unsplash.com/photos/mAj8xn5zXsk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
 tags: [] 
 excerpt: Distilling the knowledge and power of generative Large Language Models (LLMs) with billions of parameters to ranking models with a few million parameters. 
@@ -191,8 +192,9 @@ and detailed"_ phrase. Without it, many eyeballed queries were too
 generic. Changing the prompt made the model produce more specific
 queries. The change in output quality is an example of the magic of *prompt engineering*.
 
-We use three first trec-covid
-<a href="https://ir.nist.gov/trec-covid/data/topics-rnd5.xml" data-proofer-ignore>test queries</a>
+
+We use the three first trec-covid test queries (originally from
+https://ir.nist.gov/trec-covid/data/topics-rnd5.xml, which is not available anymore)
 as our in-domain examples for few-shot instruction examples. 
 We pick the first document annotated
 as highly relevant to form the complete query-document example.

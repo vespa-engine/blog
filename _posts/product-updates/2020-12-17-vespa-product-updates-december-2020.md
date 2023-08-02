@@ -5,6 +5,7 @@ author: kkraune
 date: '2020-12-17'
 categories: [product updates]
 image: assets/images/donald-giannatti-Wj1D-qiOseE-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@wizwow?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Donald Giannatti</a> on <a href="https://unsplash.com/photos/Wj1D-qiOseE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: [big data serving, big data, search engines, search, database]
 index: false

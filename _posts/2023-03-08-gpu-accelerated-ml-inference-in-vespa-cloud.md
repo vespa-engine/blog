@@ -3,6 +3,7 @@ layout: post
 title: GPU-accelerated ML inference in Vespa Cloud
 date: '2023-03-08'
 image: assets/2023-03-08-gpu-accelerated-ml-inference-in-vespa-cloud/sandro-katalina-k1bO_VTiZSs-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@sandrokatalina?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sandro Katalina</a> on <a href="https://unsplash.com/photos/k1bO_VTiZSs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 categories: [product updates]
 tags: []
 author: mpolden
