@@ -49,7 +49,7 @@ recommendations for each user segment.*
 
 Relevant technologies at this level include *machine learning* tools such as 
 [TensorFlow](https://www.tensorflow.org) and [PyTorch](https://pytorch.org), 
-machine learning platforms such as [Michelangelo](https://eng.uber.com/michelangelo/), 
+machine learning platforms such as <a href="https://eng.uber.com/michelangelo/" data-proofer-ignore>Michelangelo</a>,
 and tooling for offline processing and machine learning at scale such as [Hadoop](https://hadoop.apache.org).
 
 ## Level 3: Acting
