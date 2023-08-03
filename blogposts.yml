@@ -7,9 +7,7 @@
   {%- assign author_ids = post.author | split: " " -%}
   {%- for author_id in author_ids -%}
   {%- assign author = site.authors[author_id] -%}
-  {%- if author.avatar == nil or author.avatar == "" -%}
-  {%- assign avatar = "https://www.gravatar.com/avatar/?s=250&d=mm&r=x" -%}
-  {%- elsif author.avatar contains "://" -%}
+  {%- if author.avatar contains "://" -%}
   {%- assign avatar = author.avatar -%}
   {%- else -%}
   {%- assign avatar = site.url | append: site.baseurl | append: author.avatar -%}
