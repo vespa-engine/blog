@@ -44,7 +44,7 @@
                 <td>
                 {% if author.avatar %}
                 <img class="author-thumb" src="{{ author.avatar }}" alt="{{ author.display_name }}">
-                {% else %}
+                {% elsif author.gravatar %}
                 <img class="author-thumb" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
                 {% endif %}
                 </td>
