@@ -14,6 +14,9 @@ We’ll take a holistic approach and deep-dive into both aspects of an embedding
 ![Decorative image](/{{ page.image }})
 <p class="image-credit">{{ page.image_credit }}</p>
 
+In this post, we’ll see how to accelerate embedding inference and retrieval with little impact on quality. 
+We’ll take a holistic approach and deep-dive into both aspects of an embedding retrieval system: Embedding inference and retrieval with nearest neighbor search.
+
 ## Introduction
 
 The fundamental concept behind text embedding models is transforming
