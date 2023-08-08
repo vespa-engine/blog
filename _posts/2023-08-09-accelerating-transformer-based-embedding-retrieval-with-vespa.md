@@ -16,6 +16,7 @@ We’ll take a holistic approach and deep-dive into both aspects of an embedding
 
 In this post, we’ll see how to accelerate embedding inference and retrieval with little impact on quality. 
 We’ll take a holistic approach and deep-dive into both aspects of an embedding retrieval system: Embedding inference and retrieval with nearest neighbor search.
+All experiments are performed on a laptop with the open-source [Vespa container image](https://hub.docker.com/r/vespaengine/vespa/).
 
 ## Introduction
 
@@ -41,8 +42,8 @@ point in a vector space of D dimensions.
 
 This blog post covers both aspects of an embedding retrieval system
 and how to accelerate them, while also paying attention to the task
-accuracy because what’s the point of having blazing fast but highly
-inaccurate results?
+accuracy because **what’s the point of having blazing fast but highly
+inaccurate results?**
 
 
 ## Transformer Model Inferencing
@@ -264,9 +265,9 @@ models](https://blog.vespa.ai/simplify-search-with-multilingual-embeddings/).
 * We use the
 [NDCG@10](https://en.wikipedia.org/wiki/Discounted_cumulative_gain) metric
 to evaluate ranking effectiveness. When performing model optimizations,
-it’s important to pay attention to the impact on the task. This is
+it’s important to pay attention to the impact on the task. **This is
 stating the obvious, but still, many talk about accelerations and
-optimizations without mentioning task accuracy degradations.  
+optimizations without mentioning task accuracy degradations**.  
 * We measure the throughput of indexing text documents in Vespa. This
 includes embedding inference in Vespa using the [Vespa Huggingface
 embedder](https://docs.vespa.ai/en/embedding.html#huggingface-embedder),
@@ -464,10 +465,10 @@ With this change, end-to-end serving latency drops from average
 18ms to 11.6ms. Note that the thread per search Vespa setting does
 not impact the embedding inference. Reducing serving latency is more important than maximizing the
 throughput for many low-traffic use cases. The threads per search
-setting allow making that tradeoff. It can also be handy if your
+setting allow making that tradeoff. **It can also be handy if your
 organization reserved instances from a cloud provider and your CFO
 asks why the instances are underutilized while users complain about
-high serving latency.
+high serving latency**.
 
 
 ### Putting it all together 2 - enabling approximate nearest neighbor search
@@ -507,10 +508,10 @@ parameters](https://docs.vespa.ai/en/approximate-nn-hnsw.htm)  and
 observe how they impact NDCG@10. This setup is a slightly unusual
 experimental setup since instead of calculating the overlap@10
 between exact and approximate, we are using the NDCG@10 retrieval
-metric directly. In the context of dense text embedding models for
+metric directly. **In the context of dense text embedding models for
 search, we believe this experimental setup is the best as it allows
 us to quantify the exact impact of introducing approximate search
-techniques.
+techniques**.
 
 There are two [HNSW index time](https://docs.vespa.ai/en/reference/schema-reference.html#index-hnsw)
 parameters in Vespa. Changing any of those requires rebuilding the
@@ -592,9 +593,9 @@ just evaluated indexing without embedding inference.
 </table>
 
 
-After introducing HNSW indexing for approximate search, our
+**After introducing HNSW indexing for approximate search, our
 laptop-sized deployment can support 400 QPS (compared to 250 with
-exact search) with a 95 percentile latency below 30 ms.
+exact search) with a 95 percentile latency below 30 ms**.
 
 
 ## Summary
