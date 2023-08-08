@@ -338,9 +338,9 @@ input format for POST requests.
 
 The above query template tests Vespa end-to-end but does NOT perform
 a global nearest neighbor search as the query uses the [rank
-operator](https://docs.vespa.ai/en/reference/query-language-reference.html#:~:text=contain%20ghi.-,rank,-The%20first%2C%20and)
+operator](https://docs.vespa.ai/en/reference/query-language-reference.html)
 to retrieve by doc_id, and the second operand computes the
-nearestNeighbor. This means that the nearest neighbor “search” is
+nearestNeighbor. This means that the nearest neighbor "search" is
 limited to a single document in the index. This experimental setup
 allows us to test everything end to end except the cost of exhaustive
 search through all documents.
@@ -504,7 +504,7 @@ results will not be as accurate if deployed using approximate vector
 search techniques.
 
 In the following, we experiment with Vespa's three [HNSW indexing
-parameters](https://docs.vespa.ai/en/approximate-nn-hnsw.htm)  and
+parameters](https://docs.vespa.ai/en/approximate-nn-hnsw.html)  and
 observe how they impact NDCG@10. This setup is a slightly unusual
 experimental setup since instead of calculating the overlap@10
 between exact and approximate, we are using the NDCG@10 retrieval
