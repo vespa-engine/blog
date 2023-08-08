@@ -246,9 +246,9 @@ to quantize the model (We don’t use optimum for this due to [this
 issue](https://github.com/huggingface/optimum/issues/1243) -[ fixed
 in v 1.11](https://github.com/huggingface/optimum/releases)).
 
-We then study the serving efficiency gains (latency/throughput) on
+**We then study the serving efficiency gains (latency/throughput) on
 the same laptop-sized hardware using a quantized model versus a
-full precision model.
+full precision model**.
 
 All experiments are run on an M1 Pro (arm64) laptop with 8 v-CPUs
 and 32GB of memory, using the open-source [Vespa container
@@ -608,26 +608,26 @@ eliminates prolonged feedback loops.
 
 Moreover, the same Vespa configuration files suffice for many
 deployment scenarios, be it in on-premise setups, on Vespa Cloud,
-or locally on a laptop. The beauty lies in the fact that specific
+or locally on a laptop. **The beauty lies in the fact that specific
 infrastructure for managing embedding inference and nearest neighbor
 search as separate infra systems becomes obsolete with [Vespa’s
 native embedding
-support](https://blog.vespa.ai/enhancing-vespas-embedding-management-capabilities/).
+support](https://blog.vespa.ai/enhancing-vespas-embedding-management-capabilities/)**.
 
 Within this blog post, we've shown how applying post-training
-quantization to embedding models yields a substantial improvement
+quantization to embedding models **yields a substantial improvement
 in serving performance without significantly compromising retrieval
-quality. Subsequently, our focus shifted towards embedding retrieval
+quality**. Subsequently, our focus shifted towards embedding retrieval
 with nearest neighbor search. This allowed us to explore the tradeoffs
 between exact and approximate nearest neighbor search methodologies.
 
 A noteworthy advantage of executing embedding inference within Vespa
 locally lies in the proximity of vector creation to the vector
-storage. To put this into perspective, consider the latency numbers
+storage. **To put this into perspective, consider the latency numbers
 in this post versus procuring an embedding vector in JSON format
 from an embedding API provider situated on a separate continent.
 Transmitting vector data across continents commonly incurs delays
-of hundreds of milliseconds.
+of hundreds of milliseconds**.
 
 If you are interested to learn more about Vespa; See [Vespa Cloud - getting started](https://cloud.vespa.ai/en/getting-started),
 or self-serve [Vespa - getting started](https://docs.vespa.ai/en/getting-started.html). 
