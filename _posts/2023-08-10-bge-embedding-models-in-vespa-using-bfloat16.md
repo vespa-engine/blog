@@ -2,7 +2,7 @@
 layout: post
 title: "Representing BGE embedding models in Vespa using bfloat16 " 
 author: jobergum 
-date: '2023-08-09' 
+date: '2023-08-10' 
 image: assets/2023-08-10-bge-embedding-models-in-vespa-using-bfloat16/rafael-druck-jq3FQ1hmRa8-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@eyesinthesky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rafael Drück</a> on <a href="https://unsplash.com/photos/jq3FQ1hmRa8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
@@ -15,7 +15,7 @@ We evaluate the effectiveness of two BGE variants on the BEIR trec-covid dataset
 <p class="image-credit">{{ page.image_credit }}</p>
 
 This post demonstrates how to use recently announced BGE embedding
-models in Vespa. The recently open-sourced (MIT licensed) BGE models
+models in Vespa. The open-sourced (MIT licensed) BGE models
 from the Beijing Academy of Artificial Intelligence (BAAI) perform
 strongly on the Massive Text Embedding Benchmark ([MTEB
 leaderboard](https://huggingface.co/spaces/mteb/leaderboard)). We
@@ -86,24 +86,23 @@ complexity](https://vickiboykis.com/2023/07/18/what-we-dont-talk-about-when-we-t
 
 To use the embedding model from the Huggingface model hub in Vespa
 we need to export it to [ONNX](https://onnx.ai/) format. We can use
-the [Transformer Optimum](https://huggingface.co/docs/optimum/index)
+the [Transformers Optimum](https://huggingface.co/docs/optimum/index)
 library for this:
 
 ```
 $ optimum-cli export onnx --task sentence-similarity -m BAAI/bge-small-en --optimize O3 bge-small-en
 ```
-The above exports the small model with the highest [optimization
+This exports the small model with the highest [optimization
 level](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/optimization#optimizing-a-model-with-optimum-cli)
 usable for serving on CPU. We also quantize the optimized ONNX model
 using onnxruntime quantization like
 [this](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model_quantizer.py).
-Quantization (post-training) converts the float32 model weights (4
+Quantization (post-training) converts the float model weights (4
 bytes per weight) to byte (int8), enabling faster inference on the
 CPU. As demonstrated in [this blog
 post](https://blog.vespa.ai/accelerating-transformer-based-embedding-retrieval-with-vespa/),
-quantization accelerates model inference by 2x on CPU with negligible
+quantization accelerates embedding model inference by 2x on CPU with negligible
 impact on retrieval quality.
-
 
 ## Using BGE in Vespa
 
@@ -126,7 +125,7 @@ file.
 
 BGE uses the CLS special token as the text representation vector
 (instead of average pooling). We also specify normalization so that
-we can use the prenormalized-angular [distance
+we can use the `prenormalized-angular` [distance
 metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric)
 for nearest neighbor search. See [configuration
 reference](https://docs.vespa.ai/en/reference/embedding-reference.html#huggingface-embedder-reference-config)
@@ -144,7 +143,7 @@ so we don’t need to prepend the input to the document model with
 “passage: “ like with the E5 models. Since we configure the [Vespa
 Huggingface
 embedder](https://docs.vespa.ai/en/embedding.html#huggingface-embedder) to
-normalize the vectors, we can also use the optimized prenormalized-angular
+normalize the vectors, we use the optimized `prenormalized-angular`
 distance-metric for the nearest neighbor search
 [distance-metric](https://docs.vespa.ai/en/reference/schema-reference.html#distance-metric).
 
@@ -191,9 +190,9 @@ body = {
  }
 response = session.post('http://localhost:8080/search/', json=body)
 ```
-The query instruction is _“Represent this sentence for searching
-relevant passages: “_. We are unsure why they choose a long prepend
-instruction as it does hurt efficiency as compute [complexity is
+The BGE query instruction is _Represent this sentence for searching
+relevant passages:_. We are unsure why they choose a longer query instruction as 
+it does hurt efficiency as compute [complexity is
 quadratic](https://blog.vespa.ai/accelerating-transformer-based-embedding-retrieval-with-vespa/)
 with sequence length.
 
@@ -215,7 +214,7 @@ section.
    tokens</strong> </td> <td><strong>Relevance Judgments </strong>
    </td>
   </tr> <tr>
-   <td>BEIR TREC_COVID </td> <td>171,332 </td> <td>245 </td> <td>50
+   <td>BEIR trec_covid </td> <td>171,332 </td> <td>245 </td> <td>50
    </td> <td>18 </td> <td>66,336 </td>
   </tr>
 </table>
@@ -235,12 +234,8 @@ application](https://github.com/vespa-engine/sample-apps/tree/master/multilingua
 as the starting point for these experiments. This sample app was
 introduced in [Simply search with multilingual embedding
 models](https://blog.vespa.ai/simplify-search-with-multilingual-embeddings/).
-We change the distance metric and alter the configuration of the
-[Vespa Huggingface
-embedder](https://docs.vespa.ai/en/embedding.html#huggingface-embedder). We
-use the [NDCG@10](https://en.wikipedia.org/wiki/Discounted_cumulative_gain)
-metric to evaluate ranking effectiveness.  
-* We quantize both models to improve efficiency on CPU.
+* The retrieval quality evaluation uses [NDCG@10](https://en.wikipedia.org/wiki/Discounted_cumulative_gain)
+* Both small and base are quantized to improve efficiency on CPU.
 
 Sample [Vespa JSON
 formatted](https://docs.vespa.ai/en/reference/document-json-format.html)
@@ -274,14 +269,14 @@ feed document (prettified) from the
    </td>
   </tr>
 </table>
-<font size="2"><i>Evaluation results for BGE models.</i></font>
+<font size="2"><i>Evaluation results for quantized BGE models.</i></font>
 
 
-We contrast both dense models with the unsupervised
+We contrast both BGE models with the unsupervised
 [BM25](https://docs.vespa.ai/en/reference/bm25.html) baseline from
 [this blog
 post](https://blog.vespa.ai/simplify-search-with-multilingual-embeddings/).
-Both the small and base model performs better than the BM25 baseline
+Both models perform better than the BM25 baseline
 on this dataset. We also note that our  NDCG@10 numbers represented
 in Vespa is slightly better than reported on the MTEB leaderboard
 for the same dataset. We can also observe that the base model
@@ -340,9 +335,8 @@ type with almost zero impact on retrieval quality:**
 
 Using the open-source Vespa container image, we've explored the
 recently announced strong BGE text embedding models with embedding
-inference and retrieval on our laptops. The local experimentation,
-avoiding specialized hardware acceleration, holds immense value,
-as it eliminates prolonged feedback loops.
+inference and retrieval on our laptops. The local experimentation
+eliminates prolonged feedback loops.
 
 Moreover, the same Vespa configuration files suffice for many
 deployment scenarios, whether in on-premise setups, on Vespa Cloud,
