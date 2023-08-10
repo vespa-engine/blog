@@ -160,6 +160,18 @@ authors:
     avatar: '/assets/avatars/dnmca.jpg'
     email: andriy.y.yurkiv@gmail.com
     description: "Data Scientist"
+  tegge01:
+    name: Torstein Egge
+    display_name: Torstein Egge
+    avatar: '/assets/avatars/tegge01.jpg'
+    email: tmaregge@protonmail.com
+    description: 'Intern II, Technical'
+  solstad:
+    name: Sivert Olstad
+    display_name: Sivert Olstad
+    avatar: '/assets/avatars/solstad.jpg'
+    email: sivert.olstad@protonmail.com
+    description: 'Intern II, Technical'
 
 
 # Plugins
