@@ -4,6 +4,7 @@ title: "Securing Vespa with mutually authenticated TLS (mTLS)"
 date: '2021-08-23' 
 tags: []
 image: assets/2021-08-23-securing-vespa-with-mutually-authenticated-tls/jason-dent-3wPJxh-piRw-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@jdent?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jason Dent</a> on <a href="https://unsplash.com/photos/3wPJxh-piRw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 author: bjorncs mortent vekterli 
 skipimage: true
 

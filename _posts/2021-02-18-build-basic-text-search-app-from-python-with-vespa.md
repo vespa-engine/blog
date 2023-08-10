@@ -5,6 +5,7 @@ date: '2021-02-18'
 tags: []
 author: thigm85
 image: assets/2021-02-18-build-basic-text-search-app-from-python-with-vespa/figure_1.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@sarahdorweiler?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Sarah Dorweiler</a> on <a href="https://unsplash.com/photos/x2Tmfd1-SgA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Introducing pyvespa simplified API. Build Vespa application from python with few lines of code.
 ---

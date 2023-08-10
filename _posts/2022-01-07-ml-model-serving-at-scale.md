@@ -4,6 +4,7 @@ date: '2022-01-07'
 tags: []
 author: lesters
 image: assets/2022-01-07-ml-model-serving-at-scale/jukan-tateisi-bJhT_8nbUA0-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@tateisimikito?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jukan Tateisi</a> on <a href="https://unsplash.com/photos/bJhT_8nbUA0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 excerpt: An under-communicated point is that the default tuning for
          most libraries and platforms for evaluating machine-learned models is
          unsuitable for serving at scale.

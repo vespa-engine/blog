@@ -5,6 +5,7 @@ date: '2021-06-05'
 tags: []
 author: thigm85
 image: assets/2021-06-05-build-basic-text-search-app-from-python-with-vespa-part-2/figure_1.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@eugene_golovesov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Eugene Golovesov</a> on <a href="https://unsplash.com/photos/T7MYme97QRY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Evaluate search engine experiments from python.
 ---

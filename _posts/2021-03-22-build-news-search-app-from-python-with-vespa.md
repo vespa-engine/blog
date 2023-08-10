@@ -5,6 +5,7 @@ date: '2021-03-22'
 tags: []
 author: thigm85
 image: assets/2021-03-22-build-news-search-app-from-python-with-vespa/figure_1.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@filipthedesigner?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Filip Mishevski</a> on <a href="https://unsplash.com/photos/c5QdMcuFlgY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Part 1 - News search functionality.
 ---

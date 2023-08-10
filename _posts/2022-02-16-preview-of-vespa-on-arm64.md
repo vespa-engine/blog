@@ -5,6 +5,7 @@ date: '2022-02-16'
 tags: []
 author: aressem
 image: assets/2022-02-16-preview-of-vespa-on-arm64/jeremy-bezanger-wl8hZoJBSU8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@jeremybezanger?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jeremy Bezanger</a> on Unsplash'
 skipimage: true
 
 excerpt: "With the increasing adoption of ARM64 based hardware like the AWS Graviton and Apple M1 MacBooks we are making a preview of Vespa available for this architecture."

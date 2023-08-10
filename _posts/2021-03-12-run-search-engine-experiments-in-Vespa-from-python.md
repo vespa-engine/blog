@@ -5,6 +5,7 @@ date: '2021-03-12'
 tags: []
 author: thigm85
 image: assets/2021-03-12-run-search-engine-experiments-in-Vespa-from-python/figure_2.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@kristinhillery?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Kristin Hillery</a> on <a href="https://unsplash.com/photos/YId0l2vqc6E?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Three ways to get started with pyvespa.
 ---

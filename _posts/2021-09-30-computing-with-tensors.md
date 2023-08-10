@@ -5,6 +5,7 @@ date: '2021-09-30'
 tags: []
 author: lesters
 image: assets/2021-09-30-computing-with-tensors/pietro-jeng-n6B49lTx7NM-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@pietrozj?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Pietro Jeng</a> on <a href="https://unsplash.com/photos/n6B49lTx7NM?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 
 excerpt: "In this blog post, we'll explore some of the unique properties of tensors in Vespa."

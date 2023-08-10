@@ -5,6 +5,7 @@ author: kkraune
 date: '2020-10-01'
 categories: [product updates]
 image: assets/images/thisisengineering-raeng-ZPeXrWxOjRQ-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@thisisengineering?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">ThisisEngineering RAEng</a> on <a href="https://unsplash.com/photos/ZPeXrWxOjRQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: false
 tags: [big data serving, big data, search engines, search, database]
 index: false

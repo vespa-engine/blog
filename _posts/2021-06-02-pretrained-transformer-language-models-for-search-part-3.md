@@ -5,6 +5,7 @@ date: '2021-05-31'
 tags: []
 author: jobergum 
 image: assets/2021-06-02-pretrained-transformer-language-models-for-search-part-3/frank-busch-Oxe3bgeweUI-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@frankbusch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" data-proofer-ignore>Frank Busch</a> on <a href="https://unsplash.com/s/photos/dog-fetch?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
  
 excerpt: "This is the third blog post in a series of posts where we introduce using pretrained Transformer models for search and document ranking with Vespa.ai."  

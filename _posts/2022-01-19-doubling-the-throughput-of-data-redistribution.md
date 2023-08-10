@@ -5,6 +5,7 @@ date: '2022-01-19'
 tags: []
 author: geirst vekterli
 image: assets/2022-01-19-doubling-the-throughput-of-data-redistribution/andy-holmes-oEIFOoC3gi0-unsplash-crop.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@andyjh07?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Andy Holmes</a> on <a href="https://unsplash.com/photos/oEIFOoC3gi0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 
 excerpt: Learn which improvements we made to double the throughput of data redistribution in Vespa.

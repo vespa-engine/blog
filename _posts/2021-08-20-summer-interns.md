@@ -4,6 +4,7 @@ title: "Internship at Vespa"
 author: chunnoo onorum
 date: '2021-08-20'
 image: assets/2021-08-20-summer-interns/interns.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@charlesdeluvio?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">charlesdeluvio</a> on <a href="https://unsplash.com/photos/rA83MmTX46U?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 tags: []
 excerpt: After the summer internship of 2021 the interns have summarised what they have done and their experience at Vespa
 ---

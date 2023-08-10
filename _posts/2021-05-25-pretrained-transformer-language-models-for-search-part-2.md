@@ -5,6 +5,7 @@ date: '2021-05-28'
 tags: []
 author: jobergum 
 image: assets/2021-05-25-pretrained-transformer-language-models-for-search-part-2/rob-fuller-u9GEK0AuOU8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@robfuller?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rob Fuller</a> on <a href="https://unsplash.com/photos/u9GEK0AuOU8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
  
 excerpt: "This is the second blog post in a series of posts where we introduce using pretrained Transformer models for search and document ranking with Vespa.ai."  

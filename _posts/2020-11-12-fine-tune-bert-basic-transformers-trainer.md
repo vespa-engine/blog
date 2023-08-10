@@ -5,6 +5,7 @@ date: '2020-11-12'
 tags: []
 author: thigm85
 image: assets/2020-11-12-fine-tune-bert-basic-transformers-trainer/figure_1.jpeg
+image_credit: 'Photo by <a href="https://unsplash.com/@samule?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Samule Sun</a> on <a href="https://unsplash.com/photos/vuMTQj6aQQ0?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Setup a custom Dataset, fine-tune BERT with Transformers Trainer and export the model via ONNX.
 ---

@@ -5,6 +5,7 @@ date: '2022-01-27'
 tags: []
 author: jobergum 
 image: assets/2022-01-27-billion-scale-knn-part-two/vincentiu-solomon-ln5drpv_ImI-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@vincentiu?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Vincentiu Solomon</a> on <a href="https://unsplash.com/photos/ln5drpv_ImI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 
 excerpt: "Part two in a blog post series on billion-scale vector search with Vespa. 

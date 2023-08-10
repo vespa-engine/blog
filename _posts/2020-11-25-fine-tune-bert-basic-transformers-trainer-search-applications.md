@@ -5,6 +5,7 @@ date: '2020-11-25'
 tags: []
 author: thigm85
 image: assets/2020-11-25-fine-tune-bert-basic-transformers-trainer-search-applications/figure_1.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@alicegrace?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Alice Dietrich</a> on <a href="https://unsplash.com/photos/FwF_fKj5tBo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: How to ensure training and serving encoding compatibility.
 ---

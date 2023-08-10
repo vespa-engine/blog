@@ -4,6 +4,7 @@ title: The hardest problem in computing
 date: '2020-06-26'
 author: bratseth
 image: https://miro.medium.com/max/1000/1*oaBne7qoqqt7bTbaEha1rw.jpeg
+image_credit: 'Photo by <a href="https://unsplash.com/@virussinside?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Artiom Vallat</a> on <a href="https://unsplash.com/photos/uBOzd_7p99I?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 tags: []
 excerpt: What is the hardest problem in applied computing? My bet is on big data serving — computing over large data sets online.

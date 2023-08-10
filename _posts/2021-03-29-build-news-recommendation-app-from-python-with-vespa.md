@@ -5,6 +5,7 @@ date: '2021-03-29'
 tags: []
 author: thigm85
 image: assets/2021-03-29-build-news-recommendation-app-from-python-with-vespa/figure_1.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@mattpopovich?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matt Popovich</a> on <a href="https://unsplash.com/photos/wajusTqz_FI?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Part 2 - From news search to news recommendation with embeddings.
 ---

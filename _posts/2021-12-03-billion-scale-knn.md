@@ -5,6 +5,7 @@ date: '2021-12-01'
 tags: []
 author: jobergum 
 image: assets/2021-12-03-binary-codes/federico-beccari-L8126OwlroY-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@federize?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Federico Beccari</a> on <a href="https://unsplash.com/photos/L8126OwlroY?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 
 excerpt: "Part one in a blog post series on billion-scale vector search. 
