@@ -14,7 +14,7 @@ We evaluate the effectiveness of two BGE variants on the BEIR trec-covid dataset
 ![Decorative image](/{{ page.image }})
 <p class="image-credit">{{ page.image_credit }}</p>
 
-This post demonstrates how to use recently announced BGE embedding
+This post demonstrates how to use recently announced BGE (BAAI General Embedding)
 models in Vespa. The open-sourced (MIT licensed) BGE models
 from the Beijing Academy of Artificial Intelligence (BAAI) perform
 strongly on the Massive Text Embedding Benchmark ([MTEB
