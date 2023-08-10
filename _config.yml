@@ -163,13 +163,13 @@ authors:
   tegge01:
     name: Torstein Egge
     display_name: Torstein Egge
-    avatar:
+    avatar: '/assets/avatars/tegge01.jpg'
     email: tmaregge@protonmail.com
     description: 'Intern II, Technical'
   solstad:
     name: Sivert Olstad
     display_name: Sivert Olstad
-    avatar:
+    avatar: '/assets/avatars/solstad.jpg'
     email: sivert.olstad@protonmail.com
     description: 'Intern II, Technical'
 
