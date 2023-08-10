@@ -5,10 +5,10 @@ author: tegge01 solstad
 date: '2023-08-10'
 image: assets/2023-08-10-summer-internship-2023/the-interns.jpg
 image_credit: 'Photo generated with Stable Diffusion'
-excerpt: The epic tale of 2023's summer interns and their attempt at generating training data for information retrieval with LLMs
+excerpt: The tale of 2023's summer interns and their attempt at generating training data for information retrieval with LLMs.
 ---
 
-This summer, two handsome young men have revolutionized the field of information retrieval! Or at least they tried… Read on for the epic tale of this year’s summer interns, and see the fruits of our labor in the [embedder auto-training sample app](https://github.com/vespa-engine/sample-apps/tree/master/examples/embedder-auto-training-evaluation).
+This summer, two young men have revolutionized the field of information retrieval! Or at least they tried… Read on for the tale of this year’s summer interns, and see the fruits of our labor in the [embedder auto-training sample app](https://github.com/vespa-engine/sample-apps/tree/master/examples/embedder-auto-training-evaluation).
 
 ## Automatic Embedder Training with an LLM
 
