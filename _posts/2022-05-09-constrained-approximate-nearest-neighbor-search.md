@@ -5,6 +5,7 @@ date: '2022-05-20'
 categories: [vector search, filters]
 tags: []
 image: assets/2022-05-09-constrained-approximate-nearest-neighbor-search/christopher-burns-Kj2SaNHG-hg-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@christopher__burns?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Christopher Burns</a> on <a href="https://unsplash.com/photos/Kj2SaNHG-hg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 author: geirst jobergum
 skipimage: true
 

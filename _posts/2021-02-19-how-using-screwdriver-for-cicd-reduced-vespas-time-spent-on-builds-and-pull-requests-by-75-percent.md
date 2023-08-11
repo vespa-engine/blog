@@ -5,6 +5,7 @@ date: '2021-02-22'
 tags: []
 author: aressem
 image: assets/2021-02-19-how-using-screwdriver-for-cicd-reduced-vespas-time-spent-on-builds-and-pull-requests-by-75-percent/cover.jpg
+image_credit: '<p class="image-credit">Photo by <a href="https://unsplash.com/@bill_oxford?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Bill Oxford</a> on <a href="https://unsplash.com/s/photos/cogs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>'
 excerpt: Introducing Screwdriver for Vespa's CI/CD needs.
 skipimage: true
 

@@ -5,6 +5,7 @@ date: '2021-11-13'
 tags: []
 author: jvenstad
 image: assets/2021-11-13-sliced-visiting/annie-spratt-gSQbip5HHuc-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@anniespratt?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Annie Spratt</a> on <a href="https://unsplash.com/photos/gSQbip5HHuc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 
 excerpt: The new slicing feature in /document/v1 splits visiting across independent HTTP requests, letting throughput scale with the number of container nodes or clients.

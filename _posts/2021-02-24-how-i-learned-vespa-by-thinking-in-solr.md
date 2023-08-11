@@ -2,6 +2,7 @@
 layout: post
 title: How I learned Vespa by thinking in Solr
 image: assets/2021-02-19-how-i-learned-vespa-by-thinking-in-solr/albert-WswqR4xIuH8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@picturesbyalbert?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Albert</a> on <a href="https://unsplash.com/photos/WswqR4xIuH8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 date: '2021-02-24'
 author: sujitpal
 tags: []

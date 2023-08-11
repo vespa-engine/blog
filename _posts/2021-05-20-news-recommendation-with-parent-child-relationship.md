@@ -5,6 +5,7 @@ date: '2021-05-20'
 tags: []
 author: thigm85
 image: assets/2021-05-20-news-recommendation-with-parent-child-relationship/figure_1.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@freegraphictoday?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">AbsolutVision</a> on <a href="https://unsplash.com/photos/bSlHKWxxXak?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: Part 3 - Efficient use of click-through rate via parent-child relationship.
 ---

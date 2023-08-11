@@ -5,6 +5,7 @@ date: '2022-06-22'
 tags: []
 author: bratseth
 image: assets/2022-06-22-vespa-8-is-here/claudio-schwarz-8-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@purzlbaum?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Claudio Schwarz</a> on <a href="https://unsplash.com/photos/sD0y9djR-Jk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 excerpt: "Announcing the release of Vespa 8 - the next major version of vespa.ai"
 ---

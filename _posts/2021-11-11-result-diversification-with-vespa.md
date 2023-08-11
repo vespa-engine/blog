@@ -5,6 +5,7 @@ date: '2021-11-11'
 tags: []
 author: jobergum 
 image: assets/2021-11-11-result-diversification-with-vespa/robert-lukeman-_RBcxo9AU-U-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@robertlukeman?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Robert Lukeman</a> on <a href="https://unsplash.com/photos/_RBcxo9AU-U?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
 
 excerpt: "This blog post dives into how to achieve result diversification using

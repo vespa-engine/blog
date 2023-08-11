@@ -5,6 +5,7 @@ date: '2022-03-29'
 tags: []
 author: aressem
 image: assets/2022-03-29-Upcoming-changes-in-OS-support-for-Vespa/jon-flobrant-rB7-LCa_diU-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@jonflobrant?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jon Flobrant</a> on <a href="https://unsplash.com/photos/rB7-LCa_diU?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 excerpt: "Today we support CentOS Linux 7 as the OS for Vespa release artifacts. This is about to change."
 skipimage: true
 ---

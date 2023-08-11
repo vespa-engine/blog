@@ -5,6 +5,7 @@ date: '2021-05-19'
 tags: []
 author: jobergum 
 image: assets/2021-05-19-pretrained-transformer-language-models-for-search-part-1/jamie-street-uNNCs5kL70Q.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@jamie452?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Jamie Street</a> on <a href="https://unsplash.com/photos/uNNCs5kL70Q?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
  
 excerpt: "This is the first blog post in a series of posts where we introduce using pretrained Transformer models for search and document ranking with Vespa.ai."  

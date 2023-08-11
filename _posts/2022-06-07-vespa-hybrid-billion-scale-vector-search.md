@@ -5,6 +5,7 @@ date: '2022-06-08'
 categories: []
 tags: []
 image: assets/2022-06-07-vespa-spann-billion-scale-vector-search//graham-holtshausen-fUnfEz3VLv4-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@freedomstudios?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Graham Holtshausen</a> on <a href="https://unsplash.com/photos/fUnfEz3VLv4?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 author: jobergum
 skipimage: true
 excerpt: This blog post describes HNSW-IF, a cost-efficient solution for high-accuracy vector search over billion scale vector datasets.

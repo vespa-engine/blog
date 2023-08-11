@@ -5,6 +5,7 @@ date: '2021-04-19'
 tags: []
 author: thigm85
 image: assets/2021-04-19-build-qa-app-from-python-with-vespa/figure_1.jpg
+image_credit: '<p class="image-credit">Photo by <a href="https://unsplash.com/@brett_jordan?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Brett Jordan</a> on <a href="https://unsplash.com/s/photos/ask?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>'
 skipimage: true
 excerpt: Retrieve paragraph and sentence level information with sparse and dense ranking features.
 ---
