@@ -185,7 +185,7 @@ query = 'is remdesivir an effective treatment for COVID-19'
 body = {
         'yql': 'select doc_id from doc where ({targetHits:10}nearestNeighbor(embedding, q))',
         'input.query(q)': 'embed(Represent this sentence for searching relevant passages: ' + query +  ')', 
-        'ranking': 'semantic,
+        'ranking': 'semantic',
         'hits' : '10' 
  }
 response = session.post('http://localhost:8080/search/', json=body)
