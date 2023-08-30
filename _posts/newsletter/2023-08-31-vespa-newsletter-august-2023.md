@@ -2,7 +2,7 @@
 layout: post
 title: Vespa Newsletter, August 2023
 author: kkraune
-date: '2023-08-30'
+date: '2023-08-31'
 categories: [newsletter]
 image: assets/images/scott-graham-5fNmWej4tAA-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@homajob?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Scott Graham</a> on <a href="https://unsplash.com/photos/5fNmWej4tAA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
