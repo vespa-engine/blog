@@ -60,7 +60,9 @@ Since Vespa 8.215, the following formula is used to ensure an upper bound of `ad
                              targetHits * targetHitsMaxAdjustmentFactor)
 
 You can use this to choose to return fewer hits over taking longer to search the index.
-The target-hits-max-adjustment-factor can be set in a rank profile and overridden per query.
+The [target-hits-max-adjustment-factor](https://docs.vespa.ai/en/reference/schema-reference.html#target-hits-max-adjustment-factor)
+can be set in a rank profile and overridden
+[per query](https://docs.vespa.ai/en/reference/query-api-reference.html#ranking.matching.targetHitsMaxAdjustmentFactor).
 The value is in the range `[1.0, inf]`, default `20.0`.
 
 
