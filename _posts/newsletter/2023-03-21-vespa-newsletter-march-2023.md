@@ -65,7 +65,7 @@ We have added exciting features to the [shopping](https://github.com/vespa-engin
 * Use NLP techniques to generate query suggestions from the index content
   based on spaCy and [en_core_web_sm](https://spacy.io/models/en/).
 * Use the [fuzzy query operator](https://docs.vespa.ai/en/reference/query-language-reference.html#fuzzy)
-  and [prefix search](https://docs.vespa.ai/en/text-matching-ranking.html#prefix-match) for great query suggestions -
+  and [prefix search](https://docs.vespa.ai/en/text-matching.html#prefix-match) for great query suggestions -
   this handles misspelled words and creates much better suggestions than prefix search alone.
 * For query-contextualized navigation,
   the order in which the groups are rendered is determined by both counting and the relevance of the hits.
