@@ -36,7 +36,7 @@ read throughput from storage increased up to 5x due to better parallelism.
 
 #### Rank Features
 * The (Native)fieldMatch rank features are optimized to use less CPU query time, improving query latency for
-  [Text Matching and Ranking](https://docs.vespa.ai/en/text-matching-ranking.html#ranking). 
+  [Text Matching and Ranking](https://docs.vespa.ai/en/ranking.html#text-ranking).
 * The new globalSequence rank feature is an inexpensive global ordering of documents in a system with stable system state.
   For a system where node indexes change, this is inaccurate.
   See [globalSequence documentation](https://docs.vespa.ai/en/reference/rank-features.html#globalSequence) for alternatives.
