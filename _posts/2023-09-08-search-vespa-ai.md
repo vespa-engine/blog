@@ -101,7 +101,7 @@ We are mapping different input string fields to two different
 [Vespa tensor](https://docs.vespa.ai/en/tensor-user-guide.html) representations.
 The content and title fields are concatenated and [embedded](https://docs.vespa.ai/en/embedding.html)
 to obtain a vector representation of 384 dimensions (using [e5-v2-small](https://huggingface.co/intfloat/e5-small-v2)).
-The question_embedding is a multi-vector [tensor](https://docs.vespa.ai/en/tensor-user-guide.html);
+The `question_embedding` is a multi-vector [tensor](https://docs.vespa.ai/en/tensor-user-guide.html);
 in this case, the embedder embeds each input question.
 The output is a [multi-vector representation](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/) (A mapped-dense tensor).
 Since the document volume is low, an exact vector search is all we need,
@@ -327,8 +327,7 @@ e.g., [feed-split.py](https://github.com/vespa-engine/documentation/blob/master/
 ![search.vespa.ai components](/assets/2023-09-08-search-vespa-ai/vespa-search-components.svg)
 
 
-##
-Summary
+## Summary
 In wrapping up our project, it's clear that data processing plays a crucial role,
 and it often doesn't get the recognition it deserves when building search applications.
 With the correct data in the proper format, creating a stellar search experience becomes more manageable.
