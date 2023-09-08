@@ -1,7 +1,7 @@
 --- 
 layout: post
 title: "Announcing search.vespa.ai" 
-author: jobergum leandroalves freva
+author: kraune leandroalves kkraune jobergum freva
 date: '2023-09-08' 
 image: assets/2023-09-08-search-vespa-ai/search.vespa.ai.png
 skipimage: true 
