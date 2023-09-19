@@ -352,6 +352,6 @@ result.hits[0:2]
 
 
 ## Next steps
-See [conclusion](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship#conclusion)
-for how to clean up the Docker container instances,
-or step to [part 3](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship/).
+Step to [part 3](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship/) -
+or see [conclusion](https://blog.vespa.ai/news-recommendation-with-parent-child-relationship#conclusion)
+for how to clean up the Docker container instances if you are done with this.
