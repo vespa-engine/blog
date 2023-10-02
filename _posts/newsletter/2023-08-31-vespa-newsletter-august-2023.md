@@ -125,7 +125,7 @@ Local deployments should reset with fresh Docker/Podman containers.
 
 
 ### Optimizations and features
-* Vespa indexing language now supports [to_epoch_second](https://docs.vespa.ai/en/reference/advanced-indexing-language.html#to_epoch_second)
+* Vespa indexing language now supports [to_epoch_second](https://docs.vespa.ai/en/reference/indexing-language-reference.html#to_epoch_second)
   for converting iso-8601 date strings to epoch time.
   Available since Vespa 8.215.
   Use this to easily convert from strings to a number when indexing -
