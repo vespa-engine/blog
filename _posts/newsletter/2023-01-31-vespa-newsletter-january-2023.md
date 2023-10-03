@@ -61,7 +61,7 @@ For example, you can add a vector embedding of a title and description field lik
 But what if descriptions are sometimes missing?
 Then Vespa won't produce an embedding value at all, which may not be what you want.
 From 8.116, you can specify an alternative value for expressions that don't produce a value
-using the [|| syntax](https://docs.vespa.ai/en/reference/indexing-language-reference.html#choice-example):
+using the [|| syntax](https://docs.vespa.ai/en/indexing.html#choice-example):
 
     field myEmbedding type tensor(x[128]) {
         indexing: input title . " " . (input description || "") | embed | attribute
