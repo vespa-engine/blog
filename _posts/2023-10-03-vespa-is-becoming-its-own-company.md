@@ -3,14 +3,14 @@ layout: post
 title: "Vespa is becoming a company"
 author: bratseth
 date: '2023-10-03'
-image: assets/2023-10-03-vespa-is-becoming-a-company/VespaLogoBlack.png
+image: assets/2023-10-03-vespa-is-becoming-its-own-company/VespaLogoBlack.png
 skipimage: true
 tags: []
-excerpt: Vespa is becoming a company!
+excerpt: Vespa is becoming its own company!
 ---
 
-Today we’re [announcing](TODO: Press release link) that we’re spinning Vespa.ai out of Yahoo 
-as a separate company: Vespa.ai.
+Today we’re [announcing](https://www.businesswire.com/news/home/20231004777364/en/Yahoo-Spins-Out-Vespa-Its-Enterprise-AI-Scaling-Engine-as-an-Independent-Company) that we’re spinning Vespa.ai out of Yahoo 
+as a separate company: [Vespa.ai](https://vespa.ai).
 Vespa began as a project to solve Yahoo’s use cases in search, recommendation, and ad serving. 
 Since we open-sourced it in 2017, it has grown to become the platform of choice for 
 applying AI to big data sets at serving time.
