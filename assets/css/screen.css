@@ -179,8 +179,9 @@ section.recent-posts {
 .author-thumb {
     width: 40px;
     height: 40px;
-    margin-right: 13px;
+    margin-right: 5px;
     border-radius: 100%;
+    max-width: none;
 }
 
 .post-top-meta {
@@ -217,6 +218,7 @@ section.recent-posts {
     white-space: nowrap !important;
     text-overflow: ellipsis !important;
     overflow: hidden !important;
+    margin-left: 5px;
 }
 
 span.post-name,

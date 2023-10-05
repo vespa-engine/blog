@@ -36,23 +36,26 @@
                 {% assign author_ids = post.author | split: " " %}
                 {% for author_id in author_ids %}
                     {% assign author = site.authors[author_id] %}
-                    {% assign authors = authors | push: author %}
+                    {% if author != nil %}
+                        {% assign authors = authors | push: author %}
+                    {% endif %}
                 {% endfor %}
 
                 <table><tr>
                 {% for author in authors %}
-                <td>
                 {% if author.avatar %}
+                <td>
                 <img class="author-thumb" src="{{ author.avatar }}" alt="{{ author.display_name }}">
                 {% elsif author.gravatar %}
                 <img class="author-thumb" src="https://www.gravatar.com/avatar/{{ author.gravatar }}?s=250&d=mm&r=x" alt="{{ author.display_name }}">
-                {% endif %}
                 </td>
+                {% endif %}
                 {% endfor %}
                 </tr></table>
                 </span>
                 <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="{{ author.web }}">{{ authors | map: "display_name" | array_to_sentence_string }}</a></span><br/>
+                {% assign authorsstring = authors | map: "display_name" | array_to_sentence_string %}
+                <span class="post-name"><a target="_blank" href="{{ author.web }}" title="{{ authorsstring }}">{{ authorsstring }}</a></span><br/>
                 {% endif %}
                 <span class="post-date">{{ post.date | date_to_string }}</span>
                 </span>
