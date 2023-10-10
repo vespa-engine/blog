@@ -106,7 +106,7 @@ So, could we build a single ANN index per user instead?
 This actually makes the ANN indexes useful since there is no user filter. However, the other three problems remain.
 
 <table class="styled-table">
-  <th colspan="2">NN (exact nearest neighbor) for personal data</th>
+  <th colspan="2">ANN (approximate nearest neighbor) for personal data</th>
   <tr>
     <td>❌ Cost</td>
     <td>All the vectors must be in memory, which becomes very expensive.</td>
