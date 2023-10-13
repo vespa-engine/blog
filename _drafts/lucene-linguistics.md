@@ -135,7 +135,7 @@ The above analyzer uses the `standard` tokenizer, then `stop` token filter loads
 
 ### Component registry
 
-The Lucene linguistics takes in an ComponentRegistry of the `Analyzer` class.
+The Lucene linguistics takes in a `ComponentRegistry` of the `Analyzer` class.
 This option works best for projects that contain custom Java code because your IDE will help you build an Analyzer instance.
 Also, JUnit is your friend when it comes to testing.
 
