@@ -18,12 +18,12 @@ search applications still need tricks like filtering, faceting, phrase matching,
 Vespa is well suited to leverage both traditional and modern techniques.
 
 At Vinted we were working on the search application migration from Elasticsearch to Vespa.
-The application over the years has grown to support multiple languages and for each language we have crafted custom Elasticsearch [analyzers](https://www.elastic.co/guide/en/elasticsearch/reference/8.9/specify-analyzer.html) with dictionaries for synonyms, stopwords, etc.
+The application over the years has grown to support multiple languages and for each  we have crafted custom Elasticsearch [analyzers](https://www.elastic.co/guide/en/elasticsearch/reference/8.9/specify-analyzer.html) with dictionaries for synonyms, stopwords, etc.
 Vespa has a different approach towards lexical search than Elasticsearch, and we were researching ways to transfer all that accumulated knowledge without doing the “Big Bang” migration.
 
-And here comes a chat with Jo Kristian Bergum on the sunny roof terrace at the Berlin Buzzwords 2023 conference.
-Among other things I’ve asked if it is technically possible to implement a Vespa Linguistics component on top of the Apache Lucene library.
-With Jo’s encouragement, I’ve got to work and in the same evening there was a working proof of concept.
+And here comes a part with a chat with the legend himself, [Jo Kristian Bergum](https://twitter.com/jobergum), on the sunny roof terrace at the Berlin Buzzwords 2023 conference.
+Among other things, I’ve asked if it is technically possible to implement a Vespa Linguistics component on top of the Apache Lucene library.
+With Jo’s encouragement, I’ve got to work and the same evening there was a working proof of concept.
 This was huge!
 It gave a promise that it is possible to convert almost any Elasticsearch analyzer into the Vespa Linguistics configuration and in this way solve one of the toughest problems for the migration project.
 
@@ -32,8 +32,8 @@ It gave a promise that it is possible to convert almost any Elasticsearch analyz
 In case you just want to get started with the Lucene Linguistics the easiest way is to explore the [demo apps](https://github.com/vespa-engine/sample-apps/tree/master/examples/lucene-linguistics).
 There are 4 apps:
 - Minimal: example of the bare minimum configuration that is needed to set up Lucene linguistics;
-- Advanced: demonstrates the “usual” things that can be expected to leverage the Lucene linguistics.
-- Going-Crazy: plenty of contrived features that real world apps might require.
+- Advanced: demonstrates the “usual” things that can be expected when leveraging Lucene linguistics.
+- Going-Crazy: plenty of contrived features that real-world apps might require.
 - Non-Java: an app without Java code.
 
 To learn more: read the [documentation](https://docs.vespa.ai/en/lucene-linguistics.html).
@@ -47,7 +47,7 @@ The scope of the Lucene linguistics component is **ONLY** the tokenization of th
 “Vespa is awesome!” => [“vespa”, “is”, “awesome”]
 ```
 
-In the Lucene land the Analyzer class is responsible for the tokenization. 
+In the Lucene land, the Analyzer class is responsible for the tokenization. 
 So, the core idea for Lucene linguistics is to implement the Vespa [`Tokenizer`](https://github.com/vespa-engine/vespa/blob/master/linguistics/src/main/java/com/yahoo/language/process/Tokenizer.java) interface that wraps a configurable Lucene Analyzer.
 
 For building a configurable Lucene Analyzer there is a handy class called [`CustomAnalyzer`](https://github.com/apache/lucene/blob/538b7d0ffef7bb71dd214d7fb111ef787bf35bcd/lucene/analysis/common/src/java/org/apache/lucene/analysis/custom/CustomAnalyzer.java#L99).
@@ -63,12 +63,12 @@ public Builder addTokenFilter(String name, Map<String, String> params)
 All the parameters are of type `String`, so they can easily be stored in a configuration file!
 
 When it comes to discovery of the text analysis components, it is done using the Java Service Provider Interface ([SPI](https://www.baeldung.com/java-spi)).
-In practical terms this means that when components are prepared in a certain way then they become available without explicit coding! You can think of it as [plugins](https://en.wikipedia.org/wiki/Plug-in_%28computing%29).
+In practical terms, this means that when components are prepared in a certain way then they become available without explicit coding! You can think of it as [plugins](https://en.wikipedia.org/wiki/Plug-in_%28computing%29).
 
 The trickiest bit was to configure Vespa to load resource files required for the Lucene components.
 Luckily, there is a `CustomAnalyzer.Builder` factory method that accepts a Path parameter.
 Even more luck comes from the fact that `Path` is the type exposed by the [Vespa configuration definition language](https://docs.vespa.ai/en/reference/config-files.html)!
-With all that in place it was possible to load resource files from the application package just by providing a relative path to files.
+With all that in place, it was possible to load resource files from the application package just by providing a relative path to files.
 Voila!
 
 All that was nice, but it made simple application packages more complicated than they needed to be:
@@ -80,7 +80,7 @@ Clearly, that requirement can be a bit too strict.
 Luckily, the Vespa team quickly implemented a [change](https://github.com/vespa-engine/vespa/pull/28472) that allowed for configuration of `Path` type to be declared `optional`.
 For the Lucene linguistics it meant 2 things:
 1. Base component configuration became simpler.
-1. When no path is set up, the `CustomAnalyzer` loads resource files from the classpath of the application package, i.e. even more flexibility where to put resource files.
+1. When no path is set up, the `CustomAnalyzer` loads resource files from the classpath of the application package, i.e. even more flexibility in where to put resource files.
 
 To wrap it up:
 Lucene Linguistics accepts a configuration in which custom Lucene analysis components can be fully configured.
@@ -89,9 +89,16 @@ Lucene Linguistics accepts a configuration in which custom Lucene analysis compo
 
 The Lucene linguistics supports 40 languages [out-of-the-box](https://docs.vespa.ai/en/lucene-linguistics.html).
 To customize the way the text is analyzed there are 2 options:
-1. Configure the text analysis in the `services.xml`. 
-This option works best if you’re already comfortable with Lucene.
-2. Extend a Lucene Analyzer class in your application package and register it as a Component. This option works best for projects that contain Java code, because your IDE will help you build an Analyzer instance.
+1. Configure the text analysis in [`services.xml`](https://docs.vespa.ai/en/reference/services.html).
+2. Extend a Lucene Analyzer class in your application package and register it as a [Component](https://docs.vespa.ai/en/jdisc/injecting-components.html#depending-on-all-components-of-a-specific-type).
+
+In case there is no analyzer set up, then the Lucene [StandardAnalyzer](https://lucene.apache.org/core/9_8_0/core/org/apache/lucene/analysis/standard/StandardAnalyzer.html) is used.
+
+### Lucene linguistics component configuration
+
+It is possible to configure Lucene linguistics directly in the `services.xml` file.
+This option works best if you’re already knowledgeable with Lucene text analysis components.
+A configuration for the English language could look something like this:
 
 ```xml
 <component id="linguistics"
@@ -121,7 +128,16 @@ This option works best if you’re already comfortable with Lucene.
   </config>
 </component>
 ```
-Caption: Lucene linguistics component configuration.
+
+The above analyzer uses the `standard` tokenizer, then `stop` token filter loads stopwords from the `en/stopwords.txt` file that must be placed in your application package under the `linguistics` directory; and then the `englishMinimalStem` is used to stem tokens.
+
+### Component registry
+
+The Lucene linguistics takes in an ComponentRegistry of the `Analyzer` class.
+This option works best for projects that contain custom Java code because your IDE will help you build an Analyzer instance.
+Also, JUnit is your friend when it comes to testing.
+
+In the example below, the [`SimpleAnalyzer`](https://lucene.apache.org/core/9_8_0/analysis/common/org/apache/lucene/analysis/core/SimpleAnalyzer.html) class coming with Lucene is wrapped as a component and set to be used for the English language.
 
 ```xml
 <component id="en"
@@ -129,19 +145,23 @@ Caption: Lucene linguistics component configuration.
            bundle="my-vespa-app" />
 ```
 
-In case there is no analyzer set up, then the Lucene StandardAnalyzer is used.
+### Mental model
 
-With that many options using Lucene linguistics might seem a bit complicated. However, the mental model is simple: priority for conflict resolution. The priority of the analyzers in the descending order is:
+With that many options using Lucene linguistics might seem a bit complicated.
+However, the mental model is simple: priority for conflict resolution.
+The priority of the analyzers in the descending order is:
 1. Lucene linguistics component configuration;
 1. Component that extend the Lucene Analyzer class;
 1. Default analyzers per language;
-1. StandardAnalyzer.
+1. `StandardAnalyzer`.
 
 This means that e.g. if both a configuration and a component are specified for a language, then an analyzer from the configuration is used because it has a higher priority.
 
-Going against [suggestions](https://docs.vespa.ai/en/linguistics.html#stemming) you can achieve an asymmetric tokenization for a language.
-Index with stemming turned on and query with stemming turned off.
-Under the hood a pair of any two Lucene analyzers will do the job.
+### Asymmetric tokenization
+
+Going against [suggestions](https://docs.vespa.ai/en/linguistics.html#stemming) you can achieve an asymmetric tokenization for some language.
+The trick is to, e.g. index with stemming turned on and query with stemming turned off.
+Under the hood a pair of any two Lucene analyzers can do the job.
 However, it becomes your problem to set up analyzers that produce matching tokens.
 
 ## Differences from Elasticsearch
