@@ -276,7 +276,7 @@ of the title and text field. We use the
 [vespa-cli](https://docs.vespa.ai/en/vespa-cli.html) feed option
 as the feeding client. 
 * We use the [Vespa fbench
-tool](https://docs.vespa.ai/en/reference/vespa-cmdline-tools.html#vespa-fbench)
+tool](https://docs.vespa.ai/en/operations/tools.html#vespa-fbench)
 to drive HTTP query load using HTTP POST against the [Vespa query
 api.](https://docs.vespa.ai/en/query-api.html) 
 * Batch size in Vespa embedders is one for document and query inference.  
