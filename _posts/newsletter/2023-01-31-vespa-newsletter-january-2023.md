@@ -113,7 +113,7 @@ and also includes several security fixes provided with the Jetty upgrade.
 ### Log settings in services.xml
 During debugging, it is useful to be able to tune which messages end up in the log,
 especially when [developing custom components](https://docs.vespa.ai/en/developer-guide.html).
-This can be done with the [vespa-logctl](https://docs.vespa.ai/en/reference/vespa-cmdline-tools.html#vespa-logctl) tool on each node.
+This can be done with the [vespa-logctl](https://docs.vespa.ai/en/operations-selfhosted/vespa-cmdline-tools.html#vespa-logctl) tool on each node.
 Since Vespa 8.100, you can also control log settings in services.xml -
 see [logging](https://docs.vespa.ai/en/reference/services-admin.html#logging).
 This is also very convenient when deploying on [Vespa Cloud](https://cloud.vespa.ai/).

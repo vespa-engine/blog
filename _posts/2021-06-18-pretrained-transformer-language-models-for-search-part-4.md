@@ -310,7 +310,7 @@ Running everything of importance on the same node enables us to quantitatively c
 We benchmark throughput per retrieval and ranking model until we reach about 70% cpu utilization, 
 and compare obtained throughput and latency. We also include tail latency (99.9 percentile) in the reported result.
 
-We use the [vespa-fbench](https://docs.vespa.ai/en/reference/vespa-cmdline-tools.html#vespa-fbench) benchmarking utility to 
+We use the [vespa-fbench](https://docs.vespa.ai/en/operations/tools.html#vespa-fbench) benchmarking utility to 
 load the cluster (by increasing the number of clients to reach about 70% cpu util). 
 We use the queries from the development set which consist of 6980 unique queries, the same
 query might be repeated multiple times, but there is no result caching enabled. 
