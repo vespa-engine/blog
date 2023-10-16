@@ -172,6 +172,13 @@ authors:
     avatar: '/assets/avatars/solstad.jpg'
     email: sivert.olstad@protonmail.com
     description: 'Intern II, Technical'
+  dainiusjocas:
+    name: Dainius Jocas
+    display_name: Dainius Jocas
+    avatar: '/assets/avatars/dainiusjocas.jpg'
+    email: dainius.jocas@gmail.com
+    twitter: https://twitter.com/dainius_jocas
+    description: "Search Engineer"
 
 
 # Plugins
