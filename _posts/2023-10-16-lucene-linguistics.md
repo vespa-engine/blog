@@ -5,7 +5,8 @@ author: dainiusjocas
 categories: []
 tags: [linguistics, bm25, stemming]
 image: assets/2023-10-16-lucene-linguistics/search-box.png
-skipimage: true
+date: '2023-10-16'
+skipimage: false
 ---
 
 This post is about an idea that was born at the [Berlin Buzzwords 2023](https://tickets.plainschwarz.com/bbuzz23/) conference and its journey towards the production-ready implementation of the new [Apache Lucene](https://lucene.apache.org/)-based [Vespa Linguistics component](https://docs.vespa.ai/en/linguistics.html).
