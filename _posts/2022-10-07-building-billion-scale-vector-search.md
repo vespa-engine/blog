@@ -69,7 +69,7 @@ pricing tells a story of the infrastructure complexity and market demand for ful
 solutions.
 
 For example, suppose your organization wants to index 1B 512-dimensional vectors using[ Google Vertex AI Matching
-Engine](https://cloud.google.com/vertex-ai/pricing#matchingengine). In that case, you'll be adding $389,000 per month to
+Engine](https://cloud.google.com/vertex-ai/pricing). In that case, you'll be adding $389,000 per month to
 your GCP cloud bill. That quote example is for one batch job of vectors. Each new batch indexing job adds $6,000. The
 quote does not cover storing the data that produced the vectors; that data must be served out of a different serving
 store.
