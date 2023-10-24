@@ -157,7 +157,7 @@ When configuring the client certificate to use for your incoming requests (data 
 you can now specify whether each certificate should have read- or write-access or both.
 This allows you to e.g., use one certificate for clients with read access while having another –
 perhaps less distributed – certificate for write access.
-See the [Security Guide](https://cloud.vespa.ai/en/security/guide#data-plane-access-control-permissions)
+See the [Security Guide](https://cloud.vespa.ai/en/security/guide#permissions)
 for more details on how to configure it.
 
 
