@@ -30,7 +30,7 @@ Tensors now supports _float_ cell values, for example _tensor\<float\>(key{}, x[
 
 Integrating with the [Prometheus](https://prometheus.io) open-source monitoring solution is now easy to do
 using the new interface to Vespa metrics.
-[Read more](https://docs.vespa.ai/en/operations/monitoring.html#pulling-into-prometheus).
+[Read more](https://docs.vespa.ai/en/operations-selfhosted/monitoring.html#pulling-into-prometheus).
 
 **Query Dispatch Integrated in Container**
 
