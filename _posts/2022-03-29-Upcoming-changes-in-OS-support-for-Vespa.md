@@ -49,7 +49,7 @@ and [Rocky Linux](https://rockylinux.org/). Both seem to have gained traction an
 releases approximately one week after RHEL releases. Since these are rebuilds of the RHEL packages we
 should be able to assume the same [ABI compatibility](https://access.redhat.com/articles/rhel8-abi-compatibility).
 
-Furthest upstream we have [Fedora Linux](https://getfedora.org/)
+Furthest upstream we have [Fedora Linux](https://fedoraproject.org/)
 which is the source of all packages in the figure. A given major version of RHEL is branched off a version
 of Fedora (Fedora 28 for the RHEL 8 release). The packages then undergo integration testing and QA before
 they enter the RHEL nightly build. If the build and test of RHEL nightly is successful the package set is
