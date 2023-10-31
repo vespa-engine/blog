@@ -43,7 +43,7 @@ authors:
     display_name: Kristian Aune
     avatar: '/assets/avatars/kkraune.jpg'
     email: kraune@yahooinc.com
-    description: "Vespa Technical Product Manager"
+    description: "Head of Customer Success, Vespa"
   thigm85:
     name: Thiago Martins
     display_name: Thiago Martins
@@ -125,14 +125,14 @@ authors:
     email: mpolden@yahooinc.com
     description: "Principal Vespa Engineer"
   arnej:
-    name: Arne H Juul 
-    display_name: Arne H Juul 
+    name: Arne H Juul
+    display_name: Arne H Juul
     avatar: '/assets/avatars/arnej.jpg'
     email: arnej@yahooinc.com
     description: "Senior Principal Vespa Engineer"
   tegge:
-    name: Tor Egge 
-    display_name: Tor Egge 
+    name: Tor Egge
+    display_name: Tor Egge
     avatar: '/assets/avatars/tegge.jpg'
     email: tegge@yahooinc.com
     description: "Senior Principal Vespa Engineer"
