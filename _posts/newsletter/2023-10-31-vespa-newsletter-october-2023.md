@@ -176,5 +176,6 @@ Find more details and how to automate in
 
 ----
 
-Thanks for reading! Try out Vespa on [Vespa Cloud](https://cloud.vespa.ai/)
-or grab the latest release at [vespa.ai/releases](https://vespa.ai/releases) and run it yourself! &#x1F600;
+Thanks for reading! Try out Vespa by
+[deploying an application for free to Vespa Cloud](https://cloud.vespa.ai/en/getting-started)
+or [install and run it yourself](https://docs.vespa.ai/en/vespa-quick-start.html).
