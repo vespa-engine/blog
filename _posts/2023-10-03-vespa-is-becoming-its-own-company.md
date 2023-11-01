@@ -5,7 +5,7 @@ author: bratseth
 date: '2023-10-03'
 image: assets/2023-10-03-vespa-is-becoming-its-own-company/VespaLogoBlack.png
 skipimage: false
-tags: []
+tags: [company]
 excerpt: Vespa is becoming its own company!
 ---
 
