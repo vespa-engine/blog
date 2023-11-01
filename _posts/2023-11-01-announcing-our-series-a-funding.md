@@ -10,7 +10,7 @@ excerpt: Vespa is becoming its own company!
 ---
 
 A month ago we announced that Vespa is finally
-[its own company](2023-10-03-vespa-is-becoming-its-own-company/). 
+[its own company](https://blog.vespa.ai/vespa-is-becoming-its-own-company/). 
 Today we're announcing a $31 million 
 [investment from Blossom Capital](https://www.blossomcap.com/portfolio/vespa-ai).
 
