@@ -6,7 +6,7 @@ date: '2023-06-28'
 image: assets/2023-06-28-announcing-vector-streaming-search/marc-sendra-martorell--Vqn2WrfxTQ-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@marcsm?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Marc Sendra Martorell</a> on <a href="https://unsplash.com/photos/-Vqn2WrfxTQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
-tags: [] 
+tags: [rag, vectors, streaming] 
 excerpt: "With personal data, you need complete results at low cost, something vector databases cannot provide.
 Vespa's new vector streaming search delivers complete results at a fraction of the cost.
 "

@@ -7,7 +7,7 @@ image: assets/2023-11-01-announcing-our-series-a-funding/team.avif
 image_credit: 'Adressa.no'
 skipimage: false
 tags: [company]
-excerpt: Vespa is becoming its own company!
+excerpt: Announcing a $31 million investment from Blossom Capital
 ---
 
 A month ago we announced that Vespa is finally
