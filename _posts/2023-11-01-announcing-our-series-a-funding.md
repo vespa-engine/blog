@@ -4,6 +4,7 @@ title: "Announcing our series A funding"
 author: bratseth
 date: '2023-11-01'
 image: assets/2023-11-01-announcing-our-series-a-funding/team.avif
+image_credit: 'Adressa.no'
 skipimage: false
 tags: [company]
 excerpt: Vespa is becoming its own company!
