@@ -2,7 +2,7 @@
 layout: post
 title: "Yahoo Mail turns to Vespa to do RAG at scale"
 author: bratseth
-date: '2023-11-01'
+date: '2023-11-02'
 image: assets/2023-11-02-yahoo-mail-turns-to-vespa-to-do-rag-at-scale/evgeni-tcherkasski.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@evgenit?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Evgeni Tcherkasski</a> on <a href="https://unsplash.com/photos/red-and-black-bridge-over-water-XBJtNRyZUx4?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 '
