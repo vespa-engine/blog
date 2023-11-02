@@ -15,7 +15,7 @@ A month ago we announced that Vespa is finally
 Today we're announcing a $31 million 
 [investment from Blossom Capital](https://www.blossomcap.com/portfolio/vespa-ai).
 
-The spin-out from Yahoo gave us the freedom to do what's best for the growing Vespa ecosystem,
+The spin-out from Yahoo gave us the ability to focus on serving and growing the entire Vespa ecosystem,
 and this investment gives us the financial muscle to invest in building a complete platform for
 all use cases involving big data and AI online, and serving large and small customers on our
 [cloud solution](https://cloud.vespa.ai).
