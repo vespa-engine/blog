@@ -8,7 +8,7 @@ image_credit: 'Photo by <a href="https://unsplash.com/@evgenit?utm_content=credi
 '
 skipimage: true
 tags: [rag, vectors, streaming]
-excerpt: Vespa is becoming its own company!
+excerpt: Vector search in trillions of personal documents can be done cost-effectively with vector streaming search.
 ---
 
 Yahoo Mail is one of the largest mail providers in the world. Now they’re also taking a shot at being the most 
