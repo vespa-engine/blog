@@ -16,7 +16,10 @@ innovative with their recent release of AI-driven features which lets you
 [ask questions of your mailbox](https://www.fastcompany.com/90945096/yahoo-unveils-an-ai-email-assistant-and-it-works-with-gmail)
 and tell it to do things for you.
 
-![Yahoo Mail](/assets/2023-11-02-yahoo-mail-turns-to-vespa-to-do-rag-at-scale/video2.mp4 "image_tooltip")
+<video autoplay muted preload="auto">
+  <source src="/assets/2023-11-02-yahoo-mail-turns-to-vespa-to-do-rag-at-scale/video2.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 At the core of these features you find 1) a large language model which can understand and generate text, 
 and 2) a retrieval system that finds the relevant information in your inbox to feed into this model, 
