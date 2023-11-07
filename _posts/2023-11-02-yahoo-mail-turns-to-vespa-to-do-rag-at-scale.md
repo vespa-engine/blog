@@ -13,7 +13,7 @@ excerpt: Vector search in trillions of personal documents can be done cost-effec
 
 Yahoo Mail is one of the largest mail providers in the world. Now they’re also taking a shot at being the most 
 innovative with their recent release of AI-driven features which lets you 
-[ask questions of your mailbox](https://www.fastcompany.com/90945096/yahoo-unveils-an-ai-email-assistant-and-it-works-with-gmail)
+<a href="https://www.fastcompany.com/90945096/yahoo-unveils-an-ai-email-assistant-and-it-works-with-gmail" data-proofer-ignore>ask questions of your mailbox</a>
 and tell it to do things for you.
 
 <video autoplay muted preload="auto">
