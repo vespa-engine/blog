@@ -1,7 +1,7 @@
 --- 
 layout: post
 title: "Anonymized endpoints and token authentication in Vespa Cloud"
-author: jobergum mpolden mortent
+author: mortent mpolden
 date: '2023-11-09'
 image: assets/2023-11-09-announce-tokens-and-anonymous-endpoints/markus-spiske-6pflEeSzGUo-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@markusspiske?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Markus Spiske</a> on <a href="https://unsplash.com/photos/text-6pflEeSzGUo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
@@ -35,7 +35,8 @@ Application endpoints in Vespa Console - Deprecated legacy mTLS endpoint name an
 
 ## Using data plane authentication tokens 
 
-Using the token endpoint ([https://ed82e42a.eeafe078.z.vespa-app.cloud/](https://ed82e42a.eeafe078.z.vespa-app.cloud/)), we can add a standard Authorization HTTP header to data plane requests. For example as demonstrated below using curl: 
+Using the token endpoint from the above screenshot, `https://ed82e42a.eeafe078.z.vespa-app.cloud/`, we can authenticate against it by 
+adding a standard `Authorization` HTTP header to the data plane requests. For example as demonstrated below using [curl](https://curl.se/): 
 
 ```shell
 curl -H "Authorization: Bearer vespa_cloud_...." https://ed82e42a.eeafe078.z.vespa-app.cloud/
