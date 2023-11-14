@@ -5,7 +5,7 @@ date: '2021-05-20'
 tags: []
 author: thigm85
 image: assets/2021-05-20-news-recommendation-with-parent-child-relationship/figure_1.jpg
-image_credit: 'Photo by <a href="https://unsplash.com/@freegraphictoday?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">AbsolutVision</a> on <a href="https://unsplash.com/photos/bSlHKWxxXak?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
+image_credit: 'Photo by <a href="https://unsplash.com/@alterego_swiss">AbsolutVision</a> on <a href="https://unsplash.com/photos/bSlHKWxxXak">Unsplash</a>'
 skipimage: true
 excerpt: Part 3 - Efficient use of click-through rate via parent-child relationship.
 ---
@@ -18,7 +18,7 @@ excerpt: Part 3 - Efficient use of click-through rate via parent-child relations
 This part of the series introduces a new ranking signal: category click-through rate (CTR). The idea is that we can recommend popular content for users that don’t have a click history yet. Rather than just recommending based on articles, we recommend based on categories. However, these global CTR values can often change continuously, so we need an efficient way to update this value for all documents. We’ll do that by introducing parent-child relationships between documents in Vespa. We will also use sparse tensors directly in ranking. This post replicates [this more detailed Vespa tutorial](https://docs.vespa.ai/en/tutorials/news-7-recommendation-with-parent-child.html).
 
 ![Decorative image](/assets/2021-05-20-news-recommendation-with-parent-child-relationship/figure_1.jpg)
-<p class="image-credit">Photo by <a href="https://unsplash.com/@freegraphictoday?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">AbsolutVision</a> on <a href="https://unsplash.com/s/photos/news?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>
+<p class="image-credit">by Photo by <a href="https://unsplash.com/@alterego_swiss">AbsolutVision</a> on <a href="https://unsplash.com/photos/bSlHKWxxXak">Unsplash</a></p>
 
 
 We assume that you have followed the [part2 of the news recommendation tutorial](https://blog.vespa.ai/build-news-recommendation-app-from-python-with-vespa/). Therefore, you should have an `app_package` variable holding the news app definition and a Docker container named `news` running the application fed with data from the demo version of the MIND dataset.
