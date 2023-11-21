@@ -22,7 +22,7 @@ post in 2022. The choice to use CentOS Stream was made around the time that [Red
 new CentOS  Stream initiative](https://www.redhat.com/en/blog/centos-stream-building-innovative-future-enterprise-linux). 
 Other groups were scrambling to be the successor to CentOS, and the landscape was not settled. This is now about to change.
 
-# Introduction
+## Introduction
 We are committed to providing Vespa releases that we have high confidence in. Internally, at [Vespa.ai](https://vespa.ai),
 we have migrated to [AlmaLinux 8](https://almalinux.org/) and 
 [Red Hat Enterprise Linux 8](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux). CentOS Stream 8 is
@@ -34,13 +34,13 @@ RPMs are built and published on [Copr](https://copr.fedorainfracloud.org/coprs/g
 published on [Docker Hub](https://hub.docker.com/r/vespaengine/vespa). In this blog post, we will look at options going 
 forward and announce the selected OS support for the upcoming Vespa releases.
 
-# Options
+## Options
 
 There is a wide selection of Linux distributions out there with different purposes and target groups. For us, we need to choose 
 an OS that is as close to what we use internally as possible, and that is acceptable for our open-source users. These 
 criteria limit the options significantly to an enterprise Linux-based distribution.
 
-## RPMs
+### RPMs
 Binary releases of Vespa is a set of RPMs. This set has to be built somewhere and must be uploaded to a 
 repository where it can be downloaded by package managers. These RPMs are then installed either on a host machine or in 
 container images. We will still build our RPMs on [Copr](https://copr.fedorainfracloud.org/coprs/g/vespa/vespa/), but we 
@@ -54,7 +54,7 @@ have limited capacity, and Copr only guarantees that the latest version is avail
 of more than just the most recent version, but this will rely on vendors offering space and network traffic for the RPMs
 to be hosted.
 
-## Container images
+### Container images
 
 Given the choice of building RPMs on Copr for EPEL 8, this opens up a few options when selecting a base image for our 
 container image:
@@ -71,8 +71,8 @@ to be able to use the version. We believe that this will not be well received by
 releases.
 
 
-# Selection
-## Container Image
+## Selection
+### Container Image
 
 Considering the options, we have chosen <strong>AlmaLinux 8</strong> as the supported OS going forward. The main reasons for this decision 
 are:
@@ -82,7 +82,7 @@ are:
 
 We will use the `docker.io/almalinux:8` image as the base for the [Vespa container image on Docker Hub](https://hub.docker.com/r/vespaengine/vespa).
 
-## RPM distribution
+### RPM distribution
 Although we will continue to build RPMs on Copr, we are going to switch to a new RPM repository that can keep an archive
 of a limited set of historic releases. We have been accepted as an open-source project at 
 [Cloudsmith](https://cloudsmith.com) and will use the
@@ -93,7 +93,7 @@ will be updated shortly, and information about how to install Vespa from RPMs ca
 [documentation](https://docs.vespa.ai/en/build-install-vespa.html#rpms). Within our storage limits, we will be able to store 
 approximately 50 Vespa releases.
 
-# Compatibility for current Vespa installations
+## Compatibility for current Vespa installations
 The consumers of Vespa container images should not notice any differences when Vespa changes the base of the container
 image to AlmaLinux 8. Everything comes preinstalled in the image, and this is tested the same way as it was before. If 
 you use the Vespa container image as a base of custom images, the differences between the latest AlmaLinux 8 and CentOS
@@ -106,7 +106,7 @@ means that you can make the switch by replacing the repository configuration wit
 [vespa-engine.repo](https://raw.githubusercontent.com/vespa-engine/vespa/master/dist/vespa-engine.repo) the next time Vespa
 is upgraded. If you do not, no new Vespa versions will be available for upgrade once we stop building for CentOS Stream 8.
 
-# Future OS support
+## Future OS support
 Predicting the path of future OS support is not trivial in an environment where the landscape is changing. RedHat 
 [announced](https://www.redhat.com/en/blog/furthering-evolution-centos-stream) closing off the RHEL sources and strengthening 
 CentOS Stream. [Open Enterprise Linux Association](https://openela.org/) has popped up as a response to this, and [AlmaLinux
@@ -116,11 +116,7 @@ hopefully, we will have more clarity when deciding on the next OS to support.
 Regardless of the landscape, we are periodically publishing a preview on AlmaLinux 9 that can be used at your own risk
 [here](https://hub.docker.com/r/vespaengine/vespa-el9-preview). Please use this for testing purposes only.
 
-# Summary
+## Summary
 We have selected AlmaLinux 8 as the supported OS for Vespa going forward. The change is expected to have no impact on the 
 consumers of Vespa container images and RPMs. The primary RPM repository has moved to a [Cloudsmith](https://cloudsmith.com)-hosted
 repository where we can have an archive of releases allowing installation of not just the latest Vespa version.
-
-
-
-
