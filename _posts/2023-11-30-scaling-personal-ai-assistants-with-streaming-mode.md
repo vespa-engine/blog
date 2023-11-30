@@ -2,11 +2,11 @@
 layout: post
 title: "Hands-On RAG guide for personal data with Vespa and LLamaIndex"
 author: jobergum
-date: '2023-11-29'
-image: assets/2023-11-30-scaling-personal-ai-assistants-with-streaming-mode/mohamed-nohassi-2iUrK025cec-unsplash.jpg
-image_credit: 'Photo by <a href="https://unsplash.com/@coopery?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Mohamed Nohassi</a> on <a href="https://unsplash.com/photos/a-group-of-white-robots-sitting-on-top-of-laptops-2iUrK025cec?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+date: '2023-11-30'
+image: assets/2023-11-30-scaling-personal-ai-assistants-with-streaming-mode/avi-richards-Z3ownETsdNQ-unsplash.jpg
+image_credit: 'Photo by <a href="https://unsplash.com/@avirichards?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Avi Richards</a> on <a href="https://unsplash.com/photos/man-sitting-on-concrete-brick-with-opened-laptop-on-his-lap-Z3ownETsdNQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 '  
-skipimage: true
+skipimage: false
 tags: [rag, vectors, streaming]
 excerpt: A hands-on guide to using Vespa streaming mode with PyVespa and LLamaIndex.
 ---
@@ -640,7 +640,7 @@ retriever.retrieve("When is my dentist appointment?")
     [NodeWithScore(node=TextNode(id_='id:assistant:mail:g=bergum@vespa.ai:2', embedding=None, metadata={'matchfeatures': {'distance(field,embedding)': 0.43945494361938975, 'freshness(timestamp)': 0.9232453703703704, 'query(threshold)': 0.6, 'cosine': 0.9049836898369259}, 'subject': 'Dentist Appointment Reminder', 'body': 'Dear Jo Kristian ,\nThis is a reminder for your upcoming dentist appointment on 2023-12-04 at 09:30. Please arrive 15 minutes early.\nBest regards,\nDr. Dentist'}, excluded_embed_metadata_keys=[], excluded_llm_metadata_keys=[], relationships={}, hash='e89f669e6c9cf64ab6a856d9857915481396e2aa84154951327cd889c23f7c4f', text='Dentist Appointment Reminder Dear Jo Kristian ,\nThis is a reminder for your upcoming dentist appointment on 2023-12-04 at 09:30. Please arrive 15 minutes early.\nBest regards,\nDr. Dentist ', start_char_idx=None, end_char_idx=None, text_template='{metadata_str}\n\n{content}', metadata_template='{key}: {value}', metadata_seperator='\n'), score=0.9049836898369259),
      NodeWithScore(node=TextNode(id_='id:assistant:mail:g=bergum@vespa.ai:1', embedding=None, metadata={'matchfeatures': {'distance(field,embedding)': 0.69930099954744, 'freshness(timestamp)': 0.9202361111111111, 'query(threshold)': 0.6, 'cosine': 0.7652923088511814}, 'subject': 'LlamaIndex news, 2023-11-14', 'body': "Hello Llama Friends 🦙 LlamaIndex is 1 year old this week! 🎉 To celebrate, we're taking a stroll down memory \n                    lane on our blog with twelve milestones from our first year. Be sure to check it out."}, excluded_embed_metadata_keys=[], excluded_llm_metadata_keys=[], relationships={}, hash='cb9b588e5b53dbdd0fbe6f7aadfa689d84a5bea23239293bd299347ee9ecd853', text="LlamaIndex news, 2023-11-14 Hello Llama Friends 🦙 LlamaIndex is 1 year old this week! 🎉 To celebrate, we're taking a stroll down memory \n                    lane on our blog with twelve milestones from our first year. Be sure to check it out. ", start_char_idx=None, end_char_idx=None, text_template='{metadata_str}\n\n{content}', metadata_template='{key}: {value}', metadata_seperator='\n'), score=0.7652923088511814)]
 
-Both profiles return the fields defined with `summary`, and the "extra" `matchfeatures` that can be used for both debugging and feature logging. 
+Both profiles return the fields defined with `summary`, and the "extra" `matchfeatures` that can be used for debugging or feature logging (feedback data used to train ranking models). 
 
 ### Federating and blending from multiple sources
 
@@ -659,16 +659,16 @@ retriever.retrieve("When is my dentist appointment?")
     [NodeWithScore(node=TextNode(id_='id:assistant:calendar:g=bergum@vespa.ai:1', embedding=None, metadata={'matchfeatures': {'freshness(timestamp)': 0.9232447273662552, 'nativeRank(subject)': 0.11907024479392506, 'query(threshold)': 0.8, 'cosine': 0.8872983644178517, 'keywords_and_freshness': 1.1606592237923947}, 'subject': 'Dentist Appointment', 'body': 'Dentist appointment at 2023-12-04 at 09:30 - 1 hour duration'}, excluded_embed_metadata_keys=[], excluded_llm_metadata_keys=[], relationships={}, hash='b30948011cbe9bbf29135384efbc72f85a6eb65113be0eb9762315a022f11ba1', text='Dentist Appointment Dentist appointment at 2023-12-04 at 09:30 - 1 hour duration ', start_char_idx=None, end_char_idx=None, text_template='{metadata_str}\n\n{content}', metadata_template='{key}: {value}', metadata_seperator='\n'), score=0.03278688524590164),
      NodeWithScore(node=TextNode(id_='id:assistant:mail:g=bergum@vespa.ai:2', embedding=None, metadata={'matchfeatures': {'freshness(timestamp)': 0.9232447273662552, 'nativeRank(subject)': 0.11907024479392506, 'query(threshold)': 0.8, 'cosine': 0.9049836898369259, 'keywords_and_freshness': 1.1347827754290507}, 'subject': 'Dentist Appointment Reminder', 'body': 'Dear Jo Kristian ,\nThis is a reminder for your upcoming dentist appointment on 2023-12-04 at 09:30. Please arrive 15 minutes early.\nBest regards,\nDr. Dentist'}, excluded_embed_metadata_keys=[], excluded_llm_metadata_keys=[], relationships={}, hash='21c501ccdc6e4b33d388eefa244c5039a0e1ed4b81e4f038916765e22be24705', text='Dentist Appointment Reminder Dear Jo Kristian ,\nThis is a reminder for your upcoming dentist appointment on 2023-12-04 at 09:30. Please arrive 15 minutes early.\nBest regards,\nDr. Dentist ', start_char_idx=None, end_char_idx=None, text_template='{metadata_str}\n\n{content}', metadata_template='{key}: {value}', metadata_seperator='\n'), score=0.03278688524590164)]
 
-The above query retrieved results from both sources and blended the results from the two sources using the per schema rank-profile score. At runtime, we can adjust
-scores depending on, e.g., query context categorization. Another possibility is using generative LLMs to predict which sources to include and how they should be blended before the next
-step in the RAG pipeline.
+The above query retrieved results from both sources and blended the results from the two sources using the per schema profile scores. At runtime, we can adjust
+scores per source, depending on, e.g., query context categorization. Another possibility is using generative LLMs to predict which sources to include. 
 
 ### Summary
 This tutorial leveraged Vespa's streaming mode to store and retrieve personal data. Vespa streaming mode is a unique capability, allowing for building
-highly cost-efficient RAG applications for personal data. 
+highly cost-efficient RAG applications for personal data. Our focus extended to the practical application of custom LLamaIndex retrievers, 
+connecting LLamaIndex seamlessly with a Vespa app to build advanced generative AI pipelines.
 
-Our focus extended to the practical application of LLamaIndex retrievers, connecting them seamlessly with a Vespa app to build generative AI pipelines. 
-By utilizing multiple Vespa schemas, we demonstrated the seamless blending and federation of query results from diverse data sources, specifically in building RAG applications 
-over personal mail and calendar data. 
+The tutorial also demonstrated the seamless blending and federation of query results from multiple data sources (multi-index RAG). We can easily
+envision adding more sources or schemas, for example, to track chat message history (long-term memory) in the context of a single user, offering a 
+simple and industry-leading cost-efficient way to store and search personal context.  
 
-For those eager to learn more about Vespa, join the [Vespa community on Slack](https://vespatalk.slack.com/) to exchange insights, seek assistance, or just stay updated on the latest developments.
+For those eager to learn more about Vespa, join the [Vespa community on Slack](https://vespatalk.slack.com/) to exchange ideas, seek assistance, or just stay updated on the latest Vespa developments.
