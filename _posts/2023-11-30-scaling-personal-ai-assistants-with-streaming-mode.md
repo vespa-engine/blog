@@ -378,7 +378,7 @@ print_files_in_directory(application_directory)
     my-assistant-vespa-app/schemas/mail.sd
     my-assistant-vespa-app/schemas/calendar.sd
     my-assistant-vespa-app/search/query-profiles/default.xml
-    my image-assistant-vespa-app/search/query-profiles/types/root.xml
+    my-assistant-vespa-app/search/query-profiles/types/root.xml
 
 
 ## Deploy the application to Vespa Cloud
