@@ -2,7 +2,7 @@
 name: "Vespa Blog"
 title: "Vespa Blog"
 description: "Blog for Vespa - The open big data serving engine"
-logo: 'assets/logo/vespa-logo-full-black.svg'
+logo: 'assets/logo/vespa-logo.svg'
 favicon: 'assets/icons/favicon-32x32.png'
 baseurl:
 mailchimp-list: 'https://vespa.ai/mailing-list.html'
