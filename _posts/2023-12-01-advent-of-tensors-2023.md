@@ -5,10 +5,8 @@ author: andreer jobergum
 date: '2023-11-30'
 image: assets/2023-12-01-advent-of-tensors-2023/andreer_vespa_99582_a_cartoon_santa_doing_mathematics_with_rein_abcc3133-6019-41c1-88c7-15bf48652252.png
 skipimage: false
-excerpt: Announcing Advent of Tensors 2023
+excerpt: Prepare to embark on a festive journey as we bring you the Advent of Tensors!
 ---
-
-
 
 Greetings, Vespa enthusiasts! Prepare to embark on a festive journey as we bring you the Advent of Tensors. 
 In this advent, we'll be diving into the magical world of Vespa Tensors, combining the joy of the holiday season with the power of expressing distributed real-time tensor computations over evolving datasets. 
