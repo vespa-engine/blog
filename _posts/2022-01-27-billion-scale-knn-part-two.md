@@ -42,7 +42,7 @@ scale vector search-related research usage. It consists of more than one billion
 and 29K+ query vectors encoded by the Microsoft SpaceV Superior model. 
 
 The vector dataset was published last year as part of the 
-[big-ann-benchmarks](http://big-ann-benchmarks.com/) challenge. 
+big-ann-benchmarks (http://big-ann-benchmarks.com/) challenge. 
 It consists of one billion 100-dimensional vectors using `int8` precision. In other words,
 each of the hundred vector dimensions is a number in the [-128,127] range. 
 The dataset has 29,3K queries with pre-computed ground truth nearest neighbors
