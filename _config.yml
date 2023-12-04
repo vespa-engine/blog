@@ -32,6 +32,13 @@ authors:
     email: bratseth@yahooinc.com
     twitter: https://twitter.com/jonbratseth
     description: "CEO Vespa.ai"
+  frodelu:
+    name: Frode Lundgren
+    display_name: Frode Lundgren
+    avatar: '/assets/avatars/frodelu.jpg'
+    email: frodelu@vespa.ai
+    twitter: https://twitter.com/frodelu
+    description: "CTO Vespa.ai"
   geirst:
     name: Geir Storli
     display_name: Geir Storli
