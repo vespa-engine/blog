@@ -96,7 +96,7 @@ Read more about these and other Vespa features used in
 
 ### pyvespa
 Pyvespa – the Vespa Python experimentation library – is now split into two repositories:
-[pyvespa](https://pyvespa.readthedocs.io/) and [learntorank](https://vespa-engine.github.io/learntorank/);
+[pyvespa](https://pyvespa.readthedocs.io/) and learntorank. **Update learntorank is deprecated**
 this is for better separation of the python API and to facilitate prototyping and experimentation for data scientists.
 Pyvespa 0.32 has been released with many new features for fields and ranking;
 see the [release notes](https://github.com/vespa-engine/pyvespa/releases/tag/v0.32.0).

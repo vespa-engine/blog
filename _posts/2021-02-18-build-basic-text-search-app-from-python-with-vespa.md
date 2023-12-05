@@ -12,9 +12,8 @@ excerpt: Introducing pyvespa simplified API. Build Vespa application from python
 
 **Introducing pyvespa simplified API. Build Vespa application from python with few lines of code.**
 
-**UPDATE 2023-02-13:** Code examples and links are updated to work with the latest releases of
-[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html)
-and [learntorank](https://vespa-engine.github.io/learntorank/).
+**UPDATE 2023-12-05:** Code examples and links are updated to work with the latest releases of
+[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html). The learntorank library is now deprecated.
 
 This post will introduce you to the simplified 
 [pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html) 
@@ -327,10 +326,6 @@ res.hits[0]
       'abstract': 'Endothelin-1 (ET-1) is a 21 amino acid peptide with diverse biological activity that has been implicated in numerous diseases. ET-1 is a potent mitogen regulator of smooth muscle tone, and inflammatory mediator that may play a key role in diseases of the airways, pulmonary circulation, and inflammatory lung diseases, both acute and chronic. This review will focus on the biology of ET-1 and its role in lung disease.'}}
 
 
-
-We can also define the same query by using the
-[QueryModel](https://vespa-engine.github.io/learntorank/module_query.html#query-model) abstraction
-that allows us to specify how we want to match and rank our documents. In this case, we defined that we want to:
 
 * match our documents using the `OR` operator, which matches all the documents that share at least one term with the query.
 * rank the matched documents using the `bm25` rank profile defined in our application package.

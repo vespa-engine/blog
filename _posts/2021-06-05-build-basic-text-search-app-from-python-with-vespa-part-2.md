@@ -14,9 +14,7 @@ excerpt: Evaluate search engine experiments from python.
 
 We want to enable Vespa users to run their experiments from python. This tutorial illustrates how to define query models and evaluation metrics to perform search engine experiments.
 
-**UPDATE 2023-02-13:** Code examples and links are updated to work with the latest releases of
-[pyvespa](https://pyvespa.readthedocs.io/en/latest/index.html)
-and [learntorank](https://vespa-engine.github.io/learntorank/).
+**UPDATE 2023-12-05:** learntorank is deprecated.
 
 ![Decorative image](/assets/2021-06-05-build-basic-text-search-app-from-python-with-vespa-part-2/figure_1.jpg)
 <p class="image-credit">Photo by <a href="https://unsplash.com/@eugene_golovesov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Eugene Golovesov</a> on <a href="https://unsplash.com/s/photos/feedback?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></p>

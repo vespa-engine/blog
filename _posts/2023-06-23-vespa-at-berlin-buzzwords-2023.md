@@ -94,9 +94,9 @@ We at the Vespa team have also worked with this large e-commerce ranking dataset
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/U7PQNyeQrXQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-In this talk, [Atita Arora](https://opensourceconnections.com/team/atita-arora/) gave a talk on vector search using 
+In this talk, Atita Arora gave a talk on vector search using 
 [bi-encoders](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-2/) that maps queries and documents
-into a latent embedding vector space and performs similarity search using nearest neighbor search.  
+into a latent embedding vector space and perform similarity search using nearest neighbor search.  
 
 <img src="/assets/2023-06-23-vespa-at-berlin-buzzwords-2023/Fy-UpZkXsAE30Uw.jpeg"
      alt="Atita Arora from https://opensourceconnections.com/ presenting at Berlin Buzzwords 2023"/>
