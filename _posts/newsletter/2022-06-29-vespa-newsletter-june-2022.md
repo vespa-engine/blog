@@ -46,14 +46,6 @@ Find the full contribution in [#21689](https://github.com/vespa-engine/vespa/pul
 [query-language-reference.html#fuzzy](https://docs.vespa.ai/en/reference/query-language-reference.html#fuzzy).
 
 
-#### pyvespa
-pyvespa 0.22 introduces an [experimental ranking module](https://vespa-engine.github.io/learntorank/notebooks/learning-to-rank-ignore.html)
-to support learning to rank tasks that can be applied to
-data collected from Vespa applications containing ranking features.
-It starts by creating a listwise ranking framework based on TensorFlow Ranking that covers data pipelines,
-fitting models and feature selection algorithms.
-
-
 #### Embedding support
 A common technique in modern big data serving applications is to map the subject data – say, text or images –
 to points in an abstract vector space and then do computation in that vector space.

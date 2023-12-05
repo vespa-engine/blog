@@ -358,7 +358,8 @@ We also covered coarse-level to fine-level search and ranking using hamming
 distance as the coarse-level nearest neighbor search distance metric. 
 
 In the next blog post in this series we will 
-experiment with a billion-scale vector dataset from <a href="http://big-ann-benchmarks.com/">big-ann-benchmarks.com</a>. 
+experiment with a billion-scale vector dataset from big-ann-benchmarks.com. 
+
 We will be indexing it using a single Vespa content node, and we will experiment with using both exact and approximate vector search with hamming distance. 
 
 The focus of the next post will be to demonstrate some of the mentioned trade-offs from the introduction:
