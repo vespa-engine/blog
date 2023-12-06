@@ -48,7 +48,7 @@ specified as part of the [ONNX inference
 options](https://docs.vespa.ai/en/stateless-model-evaluation.html#onnx-inference-options)
 for your model.
 
-See [our pricing page](https://cloud.vespa.ai/pricing) for details on GPU
+See [our pricing page](https://cloud.vespa.ai/price-calculator) for details on GPU
 pricing.
 
 ## Open source Vespa
