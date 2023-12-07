@@ -32,7 +32,10 @@ Vespa's streaming search solution enables you to integrate a user ID (or any sha
 This setup allows Vespa to efficiently group each user's data on a small set of nodes and the same disk chunk.
 Streaming mode enables low latency searches on a user's data without keeping data in memory. 
 
-The key benefits of streaming mode:
+![Illustration](/assets/2023-12-08-turbocharge-rag-with-langchain-and-vespa-streaming-mode/docid.png)
+
+
+The key benefits of Vespa streaming mode:
 
 - Eliminating compromises in precision introduced by approximate algorithms
 - Achieve significantly higher write throughput, thanks to the absence of index builds required for supporting approximate search.
@@ -51,11 +54,13 @@ The workflow:
 - Leverage [LangChain Document Transformers](https://python.langchain.com/docs/modules/data_connection/document_transformers/)
 to convert each PDF page into multiple text chunks. 
 - Feed the transformer representation to the running Vespa instance
-- Employ Vespa's built-in embedder functionality (using an open-source embedding model) for embedding the text chunks per page, resulting in a multi-vector representation.
+- Employ Vespa's built-in [embedder](https://docs.vespa.ai/en/embedding.html) functionality (using an open-source embedding model) for embedding the text chunks per page, resulting in a multi-vector representation.
 - Develop a custom [Retriever](https://python.langchain.com/docs/modules/data_connection/retrievers/) to enable seamless retrieval for any unstructured text query.
 
 ![Illustration](/assets/2023-12-08-turbocharge-rag-with-langchain-and-vespa-streaming-mode/turbocharge-RAG-vespa-streaming.png)
-**Illustration of the RAG app**
+<div style="text-align: center;">
+Overview
+</div>
 
 Let's get started! First, install dependencies: 
 
@@ -224,7 +229,7 @@ vespa_cloud = VespaCloud(
 
 Now deploy the app to the Vespa dev zone. 
 
-The first deployment typically takes 2 minutes until the endpoint is up:
+The first deployment of a new application typically takes 2 minutes until the endpoint is up:
 
 ```python
 from vespa.application import Vespa
@@ -333,7 +338,6 @@ requests, illustrated below.
 
 ![Illustration](/assets/2023-12-08-turbocharge-rag-with-langchain-and-vespa-streaming-mode/docid.png)
 
-
 ### Querying data
 
 Now, we can also query our data. With [streaming mode](https://docs.vespa.ai/en/reference/query-api-reference.html#streaming), 
@@ -411,9 +415,9 @@ we can connect our Vespa app with the flexibility and power of the [LangChain](h
 >A retriever is an interface that returns documents given an unstructured query. It is more general than a vector store. A retriever does not need to be able to store documents, only to return (or retrieve) them. Vector stores can be used as the backbone of a retriever, but there are other types of retrievers as well.
 
 The retriever interface fits perfectly with Vespa, as Vespa can support a wide range of features and ways to retrieve and
-rank content. The following implements a custom retriever `VespaStreamingHybridRetriever` that takes the following arguments:
+rank content. The following implements a custom retriever `VespaStreamingHybridRetriever`, that takes the following arguments:
 
-- `app:Vespa` The Vespa application we retrieve from. This could be a Vespa Cloud instance or a local instance, for example running on a laptop. 
+- `app:Vespa` The Vespa application we retrieve from. This could be a Vespa Cloud instance or a local instance. 
 -  `user:str` The user that that we want to retrieve for, this argument maps to the [Vespa streaming mode groupname parameter](https://docs.vespa.ai/en/reference/query-api-reference.html#streaming.groupname)
 - `pages:int` The  target number of PDF pages we want to retrieve for a given query 
 - `chunks_per_page` The is the target number of relevant text chunks that are associated with the page
@@ -501,16 +505,9 @@ vespa_hybrid_retriever = VespaStreamingHybridRetriever(app=app, user="bergum@ves
 vespa_hybrid_retriever.get_relevant_documents("what is the maxsim operator in colbert?")
 ```
 
-
-
-
     [Document(page_content='ture that precisely does so. As illustrated, every query embeddinginteracts with all document embeddings via a MaxSim operator,which computes maximum similarity (e.g., cosine similarity), andthe scalar outputs of these operators are summed across queryterms. /T_his paradigm allows ColBERT to exploit deep LM-basedrepresentations while shi/f_ting the cost of encoding documents of-/f_line and amortizing the cost of encoding the query once acrossall ranked documents. Additionally, it enables ColBERT to lever-age vector-similarity search indexes (e.g., [ 1,15]) to retrieve thetop-kresults directly from a large document collection, substan-tially improving recall over models that only re-rank the output ofterm-based retrieval.As Figure 1 illustrates, ColBERT can serve queries in tens orfew hundreds of milliseconds. For instance, when used for re-ranking as in “ColBERT (re-rank)”, it delivers over 170 ×speedup(and requires 14,000 ×fewer FLOPs) relative to existing BERT-based', metadata={'title': 'ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT', 'url': 'https://arxiv.org/pdf/2004.12832.pdf', 'page': 4, 'authors': ['Omar Khattab', 'Matei Zaharia'], 'features': {'closest(embedding)': {'0': 1.0}, 'elementSimilarity(chunks)': 0.41768707482993195, 'nativeRank(chunks)': 0.1401101487033024, 'nativeRank(title)': 0.0520403737720047, 'similarities': {'1': 0.8369992971420288, '0': 0.8730311393737793}}})]
 
-
-
 ## RAG 
-
-
 Finally, we can connect our custom retriever with the complete flexibility and power of the [LangChain](https://python.langchain.com/docs/get_started/introduction) LLM framework. The following uses [LangChain Expression Language, or LCEL](https://python.langchain.com/docs/expression_language/), a declarative way to compose chains.
 
 We have several steps composed into a chain:
@@ -518,9 +515,6 @@ We have several steps composed into a chain:
 - The prompt template and LLM model, in this case using OpenAI
 - The retriever that provides the retrieved context for the question 
 - The formatting of the retrieved context 
-
-
-
 
 ```python
 vespa_hybrid_retriever = VespaStreamingHybridRetriever(app=app, user="bergum@vespa.ai", pages=3, chunks_per_page=3)
@@ -561,17 +555,14 @@ chain = (
 )
 ```
 
-### Interact with the chain 
+### Interact with the LLM chain 
 
-Now, we can start asking questions using the `chain` define above. 
+Now, we can start asking questions using the `chain` defined above. 
 
 
 ```python
 chain.invoke("what is colbert?")
 ```
-
-
-
 
     'ColBERT is a ranking model that adapts deep language models, specifically BERT, for efficient retrieval. It introduces a late interaction architecture that independently encodes queries and documents using BERT and then uses a cheap yet powerful interaction step to model their fine-grained similarity. This allows ColBERT to leverage the expressiveness of deep language models while also being able to pre-compute document representations offline, significantly speeding up query processing. ColBERT can be used for re-ranking documents retrieved by a traditional model or for end-to-end retrieval directly from a large document collection. It has been shown to be effective and efficient compared to existing models. (source: ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT by Omar Khattab, Matei Zaharia, page 1, url: https://arxiv.org/pdf/2004.12832.pdf)'
 
@@ -582,9 +573,6 @@ chain.invoke("what is colbert?")
 chain.invoke("what is the colbert maxsim operator")
 ```
 
-
-
-
     "The ColBERT model utilizes the MaxSim operator, which computes the maximum similarity (e.g., cosine similarity) between query embeddings and document embeddings. The scalar outputs of these operators are summed across query terms, allowing ColBERT to exploit deep LM-based representations while reducing the cost of encoding documents offline and amortizing the cost of encoding the query once across all ranked documents.\n\nSource: \nColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT by ['Omar Khattab', 'Matei Zaharia']\nURL: https://arxiv.org/pdf/2004.12832.pdf\nPage: 4"
 
 
@@ -594,22 +582,15 @@ chain.invoke("what is the colbert maxsim operator")
 chain.invoke("What is the difference between colbert and single vector representational models?")
 ```
 
-
-
-
     'The difference between ColBERT and single vector representational models is that ColBERT utilizes a late interaction architecture that independently encodes the query and the document using BERT, while single vector models use a single embedding vector for both the query and the document. This late interaction mechanism in ColBERT allows for fine-grained similarity estimation, which leads to more effective retrieval. (Source: ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT by Omar Khattab and Matei Zaharia, page 17, url: https://arxiv.org/pdf/2004.12832.pdf)'
-
-
-
 
 ## Summary
 
-This tutorial used Vespa's streaming mode to build a cost-efficient RAG application
-for user-partitioned PDFs. Vespa's streaming mode is a game-changer, enabling the creation of highly cost-effective RAG applications for naturally partitioned data.
+Vespa's streaming mode is a game-changer, enabling the creation of highly cost-effective RAG applications for naturally partitioned data.
 
-We delved into the hands-on application of [LangChain](https://python.langchain.com/docs/get_started/introduction), 
+In this tutorial, we delved into the hands-on application of [LangChain](https://python.langchain.com/docs/get_started/introduction), 
 leveraging document loaders and transformers. Finally, we showcased a custom LangChain retriever that connected 
 all the functionality of LangChain with Vespa.
 
-For those interested in learning more about Vespa and streaming mode, join the [Vespa community on Slack](https://vespatalk.slack.com/) to exchange ideas, 
+For those interested in learning more about Vespa, join the [Vespa community on Slack](https://vespatalk.slack.com/) to exchange ideas, 
 seek assistance, or stay in the loop on the latest Vespa developments.
