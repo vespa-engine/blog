@@ -331,7 +331,7 @@ def callback(response:VespaResponse, id:str):
     if not response.is_successful():
         print(f"Document {id} failed to feed with status code {response.status_code}, url={response.url} response={response.json}")
 
-app.feed_iterable(schema="pdf", iter=vespa_feed("bergum@vespa.ai"), namespace="personal", callback=callback)
+app.feed_iterable(schema="pdf", iter=vespa_feed("jo-bergum"), namespace="personal", callback=callback)
 ```
 
 Notice the `schema` and `namespace` - PyVespa translates these to [Vespa document API](https://docs.vespa.ai/en/document-v1-api-guide.html)
@@ -353,7 +353,7 @@ Read more about querying Vespa in:
 - [Vespa Query API reference](https://docs.vespa.ai/en/reference/query-api-reference.html)
 - [Vespa Query Language API (YQL)](https://docs.vespa.ai/en/query-language.html)
 
-Sample query request for `why is colbert effective?` for the user `bergum@vespa.ai`:
+Sample query request for `why is colbert effective?` for the user `jo-bergum`:
 
 
 ```python
@@ -362,7 +362,7 @@ import json
 
 response:VespaQueryResponse = app.query(
     yql="select id,title,page,chunks from pdf where userQuery() or ({targetHits:10}nearestNeighbor(embedding,q))",
-    groupname="bergum@vespa.ai", 
+    groupname="jo-bergum", 
     ranking="hybrid",
     query="why is colbert effective?",
     body={
@@ -375,7 +375,7 @@ print(json.dumps(response.hits[0], indent=2))
 ```
 
     {
-      "id": "id:personal:pdf:g=bergum@vespa.ai:a4b2ced87807ee9cb0325b7a1c64a070d05a31f7",
+      "id": "id:personal:pdf:g=jo-bergum:a4b2ced87807ee9cb0325b7a1c64a070d05a31f7",
       "relevance": 1.1412738851962692,
       "source": "pdfs_content.pdf",
       "fields": {
@@ -494,11 +494,11 @@ class VespaStreamingHybridRetriever(BaseRetriever):
         return sorted(chunks_with_scores, key=lambda x: x[1], reverse=True)
 ```
 
-That's it! We can give our newborn retriever a spin for the user `bergum@vespa.ai` by 
+That's it! We can give our newborn retriever a spin for the user `jo-bergum` by 
 
 
 ```python
-vespa_hybrid_retriever = VespaStreamingHybridRetriever(app=app, user="bergum@vespa.ai", pages=1, chunks_per_page=1)
+vespa_hybrid_retriever = VespaStreamingHybridRetriever(app=app, user="jo-bergum", pages=1, chunks_per_page=1)
 ```
 
 
@@ -518,7 +518,7 @@ We have several steps composed into a chain:
 - The formatting of the retrieved context 
 
 ```python
-vespa_hybrid_retriever = VespaStreamingHybridRetriever(app=app, user="bergum@vespa.ai", pages=3, chunks_per_page=3)
+vespa_hybrid_retriever = VespaStreamingHybridRetriever(app=app, user="jo-bergum", pages=3, chunks_per_page=3)
 ```
 
 
