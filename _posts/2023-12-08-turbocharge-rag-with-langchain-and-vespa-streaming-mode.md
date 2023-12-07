@@ -12,16 +12,13 @@ tags: [rag, vectors, streaming]
 excerpt: A hands-on guide to connect LangChain with Vespa streaming mode to build cost-efficient RAG applications over naturally sharded data.
 ---
 
-This notebook illustrates using [Vespa streaming mode](https://docs.vespa.ai/en/streaming-search.html)
-to build cost-efficient RAG applications over naturally sharded data.
+This blog post is a hands-on guide to connecting [LangChain](https://www.langchain.com/) with [Vespa streaming mode](https://docs.vespa.ai/en/streaming-search.html) to build cost-efficient RAG applications over naturally sharded data.
 
 You can read more about Vespa vector streaming search in these blog posts:
 
 - [Announcing vector streaming search: AI assistants at scale without breaking the bank](https://blog.vespa.ai/announcing-vector-streaming-search/)
 - [Yahoo Mail turns to Vespa to do RAG at scale](https://blog.vespa.ai/yahoo-mail-turns-to-vespa-to-do-rag-at-scale/)
 - [Hands-On RAG guide for personal data with Vespa and LLamaIndex](https://blog.vespa.ai/scaling-personal-ai-assistants-with-streaming-mode/)
-
-This blog post is a hands-on RAG tutorial demonstrating how to use [Vespa streaming mode](https://docs.vespa.ai/en/streaming-search.html) for cost-efficient retrieval of personal data. 
 
 This blog post is also available as a runnable notebook where you can have this app up and running on
 [Vespa Cloud](https://cloud.vespa.ai/) in minutes
@@ -43,7 +40,7 @@ The key benefits of streaming mode:
 
 ### Connecting LangChain Retriever with Vespa for Context Retrieval from PDF Documents
 
-In this notebook, we seamlessly integrate a custom [LangChain](https://python.langchain.com/docs/get_started/introduction) 
+In this blog post, we seamlessly integrate a custom [LangChain](https://python.langchain.com/docs/get_started/introduction) 
 [retriever](https://python.langchain.com/docs/modules/data_connection/) with a Vespa app, 
 leveraging Vespa's streaming mode to extract meaningful context from PDF documents.
 
@@ -68,7 +65,7 @@ Let's get started! First, install dependencies:
 
 ## Sample data
 We love [ColBERT](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-3/), so
-we'll use a few COlBERT-related papers as examples of PDFs in this notebook. 
+we will use a few COlBERT-related papers as examples of PDFs:
 
 ```python
 def sample_pdfs():
@@ -137,14 +134,13 @@ pdf_schema = Schema(
 
 The above defines our `pdf` schema using mode `streaming`. Most fields are straightforward, but take notes of:
 
-- `metadata` using `map<string,string>` - here we can store and match over page-level metadata extracted by the PDF parser. 
+- `metadata` using `map<string,string>` - here we can store and match over page-level metadata extracted by the PDF parser.
 - `chunks` using `array<string>`, these are the text chunks that we use LangChain document transformers for
 - The `embedding` field of type `tensor<bfloat16>(chunk{},x[384])` allows us to store and search the 384-dimensional embeddings per chunk in the same Vespa document
 
 The observant reader might have noticed the `e5` argument to the `embed` expression in the above `embedding` field.
 The `e5` argument references a component of the type [hugging-face-embedder](https://docs.vespa.ai/en/embedding.html#huggingface-embedder). 
 We configure the application package and its name with the `pdf` schema and the `e5` embedder component. 
-
 
 ```python
 from vespa.package import ApplicationPackage, Component, Parameter
@@ -201,7 +197,6 @@ returns selected features along with the returned hits for a query.
 With the configured application, we can deploy it to [Vespa Cloud](https://cloud.vespa.ai/en/). 
 It is also possible to deploy the app using docker; see the [Hybrid Search - Quickstart](https://pyvespa.readthedocs.io/en/latest/getting-started-pyvespa.html) guide for an example of deploying it to a local docker container. 
 
-
 ### Deploy to Vespa 
 
 `PyVespa` supports deploying apps to the [development zone](https://cloud.vespa.ai/en/reference/environments#dev-and-perf),
@@ -227,10 +222,9 @@ vespa_cloud = VespaCloud(
     application_package=vespa_application_package)
 ```
 
-Now deploy the app to Vespa dev zone. 
+Now deploy the app to the Vespa dev zone. 
 
-The first deployment typically takes 2 minutes until the endpoint is up. 
-
+The first deployment typically takes 2 minutes until the endpoint is up:
 
 ```python
 from vespa.application import Vespa
@@ -249,10 +243,10 @@ app:Vespa = vespa_cloud.deploy()
 
 ### Processing PDFs with LangChain
 
-[LangChain](https://python.langchain.com/) has a rich set of [document loaders](https://python.langchain.com/docs/modules/data_connection/document_loaders/) that can be used to load and process various file formats. In this notebook, we use the [PyPDFLoader](https://python.langchain.com/docs/modules/data_connection/document_loaders/pdf#using-pypdf). 
+[LangChain](https://python.langchain.com/) has a rich set of [document loaders](https://python.langchain.com/docs/modules/data_connection/document_loaders/) that can be used to load and process various file formats. This guide uses the [PyPDFLoader](https://python.langchain.com/docs/modules/data_connection/document_loaders/pdf#using-pypdf). 
 
-We also want to split the extracted text into *chunks* using a [text splitter](https://python.langchain.com/docs/modules/data_connection/document_transformers/#get-started-with-text-splitters). Most text embedding models have limited input lengths (typically less than 512 language model tokens), so splitting the text
-into multiple chunks that fit into the context limit of the embedding model is a common strategy. 
+We also want to split the extracted text into *chunks* using a [text splitter](https://python.langchain.com/docs/modules/data_connection/document_transformers/#get-started-with-text-splitters). Most text embedding models have limited input lengths (typically less than 512 language model tokens), so splitting the text into multiple chunks that fit into the context limit of the embedding model is a common technique to overcome
+length limitations (and also improve the effectiveness). 
 
 ```python
 from langchain.document_loaders import PyPDFLoader
@@ -320,7 +314,7 @@ def vespa_feed(user:str) -> Iterable[dict]:
         }
 ```
 
-Now, we can feed to the Vespa instance (`app`), using the `feed_iterable` API, using the generator function above as input
+Now, we can feed to the Vespa instance (`app`) using the `feed_iterable` API, using the generator function above as input
 with a custom `callback` function. Vespa also performs embedding inference during this step using the built-in Vespa [embedding](https://docs.vespa.ai/en/embedding.html#huggingface-embedder) functionality. 
 
 
@@ -610,7 +604,7 @@ chain.invoke("What is the difference between colbert and single vector represent
 
 ## Summary
 
-This tutorial harnessed Vespa's streaming mode to build a cost-efficient RAG application
+This tutorial used Vespa's streaming mode to build a cost-efficient RAG application
 for user-partitioned PDFs. Vespa's streaming mode is a game-changer, enabling the creation of highly cost-effective RAG applications for naturally partitioned data.
 
 We delved into the hands-on application of [LangChain](https://python.langchain.com/docs/get_started/introduction), 
