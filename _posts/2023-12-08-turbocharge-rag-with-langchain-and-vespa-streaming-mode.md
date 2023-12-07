@@ -40,6 +40,7 @@ The key benefits of Vespa streaming mode:
 - Eliminating compromises in precision introduced by approximate algorithms
 - Achieve significantly higher write throughput, thanks to the absence of index builds required for supporting approximate search.
 - Optimize efficiency by storing documents, including tensors and data, on disk, benefiting from the cost-effective economics of storage tiers.
+- Storage cost is the primary cost driver of Vespa streaming mode; no data is in memory. Avoiding memory usage lowers deployment costs significantly. 
 
 ### Connecting LangChain Retriever with Vespa for Context Retrieval from PDF Documents
 
