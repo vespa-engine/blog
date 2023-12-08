@@ -407,6 +407,8 @@ print(json.dumps(response.hits[0], indent=2))
       }
     }
 
+Notice the returned `matchfeatures` field, which returns the features we asked for in the `hybrid` rank-profile. This includes
+the `similarities` features, that returns all the cosine similarities for all the chunks in the retrieved page. 
 
 ## LangChain Retriever
 
@@ -418,13 +420,13 @@ we can connect our Vespa app with the flexibility and power of the [LangChain](h
 The retriever interface fits perfectly with Vespa, as Vespa can support a wide range of features and ways to retrieve and
 rank content. The following implements a custom retriever `VespaStreamingHybridRetriever`, that takes the following arguments:
 
-- `app:Vespa` The Vespa application we retrieve from. This could be a Vespa Cloud instance or a local instance. 
--  `user:str` The user that that we want to retrieve for, this argument maps to the [Vespa streaming mode groupname parameter](https://docs.vespa.ai/en/reference/query-api-reference.html#streaming.groupname)
+- `app:Vespa` The Vespa application. This could be a Vespa Cloud instance or a local instance. 
+-  `user:str` The user that that we want to retrieve for, this argument maps to the Vespa query request [groupname](https://docs.vespa.ai/en/reference/query-api-reference.html#streaming.groupname) parameter
 - `pages:int` The  target number of PDF pages we want to retrieve for a given query 
-- `chunks_per_page` The is the target number of relevant text chunks that are associated with the page
-- `chunk_similarity_threshold` - The chunk similarity threshold, only chunks with a similarity above this threshold 
+- `chunks_per_page:int` The is the target number of relevant text chunks from a page used for context to the LLM step
+- `chunk_similarity_threshold:float` - The chunk similarity threshold, only chunks with a similarity above this threshold are used for context
 
-The core idea is to _retrieve_ pages using maximum chunk similarity as the initial scoring function, then consider other chunks on the same page as potentially relevant input to the generative step.
+The core idea is to _retrieve_ pages using maximum chunk similarity as the initial scoring function, then consider other chunks on the same page as potentially relevant input to the generative step. We use the returned `matchfeatures` and the similarity threshold to accomplish the filtering. 
 
 ```python
 from langchain_core.documents import Document
@@ -494,7 +496,7 @@ class VespaStreamingHybridRetriever(BaseRetriever):
         return sorted(chunks_with_scores, key=lambda x: x[1], reverse=True)
 ```
 
-That's it! We can give our newborn retriever a spin for the user `jo-bergum` by 
+That's it! We can give our newborn custom retriever a spin for the user `jo-bergum` by 
 
 
 ```python
