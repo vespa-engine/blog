@@ -31,6 +31,6 @@ jobs:
             --typhoeus '{"connecttimeout": 10, "timeout": 30, "accept_encoding": "zstd,br,gzip,deflate"}' \
             --hydra '{"max_concurrency": 1}' \
             --ignore-files '/_site\/post/,/about.html/,/blog-recommendation-in-vespa/,/blog-search-application-in-vespa/,/blog-recommendation-with-neural-network-models/' \
-            --ignore-urls '/slack.vespa.ai/,/twitter.com/,/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/,/docs.vespa.ai/playground/,/facebook.com/sharer/,/arxiv.org/' \
+            --ignore-urls '/slack.vespa.ai/,/twitter.com/,/localhost:8080/,/www.linkedin.com/,/cord19.vespa.ai/,/disqus.com/,/disqus_thread/,/docs.vespa.ai/playground/,/facebook.com/sharer/,/arxiv.org/,/hub.docker.com/r/vespaengine/vespa/tags/' \
             --swap-urls '(https\://github.com.*/master/.*)#.*:\1,(https\://github.com.*/main/.*)#.*:\1,(https\://github.com.*/blob/.*)#.*:\1' \
             _site
