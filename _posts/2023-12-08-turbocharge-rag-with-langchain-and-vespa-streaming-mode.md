@@ -251,7 +251,7 @@ app:Vespa = vespa_cloud.deploy()
 
 [LangChain](https://python.langchain.com/) has a rich set of [document loaders](https://python.langchain.com/docs/modules/data_connection/document_loaders/) that can be used to load and process various file formats. This guide uses the [PyPDFLoader](https://python.langchain.com/docs/modules/data_connection/document_loaders/pdf#using-pypdf). 
 
-We also want to split the extracted text into *chunks* using a [text splitter](https://python.langchain.com/docs/modules/data_connection/document_transformers/#get-started-with-text-splitters). Most text embedding models have limited input lengths (typically less than 512 language model tokens), so splitting the text into multiple chunks that fit into the context limit of the embedding model is a common technique to overcome
+We also want to split the extracted text into *chunks* using a [text splitter](https://python.langchain.com/docs/modules/data_connection/document_transformers/). Most text embedding models have limited input lengths (typically less than 512 language model tokens), so splitting the text into multiple chunks that fit into the context limit of the embedding model is a common technique to overcome
 length limitations (and also improve the effectiveness). 
 
 ```python
