@@ -27,6 +27,7 @@ jobs:
             --ignore-missing-alt \
             --ignore-empty-alt \
             --no-enforce-https \
+            --no-check-external-hash \
             --allow-missing-href \
             --typhoeus '{"connecttimeout": 10, "timeout": 30, "accept_encoding": "zstd,br,gzip,deflate"}' \
             --hydra '{"max_concurrency": 1}' \
