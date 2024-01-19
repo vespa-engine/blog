@@ -86,8 +86,8 @@ without scoring all documents for a query.
 ## Sparse representations and retrieval
 
 With sparse representations, documents and queries are represented
-as sparse vectors with up to |V] dimensions, where V is the vocabulary
-size (unique terms in the corpus). Only dimensions (terms) that
+as sparse vectors with up to |V| dimensions, where V is the vocabulary
+(unique terms in the corpus). Only dimensions (terms) that
 have a non-zero weight impact the score.
 
 **A popular unsupervised scoring function using sparse representations
@@ -128,7 +128,7 @@ The search for the _top-k_ ranked documents can be accelerated by
 dynamic pruning algorithms like
 [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html). Dynamic
 pruning retrieval algorithms attempt to avoid exhaustively scoring
-all documents (linear complexity) which match at least one of the
+all documents (linear complexity) that match at least one of the
 terms in the query.
 
 The effectiveness of dynamic pruning algorithms for top-k scoring,
@@ -137,7 +137,7 @@ sparseness (number of non-zero terms), and the distributions of
 term weights. In the case of learned sparse expansion models like
 SPLADE, the efficiency of result pruning is influenced by both the
 density and [wacky weights](https://arxiv.org/abs/2110.11540).
-**This serving performance observation might be unexpected, given
+**This negative serving performance observation might be unexpected, given
 that many have advocated for sparse expansion models based on their
 perceived simplicity in utilizing inverted index structures.**
 
@@ -205,7 +205,7 @@ the sparse representational model uses float, the float weights
 must be scaled to integer representations to be used with the wand
 query operator.
 
-Take SPADE, for instance, it uses a vocabulary of around 30K words
+Take SPLADE, for instance, it uses a vocabulary of around 30K words
 using the English BERT language model wordpiece tokenizer. Instead
 of using the actual words or subword string representation, you can
 use subword vocabulary identifiers that fit into the signed int
@@ -215,7 +215,7 @@ identifiers such as 2054, 2001, 1996, 7128, 2622.
 
 Their term weights are assigned by the sparse representational
 model. In Vespa, sparse learned representations for top-k retrieval
-with the wand query operator,  is best expressed using a schema
+with the wand query operator, are best expressed using a schema
 field of the type
 [weightedset](https://docs.vespa.ai/en/reference/schema-reference.html#weightedset)
 
@@ -240,16 +240,16 @@ Then using the model (and converted to integer weights), feed
 documents to Vespa:
 ```json
 {
-  "id": "id:namespace..::doc",
-  "fields": {
-  	"sparse_rep": { 
- 		"2054": 12,
-        "2001": 9,
-        "1996": 7,
-        "7128":34,
-        "2622": 53
-     }
-   }
+    "id": "id:namespace..::doc",
+    "fields": {
+        "sparse_rep": { 
+ 		    "2054": 12,
+            "2001": 9,
+            "1996": 7,
+            "7128":34,
+            "2622": 53
+        }
+    }
 }
 ```
 
@@ -258,15 +258,15 @@ operator:
 
 ```json
 {
-"yql": "select * from sources * where ({targetHits:100}wand(sparse_rep,@sparse_query_rep))",
-"sparse_query_rep": "{2622:45, 7128:23}"
+    "yql": "select * from sources * where ({targetHits:100}wand(sparse_rep,@sparse_query_rep))",
+    "sparse_query_rep": "{2622:45, 7128:23}"
 }
 ```
 
 ## Dense representations and retrieval
 
 With dense representations, queries and documents are embedded into
-a latent low-dimensional dense vector space where all dimensions
+a [latent low-dimensional](https://en.wikipedia.org/wiki/Latent_space) dense vector space where most dimensions
 have a non-zero weight.
 
 Scoring a document for a query can be done by a vector similarity
@@ -288,7 +288,7 @@ representations using [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) 
 
 In addition to single-vector representations, there are also multi-vector
 representations of text, which represents a text using multiple
-term vectors. Take,
+term vectors. Take
 [ColBERT](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-3/)
 for instance, it learns contextual term vector embeddings, and where
 scoring uses a multi-vector similarity expression.
@@ -298,7 +298,7 @@ scoring uses a multi-vector similarity expression.
 
 An important difference between needing to perform efficient retrieval
 over dense representations and ranking is that the latter does not
-require building data structures for fast, but approximate nearest
+require building data structures for fast but approximate nearest
 neighbor search.
 
 **It’s possible in Vespa to retrieve using a sparse representation
@@ -308,12 +308,12 @@ ranking phases.**
 
 Such approaches are attractive as they eliminate the need for
 [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) data
-structures to facilitate fast dense retrieval which can be a
+structures to facilitate fast dense retrieval, which can be a
 significant cost driver for real-time indexing in large-scale
 production deployments. This is also true for retrieval and ranking
 models that use several dense representational models, **adding
 HNSW indexes to dense representations that are only used in ranking
-phases is a fruitless waste of compute and storage.**
+phases is a fruitless waste of computing and storage.**
 
 The following example defines two document embedding fields where
 only the first has an HNSW index enabled (controlled by the `index` switch).
@@ -333,10 +333,10 @@ schema doc {
 }
 ```
 
-For this type of schema, we can effectively retrieve using the
+For this type of schema, we can effectively retrieve over the
 `embedding1` field with an HNSW index while using `embedding2` in
 ranking phases without incurring the overhead of the HNSW indexing
-embedding2 field. Details on representing text embedding models in
+`embedding2` field. Details on representing text embedding models in
 Vespa are found in [embedding
 documentation](https://docs.vespa.ai/en/embedding.html).
 
@@ -381,9 +381,8 @@ field embedding2 type tensor<bfloat16>(x[768]) {
 Vectors or tensors in general, can easily have a large footprint
 per document (above uses 1536 bytes per document). Moving large
 amounts of vector data across the network for re-ranking will quickly
-saturate network capacity for smaller instance types. With Vespa
-ranking phases, developers can express the similarity calculations
-close to where the data is stored which eliminates the network
+saturate network capacity for smaller instance types. With Vespa, 
+developers can express that the similarity calculations should happen where the data is stored, eliminating the network
 throughput scaling bottlenecks.
 
 There is also increasing interest in using sparse representation
@@ -408,7 +407,7 @@ search because the initial sparse phase targets exact keyword matches**.
 Research indicates that combining dense and sparse methods could
 improve the overall ranking effectiveness. The classic hybrid
 retrieval approach combines dense and sparse retrieval but requires
-technology which supports both retrieval types. **Vespa supports
+technology that supports both retrieval types. **Vespa supports
 hybrid retrieval, expressed in the same query by combining the
 sparse wand and dense nearestNeighbor query operators in the same
 query.**
@@ -418,7 +417,7 @@ algorithms in the Vespa Query Language for efficient top-k retrieval:
 
 ### Disjunction (OR)
 
-With disjunction, we can express *retrieval* using both sparse and
+With disjunction, we can express *retrieval* using sparse and
 dense top-k retrieval algorithms in the same query. The retrieved
 hits (potential disjoint set of candidates) are then exposed into
 the Vespa ranking phases.
@@ -432,9 +431,10 @@ the Vespa ranking phases.
 ```
 
 In this example, we ask Vespa to expose 100 (per node involved in
-the query) to ranking phases using the nearestNeighbor query operator
-or the best lexical matches using the weakAnd query operator.  How
-these retrieved documents are scored is up to the ranking phases.
+the query) to ranking phases using the `nearestNeighbor` query operator
+or the best lexical matches using the `weakAnd` query operator.
+
+How these candiates are scored and ranking is determined by the Vespa ranking phases.
 One can also [use multiple nearestNeighbor search
 operators](https://docs.vespa.ai/en/nearest-neighbor-search-guide.html#multiple-nearest-neighbor-search-operators-in-the-same-query)
 in the same query request.
@@ -455,14 +455,12 @@ first operand using the other operands.
 }
 ```
 
-In the above example, Vespa uses search and retrieves 100 hits into
-ranking phases, but at the same time allows calculation of sparse
-matching features the best semantic matching documents. The following
-inverts this query and performs sparse retrieval first, and then
-calculates the distance with the nearestNeighbor query operator for
-those retrieved by the first operand. This type of query does not
-require HNSW indexing, because the top-k retrieval is done by the
-first-operand (weakAnd).
+In the above example, Vespa uses dense retrieval to retrieve top-100 hits into
+ranking phases, but at the same time, allows the calculation of sparse
+matching features for the best semantic matching documents
+
+The following inverts the above logic. Instead of dense first, it performs sparse retrieval using `weakAnd`, then uses the dense model for ranking. 
+This way of querying Vespa does not benefit performance-wise with an HNSW index because the top-k retrieval uses the lexical `weakAnd` operator. 
 
 ```json
 {
@@ -474,10 +472,11 @@ first-operand (weakAnd).
 
 Both query operators can be combined with the flexibility of
 the Vespa query language, for example, constraining the search by
-filters. Similarly, one can combine weakAnd with wand in the same
-query, or combine all three mentioned query operators. The rank()
-query operator accepts an arbitrary number of operands, but only
-the first is used for _retrieval_.
+filters. Similarly, one can combine `weakAnd` with `wand` in the same
+query, or combine all three mentioned query operators. 
+
+The Vespa `rank()` query operator accepts an arbitrary number of operands, but only
+the first one is used for top-k _retrieval_.
 
 
 ## Summary
