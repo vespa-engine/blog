@@ -7,14 +7,14 @@ image: assets/2024-01-19-redefining-hybrid-search-possibilities-with-vespa/trent
 image_credit: 'Photo by <a href="https://unsplash.com/@tjerwin?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Trent Erwin</a> on <a href="https://unsplash.com/photos/black-framed-eyeglasses-and-black-pen-UgA3Xvi3SkA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 skipimage: false
 tags: [hybrid search]
-excerpt: 'This first blog post in a series of two on hybrid search. This first post focues on efficient hybrid retrieval and representational approaches in IR.'
+excerpt: 'This is the first blog post in a series on hybrid search. This first post focuses on efficient hybrid retrieval and representational approaches in IR'
 ---
 
-This first blog post in a series of two on hybrid search, discusses
+This first blog post in a series of two on hybrid search discusses
 **first retrievers in a ranking pipeline**, where the first **retriever
-phase** aims to find reasonably good candidates for a query, under
-a **limited compute budget** to allow scaling the retrieval phase
-to large collections of documents without incurring large costs.
+phase** aims to find reasonably good candidates for a query under
+a **limited computing budget** to allow scaling the retrieval phase
+to large collections of documents without incurring high costs.
 
 ## Introduction
 
