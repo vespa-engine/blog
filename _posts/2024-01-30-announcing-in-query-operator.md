@@ -80,6 +80,8 @@ a corpus with 10M documents using an *IN* operator over a
 singlevalue integer attribute field with [fast-search](https://docs.vespa.ai/en/attributes.html#fast-search).
 The queries return 1M documents, and the different graphs
 use different amount of values in the operator: 1, 10, 100, 1000.
+1 [thread per search](https://docs.vespa.ai/en/reference/schema-reference.html#num-threads-per-search)
+is used on the content node.
 
 The baseline performance is equal to the previous performance of the *weightedSet* operator.
 After optimizations the performance when searching for many values has been greatly improved.
