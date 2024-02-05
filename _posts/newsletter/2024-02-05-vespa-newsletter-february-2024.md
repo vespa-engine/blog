@@ -80,7 +80,7 @@ Add the user input <span style="text-decoration: underline">once</span> in a req
 referring to this elsewhere in the expression - for example, using **@query**:
 <pre>
 $ vespa query 'yql=select id, from product where
-    {targetHits:10}nearestNeighbor(embedding, query_embedding) or <strong>userQuery()</strong>' \
+    {targetHits:10}nearestNeighbor(embedding, query_embedding) or <strong>userInput(@query)</strong>' \
     'input.query(query_embedding)=embed(transformer, <strong>@query</strong>)' \
     'input.query(query_tokens)=embed(tokenizer, <strong>@query</strong>)' \
     '<strong>query=running shoes for kids, white</strong>'
