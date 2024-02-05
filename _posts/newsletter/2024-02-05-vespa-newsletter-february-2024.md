@@ -82,7 +82,6 @@ and refer to this elsewhere in the expression - for example, using **@query**:
 $ vespa query 'yql=select id, from product where
     {targetHits:10}nearestNeighbor(embedding, query_embedding) or <strong>userInput(@query)</strong>' \
     'input.query(query_embedding)=embed(transformer, <strong>@query</strong>)' \
-    'input.query(query_tokens)=embed(tokenizer, <strong>@query</strong>)' \
     '<strong>query=running shoes for kids, white</strong>'
 </pre>
 [Read more](https://docs.vespa.ai/en/query-api.html#parameter-substitution).
