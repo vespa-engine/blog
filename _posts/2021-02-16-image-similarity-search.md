@@ -51,7 +51,7 @@ Let us download the demo data from the Amazon Products dataset, we use the *Amaz
 !wget -nc https://raw.githubusercontent.com/alexklibisz/elastiknn/master/examples/tutorial-notebooks/amazonutils.py
 !wget -nc http://snap.stanford.edu/data/amazon/productGraph/categoryFiles/meta_Amazon_Fashion.json.gz
 !wget -nc http://snap.stanford.edu/data/amazon/productGraph/image_features/categoryFiles/image_features_Amazon_Fashion.b
-<pre>
+</pre>
 
 <pre>
 from amazonutils import *
