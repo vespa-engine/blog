@@ -77,7 +77,7 @@ With hybrid queries, the text to be searched must be input to both lexical searc
 
 Since Vespa 8.287, one can use parameter substitution to simplify.
 Add the user input <span style="text-decoration: underline">once</span> in a request parameter,
-referring to this elsewhere in the expression - for example, using **@query**:
+and refer to this elsewhere in the expression - for example, using **@query**:
 <pre>
 $ vespa query 'yql=select id, from product where
     {targetHits:10}nearestNeighbor(embedding, query_embedding) or <strong>userInput(@query)</strong>' \
