@@ -111,4 +111,4 @@ Meet the Vespa Team at the sites on the following dates:
 
 Thanks for reading! Try out Vespa by
 [deploying an application for free to Vespa Cloud](https://cloud.vespa.ai/en/getting-started)
-or [install and run it yourself](https://docs.vespa.ai/en/vespa-quick-start.html).
+.
