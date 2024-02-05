@@ -30,7 +30,7 @@ Using sets in queries is useful to express "find any of" without a massive "a OR
 The negation is also useful, e.g to exclude documents in the result set,
 e.g. do not show users results that are previously returned, using the NOT operator.
 
-In Vespa, one used a `weightedSet` query item to express this.
+In Vespa you can use the `weightedSet` query item to express this.
 Many Vespa users have requested an IN operator in YQL instead, and this was released in 8.293.
 Now you can write queries like:
 
