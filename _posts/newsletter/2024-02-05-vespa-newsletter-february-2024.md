@@ -73,7 +73,7 @@ see the [announcement](https://blog.vespa.ai/vespa-newsletter-october-2023/).
 
 ### Embed with @Parameter substitution
 Vespa makes it easy to create embeddings on the fly, both at write and query time, using the `embed` function.
-End-user queries are used both for text matching and in embeddings, possibly making queries more complex than needed.
+With hybrid queries, the text to be searched must be input to both lexical search and vector embedding, leading to duplication in the query.
 
 Since Vespa 8.287, one can use parameter substitution to simplify.
 Add the user input <span style="text-decoration: underline">once</span> in a request parameter,
