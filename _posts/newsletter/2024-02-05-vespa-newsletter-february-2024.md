@@ -26,7 +26,7 @@ Today, we’re excited to share the following updates:
 
 
 ### YQL IN operator
-Using sets in queries is useful to express "find any of" - alternatively, expressed as a massive "a OR b OR c OR ...".
+Using sets in queries is useful to express "find any of" without a massive "a OR b OR c OR ...".
 Also, the inverse is used to exclude documents in the result set,
 e.g. do not show users results that are previously returned, using the NOT operator.
 
