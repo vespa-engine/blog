@@ -67,7 +67,7 @@ Streaming mode is optimized for writes and low resource usage, it does not use i
 Regexp and fuzzy matching are implemented without index structures, so a good fit for streaming search -
 performance degradation is relatively smaller!
 
-Also, fuzzy matching performance for indexed search was also greatly improved last October,
+As a side note, fuzzy matching performance for indexed search was also greatly improved last October,
 see the [announcement](https://blog.vespa.ai/vespa-newsletter-october-2023/).
 
 
