@@ -92,7 +92,7 @@ $ vespa query 'yql=select id, from product where
 Use `match-features` to list rank feature scores to be included with each result hit - useful to analyze ranking.
 Match-features are inherited in child rank profiles.
 As match-features can be a lot of data,
-one can since Vespa 8.290 disable match-feature output in child rank profiles using `match-features {}` in the schema.
+you can since Vespa 8.290 disable match-feature output in child rank profiles using `match-features {}` in the schema.
 [Read more](https://docs.vespa.ai/en/reference/schema-reference.html#match-features).
 
 
