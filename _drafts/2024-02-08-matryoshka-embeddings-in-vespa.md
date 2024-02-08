@@ -18,6 +18,10 @@ By using [phased ranking](https://docs.vespa.ai/en/phased-ranking.html), we can 
 
 We'll use a standard information retrieval benchmark to evaluate result quality with different embedding sizes and retrieval/ranking strategies.
 
+As a bonus, we'll show at the end how we can at run-time select the number of dimensions, to evaluate how the quality improves with increasing resolution:
+
+![Illustration](/assets/2024-02-08-matryoshka-embeddings-in-vespa/mrl_perf_test.png)
+
 This blog post is also available as a runnable notebook where you can have this app up and running on
 [Vespa Cloud](https://cloud.vespa.ai/) in minutes
 (<a target="_blank" href="https://colab.research.google.com/github/vespa-engine/pyvespa/blob/master/docs/sphinx/source/examples/Matryoshka_embeddings_in_Vespa-cloud.ipynb">
@@ -56,8 +60,12 @@ print(full[:8])
 print(short)
 ```
 
-    [0.0035371531266719103, 0.014166134409606457, -0.017565304413437843, 0.04296272248029709, 0.012746891938149929, -0.01731124334037304, -0.00855049304664135, 0.044189225882291794]
-    [0.05076185241341591, 0.20329885184764862, -0.2520805299282074, 0.6165600419044495, 0.18293125927448273, -0.24843446910381317, -0.1227085217833519, 0.634161651134491]
+    [0.0035371531266719103, 0.014166134409606457, -0.017565304413437843, 0.04296272248029709,
+     0.012746891938149929, -0.01731124334037304, -0.00855049304664135, 0.044189225882291794]
+
+
+    [0.05076185241341591, 0.20329885184764862, -0.2520805299282074, 0.6165600419044495, 
+     0.18293125927448273, -0.24843446910381317, -0.1227085217833519, 0.634161651134491]
 
 
 Numerically, they are not the same. But looking more closely, they differ only by a scaling factor:
@@ -69,8 +77,12 @@ print([x * scale for x in full[:8]])
 print(short)
 ```
 
-    [0.05076185241341591, 0.2032988673141365, -0.2520805173822377, 0.6165600695594861, 0.18293125124128834, -0.2484344748635628, -0.12270853156530777, 0.6341616780980419]
-    [0.05076185241341591, 0.20329885184764862, -0.2520805299282074, 0.6165600419044495, 0.18293125927448273, -0.24843446910381317, -0.1227085217833519, 0.634161651134491]
+    [0.05076185241341591, 0.2032988673141365, -0.2520805173822377, 0.6165600695594861,
+    0.18293125124128834, -0.2484344748635628, -0.12270853156530777, 0.6341616780980419]
+
+
+    [0.05076185241341591, 0.20329885184764862, -0.2520805299282074, 0.6165600419044495,
+     0.18293125927448273, -0.24843446910381317, -0.1227085217833519, 0.634161651134491]
 
 
 It seems the shortened vector has been L2 normalized to have a magnitude of 1. By cosine similarity, they are equivalent:
@@ -89,9 +101,6 @@ cos_sim(short, full[:8])
 ```
 
     0.9999999899058183
-
-
-
 
 
     0.9999999999999996
@@ -127,11 +136,6 @@ dataset.docs_iter()[120]._asdict()
 ```
 
     Dataset has 171332 documents. Sample:
-
-
-
-
-
     {'doc_id': 'z2u5frvq',
      'text': 'The authors discuss humoral immune responses to HIV and approaches to designing vaccines that induce viral neutralizing and other potentially protective antibodies.',
      'title': 'Antibody-Based HIV-1 Vaccines: Recent Developments and Future Directions: A summary report from a Global HIV Vaccine Enterprise Working Group',
@@ -225,6 +229,10 @@ The following defines three runtime selectable Vespa ranking profiles:
 * `shortened` uses only 256 dimensions (exact, or using the approximate nearest neighbor HNSW index)
 * `rerank` uses the 256-dimension shortened embeddings (exact or ANN) in a first phase, and the full 3072-dimension embeddings in a second phase. By default the second phase is applied to the top 100 documents from the first phase.
 
+This idea of re-ranking the top hits is well-supported in Vespa and already suggested by the researchers who developed MRL:
+![Illustration](/assets/2024-02-08-matryoshka-embeddings-in-vespa/mrl-method.png)
+
+Illustration from their excellent [blog post](https://aniketrege.github.io/blog/2024/mrl/#what-is-mrl-really-this-time). Now let's see what the corresponding [rank profiles](https://docs.vespa.ai/en/ranking.html) look like:
 
 ```python
 from vespa.package import RankProfile, Function, FirstPhaseRanking, SecondPhaseRanking
@@ -464,7 +472,6 @@ app:Vespa = vespa_cloud.deploy()
 
 When producing the embeddings, we concatenate the title and text into a single string. We could also have created two separate embedding fields for text and title, combining the rank scores for these fields in a Vespa [rank expression](https://docs.vespa.ai/en/ranking-expressions-features.html).
 
-
 ```python
 import concurrent.futures
 
@@ -649,10 +656,7 @@ with app.syncio() as session:
         print(" avg query time {:.4f} s".format(qt/len(queries)))
 ```
 
-    
     run query_exact
-
-
     .................................................. avg query time 2.7918 s
     
     run query_256
@@ -743,6 +747,42 @@ What do the numbers mean? They are good, highly relevant results. This is no gre
 More interesting to us, querying with the first 256 dimensions still gives quite good results, while requiring only **8.3%** of the memory. We also note that although the HNSW index is an approximation, result quality is impacted very little, while producing the results an order of magnitude faster.
 
 When adding a second phase to re-rank the top 100 hits using the full embeddings, the results are as good as the exact search, while retaining the lower latency, giving us the best of both worlds.
+
+## Bonus content: Selecting the number of dimensions
+
+The choice of the embedding sizes (256 and 3072) in this experiment was fairly arbitrary. While they gave good results, we were curious: How low could we go? Is it beneficial to stay within the set of dimensions for which the model was trained?
+
+Re-embedding the content with a large number of different values for the "dimensions" parameter would be costly and extremely time-consuming. And even if we did this (or sliced the embeddings to produce smaller embeddings ourselves), deploying a new Vespa application and importing the results into it for each value to test would be very slow.
+
+Fortunately the Vespa rank expression language supports [slicing](https://docs.vespa.ai/en/tensor-examples.html#slicing-with-lambda)!
+
+Vespa rank expressions are highly optimized and compiled to native code by LLVM at deploy time. Optimization is harder if the sizes of types are not know in this step, thus we can't currently write a single rank profile where the number of dimensions is a parameter - but by creating one rank profile per value we'd like to test, we can select it - per query - at execution time. These we can produce with a simple template: 
+
+```
+    for i in range(1, 3072+1):
+        dims = RankProfile(
+            name="dims_"+str(i),
+            inputs=[
+                ("query(q"+str(i)+")", "tensor<float>(x["+str(i)+"])"),
+                ],
+            functions=[
+                Function(
+                    name="cos_sim_"+str(i),
+                    expression="cosine_similarity(" + 
+                        "tensor<float>(x["+str(i)+"])(attribute(embedding){x:(x)}), " + 
+                        "tensor<float>(x["+str(i)+"])(query(q"+str(i)+"){x:(x)})"+
+                    ", x)"
+                ),
+            ],
+            first_phase=FirstPhaseRanking(
+                expression="cos_sim_"+str(i)
+            ),
+            match_features=["cos_sim_"+str(i)]
+        )
+        my_schema.add_rank_profile(dims)
+```
+
+By re-deploying with this new schema and performing some trivial modifications to the query code above, you can efficiently test different values to find the right performance/accuracy trade-off. Our graph corroborates the claim by the authors of the MRL paper; while training uses a fixed set of 'doll sizes', there are no 'magic numbers' that give better results with the resulting model.
 
 ## Summary
 
