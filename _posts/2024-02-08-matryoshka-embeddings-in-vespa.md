@@ -598,7 +598,7 @@ When adding a second phase to re-rank the top 100 hits using the full embeddings
 
 The choice of the embedding sizes (256 and 3072) in this experiment was fairly arbitrary. While they gave good results, we were curious: How low could we go? Is it beneficial to stay within the set of dimensions for which the model was trained?
 
-Re-embedding the content with a large number of different values for the "dimensions" parameter would be costly and extremely time-consuming. And even if we did this (or sliced the embeddings to produce smaller embeddings ourselves), deploying a new Vespa application and importing the results into it for each value to test would be very slow.
+Re-embedding the content with a large number of different values for the "dimensions" parameter would be costly and time-consuming. And even if we did this (or sliced the embeddings to produce smaller embeddings ourselves), deploying a new Vespa application and importing the results into it for each value to test would be very slow.
 
 Fortunately the Vespa rank expression language supports [slicing](https://docs.vespa.ai/en/tensor-examples.html#slicing-with-lambda)!
 
