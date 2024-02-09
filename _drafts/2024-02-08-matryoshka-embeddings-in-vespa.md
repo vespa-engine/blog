@@ -306,167 +306,13 @@ For an example of a `hybrid` rank-profile which combines semantic search with tr
 
 ## Deploy the application to Vespa Cloud
 
-With the configured application, we can deploy it to [Vespa Cloud](https://cloud.vespa.ai/en/).
+With the configured application, we can deploy it to [Vespa Cloud](https://cloud.vespa.ai/en/). 
 It is also possible to deploy the app using docker; see the [Hybrid Search - Quickstart](https://pyvespa.readthedocs.io/en/latest/getting-started-pyvespa.html) guide for
-an example of deploying it to a local docker container.
+an example of deploying a Vespa app using the [vespaengine/vespa](https://hub.docker.com/r/vespaengine/vespa/) container image. 
 
-Install the Vespa CLI using [homebrew](https://brew.sh/) - or download a binary from GitHub as demonstrated below.
-
-
-```python
-!brew install vespa-cli
-```
-
-    [33mWarning:[0m vespa-cli 8.294.50 is already installed and up-to-date.
-    To reinstall 8.294.50, run:
-      brew reinstall vespa-cli
-
-
-Alternatively, if running in Colab, download the Vespa CLI:
-
-
-```python
-import os
-import requests
-res = requests.get(url="https://api.github.com/repos/vespa-engine/vespa/releases/latest").json()
-os.environ["VERSION"] = res["tag_name"].replace("v", "")
-!curl -fsSL https://github.com/vespa-engine/vespa/releases/download/v${VERSION}/vespa-cli_${VERSION}_linux_amd64.tar.gz | tar -zxf -
-!ln -sf /content/vespa-cli_${VERSION}_linux_amd64/bin/vespa /bin/vespa
-```
-
-To deploy the application to Vespa Cloud we need to create a tenant in the Vespa Cloud:
-
-Create a tenant at [console.vespa-cloud.com](https://console.vespa-cloud.com/) (unless you already have one).
-This step requires a Google or GitHub account, and will start your [free trial](https://cloud.vespa.ai/en/free-trial).
-Make note of the tenant name, it is used in the next steps.
-
-### Configure Vespa Cloud date-plane security
-
-Create Vespa Cloud data-plane mTLS cert/key-pair. The mutual certificate pair is used to talk to your Vespa cloud endpoints. See [Vespa Cloud Security Guide](https://cloud.vespa.ai/en/security/guide) for details.
-
-We save the paths to the credentials for later data-plane access without using pyvespa APIs.
-
-
-```python
-import os
-
-os.environ["TENANT_NAME"] = "vespa-team" # Replace with your tenant name
-
-vespa_cli_command = f'vespa config set application {os.environ["TENANT_NAME"]}.{vespa_app_name}'
-
-!vespa config set target cloud
-!{vespa_cli_command}
-!vespa auth cert -N
-```
-
-Validate that we have the expected data-plane credential files:
-
-
-```python
-from os.path import exists
-from pathlib import Path
-
-cert_path = Path.home() / ".vespa" / f"{os.environ['TENANT_NAME']}.{vespa_app_name}.default/data-plane-public-cert.pem"
-key_path = Path.home() / ".vespa" / f"{os.environ['TENANT_NAME']}.{vespa_app_name}.default/data-plane-private-key.pem"
-
-if not exists(cert_path) or not exists(key_path):
-    print("ERROR: set the correct paths to security credentials. Correct paths above and rerun until you do not see this error")
-```
-
-Note that the subsequent Vespa Cloud deploy call below will add `data-plane-public-cert.pem` to the application before deploying it to Vespa Cloud, so that
-you have access to both the private key and the public certificate. At the same time, Vespa Cloud only knows the public certificate.
-
-### Configure Vespa Cloud control-plane security
-
-Authenticate to generate a tenant level control plane API key for deploying the applications to Vespa Cloud, and save the path to it.
-
-The generated tenant api key must be added in the Vespa Console before attemting to deploy the application.
-
-```
-To use this key in Vespa Cloud click 'Add custom key' at
-https://console.vespa-cloud.com/tenant/TENANT_NAME/account/keys
-and paste the entire public key including the BEGIN and END lines.
-```
-
-
-```python
-#!vespa auth api-key
-
-from pathlib import Path
-api_key_path = Path.home() / ".vespa" / f"{os.environ['TENANT_NAME']}.api-key.pem"
-```
-
-### Deploy to Vespa Cloud
-
-Now that we have data-plane and control-plane credentials ready, we can deploy our application to Vespa Cloud!
-
-`PyVespa` supports deploying apps to the [development zone](https://cloud.vespa.ai/en/reference/environments#dev-and-perf).
-
->Note: Deployments to dev and perf expire after 7 days of inactivity, i.e., 7 days after running deploy. This applies to all plans, not only the Free Trial. Use the Vespa Console to extend the expiry period, or redeploy the application to add 7 more days.
-
-
-```python
-from vespa.deployment import VespaCloud
-
-def read_secret():
-    """Read the API key from the environment variable. This is
-    only used for CI/CD purposes."""
-    t = os.getenv("VESPA_TEAM_API_KEY")
-    if t:
-        return t.replace(r"\n", "\n")
-    else:
-        return t
-
-vespa_cloud = VespaCloud(
-    tenant=os.environ["TENANT_NAME"],
-    application=vespa_app_name,
-    key_content=read_secret() if read_secret() else None,
-    key_location=api_key_path,
-    application_package=vespa_application_package)
-```
-
-Now deploy the app to Vespa Cloud dev zone.
-
-The first deployment typically takes 2 minutes until the endpoint is up.
-
-
-```python
-from vespa.application import Vespa
-app:Vespa = vespa_cloud.deploy()
-```
-
-    Deployment started in run 3 of dev-aws-us-east-1c for vespa-team.matryoshka. This may take a few minutes the first time.
-    INFO    [15:51:53]  Deploying platform version 8.296.15 and application dev build 3 for dev-aws-us-east-1c of default ...
-    INFO    [15:51:53]  Using CA signed certificate version 0
-    INFO    [15:51:53]  Using 1 nodes in container cluster 'matryoshka_container'
-    INFO    [15:51:57]  Session 282395 for tenant 'vespa-team' prepared and activated.
-    INFO    [15:52:00]  ######## Details for all nodes ########
-    INFO    [15:52:09]  h88969c.dev.aws-us-east-1c.vespa-external.aws.oath.cloud: expected to be UP
-    INFO    [15:52:09]  --- platform vespa/cloud-tenant-rhel8:8.296.15 <-- :
-    INFO    [15:52:09]  --- logserver-container on port 4080 has not started 
-    INFO    [15:52:09]  --- metricsproxy-container on port 19092 has not started 
-    INFO    [15:52:09]  h88972f.dev.aws-us-east-1c.vespa-external.aws.oath.cloud: expected to be UP
-    INFO    [15:52:09]  --- platform vespa/cloud-tenant-rhel8:8.296.15 <-- :
-    INFO    [15:52:09]  --- container-clustercontroller on port 19050 has not started 
-    INFO    [15:52:09]  --- metricsproxy-container on port 19092 has not started 
-    INFO    [15:52:09]  h90002a.dev.aws-us-east-1c.vespa-external.aws.oath.cloud: expected to be UP
-    INFO    [15:52:09]  --- platform vespa/cloud-tenant-rhel8:8.296.15 <-- :
-    INFO    [15:52:09]  --- storagenode on port 19102 has not started 
-    INFO    [15:52:09]  --- searchnode on port 19107 has not started 
-    INFO    [15:52:09]  --- distributor on port 19111 has not started 
-    INFO    [15:52:09]  --- metricsproxy-container on port 19092 has not started 
-    INFO    [15:52:09]  h90512a.dev.aws-us-east-1c.vespa-external.aws.oath.cloud: expected to be UP
-    INFO    [15:52:09]  --- platform vespa/cloud-tenant-rhel8:8.296.15 <-- :
-    INFO    [15:52:09]  --- container on port 4080 has not started 
-    INFO    [15:52:09]  --- metricsproxy-container on port 19092 has not started 
-    INFO    [15:53:11]  Found endpoints:
-    INFO    [15:53:11]  - dev.aws-us-east-1c
-    INFO    [15:53:11]   |-- https://e5ba4967.b2349765.z.vespa-app.cloud/ (cluster 'matryoshka_container')
-    INFO    [15:53:12]  Installation succeeded!
-    Using mTLS (key,cert) Authentication against endpoint https://e5ba4967.b2349765.z.vespa-app.cloud//ApplicationStatus
-    Application is up!
-    Finished deployment.
-
+See the full notebook <a target="_blank" href="https://colab.research.google.com/github/vespa-engine/pyvespa/blob/master/docs/sphinx/source/examples/Matryoshka_embeddings_in_Vespa-cloud.ipynb">
+  <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/>
+</a>  for complete details on onboarding Vespa Cloud and deployment details. 
 
 ## Get OpenAI embeddings for documents in the dataset
 
@@ -784,15 +630,7 @@ Vespa rank expressions are highly optimized and compiled to native code by LLVM 
 
 By re-deploying with this new schema and performing some trivial modifications to the query code above, you can efficiently test different values to find the right performance/accuracy trade-off. Our graph corroborates the claim by the authors of the MRL paper; while training uses a fixed set of 'doll sizes', there are no 'magic numbers' that give better results with the resulting model.
 
-## Summary
+![Illustration](/assets/2024-02-08-matryoshka-embeddings-in-vespa/mrl_perf_test.png)
 
-For those interested in learning more about Vespa, join the [Vespa community on Slack](https://vespatalk.slack.com/) to exchange ideas,
+For those interested in learning more about Vespa, join the [Vespa community on Slack](https://vespatalk.slack.com/) or [Discord](http://discord.vespa.ai/) to exchange ideas,
 seek assistance, or stay in the loop on the latest Vespa developments.
-
-
-We can now delete the cloud instance:
-
-
-```python
-vespa_cloud.delete()
-```
