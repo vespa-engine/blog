@@ -7,7 +7,7 @@ image: assets/2024-02-08-matryoshka-embeddings-in-vespa/simon-hurry-QtiZpH_N2sA-
 image_credit: 'Photo by <a href="https://unsplash.com/@bullterriere?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Simon Hurry</a> on <a href="https://unsplash.com/photos/yellow-green-and-red-mask-QtiZpH_N2sA?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'  
 skipimage: false
 tags: [rag, vectors, embeddings, mrl]
-excerpt: A demonstration of using the "shortening" properties of certain embedding models to greatly reduce latency/cost while retaining near-exact quality
+excerpt: A demonstration of using the "shortening" properties of OpenAI v3 embedding models to greatly reduce latency/cost while retaining near-exact quality
 ---
 
 This blog post demonstrates the effectiveness of using the [recently released](https://openai.com/blog/new-embedding-models-and-api-updates) OpenAI `text-embedding-3` embeddings with Vespa.
