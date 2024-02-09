@@ -633,4 +633,4 @@ By re-deploying with this new schema and performing some trivial modifications t
 ![Illustration](/assets/2024-02-08-matryoshka-embeddings-in-vespa/mrl_perf_test.png)
 
 For those interested in learning more about Vespa, join the [Vespa community on Slack](https://vespatalk.slack.com/) or [Discord](http://discord.vespa.ai/) to exchange ideas,
-seek assistance, or stay in the loop on the latest Vespa developments.
+seek assistance from the community, or stay in the loop on the latest Vespa developments.
