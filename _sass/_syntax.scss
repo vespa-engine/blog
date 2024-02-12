@@ -1,9 +1,11 @@
 // From https://raw.githubusercontent.com/jwarby/pygments-css/master/default.css
 .highlight {
-	background: rgba(0,0,0,.075);
-    border: 0;
+	background: #e6e6e6;
+	border-radius: 4px;
+	border: 1px solid #e6e6e6;
+	margin: 0;
     padding: 0;
-    margin-bottom:1.7rem;
+	pre { padding: 14px; }
 	.c { color: #408080; font-style: italic } /* Comment */
 	.err { border: 1px solid #FF0000 } /* Error */
 	.k { color: #008000; font-weight: bold } /* Keyword */
@@ -67,4 +69,5 @@
 }
 
 td.rouge-code { width: 100%;}
+div.highlighter-rouge { margin-bottom: 1.7rem; }
 pre.lineno { color: #9999;}
