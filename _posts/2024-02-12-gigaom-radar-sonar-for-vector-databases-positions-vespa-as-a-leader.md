@@ -3,7 +3,7 @@ layout: post
 title: "GigaOm Radar Sonar for Vector Databases Positions Vespa as a Leader"
 author: bratseth
 date: '2024-02-12'
-image: assets/2024-02-05-gigaom-radar-sonar-for-vector-databases-positions-vespa-as-a-leader/Gigaom_leader.png
+image: assets/2024-02-12-gigaom-radar-sonar-for-vector-databases-positions-vespa-as-a-leader/Gigaom_leader.png
 skipimage: false
 tags: []
 excerpt: "Although we're more than a vector database, we're happy to be recognized as a leader in this category"
