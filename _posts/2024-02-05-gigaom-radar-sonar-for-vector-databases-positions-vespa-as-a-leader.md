@@ -16,7 +16,7 @@ than those usually included in this category.
 
 Still, vector database features are important, and we aim for Vespa to always come out on top also when 
 evaluated purely on this subset of features. Therefore I’m very pleased that the analyst firm GigaOm today is 
-[recognizing Vespa as a leader and forward mover](TODO:Press release link) in their 
+recognizing Vespa as a leader and forward mover in their 
 [Sonar for Vector Databases](https://content.vespa.ai/gigaom-report-2024).
 
 We have focused solely for many years on delivering the complete set of features that enables 
