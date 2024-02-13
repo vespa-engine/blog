@@ -62,7 +62,7 @@ distribution.
 _In-domain trained and evaluated ranking methods. All models are
 end-to-end represented using Vespa, open-sourced in the [msmarco-ranking
 sample
-app](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md).
+app](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/).
 The [Mean Reciprocal Rank
 (MRR@10)](https://en.wikipedia.org/wiki/Mean_reciprocal_rank) is
 reported for the dev query split of the MS MARCO passage ranking

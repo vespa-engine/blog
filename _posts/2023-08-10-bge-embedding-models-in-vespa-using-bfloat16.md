@@ -72,11 +72,11 @@ leaderboard](https://huggingface.co/spaces/mteb/leaderboard).
 </table>
 <font size="2"><i>A comparison of the English BGE embedding models — accuracy numbers <a href="https://huggingface.co/spaces/mteb/leaderboard">MTEB
 leaderboard</a>. All
-three BGE models outperforms OpenAI ada embeddings with 1536
+three BGE models outperform OpenAI ada embeddings with 1536
 dimensions and unknown model parameters on MTEB</i></font>
 
 In the following sections, we experiment with the small and base
-BGE variant, which gives us reasonable accuracy for a much lower
+BGE variants, which gives us reasonable accuracy for a much lower
 cost than the large variant. The small model inference complexity
 also makes it servable on CPU architecture, allowing iterations and
 development locally without [managing GPU-related infrastructure
@@ -84,7 +84,7 @@ complexity](https://vickiboykis.com/2023/07/18/what-we-dont-talk-about-when-we-t
 
 ## Exporting BGE to ONNX format for accelerated model inference
 
-To use the embedding model from the Huggingface model hub in Vespa
+To use the embedding model from the Huggingface model hub in Vespa,
 we need to export it to [ONNX](https://onnx.ai/) format. We can use
 the [Transformers Optimum](https://huggingface.co/docs/optimum/index)
 library for this:
@@ -94,9 +94,8 @@ $ optimum-cli export onnx --task sentence-similarity -m BAAI/bge-small-en --opti
 ```
 This exports the small model with the highest [optimization
 level](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/optimization#optimizing-a-model-with-optimum-cli)
-usable for serving on CPU. We also quantize the optimized ONNX model
-using onnxruntime quantization like
-[this](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model_quantizer.py).
+usable for serving on the CPU. 
+
 Quantization (post-training) converts the float model weights (4
 bytes per weight) to byte (int8), enabling faster inference on the
 CPU. As demonstrated in [this blog
@@ -278,7 +277,7 @@ We contrast both BGE models with the unsupervised
 post](https://blog.vespa.ai/simplify-search-with-multilingual-embeddings/).
 Both models perform better than the BM25 baseline
 on this dataset. We also note that our  NDCG@10 numbers represented
-in Vespa is slightly better than reported on the MTEB leaderboard
+in Vespa are slightly better than reported on the MTEB leaderboard
 for the same dataset. We can also observe that the base model
 performs better on this dataset, but is also 2x more costly due to
 size of embedding model and the embedding dimensionality. The
@@ -297,8 +296,7 @@ by 2x since `bfloat16` uses 2 bytes per embedding dimension instead
 of 4 bytes for `float`. See Vespa[ tensor values
 types](https://docs.vespa.ai/en/reference/tensor.html#tensor-type-spec).
 
-We do not change the type of the query tensor. Vespa will take care
-of casting the `bfloat16` field representation to float at search
+We do not change the type of the query tensor. Vespa casts the `bfloat16` field representation to float at search
 time, allowing CPU acceleration of floating point operations. The
 cast operation does come with a small cost (20-30%) compared with
 using float, but the saving in memory and storage resource footprint

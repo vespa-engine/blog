@@ -205,9 +205,8 @@ These two simple steps are all we need to start using the multilingual
 E5 model to embed queries and documents with Vespa.
 We can also quantize the optimized ONNX model, for example, using
 the [optimum
-library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/quantization)
-or onnxruntime quantization like
-[this](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model_quantizer.py).
+library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/quantization).
+
 Quantization (post-training) converts the float32 model weights (4
 bytes per weight) to byte (int8), enabling faster inference on the
 CPU.
@@ -240,11 +239,7 @@ LM tokenization uses more tokens to represent similar byte-length
 texts than for more popular languages such as English.</i></font><br/>
 We experiment with post-training quantization of the model (not the
 output vectors) to document the impact quantization has on retrieval
-effectiveness (NDCG@10). We use [this
-routine](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model_quantizer.py)
-to quantize the model (We don’t use optimum for this due to [this
-issue](https://github.com/huggingface/optimum/issues/1243) -[ fixed
-in v 1.11](https://github.com/huggingface/optimum/releases)).
+effectiveness (NDCG@10). 
 
 **We then study the serving efficiency gains (latency/throughput) on
 the same laptop-sized hardware using a quantized model versus a

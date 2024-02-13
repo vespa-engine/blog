@@ -277,12 +277,10 @@ returning a modified vector of the same dimensionality.
 This representation is then used to score the documents in the first-phase
 ranking expression. Note that this is effectively represented as
 a [re-ranking phase](https://docs.vespa.ai/en/phased-ranking.html)
-as the query tensor used for the [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor) search is untouched. It's possible to transform the query tensor, before 
-the `nearestNeighbor` search as well, using a custom [stateless searcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/searcher/RetrievalModelSearcher.java). 
+as the query tensor used for the [nearestNeighbor](https://docs.vespa.ai/en/reference/query-language-reference.html#nearestneighbor) search is untouched. 
 
 The weight tensor does not necessarily need to be a constant across
-all users. For example, one can have a weight tensor per user, as
-shown in the [recommendation use
+all users. For example, one can have a weight tensor per user, as shown in the [recommendation use
 case](https://docs.vespa.ai/en/tutorials/news-4-embeddings.html),
 to unlock true personalization.
 
