@@ -1,12 +1,14 @@
 ---  
 layout: post
-title: "GigaOm Radar Sonar for Vector Databases Positions Vespa as a Leader"
+title: "GigaOm Sonar for Vector Databases Positions Vespa as a Leader"
 author: bratseth
 date: '2024-02-12'
 image: assets/2024-02-12-gigaom-radar-sonar-for-vector-databases-positions-vespa-as-a-leader/Gigaom_leader.png
 skipimage: false
 tags: []
 excerpt: "Although we're more than a vector database, we're happy to be recognized as a leader in this category"
+redirect_from:
+- /gigaom-radar-sonar-for-vector-databases-positions-vespa-as-a-leader
 ---
 
 Vector databases have evolved from an obscure term to a crowded product category over the last few years. 
