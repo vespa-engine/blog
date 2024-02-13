@@ -83,7 +83,7 @@ The example passage text is represented as a tensor by:
 We use the native Vespa [WordPiece embedder](https://docs.vespa.ai/en/reference/embedding-reference.html#wordpiece-embedder)
 to map the text into tensor representation.
 
-The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/schemas/passage.sd), 
+The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/schemas/passage.sd), 
 including the new *text_token_ids* field: 
 
 <pre>
