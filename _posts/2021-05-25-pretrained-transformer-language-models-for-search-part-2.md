@@ -114,10 +114,7 @@ Vespa implements the [WAND](https://docs.vespa.ai/en/using-wand-with-vespa.html)
 Using the above WAND query only fully ranks 2409 passages using the bm25 ranking profile and recall at first positions is the same as with brute force any,
 so we did not lose any accuracy but saved a lot of resources.
 Using the *weakAnd* operator, the  query takes 12 ms instead of 120ms with brute force any.
-Using WAND is best implemented using a custom searcher plugin to avoid tokenization outside of Vespa which might introduce asymmetric behaviour.
-For example [RetrievalModelSearcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/searcher/RetrievalModelSearcher.java)
-or using [weakAnd.replace](https://docs.vespa.ai/en/reference/query-api-reference.html#weakand.replace)
-which rewrites type any queries to using WAND instead. 
+
 
 There are two WAND/WeakAnd implementations in Vespa where in the above example we used *weakAnd()* which fully integrates with text processing (tokenization and index statistics like IDF(Inverse Document Frequency)). The alternative is  *wand()* where the end user can control the query and document side weights explicitly. The latter *wand()* operator can be used to implement [DeepCT and HDCT: Context-Aware Term Importance Estimation For First Stage Retrieval](https://github.com/AdeDZY/DeepCT) as Vespa gives the user full control of query and document term weighting without having to bloat the regular index by repeating terms to increase or lower the term frequency. Read more in [Using WAND with Vespa](https://docs.vespa.ai/en/using-wand-with-vespa.html).  
 
@@ -184,14 +181,8 @@ In the above example we use the Vespa *nearestNeigbhor* query operator to retrie
 
 ### Representing the bi-encoder model inside Vespa 
 
-To represent the bi-encoder query model in Vespa we need to export the Huggingface PyTorch model into ONNX format for efficient serving in Vespa. 
-We include a [notebook](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb) in this
-[sample application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking)
-which demonstrates how to transform the model and export it to ONNX format.
-Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding.
-To speed up evaluation on CPU we use [quantized](https://onnxruntime.ai/docs/performance/quantization.html) (int) version.
-We have demonstrated how to represent query encoders in
-[Dense passage retrieval with nearest neighbor search](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann).
+To represent the bi-encoder query model in Vespa, we need to export the Huggingface PyTorch model into ONNX format for efficient serving in Vespa. Vespa supports evaluating [ONNX](https://docs.vespa.ai/en/onnx.html) models for ranking and query encoding.
+To speed up evaluation on CPU we use [quantized](https://onnxruntime.ai/docs/performance/quantization.html) version.
 
 
 ### Hybrid Dense Sparse Retrieval 

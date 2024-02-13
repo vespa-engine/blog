@@ -35,7 +35,7 @@ We deploy this model as our final ranking stage in our multiphase retrieval and 
 we submit the ranking results to the [MS Marco Passage Ranking Leaderboard](https://microsoft.github.io/MSMARCO-Passage-Ranking-Submissions/leaderboard). 
 
 In addition, we benchmark the serving performance of all the retrieval and ranking methods introduced in this blog post series. 
-Finally, we also release a [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md), 
+Finally, we also release a [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/), 
 which lets try out these state of the art retrieval and ranking methods. 
 
 ## Introduction
@@ -50,7 +50,7 @@ The cross-encoder model is a transformer based model with a classification head 
 The model has been fine-tuned using the MS Marco passage training set and is a binary classifier which classifies 
 if a query,document pair is relevant or not. 
 
-The cross-encoder model is also based on a 6-layer MiniLM model with only 22.7M parameters, same as the transformer models previously introduced in this blog series. As with the other two transformer models we introduced in previous posts in this series, we integrate this model in Vespa using [ONNX](https://onnx.ai/) format. We demonstrate how to export the model(s) from PyTorch/Transformers to ONNX format in this [notebook](https://colab.research.google.com/github/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb). The model is hosted on the [Huggingface](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) model hub. 
+The cross-encoder model is also based on a 6-layer MiniLM model with only 22.7M parameters, same as the transformer models previously introduced in this blog series. As with the other two transformer models we introduced in previous posts in this series, we integrate this model in Vespa using [ONNX](https://onnx.ai/) format. The model is hosted on the [Huggingface](https://huggingface.co/cross-encoder/ms-marco-MiniLM-L-6-v2) model hub. 
 
 We use a quantized version where the original *float* weights have been quantized to *int8* representation to speed up inference on cpu. 
 
@@ -83,7 +83,7 @@ The example passage text is represented as a tensor by:
 We use the native Vespa [WordPiece embedder](https://docs.vespa.ai/en/reference/embedding-reference.html#wordpiece-embedder)
 to map the text into tensor representation.
 
-The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd), 
+The [passage document schema](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/schemas/passage.sd), 
 including the new *text_token_ids* field: 
 
 <pre>
@@ -163,17 +163,7 @@ For example the input *input_ids* the function input_ids which is defined as
     }
 </pre>
 
-The [tokenInputIds](https://docs.vespa.ai/en/reference/rank-features.html#tokenInputIds(length,%20input_1,%20input_2,%20...)) is a built-in Vespa ranking feature 
-which builds the transformer model input including special tokens like *CLS* and *SEP*. 
-
-We pass the *query(token_ids)* tensor which 
-is sent with the query and the passage token ids which is read from the in-memory attribute field (*text_token_ids*).
-
-The query tensor representation *(query(query_token_ids))* is created in a custom query processor [RetrievalModelSearcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/searcher/RetrievalModelSearcher.java)
-which converts the free text query input from the
-user to a tensor representation using the same BertTokenizer as used by the custom document processor. 
-
-For example for a text query 
+For example, for a text query 
 
 <pre>
 is CDG in paris?
@@ -290,7 +280,7 @@ Vespa has the ability to use multiple threads **per search query**.
 This ability can reduce search latency as the document retrieval and ranking 
 for a single query can be partitioned, so that each thread works on a subset of the searchable documents in an index.
 The number of threads to use is controlled on a per rank profile basis,
-but can only use less than the global setting controlled in the [application services.xml](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/services.xml#L74). 
+but can only use less than the global setting controlled in the [application services.xml](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/services.xml). 
 
 To find optimal settings, we recommend benchmarking starting with one thread per search and increasing until latency does not improve significantly. 
 See [Vespa Scaling Guide](https://docs.vespa.ai/en/performance/sizing-search.html) for details.
@@ -351,14 +341,12 @@ increases by close to 18x. This increase in cost, can be worth it in many cases,
 In this blog post we have demonstrated how to represent a cross-encoder model as final re-ranking step on top of the previous 
 retrieval and ranking methods introduced in previous blog posts.
 
-* Passage subword tokenization using [embedding](https://docs.vespa.ai/en/reference/embedding-reference.html#wordpiece-embedder),
-  and tensor fields in the document schema, for fast access during re-ranking (CoLBERT tensor and the BERT token ids).
+
 * Representing the cross-encoder model in Vespa ranking framework.
 * Multi-phase retrieval and ranking using three phases (dense retrieval, ColBERT re-ranking and finally cross-encoder re-ranking).
 * Documented the performance versus accuracy trade-offs for production deployments. 
 * Dense retrieval accelerated by nearest neighbor search versus sparse retrieval accelerated by the dynamic pruning WAND algorithm.
 
-Now, you can go check out our [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md) which lets you 
-try out these state-of-the-art retrieval and ranking methods. 
+Now, you can go check out our [vespa sample application](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/) which lets you try out these state-of-the-art retrieval and ranking methods. 
 
  

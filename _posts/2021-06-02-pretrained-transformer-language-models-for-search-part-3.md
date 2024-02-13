@@ -128,7 +128,7 @@ sum(
 
 Where *attribute(dt)* is the ColBERT document tensor field and *query(qt)* is the ColBERT query tensor representation.
 The *query(qt)* tensor is defined in the
-[passage](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/application/schemas/passage.sd#L106) schema:
+[passage](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/schemas/passage.sd) schema:
 
 <pre>
 query(qt) tensor&gt;float&lt;(qt{},x[32])
@@ -144,67 +144,41 @@ In this case, we also [cast the bfloat16 tensor values](https://docs.vespa.ai/en
 to `float` to enable HW accelerations in place for operations on float tensors. 
 
 <pre>
-rank-profile dense-colbert {
-  first-phase {
-    expression: closeness(field,mini_document_embedding)
-  }
-  second-phase {
-    rerank-count: 1000
-    expression {
-      sum(
-        reduce(
-          sum(
-              query(qt) * cell_cast(attribute(dt), float) , x
-          ),
-          max, dt
-         ),
-         qt
-      )
+rank-profile e5-colbert inherits e5 {
+    inputs {
+      query(qt) tensor&lt;float&gt;(qt{},x[128])
+      query(q) tensor<&gt;float&lt;(x[384])
     }
+    function cos_sim() {
+      expression: cos(distance(field, e5))
+    }
+    function max_sim() {
+      expression {
+        sum(
+          reduce(
+            sum(
+              query(qt) * unpack_bits(attribute(colbert)), x
+            ),
+            max, dt
+          ),
+          qt
+        )
+       }
+    }
+    
+    second-phase {
+      rerank-count: 100
+      expression: max_sim()
+    }
+    match-features: max_sim() cos_sim()
   }
-}
 </pre>
 
-To obtain the *query(qt)* ColBERT tensor we need to encode the text query input using the ColBERT query encoder.
 
 ### Vespa ColBERT query encoder 
 
-We have trained a ColBERT model using a 6-layer MiniLM model which can be downloaded from [Huggingface](https://huggingface.co/vespa-engine/col-minilm) model hub. This model only have 22.7M trainable parameters. This model can be served with Vespa using [ONNX format](https://onnx.ai/). We also have included a notebook which demonstrates how to export the PyTorch transformer model to ONNX format and also use quantization to further speed up the evaluation. Quantization (using int8) weights instead of float speeds up evaluation of the model by 3x.  See  [Google colab notebook](https://colab.research.google.com/github/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model-exporting.ipynb). 
+We have trained a ColBERT model using a 6-layer MiniLM model, which can be downloaded from [Huggingface](https://huggingface.co/vespa-engine/col-minilm) model hub. This model only have 22.7M trainable parameters. This model can be served with Vespa using [ONNX format](https://onnx.ai/).
 
-The query encoder is represented in a query document type which has no fields.
-It's a placeholder to be able to represent the ONNX model,
-and we use a single empty document so that we can invoke the Vespa ranking framework to evaluate the ONNX model. 
-
-<pre>
-schema query {
-  document query {}
-  onnx-model colbert_encoder {
-    file: files/vespa-colMiniLM-L-6-quantized.onnx
-    input input_ids: query(input_ids)
-    input attention_mask: query(attention_mask)
-    output contextual:contextual 
-  }
-  rank-profile colbert_query_encoder {
-    num-threads-per-search: 1
-    first-phase {
-      expression: random 
-    }
-    summary-features {
-      onnxModel(colbert_encoder).contextual
-    }
-  }
-}
-</pre>
- 
-
-Tokenization and tensor input (input_ids and attention_mask) is generated using a
-[custom searcher](https://docs.vespa.ai/en/searcher-development.html) which maps the query text to BERT token ids
-and creates the ColBERT masked query input.
-See [ColBERTSearcher](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/java/ai/vespa/examples/searcher/colbert/ColBERTSearcher.java) for details.
-This searcher produces the mentioned *query(qt)* tensor which is used by the MaxSim ranking expression.
-We use the [ColBERT](https://github.com/stanford-futuredata/ColBERT) repo's indexing routine to produce the document token embeddings,
-and we also publish a pre-processed dataset with all 8.8M passages including both the mini_document_embedding and ColBERT tensor fields.
-See [MS Marco Passage Ranking using Transformers](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md) vespa sample application. 
 
 # ColBERT Ranking Evaluation 
 

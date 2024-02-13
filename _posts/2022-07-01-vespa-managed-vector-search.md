@@ -129,7 +129,7 @@ With this vector search sample application, you have a great starting point for
 implementing your vector search use case, without worrying about managing complex infrastructure. 
 See also other Vespa sample applications using vector search:
 
-- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md):
+- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/):
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval.
 The application has multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html)
 pipelines. Furthermore, the application shows how embedding models, which map the text data to vector representation, can be
@@ -138,8 +138,7 @@ deployed to Vespa for [run-time inference](https://blog.vespa.ai/stateless-model
 - [State-of-the-art image search](https://github.com/vespa-engine/sample-apps/tree/master/text-image-search): AI-powered multi-modal vector representations
 to retrieve images for a text query.
 
-- [State-of-the-art open-domain question answering](https://github.com/vespa-engine/sample-apps/tree/master/dense-passage-retrieval-with-ann): AI-powered vector representations
-to retrieve passages from Wikipedia, which are fed into an NLP reader model which extracts the answer. End-to-end represented using Vespa.
+
 
 These are examples of applications built using AI-powered vector representations. 
 

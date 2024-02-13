@@ -205,9 +205,8 @@ These two simple steps are all we need to start using the multilingual
 E5 model to embed queries and documents with Vespa.
 We can also quantize the optimized ONNX model, for example, using
 the [optimum
-library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/quantization)
-or onnxruntime quantization like
-[this](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/src/main/python/model_quantizer.py).
+library](https://huggingface.co/docs/optimum/onnxruntime/usage_guides/quantization).
+
 Quantization (post-training) converts the float32 model weights (4
 bytes per weight) to byte (int8), enabling faster inference on the
 CPU.

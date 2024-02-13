@@ -61,7 +61,7 @@ Vespa’s core data structures are [mutable](https://youtu.be/vFu5g44-VaY), avoi
 
 Critical features such as [phrase search](https://docs.vespa.ai/en/reference/query-language-reference.html#phrase), exact search, [BM25](https://docs.vespa.ai/en/reference/bm25.html), [proximity](https://docs.vespa.ai/en/reference/nativerank.html#nativeProximity) features, and [result grouping](https://docs.vespa.ai/en/grouping) comes for free. In addition to performance, scalability, and reliability, Vespa has [proven ranking results](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-part-4/) on the world’s [most extensive open relevancy dataset](https://microsoft.github.io/msmarco/). 
 Not anecdotes in a sales presentation, but proven ranking results,
-[available to anyone to reproduce](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md).
+[available to anyone to reproduce](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/).
 
 If you are interested in learning more about Vespa and how organizations like
 [Spotify are using Vespa](https://engineering.atspotify.com/introducing-natural-language-search-for-podcast-episodes/)

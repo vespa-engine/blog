@@ -405,7 +405,7 @@ especially the section on
 See also [Vespa sample applications](https://github.com/vespa-engine/sample-apps) built using Vespa's approximate 
 nearest neighbor search:
 
-- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/passage-ranking-README.md): 
+- [State-of-the-art text ranking](https://github.com/vespa-engine/sample-apps/blob/master/msmarco-ranking/): 
 Vector search with AI-powered representations built on NLP Transformer models for candidate retrieval. 
 The application has multi-vector representations for re-ranking, using Vespa's [phased retrieval and ranking](https://docs.vespa.ai/en/phased-ranking.html) 
 serving pipelines. Furthermore, the application shows how embedding models, which maps the text data to vector representation, can be 
