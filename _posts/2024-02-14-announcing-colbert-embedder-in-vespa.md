@@ -7,7 +7,7 @@ image: assets/2024-02-14-announcing-colbert-embedder-in-vespa/victoire-joncheray
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@victoire_jonch?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Victoire Joncheray</a> on <a href="https://unsplash.com/photos/aerial-view-of-snow-covered-mountains-wVQFrEZCThs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: []
-excerpt: "We are excited to announce the general availability of a native Vespa ColBERT embedder implementation in Vespa, 
+excerpt: "Announcing general availability of a native Vespa ColBERT embedder in Vespa, 
 enabling explainable semantic search using token-level vector representations"
 
 ---
