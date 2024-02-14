@@ -69,7 +69,7 @@ new embedding while one is in use. And if you are dealing with text longer than 
 a single embedding won't really work. You need one per chunk of text, 
 or maybe even [one per token](https://github.com/stanford-futuredata/ColBERT).<br/><br/>
 You need to be able to add multiple vector fields to your documents, and those may be a 
-[collection of vectors]((https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/)), 
+[collection of vectors](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/), 
 not just a single one.
 
 - **Ranking**: So, we have documents, that contains structured data, text, and vector fields. 
