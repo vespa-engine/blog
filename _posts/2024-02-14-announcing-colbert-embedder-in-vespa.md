@@ -34,8 +34,7 @@ The ColBERT retrieval and ranking model was introduced in
 [ColBERT: Efficient and Effective Passage Search via Contextualized
 Late Interaction over BERT](https://arxiv.org/abs/2004.12832) by
 Omar Khattab and Matei Zaharia. It is one of the most cited recent
-information retrieval papers with over [800
-citations](https://scholar.google.com/scholar?cites=7402681609121002009&as_sdt=2005&sciodt=0,5&hl=en).
+information retrieval papers, with over 800 citations.
 Later improvements (distillation, compression) were incorporated
 in [ColBERT v2](https://arxiv.org/abs/2112.01488).
 
@@ -44,7 +43,6 @@ Vespa](https://blog.vespa.ai/pretrained-transformer-language-models-for-search-p
 However, with the new native ColBERT embedder and enhanced support for
 compression, we have improved the developer experience and reduced
 the vector storage footprint by up to 32x.
-
 
 ## Why should I care? 
 
