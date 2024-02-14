@@ -7,7 +7,7 @@ categories: [newsletter]
 image: assets/images/ilya-pavlov-OqtafYT5kTw-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/pt-br/@ilyapavlov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ilya Pavlov</a> on <a href="https://unsplash.com/photos/OqtafYT5kTw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
-tags: [newsletter]
+tags: []
 index: false
 excerpt: >
     Advances in Vespa features and performance include the YQL IN operator,
@@ -102,7 +102,7 @@ Just declare the receiving tensor field as a rank-3 tensor, such as
 <code>tensor(chunks{}, tokens{}, x[32])</code>
 and embed with <code>embed colbert chunks</code>, see 
 [this example](https://github.com/vespa-engine/system-test/blob/master/tests/search/embedding/app_colbert_multivector_embedder/schemas/doc.sd).
-Available since 8.303.17.
+Available since 8.303.
 
 
 ### Vespa does hackathons
