@@ -103,6 +103,9 @@ This was the case even before vectors, when all signals were scalars,
 which is why search engines do ranking internally.
 Not that all the integration work and multiple dependencies would be too much fun either.
 
-To create something with quality using vectors and meet the scaling demands of success, 
-you really do need a single platform that handles all of this at once. If you find yourself something 
-like that you best hold on to it.
+To create something with quality using vectors and scale for success, 
+you need a single platform that handles all of this at once, where you can
+define applications that models all the information you have and specifies how
+to search it and use it to compute ranking and other inferences, 
+and deploy them at any scale without changing anything about how they work.
+This is the conviction that led us to design the Vespa platform the way we have.
