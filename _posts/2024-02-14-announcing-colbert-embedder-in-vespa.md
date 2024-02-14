@@ -132,7 +132,7 @@ _Screenshot of the demo that runs a small quantized ColBERT model
 in the browser, allowing you to explore the interpretability feature
 of the ColBERT model. The demo highlights the words that contributed
 most to the overall MaxSim score. The [demo runs entirely in the
-browser](https://colbert.aiserv.cloud/)without any server-side
+browser](https://colbert.aiserv.cloud/) without any server-side
 processing._
 
 
