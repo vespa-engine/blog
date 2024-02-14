@@ -7,10 +7,10 @@ categories: [newsletter]
 image: assets/images/ilya-pavlov-OqtafYT5kTw-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/pt-br/@ilyapavlov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ilya Pavlov</a> on <a href="https://unsplash.com/photos/OqtafYT5kTw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true
-tags: [big data serving, big data, search engines, search, database]
+tags: [newsletter]
 index: false
 excerpt: >
-    Advances in Vespa features and performance include YQL IN operator,
+    Advances in Vespa features and performance include the YQL IN operator,
     new streaming search features, and embed using parameter substitution.
 ---
 
@@ -21,8 +21,16 @@ token authentication, and query match debugging.
 Today, we’re excited to share the following updates:
 
 
-### Placeholder for press release
-...
+### GigaOm Sonar for Vector Databases Positions Vespa as a Leader
+Although we're more than a vector database, we're happy to be recognized as a leader in this category.
+See the press release [here](https://www.businesswire.com/news/home/20240213670564/en/GigaOm-Sonar-for-Vector-Databases-Positions-Vespa-as-a-Leader-and-Forward-Mover)
+and access the full report [here](https://content.vespa.ai/gigaom-report-2024), courtesy of Vespa.
+
+
+### A native ColBERT embedder in Vespa
+ColBERT embeddings allows you to achieve state-or-the-art ranking, while also providing
+explainability through syntax highlighting like with lexical search. With the new ColBERT
+embedder in Vespa you can use ColBERT out of the box. [Read more](https://blog.vespa.ai/announcing-colbert-embedder-in-vespa/).
 
 
 ### YQL IN operator
@@ -87,22 +95,31 @@ $ vespa query 'yql=select id, from product where
 [Read more](https://docs.vespa.ai/en/query-api.html#parameter-substitution).
 
 
-### Match-features
-Use `match-features` to list rank feature scores to be included with each result hit - useful to analyze ranking.
-Match-features are inherited in child rank profiles.
-As match-features can be a lot of data,
-you can since Vespa 8.290 disable match-feature output in child rank profiles using `match-features {}` in the schema.
-[Read more](https://docs.vespa.ai/en/reference/schema-reference.html#match-features).
+### Embedding an array of strings into multiple tokens
+If you want to embed multiple chunks of data into a vector-per-token representation,
+as in ColBERT, you can now do this using the built-in embed functionality in Vespa.
+Just declare the receiving tensor field as a rank-3 tensor, such as 
+<code>tensor(chunks{}, tokens{}, x[32])</code>
+and embed with <code>embed colbert chunks</code>, see 
+[this example](https://github.com/vespa-engine/system-test/blob/master/tests/search/embedding/app_colbert_multivector_embedder/schemas/doc.sd).
+Available since 8.303.17.
 
 
-### Hackathons
+### Vespa does hackathons
 We are proud to sponsor hackathons at Stanford and Berkeley later this month!
 Meet the Vespa Team at the sites on the following dates:
 * [TreeHacks](https://treehacks.com/) - Stanford, Feb 16-18
 * [Hack for Impact](https://hackforimpact.calblueprint.org/) - Berkeley, Feb 25
 
 
-### Blog posts since last newsletter
+### New posts from our blog
+
+You may have missed some of these new posts since the last newsletter:
+
+* [When you're using vectors you're doing search](https://blog.vespa.ai/when-you-are-using-vectors-you-are-doing-search/)
+* [Announcing the Vespa ColBERT embedder](https://blog.vespa.ai/announcing-colbert-embedder-in-vespa/)
+* [GigaOm Sonar for Vector Databases Positions Vespa as a Leader](https://blog.vespa.ai/gigaom-sonar-for-vector-databases-positions-vespa-as-a-leader/)
+* [Exploring the potential of OpenAI Matryoshka 🪆 embeddings with Vespa](https://blog.vespa.ai/matryoshka-embeddings-in-vespa/)
 * [Announcing IN query operator](https://blog.vespa.ai/announcing-in-query-operator/)
 * [Redefining hybrid search possibilities with vespa](https://blog.vespa.ai/redefining-hybrid-search-possibilities-with-vespa/)
 * [Vespa Cloud enclave](https://blog.vespa.ai/vespa-cloud-enclave/)
