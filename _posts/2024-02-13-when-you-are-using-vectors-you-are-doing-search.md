@@ -53,12 +53,6 @@ while vectors allows you to overcome vocabulary mismatch and retrieve by semanti
 <br/><br/>Make sure to not take the lexical search too lightly - you need an engine that incorporates linguistic processing 
 for the languages you are dealing with to do this well.
 
-- **Structured data**: In any real application you won't just have vectors, but also structured data
-going along with it. This can be everything from simple numbers or strings to complex collections and structs.
-You need to be able to use this data flexibly and [efficiently](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) 
-in queries, and to determine the relevance 
-of the documents to return.
-
 - **Multiple vectors, collections of vectors**: So, you have a vector, some structured data, and
 maybe some text - together a [document](https://docs.vespa.ai/en/reference/schema-reference.html#document) 
 in search engine speak. Is that enough?
@@ -67,17 +61,25 @@ For example, you might want to have an embedding for a title, a description and 
 all in the same document. Or, even if your data is very simple you must be able to switch to a 
 new embedding while one is in use. And if you are dealing with text longer than a paragraph, 
 a single embedding won't really work. You need one per chunk of text, 
-or maybe even [one per token](https://github.com/stanford-futuredata/ColBERT).<br/><br/>
+or maybe even [one per token](https://blog.vespa.ai/announcing-colbert-embedder-in-vespa/).<br/><br/>
 You need to be able to add multiple vector fields to your documents, and those may be a 
 [collection of vectors](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/), 
 not just a single one.
 
+- **Structured data**: In any real application you won't just have vectors, but also structured data
+  going along with it. This can be everything from simple numbers or strings to complex collections and structs.
+  You need to be able to use this data flexibly and [efficiently](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/)
+  in queries, and to determine the relevance
+  of the documents to return.
+
 - **Ranking**: So, we have documents, that contains structured data, text, and vector fields. 
-We retrieve a subset of them with a query which is a tree of conditions over the field.
-Now, how do we rank them so that we end up with the very best ones? Ranking just by nearest 
-neighbor in some vector space won't do; it is disregarding all our other information.
-<br/><br/>What we need is to combine all the signals we have - vectors and similarities, structured data and text matching - 
-into a single score. There is no single right way to do this as it depends on the data and application, and it must
+We retrieve a subset of them with a query which is a tree of conditions over these field.
+Now, how do we *rank* them so that we end up with the very best ones? Ranking just by nearest 
+neighbor in some vector space won't do; it is disregarding all our other information - for example
+if we have a popularity score or a recency among our structured data, and if we're doing hybrid search
+we should take into account how well we match lexically.
+<br/><br/>What we need is to combine *all* the signals we have - vectors, structured data, text matching and so on - 
+into a single score. The right way to do this depends on the data and application, and it must
 scale [from simple business heuristics to large machine-learned models](https://docs.vespa.ai/en/ranking.html#). 
 *This* is the central task of creating a 
 quality application, once you have mastered the basics.<br/><br/> 
