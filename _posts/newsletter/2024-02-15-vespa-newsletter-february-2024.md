@@ -2,7 +2,7 @@
 layout: post
 title: Vespa Newsletter, February 2024
 author: kkraune
-date: '2024-02-05'
+date: '2024-02-15'
 categories: [newsletter]
 image: assets/images/ilya-pavlov-OqtafYT5kTw-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/pt-br/@ilyapavlov?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ilya Pavlov</a> on <a href="https://unsplash.com/photos/OqtafYT5kTw?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
