@@ -97,8 +97,8 @@ realtime partial updates, contextual snippets, multiple types of ranking, and
 
 Okay, so all this is needed, but maybe we can divide and conquer? Let the experts on each thing handle
 their part and work together at runtime? Unfortunately, this just doesn't scale -
-the network bandwidth needed to handle query rate * candidate documents * signals per document is
-really not feasible, I encourage you to plug in your own numbers to check. 
+the network bandwidth needed to handle <code>query rate * candidate documents * signals</code> 
+per document is really not feasible, I encourage you to plug in your own numbers to check. 
 This was the case even before vectors, when all signals were scalars,
 which is why search engines do ranking internally.
 Not that all the integration work and multiple dependencies would be too much fun either.
