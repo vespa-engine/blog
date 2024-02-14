@@ -2,8 +2,8 @@
 layout: post
 title: "When you're using vectors you're doing search"
 author: bratseth
-date: '2024-02-13'
-image: assets/2024-02-13-when-you-are-using-vectors-you-are-doing-search/coral.jpg
+date: '2024-02-14'
+image: assets/2024-02-14-when-you-are-using-vectors-you-are-doing-search/coral.jpg
 image_credit: Photo by <a href="https://unsplash.com/@neom?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">NEOM</a> on <a href="https://unsplash.com/photos/an-aerial-view-of-a-body-of-water-D1jr0Mevs-c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 skipimage: true
 tags: [vector, search]
