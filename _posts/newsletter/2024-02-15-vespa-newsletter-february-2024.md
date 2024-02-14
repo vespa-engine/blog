@@ -21,15 +21,27 @@ token authentication, and query match debugging.
 Today, we’re excited to share the following updates:
 
 
-### GigaOm Sonar for Vector Databases Positions Vespa as a Leader
-Although we're more than a vector database, we're happy to be recognized as a leader in this category.
+### Vespa Recognized as a Leader and Forward Mover in GigaOm Sonar for Vector Databases
+We were pleased to be recognized as a leader and forward mover in GigaOm's latest research report.
+This study offers a clear, analytical overview of the vector database landscape, making sense of the many products available.
+_"Interest in the vector database market is surging as industries seek advanced AI to manage vast unstructured data.
+Vespa is well placed in this market with strengths that include model versatility, search flexibility and real-time capabilities"_,
+says the report author, Andrew Burst.
 
 <img src="/assets/2024-02-15-newsletter/GigaOm-badge-2024_leader-11.png"
      alt="Vespa Recognized as a Leader and Forward Mover in GigaOm Sonar for Vector Databases"
      width="150px" height="auto" />
 
-See the press release [here](https://www.businesswire.com/news/home/20240213670564/en/GigaOm-Sonar-for-Vector-Databases-Positions-Vespa-as-a-Leader-and-Forward-Mover)
-and access the full report [here](https://content.vespa.ai/gigaom-report-2024), courtesy of Vespa.
+We are equally excited by the positive response from our customers to this news.
+_"As a reliable and scalable solution, Vespa has been instrumental in enabling Search at Spotify.
+We look forward to continuing our work with the Vespa team and enabling innovation that will enhance the experience for Spotify listeners"_,
+says Daniel Doro, Director of Engineering, Search, Spotify.
+
+Find more comments from Vespa customers and users in the
+[businesswire press release](https://www.businesswire.com/news/home/20240213670564/en/GigaOm-Sonar-for-Vector-Databases-Positions-Vespa-as-a-Leader-and-Forward-Mover).
+Download the [full report](https://content.vespa.ai/gigaom-report-2024),
+and read the Vespa.ai CEO Jon Bratseth's [blog post](https://blog.vespa.ai/gigaom-sonar-for-vector-databases-positions-vespa-as-a-leader/)
+to learn more.
 
 
 ### A native ColBERT embedder in Vespa
