@@ -21,7 +21,7 @@ that are most relevant to some task at hand, and this is very, very, very non-tr
 *that* problem, databases weren't very useful, so the **search engine** was born.
 
 Why do we call them "search engines" and not "string databases"? Because the hard part, the important part, isn't
-to hold on to your string for later, but to *compute what's most relevant to a given task*.
+to hold on to your strings for later, but to *compute what's most relevant to a given task*.
 
 ### Fine, it's about vector databases
 
