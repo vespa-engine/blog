@@ -14,8 +14,8 @@ redirect_from:
 
 Vector databases have evolved from an obscure term to a crowded product category over the last few years. 
 As the platform for applications combining AI and data to deliver online experiences, 
-we at Vespa generally take a broader view of the features we need to deliver 
-than those usually included in this category.
+we at Vespa generally [take a broader view](https://blog.vespa.ai/when-you-are-using-vectors-you-are-doing-search/) 
+of the features we need to deliver than those usually included in this category.
 
 Still, vector database features are important, and we aim for Vespa to always come out on top also when 
 evaluated purely on this subset of features. Therefore I’m very pleased that the analyst firm GigaOm today is 
