@@ -96,7 +96,7 @@ and libraries exist. A few examples are:
 - [Annoy](https://github.com/spotify/annoy)
 
 A good overview of tradeoffs for these can be found at
-[http://ann-benchmarks.com/](http://ann-benchmarks.com/).
+[https://ann-benchmarks.com/](https://ann-benchmarks.com/).
 
 ## Nearest neighbors in search and recommendation
 

@@ -25,7 +25,7 @@ Please let us know if this is useful.
 Feel free to follow up with the Vespa Team using the resources at
 [https://vespa.ai/support](https://vespa.ai/support),
 <a href="https://app.gitter.im/#/room/#vespa-engine_Lobby:gitter.im" data-proofer-ignore>Gitter live chat</a>.
-You will also find us in the #vespa channel of [Relevance Slack](http://www.opensourceconnections.com/slack).
+You will also find us in the #vespa channel of [Relevance Slack](https://www.opensourceconnections.com/slack).
 You can also find Charlie’s summary post at
 [Solr vs Elasticsearch vs Vespa – what did we learn at The Great Search Engine Debate?](https://opensourceconnections.com/blog/2021/02/02/solr-vs-elasticsearch-vs-vespa-what-did-we-learn-at-the-great-search-engine-debate/).
 
@@ -96,7 +96,7 @@ I'm especially interested in German, Russian, Polish, Czech and Hungarian.
 How big would be the effort to adapt Solr / OpenNLP resources to use them with Vespa?**
 
 [ [quicklink](https://youtu.be/SzZ_A9G6PMY?t=2427) ].
-Vespa integrates with [Apache OpenNLP](http://opennlp.apache.org/),
+Vespa integrates with [Apache OpenNLP](https://opennlp.apache.org/),
 so any language supported by it, Vespa supports it.
 It’s easy to integrate with new linguistic libraries and we’ve already received CJK contributions to Vespa.
 
@@ -254,7 +254,7 @@ Where should we go to ask questions and have discussion?**
 [ [quicklink](https://youtu.be/SzZ_A9G6PMY?t=5352) ].
 [\#vespa on Stack Overflow](https://stackoverflow.com/questions/tagged/vespa),
 <a href="https://app.gitter.im/#/room/#vespa-engine_Lobby:gitter.im" data-proofer-ignore>Gitter channel</a>,
-\#vespa channel of [Relevance Slack](http://www.opensourceconnections.com/slack).
+\#vespa channel of [Relevance Slack](https://www.opensourceconnections.com/slack).
 Asking the extended Vespa team to document use cases / blog posts.
 
 Resources: [docs.vespa.ai](https://docs.vespa.ai/),

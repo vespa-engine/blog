@@ -22,7 +22,7 @@ Vincentiu Solomon</a> on <a href="https://unsplash.com/s/photos/stars?utm_source
 In the [first post](../billion-scale-knn) in this series, we introduced compact binary-coded vector representations that can
 reduce the storage and computational complexity of both exact and approximate nearest neighbor search. 
 This second post covers an experiment using a 1-billion binary-coded representation derived from a
-vector dataset used in the [big-ann-benchmark](http://big-ann-benchmarks.com/) challenge. The 
+vector dataset used in the [big-ann-benchmark](https://big-ann-benchmarks.com/) challenge. The 
 purpose of this post is to highlight some of the trade-offs related to approximate nearest neighbor search,
 and especially we focus on serving performance versus accuracy.
 
@@ -42,7 +42,7 @@ scale vector search-related research usage. It consists of more than one billion
 and 29K+ query vectors encoded by the Microsoft SpaceV Superior model. 
 
 The vector dataset was published last year as part of the 
-big-ann-benchmarks (http://big-ann-benchmarks.com/) challenge. 
+big-ann-benchmarks (https://big-ann-benchmarks.com/) challenge. 
 It consists of one billion 100-dimensional vectors using `int8` precision. In other words,
 each of the hundred vector dimensions is a number in the [-128,127] range. 
 The dataset has 29,3K queries with pre-computed ground truth nearest neighbors

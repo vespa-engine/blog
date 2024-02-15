@@ -222,7 +222,7 @@ The above simple scatter plot with Pearson correlation coefficient, gives us a v
 also confirmation that our two ranking phases do correlate. There are multiple different ways to calculate the correlation between ranked lists:
 
 - [Kendall Rank Correlation Coefficient](https://en.wikipedia.org/wiki/Kendall_rank_correlation_coefficient)
-- [Rank-Biased Overlap (RBO)](http://blog.mobile.codalism.com/research/papers/wmz10_tois.pdf)
+- [Rank-Biased Overlap (RBO)](https://blog.codalism.com/research/papers/wmz10_tois.pdf)
 
 
 ## Centroid Selection and Centroid Schema

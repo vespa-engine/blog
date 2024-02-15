@@ -93,7 +93,7 @@ Vespa handles [model versioning](https://docs.vespa.ai/en/tutorials/models-hot-s
 distribution, and auto-scaling of online inference computations.
 These framework integrations complement Vespa's native 
 support for tensor storage and [calculations over tensors](https://blog.vespa.ai/computing-with-tensors/). 
-- **Efficient Vector Search**. AI-powered vector representations are at the core of the unstructured data revolution. Vespa implements a real-time version of the [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) algorithm for efficient Vector search, an implementation that is vetted and verified with multiple vector datasets on [ann-benchmarks.com](http://ann-benchmarks.com/). 
+- **Efficient Vector Search**. AI-powered vector representations are at the core of the unstructured data revolution. Vespa implements a real-time version of the [HNSW](https://docs.vespa.ai/en/approximate-nn-hnsw.html) algorithm for efficient Vector search, an implementation that is vetted and verified with multiple vector datasets on [ann-benchmarks.com](https://ann-benchmarks.com/). 
 Vespa supports combining vector search [with structured query filters](https://blog.vespa.ai/constrained-approximate-nearest-neighbor-search/) at scale. 
 
  

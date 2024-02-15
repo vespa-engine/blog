@@ -138,7 +138,7 @@ search over structured and unstructured data in the same query.
 
 Vespa implements a[ real-time version of the HNSW algorithm](https://docs.vespa.ai/en/approximate-nn-hnsw.html) for
 efficient and high-recall ANNS. The implementation is verified with multiple vector datasets on[
-ann-benchmarks.com](http://ann-benchmarks.com/) and used in production by
+ann-benchmarks.com](https://ann-benchmarks.com/) and used in production by
 [Spotify](https://engineering.atspotify.com/2022/03/introducing-natural-language-search-for-podcast-episodes/). 
 
 
