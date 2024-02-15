@@ -39,7 +39,7 @@ says Daniel Doro, Director of Engineering, Search, Spotify.
 
 Find more comments from Vespa customers and users in the
 [businesswire press release](https://www.businesswire.com/news/home/20240213670564/en/GigaOm-Sonar-for-Vector-Databases-Positions-Vespa-as-a-Leader-and-Forward-Mover).
-Download the [full report](https://content.vespa.ai/gigaom-report-2024),
+Download the [full report](https://content.vespa.ai/gigaom-report-2024) courtesy of Vespa,
 and read the Vespa.ai CEO Jon Bratseth's [blog post](https://blog.vespa.ai/gigaom-sonar-for-vector-databases-positions-vespa-as-a-leader/)
 to learn more.
 
@@ -120,24 +120,6 @@ Just declare the receiving tensor field as a rank-3 tensor, such as
 and embed with <code>embed colbert chunks</code>, see 
 [this example](https://github.com/vespa-engine/system-test/blob/master/tests/search/embedding/app_colbert_multivector_embedder/schemas/doc.sd).
 Available since 8.303.
-
-
-### OpenAI Matryoshka embeddings and slicing tensors
-Tensor slicing with lambda functions is great for representing vectors from
-[Matryoshka Representation Learning](https://arxiv.org/abs/2205.13147):
-
-> Our main contribution is 🪆 Matryoshka Representation Learning (MRL) which encodes information at different granularities
-> and allows a single embedding to adapt to the computational constraints of downstream tasks.
-
-A common use case is to use a [tensor lambda function](https://docs.vespa.ai/en/tensor-examples.html#slicing-with-lambda)
-to slice out the first k dimensions of a vector representation of m dimensions where m is larger than k
-and use [two-phased ranking](https://docs.vespa.ai/en/phased-ranking.html):
-
-* Nearest neighbor search with the shortened 256 dimensions
-* Nearest neighbor search with the full embeddings (3072 dimensions)
-
-Read more in the [blog post](https://blog.vespa.ai/matryoshka-embeddings-in-vespa/),
-including a performance/accuracy experiment with different slice sizes.
 
 
 ### Vespa does hackathons
