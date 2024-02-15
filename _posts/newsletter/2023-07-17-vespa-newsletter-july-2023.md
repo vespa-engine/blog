@@ -53,7 +53,7 @@ Embedding GPU acceleration is available both on Vespa Cloud and for Open Source 
 [read more](https://blog.vespa.ai/enhancing-vespas-embedding-management-capabilities/).
 
 
-### More models for [Vespa Cloud](http://cloud.vespa.ai/) users
+### More models for [Vespa Cloud](https://cloud.vespa.ai/) users
 As more teams use embeddings to improve search and recommendation use cases,
 easy access to models is key for productivity. From the paper:
 

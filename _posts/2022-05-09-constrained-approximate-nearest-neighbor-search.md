@@ -82,7 +82,8 @@ schema track {
 </pre>
 
 The [practical nearest neighbor search guide](https://docs.vespa.ai/en/performance/practical-search-performance-guide.html) 
-uses a similar schema, indexing a subset of the [last.fm](http://millionsongdataset.com/lastfm/) track dataset. 
+uses a similar schema, indexing a subset of the 
+<a href="http://millionsongdataset.com/lastfm/" data-proofer-ignore>last.fm</a> track dataset. 
 The simplified track document type used in this post contains three fields: track title, track tags, and track embedding:
 
 * `title` is configured for regular text indexing and matching using the default matching mode for 

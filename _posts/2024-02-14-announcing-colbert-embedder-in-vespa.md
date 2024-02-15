@@ -640,5 +640,5 @@ We believe that a promising future direction for embedding models is to provide 
 **I have more questions; I want to learn more!**
 
 For those interested in learning more about Vespa or ColBERT, 
-join the [Vespa community on Slack](https://vespatalk.slack.com/) or [Discord](http://discord.vespa.ai/) to exchange ideas,
+join the [Vespa community on Slack](https://vespatalk.slack.com/) or [Discord](https://discord.vespa.ai/) to exchange ideas,
 seek assistance from the community, or stay in the loop on the latest Vespa developments.

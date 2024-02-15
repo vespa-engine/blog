@@ -57,7 +57,7 @@ Many of these are summarized and analyzed in
 and
 [A Revisit of Hashing Algorithms for Approximate Nearest Neighbor Search](https://arxiv.org/abs/1612.07545).
 In addition, benchmark results for different algorithms over different datasets are summarized in
-[ANN Benchmarks](http://ann-benchmarks.com/).
+[ANN Benchmarks](https://ann-benchmarks.com/).
 
 Existing algorithms are mainly focused on a stable document corpus where all data points in the vector space are known up front.
 In this case the index structure is built once, and then used for nearest neighbor searches.
@@ -66,7 +66,7 @@ To support real-time updates, we looked for algorithms that were either incremen
 There are three broad categories of algorithms: tree-based, graph-based and hash-based.
 We choose one from each category for a more detailed exploration.
 This selection was based on how they performed in benchmarks within papers and in
-[ANN Benchmarks](http://ann-benchmarks.com/),
+[ANN Benchmarks](https://ann-benchmarks.com/),
 and how easy the algorithm was to modify to fit our requirements.
 
 We ended up with the following:
@@ -103,11 +103,8 @@ The prototypes were also used to do low-level benchmarking and quality testing.
 
 ## Prototype Benchmark
 We benchmarked the three prototype implementations to look at indexing throughput and search throughput with different document corpus sizes.
-We used the
-[1M SIFT (128 dim)](http://corpus-texmex.irisa.fr/)
-and
-[1M GIST (960 dim)](http://corpus-texmex.irisa.fr/)
-datasets, where one vector corresponds to a document.
+We used the <a href="http://corpus-texmex.irisa.fr/" data-proofer-ignore>1M SIFT (128 dim)</a> and 
+<a href="http://corpus-texmex.irisa.fr/" data-proofer-ignore>1M GIST (960 dim)</a> datasets, where one vector corresponds to a document.
 In this section, we summarize the results of the 1M SIFT tests. Findings were similar with the 1M GIST dataset.
 
 
@@ -150,7 +147,7 @@ skipping full distance calculation for most candidates. For HNSW, we asked for 1
 Observations:
 * HNSW outperforms Annoy and RPLSH. At corpus size 1M the QPS is **9 times as high** as Annoy,
   and **16 times as high** as RPLSH at comparable quality.
-  Similar observations between hnswlib and Annoy are found in [ANN Benchmarks](http://ann-benchmarks.com/),
+  Similar observations between hnswlib and Annoy are found in [ANN Benchmarks](https://ann-benchmarks.com/),
   where the QPS of hnswlib is 5-10 times higher at the same quality on all tested datasets.
 * The HNSW search algorithm depends heavily on the number of links between nodes, which again depends on corpus size.
   The QPS is halved when the corpus size is increased by 10x.
