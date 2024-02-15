@@ -65,7 +65,7 @@ Or the inverse, to exclude items from the result:
 
     select id, name from product where !(id in (10, 20, 30))
 
-A pro-tip is using parameter substitution to speed up the YQL-parsing even more:
+A pro-tip is using parameter substitution to also speed up YQL-parsing:
 
     select id, name from product where id in (@my_set)&my_set=10,20,30
 
@@ -139,7 +139,7 @@ You may have missed some of these new posts since the last newsletter:
 * [Exploring the potential of OpenAI Matryoshka 🪆 embeddings with Vespa](https://blog.vespa.ai/matryoshka-embeddings-in-vespa/)
 * [Announcing IN query operator](https://blog.vespa.ai/announcing-in-query-operator/)
 * [Redefining hybrid search possibilities with vespa](https://blog.vespa.ai/redefining-hybrid-search-possibilities-with-vespa/)
-* [Vespa Cloud enclave](https://blog.vespa.ai/vespa-cloud-enclave/)
+* [Vespa Cloud enclave: Bring our own cloud](https://blog.vespa.ai/vespa-cloud-enclave/)
 
 ----
 
