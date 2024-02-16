@@ -4,7 +4,6 @@ title: "Embedding flexibility in Vespa"
 author: bratseth
 date: '2024-02-16'
 image: assets/2024-02-12-gigaom-radar-sonar-for-vector-databases-positions-vespa-as-a-leader/Gigaom_leader.png
-image_credit: Photo by <a href="https://unsplash.com/@neom?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">NEOM</a> on <a href="https://unsplash.com/photos/an-aerial-view-of-a-body-of-water-D1jr0Mevs-c?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
 skipimage: true
 tags: [embeddings]
 excerpt: "Why did Vespa score \"Exceptional\" on Embedding Flexibility in GigaOm's report on Vector Databases?"
