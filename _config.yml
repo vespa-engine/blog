@@ -1,7 +1,7 @@
 # Site
 name: "Vespa Blog"
 title: "Vespa Blog"
-description: "Blog for Vespa - AI + data, online"
+description: "AI + data, online"
 logo: 'assets/logo/vespa-logo.svg'
 favicon: 'assets/icons/favicon-32x32.png'
 baseurl:

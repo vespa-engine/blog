@@ -6,7 +6,7 @@ date: '2023-08-10'
 image: assets/2023-08-10-bge-embedding-models-in-vespa-using-bfloat16/rafael-druck-jq3FQ1hmRa8-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@eyesinthesky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Rafael Drück</a> on <a href="https://unsplash.com/photos/jq3FQ1hmRa8?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
-tags: [] 
+tags: [embeddings] 
 excerpt: 'This post demonstrates how to use recently announced BGE embedding models in Vespa. 
 We evaluate the effectiveness of two BGE variants on the BEIR trec-covid dataset. Finally, we demonstrate how Vespa’s support for storing and indexing vectors using bfloat16 precision saves 50% of memory and storage footprint with close to zero loss in retrieval quality.'
 ---

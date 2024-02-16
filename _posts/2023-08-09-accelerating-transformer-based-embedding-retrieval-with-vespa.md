@@ -6,7 +6,7 @@ date: '2023-08-08'
 image: assets/2023-08-09-accelerating-transformer-based-embedding-retrieval-with-Vespa/appic-PvIB1FU4v7Y-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@appic_cc?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Appic</a> on <a href="https://unsplash.com/photos/PvIB1FU4v7Y?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
-tags: [] 
+tags: [embeddings] 
 excerpt: 'In this post, we’ll see how to accelerate embedding inference and retrieval with little impact on quality. 
 We’ll take a holistic approach and deep-dive into both aspects of an embedding retrieval system: Embedding inference and retrieval with nearest neighbor search.'
 ---

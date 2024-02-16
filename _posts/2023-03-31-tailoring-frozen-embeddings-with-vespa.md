@@ -6,7 +6,7 @@ date: '2023-03-31'
 image: assets/2023-03-31-tailoring-frozen-embeddings-with-vespa/fabio-oyXis2kALVg-unsplash.jpg
 image_credit: 'Photo by <a href="https://unsplash.com/@fabioha?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">fabio</a> on <a href="https://unsplash.com/photos/oyXis2kALVg?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>'
 skipimage: true 
-tags: [] 
+tags: [embeddings] 
 excerpt: Deep-learned embeddings are popular for search and recommendation use cases. This post introduces the concept of using reusable frozen embeddings and tailoring them with Vespa.
 ---
 
