@@ -11,11 +11,11 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.1
-        bundler-cache: true
+        bundler-cache: false
 
     - name: Install dependencies
       run: |
-        gem update --system 3.3.3
+        gem update --system 3.3.27
         gem install bundler
         bundle install
 
