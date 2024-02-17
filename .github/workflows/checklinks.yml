@@ -1,5 +1,11 @@
 name: Link checker
-on: [push]
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  schedule:
+    - cron: '00 3 * * 1-5'
 
 jobs:
   build:
@@ -11,7 +17,7 @@ jobs:
     - uses: ruby/setup-ruby@v1
       with:
         ruby-version: 3.1
-        bundler-cache: false
+        bundler-cache: true
 
     - name: Install dependencies
       run: |
