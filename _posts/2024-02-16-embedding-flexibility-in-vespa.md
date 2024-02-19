@@ -9,7 +9,7 @@ tags: [embeddings]
 excerpt: "Why did Vespa score \"Exceptional\" on Embedding Flexibility in GigaOm's report on Vector Databases?"
 ---
 In the recent [GigaOm Sonar Report on Vector Databases](https://content.vespa.ai/gigaom-report-2024) 
-where Vespa came out as *Leading*, one of the criteria where we scored *Exceptional* were
+where Vespa came out as *Leading*, one of the criteria where we scored *Exceptional* was
 *Embedding Flexibility*.
 
 <img src="/assets/2024-02-15-newsletter/GigaOm-badge-2024_leader-11.png"
@@ -25,7 +25,7 @@ What's so great about the embedding flexibility in Vespa? You have the choice of
 over the process, a custom [Searcher](https://docs.vespa.ai/en/searcher-development.html) and 
 [Docproc](https://docs.vespa.ai/en/document-processing.html)
 
-In addition to creating single embeddings for a field, all these methods also allows you to 
+In addition to creating single embeddings for a field, all these methods also allow you to 
 create and index a [collection of embeddings](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/) 
 for a single document, either by using an embedding model
 that [creates an embedding for each token of the text](https://blog.vespa.ai/announcing-colbert-embedder-in-vespa/), 
@@ -35,7 +35,7 @@ and change method at any time without changing any other aspect of the applicati
 This lets you get started easily with embeddings while also empowering you to add more sophisticated methods
 gradually.
 
-And if you add fields that derives an embedding for a field to an existing application,
-it will be automatically populated. Combined with the support for having multiple embeddings in the same
-document and choose which ones to use in queries and ranking, this makes it exceptionally easy to experiment with new 
+And if you add fields that derive an embedding for a field to an existing application,
+they will be automatically populated. Combined with the support for having multiple embeddings in the same
+document and choosing which ones to use in queries and ranking, this makes it exceptionally easy to experiment with new 
 embedding models.
