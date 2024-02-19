@@ -9,7 +9,7 @@ tags: [embeddings]
 excerpt: "Why did Vespa score \"Exceptional\" on Embedding Flexibility in GigaOm's report on Vector Databases?"
 ---
 In the recent [GigaOm Sonar Report on Vector Databases](https://content.vespa.ai/gigaom-report-2024) 
-where Vespa came out as *Leading*, one of the criteria where we scored *Exceptional* were
+where Vespa came out as *Leading*, one of the criteria where we scored *Exceptional* was
 *Embedding Flexibility*.
 
 <img src="/assets/2024-02-15-newsletter/GigaOm-badge-2024_leader-11.png"
