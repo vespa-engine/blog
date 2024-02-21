@@ -11,7 +11,7 @@ skipimage: false
 
 If you are experimenting using large language models (LLMs) in your applications you are probably
 doing that with Langchain. That has become much simpler now with the addition of a Vespa retriever in Langchain.
-See the documentation on [the Langchain site](https://python.langchain.com/docs/ecosystem/integrations/vespa).
+See the documentation on [the Langchain site](https://python.langchain.com/docs/integrations/providers/vespa).
 
 Also, thanks to Langchain creator Harrison Chase for that [perceptive observation](https://twitter.com/vespaengine/status/1652334794338971655) 
 about all you Vespa builders!
