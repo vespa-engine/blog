@@ -343,7 +343,7 @@ context version focusing purely on a single context segment.
 
 We deploy the [long-context-colbert Vespa sample
 application](https://github.com/vespa-engine/sample-apps/tree/master/colbert-long)
-on [Vespa Cloud ](cloud.vespa.ai) using two nodes with the following clusters and resources
+on [Vespa Cloud](https://cloud.vespa.ai/) using two nodes with the following clusters and resources
 
 
 One Vespa Stateless container cluster with GPU for accelerated ColBERT embedder inference:
@@ -477,7 +477,7 @@ best performing embedding models on the
 [MTEB](https://huggingface.co/spaces/mteb/leaderboard), but
 significantly underperforms the BM25 baseline on this long context
 benchmark. Similarly, the popular [OpenAI text-embedding-ada-002
-](text-embedding-ada-002)with 1536 dimensions performs even worse
+](https://openai.com/blog/new-and-improved-embedding-model) with 1536 dimensions performs even worse
 on this long-document dataset. Two important observations:
 
 * Strong performance on the MTEB leaderboard does not necessarily
