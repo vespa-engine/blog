@@ -382,7 +382,7 @@ sections.
 
 We use the following `bm25` Vespa rank profile definition as our baseline. 
 When used on an array collection of context strings like this, Vespa
-uses all the array elements as if they were a bag of tex (single
+uses all the array elements as if they were a bag of text (single
 field).
 
 ```
@@ -404,10 +404,9 @@ using the English split, which contains 200K long texts sampled from Wikipedia w
 
 We use the precision-oriented `nDCG@10` metric to
 measure effectiveness. For all experiments, we use a re-ranking
-count 400, meaning that we retrieve the top 400 documents using
-BM25, accelerated by [Vespa’s weak And
-implementation](https://docs.vespa.ai/en/using-wand-with-vespa.html), and
-re-rank those as expressed in the rank profiles described earlier.
+count of 400. The shortlist retrieval phase uses [Vespa’s weakAnd
+implementation](https://docs.vespa.ai/en/using-wand-with-vespa.html). The top-k scoring documents
+by this phase are then re-ranked with the ColBERT representations.
 
 
 #### MLDR English split Dataset characteristics
