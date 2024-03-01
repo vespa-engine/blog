@@ -7,26 +7,25 @@ image: assets/2024-03-01-announcing-long-context-colbert-in-vespa/polina-kuzovko
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@p_kuzovkova?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Polina Kuzovkova</a> on <a href="https://unsplash.com/photos/gray-concrete-road-near-body-of-water-during-daytime-lhOGm6-1Spk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Announcing the Vespa Long-ColBERT, giving ColBERT infinite context for long-context retrieval and simplifies long-context RAG applications."
+excerpt: "Announcing Long Context ColBERT, giving ColBERT infinite context for long-context retrieval and simplifies long-context RAG applications."
 
 ---
 
-We are announcing the Vespa Long-ColBERT implementation in Vespa,
+We announce a long-context ColBERT implementation in Vespa,
 enabling explainable semantic search using token-level vector
 representations for long documents. By extending ColBERT’s late
-interaction to a late-context-window interaction, we give ColBERT
+interactions to late-context-window interactions, we give ColBERT
 infinite context for long-context retrieval.
 
-This post covers:
+This post:
 
 * Overview of single-vector embedding models and their limitations
-in long context retrieval and why  ColBERT excels in overcoming
+in long-context retrieval and why ColBERT excels in overcoming
 these limitations 
-* Long-ColBERT as an extension of ColBERT's
-late-interaction scoring for long-context retrieval 
+* Extending ColBERT's late-interaction scoring for long-context retrieval 
 * Evaluation of Long-ColBERT's performance on the recently introduced [MLDR](https://huggingface.co/datasets/Shitao/MLDR)
-(Multilingual Dense Retrieval) long-document retrieval dataset 
-* Executive summary and a FAQ section
+ long-document retrieval dataset 
+* Executive summary and a large FAQ
 
 
 ![evaluation](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image1.png)
