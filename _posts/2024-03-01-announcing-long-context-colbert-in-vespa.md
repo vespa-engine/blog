@@ -7,7 +7,7 @@ image: assets/2024-03-01-announcing-long-context-colbert-in-vespa/polina-kuzovko
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@p_kuzovkova?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Polina Kuzovkova</a> on <a href="https://unsplash.com/photos/gray-concrete-road-near-body-of-water-during-daytime-lhOGm6-1Spk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Announcing Long-context ColBERT, giving ColBERT larger context for scoring and simplifying long-document RAG applications."
+excerpt: "Announcing long-context ColBERT, giving it larger context for scoring and simplifying long-document RAG applications."
 
 ---
 
