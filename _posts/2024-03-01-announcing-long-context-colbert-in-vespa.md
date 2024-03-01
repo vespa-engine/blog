@@ -25,7 +25,7 @@ these limitations
 * Extending ColBERT's late-interaction scoring for long-context retrieval 
 * Evaluation of Long-ColBERT's performance on the recently introduced [MLDR](https://huggingface.co/datasets/Shitao/MLDR)
  long-document retrieval dataset 
-* Executive summary and a large FAQ
+* Executive summary and an extensive FAQ
 
 
 ![evaluation](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image1.png)
@@ -465,14 +465,14 @@ window sizes or overlap.
 
 ![evaluation results](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image1.png)
 
-_Summarizing the results, `nDCG@10` metrics for none-Vespa
+_Summarizing the results, `nDCG@10` metrics for non-Vespa
 implementations are from [BGE M3-Embedding: Multi-Lingual,
 Multi-Functionality, Multi-Granularity Text Embeddings Through
 Self-Knowledge Distillation](https://arxiv.org/abs/2402.03216)._
 
 First, we can see that the simple Vespa BM25 method outperforms all
 other methods reported in the M3-Embedding paper for long-document
-retrieval. This observation is important, as all the text embedding
+retrieval. This observation is essential, as all the text embedding
 models have a high computational cost related to embedding inference
 and building vector search indexes for efficient retrieval. For
 example, the [E5-Mistral
@@ -483,26 +483,23 @@ best performing embedding models on the
 significantly underperforms the BM25 baseline on this long context
 benchmark. Similarly, the popular [OpenAI text-embedding-ada-002
 ](text-embedding-ada-002)with 1536 dimensions performs even worse
-on this long context dataset. There are two important observations
-that can be made from this:
-
+on this long-document dataset. Two important observations:
 
 * Strong performance on the MTEB leaderboard does not necessarily
 generalize to long context retrieval.  
-* Models might overfit on the tasks and datasets included in the benchmark. MLDR is a recently
-announced benchmark collection that has been released after most
-of the MTEB entries were trained, making this zero-shot evaluation
+* Models might overfit the datasets included in the MTEB benchmark. MLDR is a recently
+announced benchmark collection, making this zero-shot evaluation
 more realistic.
 
 Both ColBERT scoring methods perform better than the baseline and
-outperform single-vector models by a large margin. **The context-level
+outperform single-vector models by a large margin. On this dataset, the **context-level
 MaxSim is by a large margin the most effective scoring function,
-with the cross-context MaxSim a solid second place.** 
+with the cross-context MaxSim a solid second place**. 
 
 This is a single dataset, and the result might be impacted by how the dataset was constructed; 
 which of the two proposed methods that will work best on your data will depend on the search task. 
 For example, if a single context window
-can answer the information needed perfectly, there is no need to
+can answer the query perfectly, there is no need to
 consider the cross-context information. On the other hand, relevant
 information to answer the question might be in multiple
 context windows.
@@ -521,8 +518,7 @@ over BM25 by re-ordering the top ten documents below 50ms.
 
 ![performance](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image3.png)
 
-_Impact of re-ranking count on latency and nDCG@10. Notice that re-ranking counts are reported
-with different increments. The change in increments 
+_Impact of re-ranking count on latency and nDCG@10. The change in re-ranking window increments 
 makes the latency line look like a hockey stick pattern but is a linear scaling relationship._
 
 Changing the re-ranking count allows us to trade effectiveness versus
@@ -539,26 +535,22 @@ methods surpassing other methods, including the baseline BM25
 approach.
 
 The Long-ColBERT effectiveness is promising, as this hybrid approach,
-where initial candidate retrieval involves the entire document text
-followed by a re-ranking refinement using neural ColBERT representations,
-allowing to focus on specific parts of the retrieved document. It
-also reduces deployment complexity by maintaining the document as
-the retrievable unit. **It avoids partitioning texts across
-retrievable units as with single-vector databases like
-Pinecone, Weaviate, or Qdrant**.
+where initial candidate retrieval uses the entire document text
+followed by a re-ranking refinement using neural ColBERT representations.
 
-In RAG pipelines with larger generative LLMs with ever-increasing
+It reduces complexity and **avoids splitting texts into
+many retrievable units, as with single-vector databases like
+Pinecone, Weaviate, or Qdrant**. In RAG pipelines with larger generative LLMs with ever-increasing
 context limits, having easy access to the entire page/document
 content in a single retrievable unit can increase the quality of
-the generative step and considerably reduce the deployment complexity
-by eliminating the need for splitting extended contexts into several
-retrievable units.
+the generative step.
 
 Furthermore, **we highlight the absence of the need to construct
-costly index structures for efficient vector-based retrieval.
+index structures for efficient vector-based retrieval.
 Instead, we utilize pre-computed vector representations during
 ranking phases, enhancing storage-tiering economics by enabling
-offloading of these vectors to disk using Vespa’s paged attribute support**. 
+offloading vectors to disk using Vespa’s paged attribute support**. 
+
 Offloading the neural representations to disk,
 in conjunction with the efficient keyword retrieval
 method, makes this [hybrid retrieval
@@ -584,14 +576,14 @@ In addition, since we represent all the token vectors across context windows,
 we can choose how we compute the late-interaction
 similarity function.
 
-**Why is BM25 in 2024, still a strong baseline?**
+**Why is BM25 still a strong baseline?**
 Because BM25 builds a statistical model of *your* data, and lets face it, the exact words that
-the user types are still vital in 2024 for high-precision search. 
+the user types are still vital for high-precision search. 
 
 Vespa supports multiple retrieval and ranking methods, so unlike other vendors with fewer capabilities, we
 want to help you build search applications that perform well using the best possible method. 
 
-We will not hide simple baselines to sell storage and compute units without significant benefits for the application.
+We will not hide simpler baselines to sell storage and compute units without significant benefits for the application.
 
 **What are the tradeoffs here? It must be more expensive than
 single-vector models?**
@@ -608,23 +600,21 @@ you to control weighting in your Vespa ranking expressions with
 multiple Max Sim calculations (per field) for the same query input
 tensor.
 
-**But, it’s a vector per token, you will need a lot of memory for
-that or what?**
-The Vespa ColBERT compression reduces the footprint to 16 bytes per
+**But, it is a vector per token, you will need a lots of memory for?**
+The Vespa ColBERT compression reduces the footprint to `16` bytes per
 token vector, multiplied by the total number of tokens in the
 document. The `paged` option allows Vespa to use the OS virtual
 memory management to page data in and out on demand. 
 
 **How do these scoring methods scale with the number of documents
-ranked, tokens, context windows?**
+ranked, tokens, and context windows?**
 FLOPS scale with the number of documents ranked times the number
-of token vectors in the document. The storage footprint scales with the number
-of documents multiplied by the number of token vectors per document.
+of token vectors in the document. 
 
 **How does Long-ColBERT compare to RankGPT, cross-encoders, or
 re-ranking services?**
 It's a tradeoff between effectiveness and performance factors like
-cost and latency.
+cost and latency. 
 
 **Can I combine ColBERT with reranking with cross-encoder models in Vespa?**
 Yes, an example phased ranking pipeline could use hybrid retrieval,
@@ -635,14 +625,6 @@ Using ColBERT as an intermediate step can help reduce the ranking
 depth of the cross-encoder. The Vespa [msmarco ranking sample
 application](https://github.com/vespa-engine/sample-apps/tree/master/msmarco-ranking)
 demonstrates an effective ranking pipeline.
-
-
-**Have you considered using GPU to accelerate the MaxSim scoring?
-Going full CUDA-mode might pay off!**
-We have considered it, but it also requires moving data to and from
-the regular memory since Vespa supports real-time CRUD operation
-and is not built for a static batch of data that we could move into
-the GPU and forget about.
 
 **How does ColBERT relate to Vespa’s support for nearestNeighbor search?**
 It does not directly relate to Vespa’s
@@ -658,16 +640,18 @@ formulation.
 **What are the tradeoffs related to Vespa paged attributes?**
 The paged option allows the Linux virtual memory system
 to manage the tensor data, paging data in and out on demand. 
-This usually works well as long as you limit the number of potential
-random accesses by only accessing paged attributes 
+Using `paged` usually works well if you limit the number of potential
+random accesses by only accessing paged attributes in 
 second phase ranking. Read more in
 [documentation](https://docs.vespa.ai/en/attributes.html#paged-attributes).
-Running paged attributes in combination with high-latency network
-attached storage (e.g EBS) might not be the smartest choice. Also,
-if there is free available memory, everything works as if not using the paged option. 
+
+Using `paged` attributes on HW with high-latency network
+attached storage disks (e.g EBS), might not be the best option. 
+
+Also, if there is free available memory, everything works as if not using the paged option. 
 Until, the data no longer fits, and where the OS needs to start paging out
 data. Benchmarking with a realistic document volume/memory overcommit
-is vital when using the paged attribute option, to
+is vital when using the paged attribute option to
 avoid latency surprises in production.
 
 **How does Long-ColBERT impact processing or indexing time?**
