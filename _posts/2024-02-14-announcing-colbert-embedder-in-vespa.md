@@ -413,7 +413,6 @@ with other custom features, even as a feature in a GBDT-based ranker using Vespa
 or [lightgbm](https://docs.vespa.ai/en/lightgbm.html) support.
 
 **How does ColBERT relate to Vespa’s support for nearestNeighbor search?**
-
 It does not directly relate to Vespa’s
 [nearestNeighbor](https://docs.vespa.ai/en/nearest-neighbor-search.html)
 support. The nearestNeighbor search operator could be used to
@@ -425,7 +424,6 @@ which can be used in ranking; independent of the query retrieval
 formulation.
 
 **How does ColBERT relate to Vespa HNSW indexing for mixed tensors?**
-
 It does not. Since the MaxSim expression is only used during ranking
 phases, enabling [HNSW indexing
 ](https://docs.vespa.ai/en/approximate-nn-hnsw.html)on the mixed
