@@ -173,12 +173,11 @@ encoded token id, as that would reduce the representation to a bag
 of unique tokens, which is not the case. The same token
 occurring multiple times in a context window is encoded differently.
 
-Using mixed Vespa tensors, combining mapped axes with dense (indexed)
-axes allows for storing variable length context windows per document
+Using mixed Vespa tensors, combining mapped dimensions with dense (indexed)
+dimensions allows for storing variable length context windows per document
 and a variable number of tokens per context window. The [paged
 attribute](https://docs.vespa.ai/en/attributes.html#paged-attributes)
-option allows Vespa to page data from disk, avoiding memory overheads
-and reducing deployment costs due to storage-tiering economics (At
+option allows the operative system to page data in and out from disk-based storage (at
 the price of higher random access latency).
 
 ![Context-window inference over a long document](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image5.png)
@@ -187,7 +186,7 @@ _Vespa embedder illustration for collection type inputs, invoking the embedder a
 For example, with a sliding context window without overlap (stride), we will
 retain 2K token-level vectors for a 2K text. Note that the token-level
 vectors across different context windows are not contextualized by
-attention. However, they are still usable for the late-interaction
+encoder attention. However, they are still usable for the late-interaction
 ColBERT scoring function (MaxSim), which we can extend to work
 across long-document context windows.
 
