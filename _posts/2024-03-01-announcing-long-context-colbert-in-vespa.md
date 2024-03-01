@@ -46,10 +46,10 @@ all the tokens in the input context window of the embedder model.
 
 The similarity scoring between a query and a document text only
 uses this lone vector representation. Intuitively, this representation
-gets more diluted the longer the text is. In simpler terms, as the
+gets more diluted the longer the text is. **In simpler terms, as the
 text gets longer, the representation becomes less precise—think of
 it like trying to sum up a whole passage (or a book) with just one
-word. A significant focus has been addressing longer input text
+word**. A significant focus has been addressing longer input text
 contexts for embedding models because many retrieval tasks require
 searching longer texts. Traditional embedding models, such as those
 based on the vanilla BERT architecture, are usually constrained to
@@ -591,9 +591,10 @@ similarity function.
 Because BM25 builds a statistical model of *your* data, and lets face it, the exact words that
 the user types are still vital in 2024 for high-precision search. 
 
-Vespa supports multiple retrieval and ranking methods, so unlike single-vector vendors, we
-want to help you build search applications that actually perform well using the best possible method. We will not
-hide simple baselines to sell storage and compute units without significant benefits for the application.
+Vespa supports multiple retrieval and ranking methods, so unlike other vendors with fewer capabilities, we
+want to help you build search applications that perform well using the best possible method. 
+
+We will not hide simple baselines to sell storage and compute units without significant benefits for the application.
 
 **What are the tradeoffs here? It must be more expensive than
 single-vector models?**
@@ -623,10 +624,10 @@ FLOPS scale with the number of documents ranked times the number
 of token vectors in the document. The storage footprint scales with the number
 of documents multiplied by the number of token vectors per document.
 
-**How does Long-ColBERT compare to RankGPT or cross-encoder or
+**How does Long-ColBERT compare to RankGPT, cross-encoders, or
 re-ranking services?**
 It's a tradeoff between effectiveness and performance factors like
-cost and latency..
+cost and latency.
 
 **Can I combine ColBERT with reranking with cross-encoder models in Vespa?**
 Yes, an example phased ranking pipeline could use hybrid retrieval,
@@ -679,25 +680,23 @@ embedder models scales as regular transformer model inference. See
 [scaling inference with
 embedders](https://blog.vespa.ai/accelerating-transformer-based-embedding-retrieval-with-vespa/). 
 
-**Since the embedder is invoked multiple times (once per window), allowing a higher per-document operation timeout can be beneficial**.
+Since Vespa inferences with the model multiple times (once per window), allowing a higher per-document operation timeout can be beneficial.
 
 **I have PDFs with 10K pages, should I use one PDF ⇔ one Vespa
 document?**
-In this case it would be better to split into retrievable units
-like a PDF page instead of attempting to represent the entire PDF
-as a single document. This representation would make linking directly
-back to the source page.
+In this case, it would be better to split the PDF into retrievable units
+like a PDF **page** instead of attempting to represent the entire PDF
+as a single document. 
 
 **Is Long-ColBERT supported with Vespa streaming mode for efficient
 personal (multi-tenancy with millions of users)?**
 Yes, you can use Long-ColBERT with [Vespa streaming
 mode](https://blog.vespa.ai/efficient-personal-search-at-large-scale/).
 
-**Can Vespa  take care of the text windowing for me, I want to
-reduce the number of run-time dependencies?**
-You can write a [custom document processor
+**Can Vespa  take care of the text windowing for me?**
+You can write a custom [Vespa document processor
 ](https://docs.vespa.ai/en/document-processing.html)that implements
-your chunking strategy. Or use the `split` [indexing expression
+your chunking strategy. Alternatively, use the `split` [indexing expression
 ](https://docs.vespa.ai/en/reference/indexing-language-reference.html#other)support
 for simple regular expression splitting of string into an array of
 string.
@@ -715,15 +714,14 @@ of ranking models.
 **How do I get started with Long-ColBERT for my data?**
 We got you covered with a [Vespa sample
 application](https://github.com/vespa-engine/sample-apps/tree/master/colbert-long)
-that you can deploy in minutes to Vespa Cloud. You can also run
-Vespa locally on your laptop. 
+that you can deploy to Vespa Cloud.
 
-**We run Vespa on-premise using the open-source Vespa image, how to use long-context colbert?**
+**We run Vespa on-premise using the open-source Vespa image; how to use long-context ColBERT?**
 You need to upgrade your Vespa installation to at least 8.311.28. Vespa Cloud deployments
 are already upgraded to a version that supports long-context ColBERT. 
 
 **Can I use Long-ColBERT without using the native Vespa embedder?
-I have already paid for GPU instances for a year so I want to put
+I have already paid for GPU instances for a year, so I want to put
 them to use.**
 Yes, you can, you can compute the tensor representations outside
 of Vespa and use the feed and query API to pass the tensors.
