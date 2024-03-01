@@ -710,7 +710,7 @@ Some resources that might help you get started:
 - [Tensor non-primitive functions](https://docs.vespa.ai/en/reference/ranking-expressions.html#non-primitive-functions)
 - [Blog: Computing with tensors in Vespa](https://blog.vespa.ai/computing-with-tensors/)
 
-lso the [Advent of Vespa tensors](https://blog.vespa.ai/advent-of-tensors-2023/) has many fun practical examples of
+Also the [Advent of Vespa tensors](https://blog.vespa.ai/advent-of-tensors-2023/) has many fun practical examples of
 what you can do with Vespa tensors. 
 
 **Are you using torch tensor engine as the backend?**
