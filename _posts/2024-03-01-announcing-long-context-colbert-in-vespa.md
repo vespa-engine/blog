@@ -7,7 +7,7 @@ image: assets/2024-03-01-announcing-long-context-colbert-in-vespa/polina-kuzovko
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@p_kuzovkova?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Polina Kuzovkova</a> on <a href="https://unsplash.com/photos/gray-concrete-road-near-body-of-water-during-daytime-lhOGm6-1Spk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Announcing Long Context ColBERT, giving ColBERT larger context for long-context retrieval and simplifies long-document RAG applications."
+excerpt: "Announcing Long-context ColBERT, giving ColBERT larger context for scoring and simplifying long-document RAG applications."
 
 ---
 
@@ -27,11 +27,10 @@ these limitations
  long-document retrieval dataset 
 * Executive summary and an extensive FAQ
 
-
 ![evaluation](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image1.png)
 
 _Vespa methods evaluated in this blog post versus popular long-context
-embedding models._
+single-vector embedding models._
 
 
 ## Single-vector text embedding models
@@ -674,7 +673,7 @@ personal (multi-tenancy with millions of users)?**
 Yes, you can use Long-ColBERT with [Vespa streaming
 mode](https://blog.vespa.ai/efficient-personal-search-at-large-scale/).
 
-**Can Vespa  take care of the text windowing for me?**
+**Can Vespa take care of the text windowing for me?**
 You can write a custom [Vespa document processor
 ](https://docs.vespa.ai/en/document-processing.html)that implements
 your chunking strategy. Alternatively, use the `split` [indexing expression
