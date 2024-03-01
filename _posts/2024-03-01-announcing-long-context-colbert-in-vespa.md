@@ -703,6 +703,20 @@ of Vespa and use the feed and query API to pass the tensors.
 **Is Long-ColBERT in Vespa ready for production?**
 Yes. 
 
+**Where can I learn more about Vespa tensors?**
+Some resources that might help you get started:
+- [Tensor introduction guide](https://docs.vespa.ai/en/tensor-user-guide.html)
+- [Tensor primitive functions](https://docs.vespa.ai/en/reference/ranking-expressions.html#primitive-functions)
+- [Tensor non-primitive functions](https://docs.vespa.ai/en/reference/ranking-expressions.html#non-primitive-functions)
+- [Blog: Computing with tensors in Vespa](https://blog.vespa.ai/computing-with-tensors/)
+
+lso the [Advent of Vespa tensors](https://blog.vespa.ai/advent-of-tensors-2023/) has many fun practical examples of
+what you can do with Vespa tensors. 
+
+**Are you using torch tensor engine as the backend?**
+No, Vespa implements a tensor evaluation engine in C++ and Java. The tensor expressions in rank profiles are compiled
+into optimized code. 
+
 **I have more questions; I want to learn more!**
 For those interested in learning more about Vespa or ColBERT, 
 join the [Vespa community on Slack](https://vespatalk.slack.com/) or [Discord](https://discord.vespa.ai/) to exchange ideas,
