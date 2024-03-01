@@ -207,7 +207,7 @@ token-level vectors). This is logically equivalent to splitting
 context windows into separate retrievable units and performing the
 original late-interaction MaxSim scoring function.  
 * **A global context scoring model** that scores across the unique context
-windows (illustrated below)
+windows (illustrated below).
 
 Both long-context late-interaction scoring methods have similar [FLOPS](https://en.wikipedia.org/wiki/FLOPS) requirements.
 
@@ -373,11 +373,7 @@ using[ BM25 ](https://docs.vespa.ai/en/reference/bm25.html)scoring,
 this shortlists the number of documents that we score using the
 advanced ColBERT late-interaction scoring functions. **We chose BM25
 because it is a strong zero-shot baseline for long-context retrieval;
-it's designed to handle variable-length texts**. Also, this mimics
-how we naturally would retrieve information from a library of books,
-first find the relevant books using all the pages, and then refine
-and rank them by reading the shortlisted set of books for relevant
-sections.
+it's designed to handle variable-length texts**. 
 
 We use the following `bm25` Vespa rank profile definition as our baseline. 
 When used on an array collection of context strings like this, Vespa
@@ -506,14 +502,13 @@ context windows.
 ### Ablation study on re-ranking depths and serving performance
 
 In the following section, we evaluate the impact of changing the
-re-ranking depth for the most efficient approach using the context-level
-MaxSim profile. Query latency is measured end-to-end, including
+re-ranking depth for the most effective method using the context-level
+MaxSim. The query latency is measured end-to-end, including
 embedding inference, retrieval, and re-ranking. We report the
 average latency of all 800 queries without any concurrency. Note
 that this experiment uses all available CPU threads for ranking
 (16).  Interestingly, we can improve `nDCG@10` significantly
-over BM25 by re-ordering the top ten documents below 50ms.
-
+over BM25 by re-ordering just the top ten documents below 50ms.
 
 ![performance](/assets/2024-03-01-announcing-long-context-colbert-in-vespa/image3.png)
 
@@ -599,7 +594,7 @@ you to control weighting in your Vespa ranking expressions with
 multiple Max Sim calculations (per field) for the same query input
 tensor.
 
-**But, it is a vector per token, you will need a lots of memory for?**
+**But, it is a vector per token, you will need lots of memory?**
 The Vespa ColBERT compression reduces the footprint to `16` bytes per
 token vector, multiplied by the total number of tokens in the
 document. The `paged` option allows Vespa to use the OS virtual
@@ -612,7 +607,7 @@ of token vectors in the document.
 
 **How does Long-ColBERT compare to RankGPT, cross-encoders, or
 re-ranking services?**
-It's a tradeoff between effectiveness and performance factors like
+It is a tradeoff between effectiveness and performance factors like
 cost and latency. 
 
 **Can I combine ColBERT with reranking with cross-encoder models in Vespa?**
@@ -644,23 +639,22 @@ random accesses by only accessing paged attributes in
 second phase ranking. Read more in
 [documentation](https://docs.vespa.ai/en/attributes.html#paged-attributes).
 
-Using `paged` attributes on HW with high-latency network
-attached storage disks (e.g EBS), might not be the best option. 
+Using `paged` attributes on HW with high-latency network-attached storage disks (e.g EBS), might not be the best option. 
 
-Also, if there is free available memory, everything works as if not using the paged option. 
-Until, the data no longer fits, and where the OS needs to start paging out
-data. Benchmarking with a realistic document volume/memory overcommit
+Also, if there is free available memory, everything works as if not using the paged option.
+Benchmarking with a realistic document volume/memory overcommit
 is vital when using the paged attribute option to
 avoid latency surprises in production.
 
 **How does Long-ColBERT impact processing or indexing time?**
-Storing the tensor is just an append operation to the Vespa storage
-engine and does not impact indexing time negatively. Inferencing with
+Storing the tensor is a simple append operation to the Vespa storage
+engine, and does not impact indexing time negatively. Inferencing with
 embedder models scales as regular transformer model inference. See
 [scaling inference with
 embedders](https://blog.vespa.ai/accelerating-transformer-based-embedding-retrieval-with-vespa/). 
 
-Since Vespa inferences with the model multiple times (once per window), allowing a higher per-document operation timeout can be beneficial.
+Since Vespa inferences with the ColBERT model multiple times (once per window), 
+allowing a higher per-document operation timeout can be beneficial.
 
 **I have PDFs with 10K pages, should I use one PDF ⇔ one Vespa
 document?**
@@ -707,8 +701,7 @@ Yes, you can, you can compute the tensor representations outside
 of Vespa and use the feed and query API to pass the tensors.
 
 **Is Long-ColBERT in Vespa ready for production?**
-Yes. We don’t release preview or beta features. When we release a
-feature, it is ready for production.
+Yes. 
 
 **I have more questions; I want to learn more!**
 For those interested in learning more about Vespa or ColBERT, 
