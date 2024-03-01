@@ -1,13 +1,13 @@
 ---  
 layout: post
-title: "Announcing Vespa Long Context ColBERT"
+title: "Announcing Vespa Long-Context ColBERT"
 author: jobergum
 date: '2024-03-01'
 image: assets/2024-03-01-announcing-long-context-colbert-in-vespa/polina-kuzovkova-lhOGm6-1Spk-unsplash.jpg
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@p_kuzovkova?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Polina Kuzovkova</a> on <a href="https://unsplash.com/photos/gray-concrete-road-near-body-of-water-during-daytime-lhOGm6-1Spk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Announcing Long Context ColBERT, giving ColBERT infinite context for long-context retrieval and simplifies long-context RAG applications."
+excerpt: "Announcing Long Context ColBERT, giving ColBERT larger context for long-context retrieval and simplifies long-document RAG applications."
 
 ---
 
@@ -15,7 +15,7 @@ We announce a long-context ColBERT implementation in Vespa,
 enabling explainable semantic search using token-level vector
 representations for long documents. By extending ColBERT’s late
 interactions to late-context-window interactions, we give ColBERT
-infinite context for long-context retrieval.
+a larger context for long-document scoring.
 
 This post:
 
