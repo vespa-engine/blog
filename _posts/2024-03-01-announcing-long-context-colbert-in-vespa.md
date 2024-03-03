@@ -201,7 +201,7 @@ having to change the colbert document embedding representation, and
 for both methods, the query input tensor is the same.
 
 
-* **A local context scoring model**w hich scores each unique context
+* **A local context scoring model** which scores each unique context
 window independently without considering the global context (all
 token-level vectors). This is logically equivalent to splitting
 context windows into separate retrievable units and performing the
