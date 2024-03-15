@@ -137,7 +137,7 @@ Local deployments should reset with fresh Docker/Podman containers.
   Such files can be large, and are downloaded per deploy-operation.
   Since 8.217, Vespa will use a previously downloaded model file if it exists on the requesting node.
   New versions of the model must use a different URL.
-* Some Vespa topologies use [groups of nodes](https://cloud.vespa.ai/en/topology) to optimize query performance -
+* Some Vespa topologies use [groups of nodes](https://cloud.vespa.ai/en/topology-and-resizing) to optimize query performance -
   each group has a replica of a document.
   High-query Vespa applications might have tens or even hundreds of groups.
   Upgrading such clusters in Vespa Cloud takes time, having only one replica (= group) out at any time.
