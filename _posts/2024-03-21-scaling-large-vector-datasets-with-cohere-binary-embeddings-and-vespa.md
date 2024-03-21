@@ -7,7 +7,7 @@ image: assets/2024-03-21-scaling-large-vector-datasets-with-cohere-binary-embedd
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@philbotha?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Phil Botha</a> on <a href="https://unsplash.com/photos/silhouette-of-mountains-between-sky-and-water-NcqCpiwW0g0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Cost-efficient vector search using Cohere Embed v3 binary embeddings and Vespa."
+excerpt: "Three comprehensive guides to using the Cohere Embed v3 binary embeddings with Vespa."
 
 ---
 
@@ -57,7 +57,7 @@ Cohere's embedding models offer the versatility of multiple vector representatio
 We have built three comprehensive guides on using the new Cohere
 embedding models with Vespa.
 
-#### Embed-english-v3.0 with compact binary representation and re-scoring for improved accuracy
+#### Embed-english-v3.0 with compact binary representation
 
 This is a great starting point for understanding Vespa’s capabilities
 and the new Cohere embedding models. This application uses only the
@@ -70,12 +70,12 @@ the 32x larger float representation.
   <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="cohere-binary-vectors-in-vespa-cloud.ipynb"/>
 </a>
 
-#### Embed-english-v3.0 with two vector representations and tiered compute and storage
+#### Embed-english-v3.0 with two vector representations 
 
-This demonstrates using two representations per text, the binary
-representation and the int8 version. This also features a 3 phase
-coarse-to-fine retrieval and ranking pipeline. This improves accuracy
-further, but increases storage (but no additional memory resources).
+This demonstrates using two representations per text. The binary
+representation and the int8 version. This also features a 3-phase
+coarse-to-fine retrieval and ranking pipeline. These re-ranking phases 
+improves accuracy further, but with increased storage costs (but no additional memory required).
 
 [billion-scale-vector-search-with-cohere-embeddings-cloud](https://pyvespa.readthedocs.io/en/latest/examples/billion-scale-vector-search-with-cohere-embeddings-cloud.html)
  <a target="_blank" href="https://colab.research.google.com/github/vespa-engine/pyvespa/blob/master/docs/sphinx/source/examples/billion-scale-vector-search-with-cohere-embeddings-cloud.ipynb">
@@ -83,12 +83,14 @@ further, but increases storage (but no additional memory resources).
 </a>
 
 
-#### Embed-multilingual-v3 - redefining cost-efficient multilingual hybrid search
+#### Embed-multilingual-v3 - multilingual hybrid search
 
-The flagship for multilingual hybrid search. Combining Vespa’s
-support for multi-vector indexing, Cohere multilingual embeddings and lexical keyword search. 
-This is a comprehensive guide to combining multilingual embedding models with
-Vespa’s lexical matching features.
+The flagship of multilingual hybrid search. This app demonstrates combining Vespa’s
+support for [multi-vector indexing](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/) 
+(arrays of vectors per document embedding field) with Cohere binary embeddings. 
+
+This app combines the Cohere multilingual embeddings with lexical keyword search, 
+including language-specific linguistic processing.
 
 * **Indexing multiple vectors per document field**: Vespa's offers
 the flexibility to index multiple vectors for each document field.
@@ -97,7 +99,9 @@ representations using the Cohere embeddings.
 * **Hybrid search with lexical linguistic processing**: Combines the power of Vespa’s
 lexical linguistic processing with vector embeddings to deliver
 hybrid search.  
-* **Keep the context** By indexing pages with chunked texts and their corresponding vector representation, we ensure the retention of page-level context. Multi-vector indexing prevents the duplication of metadata at the page level and eliminates the operational complexity associated with dividing the original text context into multiple retrievable units (rows), as is the case with single-vector databases.
+* **Keep the context** By indexing pages with chunked texts and their corresponding vector representation—retaining the page-level context. 
+Vespa's support for [Multi-vector indexing](https://blog.vespa.ai/semantic-search-with-multi-vector-indexing/) 
+prevents metadata duplication and eliminates the operational complexity associated with dividing the original text context into multiple rows, as is the case with single-vector databases that can only store one vector per row.
 
 
 [multilingual-multi-vector-reps-with-cohere-cloud](https://pyvespa.readthedocs.io/en/latest/examples/multilingual-multi-vector-reps-with-cohere-cloud.html)
