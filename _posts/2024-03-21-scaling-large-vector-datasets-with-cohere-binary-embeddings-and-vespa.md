@@ -7,11 +7,11 @@ image: assets/2024-03-21-scaling-large-vector-datasets-with-cohere-binary-embedd
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@philbotha?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Phil Botha</a> on <a href="https://unsplash.com/photos/silhouette-of-mountains-between-sky-and-water-NcqCpiwW0g0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Scaling vector search using Cohere binary embeddings and Vespa"
+excerpt: "Cost-efficient vector search using Cohere Embed v3 binary embeddings and Vespa."
 
 ---
 
-Cohere recently released a new embedding API, now featuring support
+[Cohere](https://cohere.com/) recently released a new embedding API, now featuring support
 for binary and int8 vectors: [Cohere int8 & binary Embeddings - Scale Your
 Vector Database to Large
 Datasets](https://txt.cohere.com/int8-binary-embeddings/).
