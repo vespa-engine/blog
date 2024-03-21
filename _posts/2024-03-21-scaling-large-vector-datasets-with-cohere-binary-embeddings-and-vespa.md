@@ -1,19 +1,18 @@
 ---  
 layout: post
-title: "Scaling to large datasets with Cohere binary embeddings and Vespa"
+title: "Scaling vector search using Cohere binary embeddings and Vespa"
 author: jobergum
 date: '2024-03-21'
 image: assets/2024-03-21-scaling-large-vector-datasets-with-cohere-binary-embeddings-and-vespa/phil-botha-NcqCpiwW0g0-unsplash.jpg
 skipimage: false
 image_credit: 'Photo by <a href="https://unsplash.com/@philbotha?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Phil Botha</a> on <a href="https://unsplash.com/photos/silhouette-of-mountains-between-sky-and-water-NcqCpiwW0g0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>'
 tags: [embeddings]
-excerpt: "Scaling vector search with binary embeddings from Cohere with Vespa"
+excerpt: "Scaling vector search using Cohere binary embeddings and Vespa"
 
 ---
 
 Cohere recently released a new embedding API, now featuring support
-for binary and int8 vectors. The announcement can be found in their
-blog post titled [Cohere int8 & binary Embeddings - Scale Your
+for binary and int8 vectors: [Cohere int8 & binary Embeddings - Scale Your
 Vector Database to Large
 Datasets](https://txt.cohere.com/int8-binary-embeddings/).
 
@@ -98,11 +97,7 @@ representations using the Cohere embeddings.
 * **Hybrid search with lexical linguistic processing**: Combines the power of Vespa’s
 lexical linguistic processing with vector embeddings to deliver
 hybrid search.  
-* **Keep the context** by indexing pages with chunked
-texts and their corresponding vector representation, we don’t lose
-the original context of the page. This avoids duplicating metadata,
-and avoids splitting the original text context into multiple different
-retrievable units like with single-vector databases.
+* **Keep the context** By indexing pages with chunked texts and their corresponding vector representation, we ensure the retention of page-level context. Multi-vector indexing prevents the duplication of metadata at the page level and eliminates the operational complexity associated with dividing the original text context into multiple retrievable units (rows), as is the case with single-vector databases.
 
 
 [multilingual-multi-vector-reps-with-cohere-cloud](https://pyvespa.readthedocs.io/en/latest/examples/multilingual-multi-vector-reps-with-cohere-cloud.html)
@@ -111,12 +106,6 @@ retrievable units like with single-vector databases.
 </a>
 
 
-
 ## Summary
 
-Vespa's integration with Cohere's new embedding API seamlessly
-aligns with Vespa’s support for binary and int8 vectors, optimizing
-costs through tiered storage and computations. This development
-holds promise for organizations seeking to enhance their RAG pipelines
-and reducing cost when scaling to large datasets.
-
+Cohere's latest embedding models complement Vespa’s support for binary and int8 vectors, effectively minimizing costs through tiered storage and computations. The versatility of the embedding API, combined with Vespa's features, offers a valuable opportunity for organizations looking to enhance their RAG pipelines while simultaneously lowering expenses while scaling large datasets.
