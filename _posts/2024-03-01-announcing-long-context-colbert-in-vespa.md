@@ -450,7 +450,7 @@ by this phase are then re-ranked with the ColBERT representations.
 
 For the sliding context window functionality, in our experiment,
 we use a [LangChain text
-splitter](https://api.python.langchain.com/en/latest/text_splitter/langchain.text_splitter.RecursiveCharacterTextSplitter.html)
+splitter](https://api.python.langchain.com/en/latest/character/langchain_text_splitters.character.RecursiveCharacterTextSplitter.html)
 implementation with 0 overlap and 1536 characters. This gives us
 on average 11.7 context windows per document with on average 251
 wordpiece tokens. We did not experiment further with different
