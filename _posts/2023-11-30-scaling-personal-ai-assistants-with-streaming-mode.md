@@ -503,9 +503,9 @@ print(json.dumps(response.hits[0], indent=2))
 ## LlamaIndex Retrievers Introduction
 
 Now, we have a basic Vespa app using streaming mode. 
-We likely want to use an LLM framework like [LangChain](https://www.langchain.com/) or [LLamaIndex](https://www.llamaindex.ai/) to build an end-to-end assistant. The LlamaIndex [retriever](https://gpt-index.readthedocs.io/en/latest/core_modules/query_modules/retriever/root.html)
+We likely want to use an LLM framework like [LangChain](https://www.langchain.com/) or [LLamaIndex](https://www.llamaindex.ai/) to build an end-to-end assistant. The LlamaIndex [retriever](https://docs.llamaindex.ai/)
 abstraction allows developers to add custom retrievers that retrieve information in Retrieval Augmented Generation (RAG) pipelines. For an excellent 
-introduction to LLamaIndex and its concepts, see [LLamaIndex Concepts](https://gpt-index.readthedocs.io/en/latest/getting_started/concepts.html).
+introduction to LLamaIndex and its concepts, see [LLamaIndex Concepts](https://docs.llamaindex.ai/).
 
 To create a custom LlamaIndex retriever, we implement a class that inherits from `llama_index.retrievers.BaseRetriever.BaseRetriever` and 
 which implements `_retrieve(query)`. A simple `PersonalAssistantVespaRetriever` could look like the following:
