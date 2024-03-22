@@ -57,19 +57,15 @@ the word 2024.
 [3938, 17465, 2692]
 
 ```
-
-Examples of language model tokenization, mapping free text to the
-fixed vocabulary where there exist token vectors (that are injected
-into the deep neural transformer network). We can highly recommend
+We highly recommend
 [this video tutorial](https://www.youtube.com/watch?v=zduSFxRajkE)
-for understanding tokenization of texts for language models.
-
+for understanding tokenization for language models.
 
 In real-world RAG applications, these search cases are essential.
 However, the relevancy datasets used to evaluate retrieval and
 ranking techniques often lack queries of these types. Consequently,
 when comparing and evaluating retrieval methods on various benchmarks,
-we only consider limited types of search use cases.
+we only consider limited search use cases.
 
 As more developers address retrieval challenges in the context of
 RAG, it's important to remember that text embedding models alone
@@ -79,7 +75,7 @@ cannot handle simple table stakes search issues.
 ## Multilingual text processing in full-text search
 
 Different languages have unique characteristics that require specific
-approaches to tokenization, stemming and normalization. BM25 is
+approaches to tokenization, stemming, and normalization. BM25 is
 suitable for multilingual settings, but it requires attention to
 diverse languages, character sets and language-specific features.
 
